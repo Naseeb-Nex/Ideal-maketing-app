@@ -6,6 +6,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/Createprofile.dart';
 import 'package:ideal_marketing/screens/Technician/profilesrc.dart';
+import 'package:ideal_marketing/components/programcard.dart';
 import 'package:ideal_marketing/services/user_model.dart';
 
 import '../loginsrc.dart';
@@ -22,6 +23,8 @@ class _HomeTechState extends State<HomeTech> {
   UserModel loggedInUser = UserModel();
   Profile profile = Profile();
   String? name;
+  String? username;
+      
 
   @override
   void initState() {
@@ -32,7 +35,6 @@ class _HomeTechState extends State<HomeTech> {
         .get()
         .then((value) {
       this.loggedInUser = UserModel.fromMap(value.data());
-      setState(() {});
     });
 
     FirebaseFirestore.instance
@@ -142,22 +144,52 @@ class _HomeTechState extends State<HomeTech> {
                       topRight: Radius.circular(40)),
                   color: newbg,
                 ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Programcard(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Programcard(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Programcard()
-                  ],
+                child: SingleChildScrollView(child: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('Technician').doc("${profile.username}").collection("AssignedPgm").snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            print('Something went Wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Expanded(
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: cheryred,
                 ),
+              ),
+            );
+          }
+
+          final List _allpgm = [];
+          snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map a = document.data() as Map<String, dynamic>;
+            _allpgm.add(a);
+            print(a);
+            a['uid'] = document.id;
+          }).toList();
+          return Container(
+            child: Column(
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                for (var i = 0; i < _allpgm.length; i++) ...[
+                  Programcard(
+                    name: _allpgm[i]["name"],
+                    address: _allpgm[i]["address"],
+                    loc: _allpgm[i]["loc"],
+                    pgm: _allpgm[i]["pgm"],
+                    phn: _allpgm[i]["phn"],
+                    type: _allpgm[i]["type"],
+                    upDate: _allpgm[i]["upDate"],
+                    upTime: _allpgm[i]["upTime"],
+                    docname: _allpgm[i]["docname"],
+                  )
+                ]
+              ],
+            ),
+          );
+        }),),
               ),
             ],
           ),
@@ -167,6 +199,7 @@ class _HomeTechState extends State<HomeTech> {
   }
 
   // ActionChip(
+
   //     label: Text("Logout"),
   //     onPressed: () {
   //       logout(context);
@@ -201,101 +234,3 @@ class Profilewrapper extends StatelessWidget {
   }
 }
 
-class Programcard extends StatelessWidget {
-  const Programcard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0, 10),
-            blurRadius: 20,
-            color: secondbg.withOpacity(0.23),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            child: Text(
-              "Name",
-              style: TextStyle(
-                fontFamily: "Nunito",
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.4,
-                  child: Text(
-                    "Vallappallil svmpo kozhikode karunagappally",
-                    style: TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Icon(
-                    Icons.call,
-                    size: 25,
-                    color: Colors.lightBlueAccent,
-                  ),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.pin_drop_outlined,
-                  color: cheryred,
-                ),
-                Container(
-                  child: Text(
-                    "Location",
-                    style: TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "Type of service",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

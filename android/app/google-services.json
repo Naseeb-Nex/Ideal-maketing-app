@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "670832400441",
+    "project_id": "ima-app-2d6dd",
+    "storage_bucket": "ima-app-2d6dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670832400441:android:b9d3dce86b8dfe9e0d15e8",
+        "android_client_info": {
+          "package_name": "com.example.ideal_marketing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670832400441-svpksa7pd7d4eb29el8sgc9ndfu7t60d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ideal_marketing",
+            "certificate_hash": "6eb33f9311be507370cf2f42ee2c6d8e8f319e68"
+          }
+        },
+        {
+          "client_id": "670832400441-2i4jq9tcjtf41p5io5kfe57mlmjrj374.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8N1yCnFfI1L4dgXI5i_Jm8j_NIzQYJNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670832400441-2i4jq9tcjtf41p5io5kfe57mlmjrj374.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

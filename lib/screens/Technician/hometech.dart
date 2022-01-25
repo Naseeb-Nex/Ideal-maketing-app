@@ -1,18 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/Createprofile.dart';
 import 'package:ideal_marketing/screens/Technician/profilesrc.dart';
-import 'package:ideal_marketing/components/programcard.dart';
+import 'package:ideal_marketing/screens/Technician/wrapper/pgmcardwrapper.dart';
 import 'package:ideal_marketing/services/user_model.dart';
 
 import '../loginsrc.dart';
 
 class HomeTech extends StatefulWidget {
-  const HomeTech({Key? key}) : super(key: key);
+  String? username;
+  HomeTech({Key? key, this.username}) : super(key: key);
 
   @override
   _HomeTechState createState() => _HomeTechState();
@@ -23,8 +23,6 @@ class _HomeTechState extends State<HomeTech> {
   UserModel loggedInUser = UserModel();
   Profile profile = Profile();
   String? name;
-  String? username;
-      
 
   @override
   void initState() {
@@ -144,52 +142,9 @@ class _HomeTechState extends State<HomeTech> {
                       topRight: Radius.circular(40)),
                   color: newbg,
                 ),
-                child: SingleChildScrollView(child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('Technician').doc("${profile.username}").collection("AssignedPgm").snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            print('Something went Wrong');
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Expanded(
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: cheryred,
+                child: SingleChildScrollView(
+                  child: Pgmcardwrapper(username: widget.username,),
                 ),
-              ),
-            );
-          }
-
-          final List _allpgm = [];
-          snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map a = document.data() as Map<String, dynamic>;
-            _allpgm.add(a);
-            print(a);
-            a['uid'] = document.id;
-          }).toList();
-          return Container(
-            child: Column(
-              children: [
-                SizedBox(
-                  width: 30,
-                ),
-                for (var i = 0; i < _allpgm.length; i++) ...[
-                  Programcard(
-                    name: _allpgm[i]["name"],
-                    address: _allpgm[i]["address"],
-                    loc: _allpgm[i]["loc"],
-                    pgm: _allpgm[i]["pgm"],
-                    phn: _allpgm[i]["phn"],
-                    type: _allpgm[i]["type"],
-                    upDate: _allpgm[i]["upDate"],
-                    upTime: _allpgm[i]["upTime"],
-                    docname: _allpgm[i]["docname"],
-                  )
-                ]
-              ],
-            ),
-          );
-        }),),
               ),
             ],
           ),
@@ -233,4 +188,3 @@ class Profilewrapper extends StatelessWidget {
     );
   }
 }
-

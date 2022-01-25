@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/services/user_model.dart';
+import 'package:ideal_marketing/constants/profile.dart';
 
 import 'Admin/homeadminsrc.dart';
 import 'Office/homeoffice.dart';
@@ -19,6 +20,7 @@ class HomeWrapper extends StatefulWidget {
 class _HomeWrapperState extends State<HomeWrapper> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
+  Profile profile = Profile();
 
   @override
   void initState() {
@@ -28,21 +30,32 @@ class _HomeWrapperState extends State<HomeWrapper> {
         .doc(user!.uid)
         .get()
         .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
-      setState(() {});
+      setState(() {
+        this.loggedInUser = UserModel.fromMap(value.data());
+      });
     });
-  }
+
+    FirebaseFirestore.instance
+        .collection("users/${user!.uid}/Profile")
+        .doc("profile")
+        .get()
+        .then((value) {
+      setState(() {
+        this.profile = Profile.fromMap(value.data());
+      });
+    });
+
+    }
 
   @override
   Widget build(BuildContext context) {
     if (loggedInUser.category == "Technician") {
       print("Home Technicion");
-      return HomeTech();
-    }else if (loggedInUser.category == "Office") {
-    return HomeOffice();
+      return HomeTech(username: profile.username,);
     }else if(loggedInUser.category == "Admin"){
       return HomeAdmin();
     }
+    print("Lodingsrc");
     return LoadingSrc();
     
   }

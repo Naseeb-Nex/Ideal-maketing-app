@@ -143,6 +143,7 @@ class _HomeTechState extends State<HomeTech> {
                   color: newbg,
                 ),
                 child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
                   child: Pgmcardwrapper(username: widget.username,),
                 ),
               ),

@@ -13,9 +13,7 @@ class Pgmcardwrapper extends StatelessWidget {
       // this code is not updating
       // we want to update this code
         stream: FirebaseFirestore.instance
-            .collection('Technician')
-            .doc("$username")
-            .collection("AssignedPgm")
+            .collection('/Technician/$username/Assignedpgm')
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -31,21 +29,22 @@ class Pgmcardwrapper extends StatelessWidget {
             );
           }
 
-          final List _allpgm = [];
+          List _allpgm = [];
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Map a = document.data() as Map<String, dynamic>;
             _allpgm.add(a);
-            print("this portion is working");
-            print(a);
             a['uid'] = document.id;
           }).toList();
+          _allpgm.sort((a, b) => a["priority"].compareTo(b["priority"]));
           return Container(
             child: Column(
               children: [
                 SizedBox(
-                  width: 30,
+                  height: 10
                 ),
+                
                 for (var i = 0; i < _allpgm.length; i++) ...[
+                  SizedBox(height: 5,),
                   Programcard(
                     name: _allpgm[i]["name"],
                     address: _allpgm[i]["address"],

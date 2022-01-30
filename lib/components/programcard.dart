@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 class Programcard extends StatelessWidget {
   String? name;
@@ -12,7 +12,9 @@ class Programcard extends StatelessWidget {
   String? upDate;
   String? upTime;
   String? docname;
-  Programcard({Key? key,this.name,
+  Programcard({
+    Key? key,
+    this.name,
     this.address,
     this.loc,
     this.phn,
@@ -20,7 +22,8 @@ class Programcard extends StatelessWidget {
     this.pgm,
     this.upDate,
     this.upTime,
-    this.docname,}) : super(key: key);
+    this.docname,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +72,17 @@ class Programcard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  child: Icon(
-                    Icons.call,
-                    size: 25,
-                    color: Colors.lightBlueAccent,
+                InkWell(
+                  onTap: () {
+                    print("tapped");
+                    _makePhoneCall(phn!);
+                  },
+                  child: Container(
+                    child: Icon(
+                      Icons.call,
+                      size: 25,
+                      color: Colors.lightBlueAccent,
+                    ),
                   ),
                 )
               ],
@@ -115,5 +124,13 @@ class Programcard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launch(launchUri.toString());
   }
 }

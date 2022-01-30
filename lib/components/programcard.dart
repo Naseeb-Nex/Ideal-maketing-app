@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:ideal_marketing/screens/Technician/Detailingsrc.dart';
+
 class Programcard extends StatelessWidget {
   String? name;
   String? address;
@@ -27,45 +29,64 @@ class Programcard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 150,
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(0, 10),
-            blurRadius: 20,
-            color: secondbg.withOpacity(0.23),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  Container(
-                    child: Text(
-                      "$name",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+    return InkWell(
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Detailingsrc())),
+      child: Container(
+        height: 150,
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 10),
+              blurRadius: 20,
+              color: secondbg.withOpacity(0.23),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Container(
+                      child: Text(
+                        "$name",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Container(
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Container(
+                        child: Text(
+                          "$address",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Center(
                       child: Text(
-                        "$address",
+                        "$pgm",
                         style: TextStyle(
                           fontFamily: "Nunito",
                           fontSize: 15,
@@ -74,72 +95,59 @@ class Programcard extends StatelessWidget {
                       ),
                     ),
                   ),
-                ],
-              ),
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Center(
-                    child: Text(
-                      "$pgm",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 15,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
                 ),
-              ),
-              InkWell(
-                onTap: () {
-                  print("tapped");
-                  _makePhoneCall(phn!);
-                },
-                child: Container(
-                  child: Icon(
-                    Icons.call,
-                    size: 25,
-                    color: Colors.lightBlueAccent,
-                  ),
-                ),
-              )
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.pin_drop_outlined,
-                  color: cheryred,
-                ),
-                Container(
-                  child: Text(
-                    "$loc",
-                    style: TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                Expanded(
+                InkWell(
+                  onTap: () {
+                    print("Phone call initiated");
+                    _makePhoneCall(phn!);
+                  },
                   child: Container(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "$type",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 15,
-                      ),
+                    height: 40,
+                    width: 35,
+                    child: Icon(
+                      Icons.call,
+                      size: 25,
+                      color: Colors.lightBlueAccent,
                     ),
                   ),
                 )
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.pin_drop_outlined,
+                    color: cheryred,
+                  ),
+                  Container(
+                    child: Text(
+                      "$loc",
+                      style: TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "$type",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

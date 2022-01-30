@@ -46,47 +46,65 @@ class Programcard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            child: Text(
-              "$name",
-              style: TextStyle(
-                fontFamily: "Nunito",
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  Container(
+                    child: Text(
+                      "$name",
+                      style: TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Container(
+                      child: Text(
+                        "$address",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width / 1.4,
-                  child: Text(
-                    "$address",
-                    style: TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Center(
+                    child: Text(
+                      "$pgm",
+                      style: TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    print("tapped");
-                    _makePhoneCall(phn!);
-                  },
-                  child: Container(
-                    child: Icon(
-                      Icons.call,
-                      size: 25,
-                      color: Colors.lightBlueAccent,
-                    ),
+              ),
+              InkWell(
+                onTap: () {
+                  print("tapped");
+                  _makePhoneCall(phn!);
+                },
+                child: Container(
+                  child: Icon(
+                    Icons.call,
+                    size: 25,
+                    color: Colors.lightBlueAccent,
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
           Padding(
             padding: EdgeInsets.only(top: 10),

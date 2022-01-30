@@ -132,19 +132,21 @@ class _HomeTechState extends State<HomeTech> {
                   ],
                 ),
               ),
-              Container(
-                height: s.height * 5.7 / 7,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40)),
-                  color: newbg,
-                ),
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Pgmcardwrapper(username: widget.username,),
+              Expanded(
+                child: Container(
+                  height: double.infinity,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40)),
+                    color: newbg,
+                  ),
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Pgmcardwrapper(username: widget.username,),
+                  ),
                 ),
               ),
             ],

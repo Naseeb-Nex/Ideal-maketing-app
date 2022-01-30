@@ -31,7 +31,19 @@ class Programcard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Detailingsrc())),
+          context,
+          MaterialPageRoute(
+              builder: (context) => Detailingsrc(
+                    name: name,
+                    address: address,
+                    loc: loc,
+                    phn: phn,
+                    type: type,
+                    pgm: pgm,
+                    upDate: upDate,
+                    upTime: upTime,
+                    docname: docname,
+                  ))),
       child: Container(
         height: 150,
         width: MediaQuery.of(context).size.width,

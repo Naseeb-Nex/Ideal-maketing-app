@@ -76,108 +76,240 @@ class _DetailingsrcState extends State<Detailingsrc> {
                   ],
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 25,
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      height: double.infinity,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: bluebg,
-                      ),
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 30,
-                              ),
-                              Container(
-                                child: Text(
-                                  "Name :",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "  ${widget.name}",
-                                  style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    height: 350,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: bluebg,
+                    ),
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          child: Text(
+                            "  ${widget.name}",
+                            style: TextStyle(
+                                fontFamily: "Nunito",
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
-                          
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 30,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Container(
+                              child: Text(
+                                "Address :",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
                               ),
-                              Container(
-                                child: Text(
-                                  "Address :",
-                                  style: TextStyle(
+                            ),
+                            Container(
+                              child: Text(
+                                "  ${widget.address}",
+                                style: TextStyle(
                                     fontFamily: "Nunito",
                                     fontSize: 18,
-                                    color: Colors.white,
-                                  ),
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Container(
+                              child: Text(
+                                "Phone :",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  color: Colors.white,
                                 ),
                               ),
-                              Container(
-                                child: Text(
-                                  "  ${widget.address}",
-                                  style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                          
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 30,
-                              ),
-                              Container(
-                                child: Text(
-                                  "Program :",
-                                  style: TextStyle(
+                            ),
+                            Container(
+                              child: Text(
+                                "  ${widget.phn}",
+                                style: TextStyle(
                                     fontFamily: "Nunito",
                                     fontSize: 18,
-                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Container(
+                              child: Text(
+                                "Location :",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                "  ${widget.loc}",
+                                style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Container(
+                              child: Text(
+                                "Program :",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          child: Text(
+                            "  ${widget.pgm}",
+                            style: TextStyle(
+                                fontFamily: "Nunito",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Container(
+                              child: Text(
+                                "Type :",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                "  ${widget.type}",
+                                style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
+                              ),
+                            ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        "Date :",
+                                        style: TextStyle(
+                                            fontFamily: "Nunito",
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                    Container(
+                                  child: Text(
+                                    "  ${widget.upDate}",
+                                    style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "  ${widget.pgm}",
-                                  style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                          
-                        ],
-                      ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        "Time :",
+                                        style: TextStyle(
+                                            fontFamily: "Nunito",
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                    Container(
+                                  child: Text(
+                                    "  ${widget.upTime}",
+                                    style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),

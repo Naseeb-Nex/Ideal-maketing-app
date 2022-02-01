@@ -11,6 +11,7 @@ class Detailingsrc extends StatefulWidget {
   String? upDate;
   String? upTime;
   String? docname;
+  String? chrg;
   Detailingsrc({
     Key? key,
     this.name,
@@ -22,6 +23,7 @@ class Detailingsrc extends StatefulWidget {
     this.upDate,
     this.upTime,
     this.docname,
+    this.chrg,
   }) : super(key: key);
 
   @override
@@ -234,25 +236,25 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                   width: 30,
                                 ),
                                 Container(
-                              child: Text(
-                                "Type :",
-                                style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  color: Colors.white,
+                                  child: Text(
+                                    "Type :",
+                                    style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                "  ${widget.type}",
-                                style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
-                              ),
-                            ),
+                                Container(
+                                  child: Text(
+                                    "  ${widget.type}",
+                                    style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white),
+                                  ),
+                                ),
                               ],
                             ),
                             Column(
@@ -270,15 +272,15 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                       ),
                                     ),
                                     Container(
-                                  child: Text(
-                                    "  ${widget.upDate}",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
-                                ),
+                                      child: Text(
+                                        "  ${widget.upDate}",
+                                        style: TextStyle(
+                                            fontFamily: "Nunito",
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white),
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Row(
@@ -294,20 +296,50 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                       ),
                                     ),
                                     Container(
-                                  child: Text(
-                                    "  ${widget.upTime}",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
-                                ),
+                                      child: Text(
+                                        "  ${widget.upTime}",
+                                        style: TextStyle(
+                                            fontFamily: "Nunito",
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white),
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
                           ],
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Container(
+                              child: Text(
+                                "Collection Amount :",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                "  ${widget.chrg}",
+                                style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
                         ),
                       ],
                     ),
@@ -315,13 +347,59 @@ class _DetailingsrcState extends State<Detailingsrc> {
                 ),
                 SizedBox(height: 30),
                 Container(
-                  width: double.infinity,
+                  width: 250,
                   height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Color(0xFF7ae582)),
+                  child: Center(
+                    child: Text(
+                      "Completed",
+                      style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
                 ),
+                SizedBox(height: 20),
                 Container(
-                  width: double.infinity,
+                  width: 250,
                   height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Color(0xFFc71f37)),
+                  child: Center(
+                    child: Text(
+                      "Pending",
+                      style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
                 ),
+                SizedBox(height: 20),
+                Container(
+                  width: 250,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Color(0xFF56cfe1)),
+                  child: Center(
+                    child: Text(
+                      "Processing",
+                      style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+                
               ],
             ),
           ),

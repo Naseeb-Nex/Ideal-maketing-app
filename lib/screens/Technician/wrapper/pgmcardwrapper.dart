@@ -77,6 +77,7 @@ bool _hasCallSupport = false;
                     upDate: _allpgm[i]["assigneddate"],
                     upTime: _allpgm[i]["assignedtime"],
                     docname: _allpgm[i]["docname"],
+                    chrg: _allpgm[i]["chrg"],
                   )
                 ]
               ],

@@ -288,14 +288,14 @@ class _CompletedsrcState extends State<Completedsrc> {
                               : null
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 20,),
                       Text(
-                      "Verifed",
+                      "Verify",
                       style: TextStyle(
                           fontFamily: "Nunito",
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: bluebg),
+                          color: Colors.greenAccent),
                     ),
                     ],
                   ),

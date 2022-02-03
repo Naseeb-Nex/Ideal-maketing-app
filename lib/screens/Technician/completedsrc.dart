@@ -88,7 +88,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
                     width: double.infinity,
-                    height: 100,
+                    height: 130,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30), color: bluebg),
@@ -117,6 +117,33 @@ class _CompletedsrcState extends State<Completedsrc> {
                               fontSize: 16,
                               color: Colors.white),
                         ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Collection amount :",
+                              style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "${widget.chrg}",
+                              style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -129,52 +156,105 @@ class _CompletedsrcState extends State<Completedsrc> {
                   child: Column(
                     children: [
                       Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Collected Amount :",
-                            style: TextStyle(
-                                fontFamily: "Nunito",
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(width: 20,),
-                          Container(
-                            width: 160,
-                            height: 50,
-                            child: TextFormField(
-                                autofocus: false,
-                                controller: cost,
-                                keyboardType: TextInputType.emailAddress,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return ("Please Enter Your Email");
-                                  }
-                                  // reg expression for email validation
-                                  if (!RegExp(
-                                          "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                                      .hasMatch(value)) {
-                                    return ("Please Enter a valid email");
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  cost.text = value!;
-                                },
-                                textInputAction: TextInputAction.next,
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.attach_money_outlined, color: Colors.green,),
-                                  contentPadding:
-                                      EdgeInsets.fromLTRB(20, 15, 20, 15),
-                                  hintText: "Collection",
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                )),
-                          )
-                        ],
-                      )),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Collected Amount :",
+                              style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              width: 160,
+                              height: 50,
+                              child: TextFormField(
+                                  autofocus: false,
+                                  controller: cost,
+                                  keyboardType: TextInputType.number,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return ("Collection Amount!!");
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    cost.text = value!;
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      Icons.attach_money_outlined,
+                                      color: Colors.green,
+                                    ),
+                                    contentPadding:
+                                        EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                    hintText: "Collection",
+                                    focusColor: Colors.green,
+                                    hoverColor: bluebg,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                  )),
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 130,
+                              alignment: Alignment.topCenter,
+                              child: Text(
+                                "Remarks :",
+                                style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              height: 130,
+                              child: TextFormField(
+                                  autofocus: false,
+                                  controller: remarks,
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 6,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return ("Enter the Remarks!!");
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    remarks.text = value!;
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    hintText: "Remarks",
+                                    focusColor: Colors.green,
+                                    hoverColor: bluebg,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                  ),),
+                            )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 )

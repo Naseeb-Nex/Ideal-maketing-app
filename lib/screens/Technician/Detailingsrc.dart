@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/screens/Technician/completedsrc.dart';
 
 class Detailingsrc extends StatefulWidget {
   String? name;
@@ -346,20 +347,37 @@ class _DetailingsrcState extends State<Detailingsrc> {
                   ),
                 ),
                 SizedBox(height: 30),
-                Container(
-                  width: 250,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Color(0xFF7ae582)),
-                  child: Center(
-                    child: Text(
-                      "Completed",
-                      style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Completedsrc(
+                                name: widget.name,
+                                address: widget.address,
+                                loc: widget.loc,
+                                phn: widget.phn,
+                                type: widget.type,
+                                pgm: widget.pgm,
+                                upDate: widget.upDate,
+                                upTime: widget.upTime,
+                                docname: widget.docname,
+                                chrg: widget.chrg,
+                              ))),
+                  child: Container(
+                    width: 250,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Color(0xFF7ae582)),
+                    child: Center(
+                      child: Text(
+                        "Completed",
+                        style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -399,7 +417,6 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     ),
                   ),
                 ),
-                
               ],
             ),
           ),

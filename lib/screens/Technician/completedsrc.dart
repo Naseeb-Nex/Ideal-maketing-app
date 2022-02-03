@@ -32,6 +32,7 @@ class Completedsrc extends StatefulWidget {
 
 class _CompletedsrcState extends State<Completedsrc> {
   @override
+  bool _value = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController cost = new TextEditingController();
   final TextEditingController remarks = new TextEditingController();
@@ -49,7 +50,7 @@ class _CompletedsrcState extends State<Completedsrc> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 15,
+                  height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -229,35 +230,114 @@ class _CompletedsrcState extends State<Completedsrc> {
                               width: MediaQuery.of(context).size.width / 2,
                               height: 130,
                               child: TextFormField(
-                                  autofocus: false,
-                                  controller: remarks,
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: 6,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return ("Enter the Remarks!!");
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    remarks.text = value!;
-                                  },
-                                  textInputAction: TextInputAction.next,
-                                  decoration: InputDecoration(
-                                    hintText: "Remarks",
-                                    focusColor: Colors.green,
-                                    hoverColor: bluebg,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                  ),),
+                                autofocus: false,
+                                controller: remarks,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: 6,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return ("Enter the Remarks!!");
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  remarks.text = value!;
+                                },
+                                textInputAction: TextInputAction.next,
+                                decoration: InputDecoration(
+                                  hintText: "Remarks",
+                                  focusColor: Colors.green,
+                                  hoverColor: bluebg,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                ),
+                              ),
                             )
                           ],
                         ),
                       ),
                     ],
                   ),
-                )
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      _value = !_value;
+                    });
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(width: MediaQuery.of(context).size.width / 5,),
+                      Container(
+                        height: 30,
+                        width: 30,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.grey)),
+                        child: Center(
+                          child: _value
+                              ? Icon(
+                                  Icons.check,
+                                  size: 20.0,
+                                  color: Colors.greenAccent,
+                                )
+                              : null
+                        ),
+                      ),
+                      SizedBox(width: 10,),
+                      Text(
+                      "Verifed",
+                      style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: bluebg),
+                    ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 35,
+                ),
+                Container(
+                  width: 250,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.greenAccent),
+                  child: Center(
+                    child: Text(
+                      "Completed",
+                      style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  width: 250,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.redAccent),
+                  child: Center(
+                    child: Text(
+                      "Cancel",
+                      style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

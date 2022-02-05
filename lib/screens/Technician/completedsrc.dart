@@ -1,29 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
+import 'package:ideal_marketing/constants/completepgmdata.dart';
 
 class Completedsrc extends StatefulWidget {
+  String? uid;
   String? name;
   String? address;
   String? loc;
   String? phn;
-  String? type;
   String? pgm;
+  String? chrg;
+  String? type;
   String? upDate;
   String? upTime;
   String? docname;
-  String? chrg;
+  String? status;
+  String? username;
+  String? techname;
+  String? assignedtime;
+  String? assigneddate;
+  String? priority;
   Completedsrc({
     Key? key,
-    this.name,
-    this.address,
-    this.loc,
-    this.phn,
-    this.type,
-    this.pgm,
-    this.upDate,
-    this.upTime,
-    this.docname,
-    this.chrg,
+    this.uid,
+      this.name,
+      this.address,
+      this.loc,
+      this.phn,
+      this.pgm,
+      this.chrg,
+      this.type,
+      this.upDate,
+      this.upTime,
+      this.docname,
+      this.status,
+      this.username,
+      this.techname,
+      this.assignedtime,
+      this.assigneddate,
+      this.priority,
   }) : super(key: key);
 
   @override
@@ -33,6 +51,7 @@ class Completedsrc extends StatefulWidget {
 class _CompletedsrcState extends State<Completedsrc> {
   @override
   bool _value = false;
+  bool _err = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController cost = new TextEditingController();
   final TextEditingController remarks = new TextEditingController();
@@ -261,7 +280,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 20,
                 ),
                 InkWell(
                   onTap: () {
@@ -271,10 +290,10 @@ class _CompletedsrcState extends State<Completedsrc> {
                   },
                   child: Row(
                     children: [
-                      SizedBox(width: MediaQuery.of(context).size.width / 5,),
+                      SizedBox(width: 40,),
                       Container(
-                        height: 30,
-                        width: 30,
+                        height: 25,
+                        width: 25,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.grey)),
@@ -288,59 +307,283 @@ class _CompletedsrcState extends State<Completedsrc> {
                               : null
                         ),
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 10,),
                       Text(
-                      "Verify",
+                      "Verify the Details",
                       style: TextStyle(
                           fontFamily: "Nunito",
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.greenAccent),
+                          color: Colors.black),
                     ),
                     ],
                   ),
                 ),
+                Container(child: _err ? Text("please verify the details then check the box",style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.redAccent),
+                     ): null),
                 SizedBox(
                   height: 35,
                 ),
-                Container(
-                  width: 250,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.greenAccent),
-                  child: Center(
-                    child: Text(
-                      "Completed",
-                      style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                InkWell(
+                  onTap: () => detailsup(),
+                  child: Container(
+                    width: 250,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.greenAccent),
+                    child: Center(
+                      child: Text(
+                        "Completed",
+                        style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-                Container(
-                  width: 250,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.redAccent),
-                  child: Center(
-                    child: Text(
-                      "Cancel",
-                      style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                const SizedBox(height: 20),
+                InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    width: 250,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.redAccent),
+                    child: Center(
+                      child: Text(
+                        "Cancel",
+                        style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  void detailsup() async{
+    FirebaseFirestore fb = await FirebaseFirestore.instance;
+    DateTime now = DateTime.now();
+    String completeddate = DateFormat('d MMM y').format(now);
+    String completedtime = DateFormat('kk:mm').format(now);
+    String ccollname = DateFormat('MM d y').format(now);
+    String cdocname = DateFormat('MM d y kk:mm:ss').format(now);
+    String mcollname = DateFormat('MM y').format(now);
+    String ycollname = DateFormat('y').format(now);
+
+    Completepgmdata cpgm = Completepgmdata(
+      uid: widget.uid,
+          name: widget.name,
+          address: widget.address,
+          loc: widget.loc,
+          phn: widget.phn,
+          pgm: widget.pgm,
+          chrg: widget.chrg,
+          type: widget.type,
+          upDate: widget.upDate,
+          upTime: widget.upTime,
+          docname: widget.docname,
+          status: "completed",
+          username: widget.username,
+          techname: widget.techname,
+          priority: widget.priority,
+          assigneddate: widget.assigneddate,
+          assignedtime: widget.assignedtime,
+          camount: cost.text,
+          remarks: remarks.text,
+          cdate: completeddate,
+          ctime: completedtime,
+          ccollname: ccollname,
+          cdocname: cdocname,
+          mcollname: mcollname,
+          ycollname: ycollname,
+    );
+
+    if (_formKey.currentState!.validate()) {
+      if(_value == true){
+        setState(() {
+          _err = false;
+        });
+
+        fb.collection("Technician")
+      .doc(widget.username)
+      .collection("Completedpgm")
+      .doc("Day")
+      .collection(ccollname)
+      .doc(cdocname)
+      .set(cpgm.toMap())
+      .then((value) {print("Daylist Updated");
+      })
+    .catchError((error) => print("Failed to update Daily list : $error"));
+
+        fb.collection("Technician")
+      .doc(widget.username)
+      .collection("Completedpgm")
+      .doc("Month")
+      .collection(mcollname)
+      .doc(cdocname)
+      .set(cpgm.toMap())
+      .then((value) {print("Monthly list Updated");
+      })
+    .catchError((error) => print("Failed to update Monthilylist : $error"));
+
+
+        fb.collection("Technician")
+      .doc(widget.username)
+      .collection("Completedpgm")
+      .doc("Year")
+      .collection(ycollname)
+      .doc(cdocname)
+      .set(cpgm.toMap())
+      .then((value) {print("Yearlylist Updated");
+      })
+    .catchError((error) => print("Failed to update Yearlylist : $error"));
+
+      fb
+      .collection("Completedpgm")
+      .doc("Day")
+      .collection(ccollname)
+      .doc(cdocname)
+      .set(cpgm.toMap())
+      .then((value) {print("Daylist Updated");
+      })
+    .catchError((error) => print("Failed to update Daily list : $error"));
+
+        fb
+      .collection("Completedpgm")
+      .doc("Month")
+      .collection(mcollname)
+      .doc(cdocname)
+      .set(cpgm.toMap())
+      .then((value) {print("Monthly list Updated");
+      })
+    .catchError((error) => print("Failed to update Monthilylist : $error"));
+
+
+        fb
+      .collection("Completedpgm")
+      .doc("Year")
+      .collection(ycollname)
+      .doc(cdocname)
+      .set(cpgm.toMap())
+      .then((value) {print("Yearlylist Updated");
+      })
+    .catchError((error) => print("Failed to update Yearlylist : $error"));
+
+    fb.collection("Programs")
+      .doc(widget.docname)
+      .delete()
+      .then((value) => print("Pgm Deleted From office list"))
+    .catchError((error) => print("Failed to delete from office list program : $error"));
+
+
+    fb.collection("Technician")
+      .doc(widget.username)
+      .collection("Assignedpgm")
+      .doc(widget.docname)
+      .delete()
+      .then((value) {print("Delete pgm to technicain");})
+      .catchError((error) => print("Failed to delete from technician list program : $error"));
+
+
+      }
+      else{
+        setState(() {
+          _err = true;
+        });
+      }
+    }
+
+
+
+  }
+}
+
+class SimpleCustomAlert extends StatelessWidget {
+  final String? titles;
+  final Color colorr;
+  final String? done;
+  SimpleCustomAlert(this.titles, this.colorr, this.done);
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: colorr,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      child: Container(
+        height: 200,
+        width: 450,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.warning_amber_rounded,
+                    color: primarybg,
+                    size: 30,
+                  ),
+                  Text(
+                    done!,
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              titles!,
+              style: TextStyle(
+                fontFamily: "Nunito",
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: 28,
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              color: Colors.white,
+              child: Text(
+                "Okay",
+                style: TextStyle(
+                  fontFamily: "Nunito",
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: colorr,
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

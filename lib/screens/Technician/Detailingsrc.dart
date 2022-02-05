@@ -3,28 +3,42 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Technician/completedsrc.dart';
 
 class Detailingsrc extends StatefulWidget {
+  String? uid;
   String? name;
   String? address;
   String? loc;
   String? phn;
-  String? type;
   String? pgm;
+  String? chrg;
+  String? type;
   String? upDate;
   String? upTime;
   String? docname;
-  String? chrg;
+  String? status;
+  String? username;
+  String? techname;
+  String? assignedtime;
+  String? assigneddate;
+  String? priority;
   Detailingsrc({
     Key? key,
+    this.uid,
     this.name,
     this.address,
     this.loc,
     this.phn,
-    this.type,
     this.pgm,
+    this.chrg,
+    this.type,
     this.upDate,
     this.upTime,
     this.docname,
-    this.chrg,
+    this.status,
+    this.username,
+    this.techname,
+    this.assignedtime,
+    this.assigneddate,
+    this.priority,
   }) : super(key: key);
 
   @override
@@ -274,7 +288,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                     ),
                                     Container(
                                       child: Text(
-                                        "  ${widget.upDate}",
+                                        "  ${widget.assigneddate}",
                                         style: TextStyle(
                                             fontFamily: "Nunito",
                                             fontSize: 18,
@@ -298,7 +312,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                     ),
                                     Container(
                                       child: Text(
-                                        "  ${widget.upTime}",
+                                        "  ${widget.assignedtime}",
                                         style: TextStyle(
                                             fontFamily: "Nunito",
                                             fontSize: 18,
@@ -352,16 +366,23 @@ class _DetailingsrcState extends State<Detailingsrc> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => Completedsrc(
+                                uid: widget.uid,
                                 name: widget.name,
                                 address: widget.address,
                                 loc: widget.loc,
                                 phn: widget.phn,
-                                type: widget.type,
                                 pgm: widget.pgm,
+                                chrg: widget.chrg,
+                                type: widget.type,
                                 upDate: widget.upDate,
                                 upTime: widget.upTime,
                                 docname: widget.docname,
-                                chrg: widget.chrg,
+                                status: widget.status,
+                                username: widget.username,
+                                techname: widget.techname,
+                                assignedtime: widget.assignedtime,
+                                assigneddate: widget.assigneddate,
+                                priority: widget.priority,
                               ))),
                   child: Container(
                     width: 250,

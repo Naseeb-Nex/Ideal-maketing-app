@@ -5,29 +5,43 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:ideal_marketing/screens/Technician/Detailingsrc.dart';
 
 class Programcard extends StatelessWidget {
+  String? uid;
   String? name;
   String? address;
   String? loc;
   String? phn;
-  String? type;
   String? pgm;
+  String? chrg;
+  String? type;
   String? upDate;
   String? upTime;
   String? docname;
-  String? chrg;
+  String? status;
+  String? username;
+  String? techname;
+  String? assignedtime;
+  String? assigneddate;
+  String? priority;
 
   Programcard({
     Key? key,
+    this.uid,
     this.name,
     this.address,
     this.loc,
     this.phn,
-    this.type,
     this.pgm,
+    this.chrg,
+    this.type,
     this.upDate,
     this.upTime,
     this.docname,
-    this.chrg,
+    this.status,
+    this.username,
+    this.techname,
+    this.assignedtime,
+    this.assigneddate,
+    this.priority,
   }) : super(key: key);
 
   @override
@@ -37,16 +51,23 @@ class Programcard extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => Detailingsrc(
+                    uid: uid,
                     name: name,
                     address: address,
                     loc: loc,
                     phn: phn,
-                    type: type,
                     pgm: pgm,
+                    chrg: chrg,
+                    type: type,
                     upDate: upDate,
                     upTime: upTime,
                     docname: docname,
-                    chrg: chrg,
+                    status: status,
+                    username: username,
+                    techname: techname,
+                    assignedtime: assignedtime,
+                    assigneddate: assigneddate,
+                    priority: priority,
                   ))),
       child: Container(
         height: 150,

@@ -13,11 +13,10 @@ class Pgmcardwrapper extends StatefulWidget {
   State<Pgmcardwrapper> createState() => _PgmcardwrapperState();
 }
 
-class _PgmcardwrapperState extends State<Pgmcardwrapper> { 
+class _PgmcardwrapperState extends State<Pgmcardwrapper> {
+  bool _hasCallSupport = false;
 
-bool _hasCallSupport = false;
-
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -32,8 +31,8 @@ bool _hasCallSupport = false;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      // this code is not updating
-      // we want to update this code
+        // this code is not updating
+        // we want to update this code
         stream: FirebaseFirestore.instance
             .collection('/Technician/${widget.username}/Assignedpgm')
             .snapshots(),
@@ -61,23 +60,29 @@ bool _hasCallSupport = false;
           return Container(
             child: Column(
               children: [
-                SizedBox(
-                  height: 10
-                ),
-                
+                SizedBox(height: 10),
                 for (var i = 0; i < _allpgm.length; i++) ...[
-                  SizedBox(height: 5,),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Programcard(
-                    name: _allpgm[i]["name"],
-                    address: _allpgm[i]["address"],
-                    loc: _allpgm[i]["loc"],
-                    pgm: _allpgm[i]["pgm"],
-                    phn: _allpgm[i]["phn"],
-                    type: _allpgm[i]["type"],
-                    upDate: _allpgm[i]["assigneddate"],
-                    upTime: _allpgm[i]["assignedtime"],
-                    docname: _allpgm[i]["docname"],
-                    chrg: _allpgm[i]["chrg"],
+                    uid: _allpgm[i]['uid'],
+                    name: _allpgm[i]['name'],
+                    address: _allpgm[i]['address'],
+                    loc: _allpgm[i]['loc'],
+                    phn: _allpgm[i]['phn'],
+                    pgm: _allpgm[i]['pgm'],
+                    chrg: _allpgm[i]['chrg'],
+                    type: _allpgm[i]['type'],
+                    upDate: _allpgm[i]['upDate'],
+                    upTime: _allpgm[i]['upTime'],
+                    docname: _allpgm[i]['docname'],
+                    status: _allpgm[i]['status'],
+                    username: _allpgm[i]['username'],
+                    techname: _allpgm[i]['techname'],
+                    assignedtime: _allpgm[i]['assignedtime'],
+                    assigneddate: _allpgm[i]['assigneddate'],
+                    priority: _allpgm[i]['priority'],
                   )
                 ]
               ],

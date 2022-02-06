@@ -28,22 +28,22 @@ class Completedsrc extends StatefulWidget {
   Completedsrc({
     Key? key,
     this.uid,
-      this.name,
-      this.address,
-      this.loc,
-      this.phn,
-      this.pgm,
-      this.chrg,
-      this.type,
-      this.upDate,
-      this.upTime,
-      this.docname,
-      this.status,
-      this.username,
-      this.techname,
-      this.assignedtime,
-      this.assigneddate,
-      this.priority,
+    this.name,
+    this.address,
+    this.loc,
+    this.phn,
+    this.pgm,
+    this.chrg,
+    this.type,
+    this.upDate,
+    this.upTime,
+    this.docname,
+    this.status,
+    this.username,
+    this.techname,
+    this.assignedtime,
+    this.assigneddate,
+    this.priority,
   }) : super(key: key);
 
   @override
@@ -117,7 +117,8 @@ class _CompletedsrcState extends State<Completedsrc> {
                         height: 130,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30), color: bluebg),
+                            borderRadius: BorderRadius.circular(30),
+                            color: bluebg),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -223,7 +224,8 @@ class _CompletedsrcState extends State<Completedsrc> {
                                         focusColor: Colors.green,
                                         hoverColor: bluebg,
                                         border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(25),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
                                         ),
                                       )),
                                 )
@@ -296,7 +298,9 @@ class _CompletedsrcState extends State<Completedsrc> {
                       },
                       child: Row(
                         children: [
-                          SizedBox(width: 40,),
+                          SizedBox(
+                            width: 40,
+                          ),
                           Container(
                             height: 25,
                             width: 25,
@@ -304,33 +308,39 @@ class _CompletedsrcState extends State<Completedsrc> {
                                 shape: BoxShape.circle,
                                 border: Border.all(color: Colors.grey)),
                             child: Center(
-                              child: _value
-                                  ? Icon(
-                                      Icons.check,
-                                      size: 20.0,
-                                      color: Colors.greenAccent,
-                                    )
-                                  : null
-                            ),
+                                child: _value
+                                    ? Icon(
+                                        Icons.check,
+                                        size: 20.0,
+                                        color: Colors.greenAccent,
+                                      )
+                                    : null),
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Text(
-                          "Verify the Details",
-                          style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
+                            "Verify the Details",
+                            style: TextStyle(
+                                fontFamily: "Nunito",
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
                         ],
                       ),
                     ),
-                    Container(child: _err ? Text("please verify the details then check the box",style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.redAccent),
-                         ): null),
+                    Container(
+                        child: _err
+                            ? Text(
+                                "please verify the details then check the box",
+                                style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.redAccent),
+                              )
+                            : null),
                     SizedBox(
                       height: 35,
                     ),
@@ -382,7 +392,11 @@ class _CompletedsrcState extends State<Completedsrc> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Center(
-                  child: _upload ? CircularProgressIndicator(color: bluebg,): null,
+                  child: _upload
+                      ? CircularProgressIndicator(
+                          color: bluebg,
+                        )
+                      : null,
                 ),
               )
             ],
@@ -392,7 +406,7 @@ class _CompletedsrcState extends State<Completedsrc> {
     );
   }
 
-  void detailsup() async{
+  void detailsup() async {
     FirebaseFirestore fb = await FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String completeddate = DateFormat('d MMM y').format(now);
@@ -404,145 +418,147 @@ class _CompletedsrcState extends State<Completedsrc> {
 
     Completepgmdata cpgm = Completepgmdata(
       uid: widget.uid,
-          name: widget.name,
-          address: widget.address,
-          loc: widget.loc,
-          phn: widget.phn,
-          pgm: widget.pgm,
-          chrg: widget.chrg,
-          type: widget.type,
-          upDate: widget.upDate,
-          upTime: widget.upTime,
-          docname: widget.docname,
-          status: "completed",
-          username: widget.username,
-          techname: widget.techname,
-          priority: widget.priority,
-          assigneddate: widget.assigneddate,
-          assignedtime: widget.assignedtime,
-          camount: cost.text,
-          remarks: remarks.text,
-          cdate: completeddate,
-          ctime: completedtime,
-          ccollname: ccollname,
-          cdocname: cdocname,
-          mcollname: mcollname,
-          ycollname: ycollname,
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      status: "completed",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: widget.assigneddate,
+      assignedtime: widget.assignedtime,
+      camount: cost.text,
+      remarks: remarks.text,
+      cdate: completeddate,
+      ctime: completedtime,
+      ccollname: ccollname,
+      cdocname: cdocname,
+      mcollname: mcollname,
+      ycollname: ycollname,
     );
 
     if (_formKey.currentState!.validate()) {
-      if(_value == true){
+      if (_value == true) {
         setState(() {
           _err = false;
           _upload = true;
         });
 
-        fb.collection("Technician")
-      .doc(widget.username)
-      .collection("Completedpgm")
-      .doc("Day")
-      .collection(ccollname)
-      .doc(cdocname)
-      .set(cpgm.toMap())
-      .then((value) {print("Daylist Updated");
-      })
-    .catchError((error) => print("Failed to update Daily list : $error"));
-
-        fb.collection("Technician")
-      .doc(widget.username)
-      .collection("Completedpgm")
-      .doc("Month")
-      .collection(mcollname)
-      .doc(cdocname)
-      .set(cpgm.toMap())
-      .then((value) {print("Monthly list Updated");
-      })
-    .catchError((error) => print("Failed to update Monthilylist : $error"));
-
-
-        fb.collection("Technician")
-      .doc(widget.username)
-      .collection("Completedpgm")
-      .doc("Year")
-      .collection(ycollname)
-      .doc(cdocname)
-      .set(cpgm.toMap())
-      .then((value) {print("Yearlylist Updated");
-      })
-    .catchError((error) => print("Failed to update Yearlylist : $error"));
-
-      fb
-      .collection("Completedpgm")
-      .doc("Day")
-      .collection(ccollname)
-      .doc(cdocname)
-      .set(cpgm.toMap())
-      .then((value) {print("Daylist Updated");
-      })
-    .catchError((error) => print("Failed to update Daily list : $error"));
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Completedpgm")
+            .doc("Day")
+            .collection(ccollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Daylist Updated");
+        }).catchError((error) => print("Failed to update Daily list : $error"));
 
         fb
-      .collection("Completedpgm")
-      .doc("Month")
-      .collection(mcollname)
-      .doc(cdocname)
-      .set(cpgm.toMap())
-      .then((value) {print("Monthly list Updated");
-      })
-    .catchError((error) => print("Failed to update Monthilylist : $error"));
-
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Completedpgm")
+            .doc("Month")
+            .collection(mcollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Monthly list Updated");
+        }).catchError(
+                (error) => print("Failed to update Monthilylist : $error"));
 
         fb
-      .collection("Completedpgm")
-      .doc("Year")
-      .collection(ycollname)
-      .doc(cdocname)
-      .set(cpgm.toMap())
-      .then((value) {print("Yearlylist Updated");
-      })
-    .catchError((error) => print("Failed to update Yearlylist : $error"));
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Completedpgm")
+            .doc("Year")
+            .collection(ycollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Yearlylist Updated");
+        }).catchError((error) => print("Failed to update Yearlylist : $error"));
 
-    fb.collection("Programs")
-      .doc(widget.docname)
-      .delete()
-      .then((value) => print("Pgm Deleted From office list"))
-    .catchError((error) => print("Failed to delete from office list program : $error"));
+        fb
+            .collection("Completedpgm")
+            .doc("Day")
+            .collection(ccollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Daylist Updated");
+        }).catchError((error) => print("Failed to update Daily list : $error"));
 
+        fb
+            .collection("Completedpgm")
+            .doc("Month")
+            .collection(mcollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Monthly list Updated");
+        }).catchError(
+                (error) => print("Failed to update Monthilylist : $error"));
 
-    fb.collection("Technician")
-      .doc(widget.username)
-      .collection("Assignedpgm")
-      .doc(widget.docname)
-      .delete()
-      .then((value) {print("Delete pgm to technicain");
-      showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return CustomeAlertbx(
-                  "Program Registration Completed!", Colors.greenAccent, "Sucessfull", widget.username);
-            });
-        setState(() {
-          _upload = false;
+        fb
+            .collection("Completedpgm")
+            .doc("Year")
+            .collection(ycollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Yearlylist Updated");
+        }).catchError((error) => print("Failed to update Yearlylist : $error"));
+
+        fb
+            .collection("Programs")
+            .doc(widget.docname)
+            .delete()
+            .then((value) => print("Pgm Deleted From office list"))
+            .catchError((error) =>
+                print("Failed to delete from office list program : $error"));
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Assignedpgm")
+            .doc(widget.docname)
+            .delete()
+            .then((value) {
+          print("Delete pgm to technicain");
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomeAlertbx("Program Registration Completed!",
+                    Colors.greenAccent, "Sucessfull", widget.username);
+              });
+          setState(() {
+            _upload = false;
+          });
+        }).catchError((error) {
+          print("Failed to delete from technician list program : $error");
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomeAlertbx("Something went Wrong, Try again!",
+                    Colors.redAccent, "Error", widget.username);
+              });
         });
-      })
-      .catchError((error) { print("Failed to delete from technician list program : $error");
-      showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return CustomeAlertbx("Something went Wrong, Try again!",
-                  Colors.redAccent, "Error", widget.username);});});
-
-
-      }
-      else{
+      } else {
         setState(() {
           _err = true;
         });
       }
     }
-
-
-
   }
 }
 
@@ -603,12 +619,12 @@ class CustomeAlertbx extends StatelessWidget {
             RaisedButton(
               onPressed: () {
                 Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeTech(
-                                        username: username,
-                                      )),
-                            );
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeTech(
+                            username: username,
+                          )),
+                );
               },
               color: Colors.white,
               child: Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Technician/completedsrc.dart';
+import 'package:ideal_marketing/screens/Technician/pendingsrc.dart';
 
 class Detailingsrc extends StatefulWidget {
   String? uid;
@@ -20,6 +21,8 @@ class Detailingsrc extends StatefulWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+
+
   Detailingsrc({
     Key? key,
     this.uid,
@@ -403,20 +406,44 @@ class _DetailingsrcState extends State<Detailingsrc> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Container(
-                  width: 250,
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Color(0xFFc71f37)),
-                  child: Center(
-                    child: Text(
-                      "Pending",
-                      style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Pendingsrc(
+                                uid: widget.uid,
+                                name: widget.name,
+                                address: widget.address,
+                                loc: widget.loc,
+                                phn: widget.phn,
+                                pgm: widget.pgm,
+                                chrg: widget.chrg,
+                                type: widget.type,
+                                upDate: widget.upDate,
+                                upTime: widget.upTime,
+                                docname: widget.docname,
+                                status: widget.status,
+                                username: widget.username,
+                                techname: widget.techname,
+                                assignedtime: widget.assignedtime,
+                                assigneddate: widget.assigneddate,
+                                priority: widget.priority,
+                              ))),
+                  child: Container(
+                    width: 250,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Color(0xFFc71f37)),
+                    child: Center(
+                      child: Text(
+                        "Pending",
+                        style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
                   ),
                 ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/screens/Technician/hometech.dart';
 import 'package:intl/intl.dart';
+import 'hometech.dart';
 
 import 'package:ideal_marketing/constants/completepgmdata.dart';
 
@@ -52,6 +54,8 @@ class _CompletedsrcState extends State<Completedsrc> {
   @override
   bool _value = false;
   bool _err = false;
+  bool _upload = false;
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController cost = new TextEditingController();
   final TextEditingController remarks = new TextEditingController();
@@ -62,315 +66,326 @@ class _CompletedsrcState extends State<Completedsrc> {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Stack(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        width: 50,
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.arrow_back_sharp,
-                          size: 30,
-                          color: bluebg,
-                        ),
-                      ),
+                    SizedBox(
+                      height: 20,
                     ),
-                    Text(
-                      "Program Completion",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: bluebg,
-                      ),
-                    ),
-                    Container(
-                      height: 30,
-                      width: 50,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 130,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30), color: bluebg),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "${widget.name}",
-                          style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
+                        InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            width: 50,
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              Icons.arrow_back_sharp,
+                              size: 30,
+                              color: bluebg,
+                            ),
+                          ),
                         ),
                         Text(
-                          "${widget.address}",
+                          "Program Completion",
                           style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 16,
-                              color: Colors.white),
+                            fontFamily: "Nunito",
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: bluebg,
+                          ),
                         ),
-                        Text(
-                          "${widget.phn}",
-                          style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 16,
-                              color: Colors.white),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Row(
+                        Container(
+                          height: 30,
+                          width: 50,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        width: double.infinity,
+                        height: 130,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30), color: bluebg),
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Collection amount :",
+                              "${widget.name}",
                               style: TextStyle(
                                   fontFamily: "Nunito",
-                                  fontSize: 19,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
                             Text(
-                              "${widget.chrg}",
+                              "${widget.address}",
                               style: TextStyle(
                                   fontFamily: "Nunito",
                                   fontSize: 16,
-                                  fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
                             Text(
-                              "Collected Amount :",
+                              "${widget.phn}",
                               style: TextStyle(
                                   fontFamily: "Nunito",
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 16,
+                                  color: Colors.white),
                             ),
                             SizedBox(
-                              width: 20,
+                              height: 15,
                             ),
-                            Container(
-                              width: 160,
-                              height: 50,
-                              child: TextFormField(
-                                  autofocus: false,
-                                  controller: cost,
-                                  keyboardType: TextInputType.number,
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return ("Collection Amount!!");
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    cost.text = value!;
-                                  },
-                                  textInputAction: TextInputAction.next,
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      Icons.attach_money_outlined,
-                                      color: Colors.green,
-                                    ),
-                                    contentPadding:
-                                        EdgeInsets.fromLTRB(20, 15, 20, 15),
-                                    hintText: "Collection",
-                                    focusColor: Colors.green,
-                                    hoverColor: bluebg,
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                  )),
-                            )
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Collection amount :",
+                                  style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "${widget.chrg}",
+                                  style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 130,
-                              alignment: Alignment.topCenter,
-                              child: Text(
-                                "Remarks :",
-                                style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Collected Amount :",
+                                  style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  width: 160,
+                                  height: 50,
+                                  child: TextFormField(
+                                      autofocus: false,
+                                      controller: cost,
+                                      keyboardType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return ("Collection Amount!!");
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) {
+                                        cost.text = value!;
+                                      },
+                                      textInputAction: TextInputAction.next,
+                                      decoration: InputDecoration(
+                                        prefixIcon: Icon(
+                                          Icons.attach_money_outlined,
+                                          color: Colors.green,
+                                        ),
+                                        contentPadding:
+                                            EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                        hintText: "Collection",
+                                        focusColor: Colors.green,
+                                        hoverColor: bluebg,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(25),
+                                        ),
+                                      )),
+                                )
+                              ],
                             ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width / 2,
-                              height: 130,
-                              child: TextFormField(
-                                autofocus: false,
-                                controller: remarks,
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 6,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return ("Enter the Remarks!!");
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  remarks.text = value!;
-                                },
-                                textInputAction: TextInputAction.next,
-                                decoration: InputDecoration(
-                                  hintText: "Remarks",
-                                  focusColor: Colors.green,
-                                  hoverColor: bluebg,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 130,
+                                  alignment: Alignment.topCenter,
+                                  child: Text(
+                                    "Remarks :",
+                                    style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      _value = !_value;
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      SizedBox(width: 40,),
-                      Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.grey)),
-                        child: Center(
-                          child: _value
-                              ? Icon(
-                                  Icons.check,
-                                  size: 20.0,
-                                  color: Colors.greenAccent,
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  height: 130,
+                                  child: TextFormField(
+                                    autofocus: false,
+                                    controller: remarks,
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 6,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return ("Enter the Remarks!!");
+                                      }
+                                      return null;
+                                    },
+                                    onSaved: (value) {
+                                      remarks.text = value!;
+                                    },
+                                    textInputAction: TextInputAction.next,
+                                    decoration: InputDecoration(
+                                      hintText: "Remarks",
+                                      focusColor: Colors.green,
+                                      hoverColor: bluebg,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                    ),
+                                  ),
                                 )
-                              : null
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _value = !_value;
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          SizedBox(width: 40,),
+                          Container(
+                            height: 25,
+                            width: 25,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: Colors.grey)),
+                            child: Center(
+                              child: _value
+                                  ? Icon(
+                                      Icons.check,
+                                      size: 20.0,
+                                      color: Colors.greenAccent,
+                                    )
+                                  : null
+                            ),
+                          ),
+                          SizedBox(width: 10,),
+                          Text(
+                          "Verify the Details",
+                          style: TextStyle(
+                              fontFamily: "Nunito",
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        ],
+                      ),
+                    ),
+                    Container(child: _err ? Text("please verify the details then check the box",style: TextStyle(
+                              fontFamily: "Nunito",
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.redAccent),
+                         ): null),
+                    SizedBox(
+                      height: 35,
+                    ),
+                    InkWell(
+                      onTap: () => detailsup(),
+                      child: Container(
+                        width: 250,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.greenAccent),
+                        child: Center(
+                          child: Text(
+                            "Completed",
+                            style: TextStyle(
+                                fontFamily: "Nunito",
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
-                      SizedBox(width: 10,),
-                      Text(
-                      "Verify the Details",
-                      style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
                     ),
-                    ],
-                  ),
-                ),
-                Container(child: _err ? Text("please verify the details then check the box",style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.redAccent),
-                     ): null),
-                SizedBox(
-                  height: 35,
-                ),
-                InkWell(
-                  onTap: () => detailsup(),
-                  child: Container(
-                    width: 250,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.greenAccent),
-                    child: Center(
-                      child: Text(
-                        "Completed",
-                        style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                    const SizedBox(height: 20),
+                    InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        width: 250,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.redAccent),
+                        child: Center(
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                fontFamily: "Nunito",
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    width: 250,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.redAccent),
-                    child: Center(
-                      child: Text(
-                        "Cancel",
-                        style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Center(
+                  child: _upload ? CircularProgressIndicator(color: bluebg,): null,
                 ),
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),
@@ -419,6 +434,7 @@ class _CompletedsrcState extends State<Completedsrc> {
       if(_value == true){
         setState(() {
           _err = false;
+          _upload = true;
         });
 
         fb.collection("Technician")
@@ -498,8 +514,23 @@ class _CompletedsrcState extends State<Completedsrc> {
       .collection("Assignedpgm")
       .doc(widget.docname)
       .delete()
-      .then((value) {print("Delete pgm to technicain");})
-      .catchError((error) => print("Failed to delete from technician list program : $error"));
+      .then((value) {print("Delete pgm to technicain");
+      showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomeAlertbx(
+                  "Program Registration Completed!", Colors.greenAccent, "Sucessfull", widget.username);
+            });
+        setState(() {
+          _upload = false;
+        });
+      })
+      .catchError((error) { print("Failed to delete from technician list program : $error");
+      showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomeAlertbx("Something went Wrong, Try again!",
+                  Colors.redAccent, "Error", widget.username);});});
 
 
       }
@@ -515,11 +546,12 @@ class _CompletedsrcState extends State<Completedsrc> {
   }
 }
 
-class SimpleCustomAlert extends StatelessWidget {
+class CustomeAlertbx extends StatelessWidget {
+  String? username;
   final String? titles;
   final Color colorr;
   final String? done;
-  SimpleCustomAlert(this.titles, this.colorr, this.done);
+  CustomeAlertbx(this.titles, this.colorr, this.done, this.username);
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -570,7 +602,13 @@ class SimpleCustomAlert extends StatelessWidget {
             ),
             RaisedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeTech(
+                                        username: username,
+                                      )),
+                            );
               },
               color: Colors.white,
               child: Text(

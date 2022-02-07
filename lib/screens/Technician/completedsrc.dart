@@ -254,7 +254,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                                   width: 20,
                                 ),
                                 Container(
-                                  width: MediaQuery.of(context).size.width / 2,
+                                  width: MediaQuery.of(context).size.width / 1.74,
                                   height: 130,
                                   child: TextFormField(
                                     autofocus: false,

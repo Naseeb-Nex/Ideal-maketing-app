@@ -373,18 +373,6 @@ class _ProcessingsrcState extends State<Processingsrc> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Container(
-                      height: 60,
-                      width: MediaQuery.of(context).size.width / 1.12,
-                      child: Text(
-                        "Note : If there is no reason for pending or cancel a program will be decrease the performance",
-                        style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey),
-                      ),
-                    ),
                     Form(
                       key: _formKey,
                       child: Column(
@@ -397,7 +385,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                                   height: 130,
                                   alignment: Alignment.topCenter,
                                   child: Text(
-                                    "Reason :",
+                                    "Remarks :",
                                     style: TextStyle(
                                         fontFamily: "Nunito",
                                         fontSize: 19,
@@ -418,7 +406,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                                     maxLines: 6,
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return ("Enter the Reason!!");
+                                        return ("Enter the Remarks!!");
                                       }
                                       return null;
                                     },
@@ -505,7 +493,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                       height: 25,
                     ),
                     InkWell(
-                      onTap: () => {},
+                      onTap: () => processingupdate(),
                       child: Container(
                         width: 250,
                         height: 50,
@@ -561,6 +549,183 @@ class _ProcessingsrcState extends State<Processingsrc> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  void processingupdate() async {
+    FirebaseFirestore fb = await FirebaseFirestore.instance;
+    DateTime now = DateTime.now();
+    String pendingdate = DateFormat('d MMM y').format(now);
+    String pendingtime = DateFormat('kk:mm').format(now);
+    String pcollname = DateFormat('MM d y').format(now);
+    String pdocname = DateFormat('MM d y kk:mm:ss').format(now);
+
+    Pendingpgmdata ppgm = Pendingpgmdata(
+      uid: widget.uid,
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      status: "completed",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: widget.assigneddate,
+      assignedtime: widget.assignedtime,
+      remarks: reason.text,
+      pdate: pendingdate,
+      ptime: pendingtime,
+      pcollname: pcollname,
+      pdocname: pdocname,
+    );
+
+    if (_formKey.currentState!.validate()) {
+      if (_value == true) {
+        setState(() {
+          _err = false;
+          _upload = true;
+        });
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Processingpgm")
+            .doc(pdocname)
+            .set(ppgm.toMap())
+            .then((value) {
+          print("Pending pgmlist Updated");
+        }).catchError((error) => print("Failed to update Pending pgm list : $error"));
+
+        fb
+            .collection("Programs")
+            .doc(widget.docname)
+            .delete()
+            .then((value) => print("Pgm Deleted From office list"))
+            .catchError((error) =>
+                print("Failed to delete from office list program : $error"));
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Assignedpgm")
+            .doc(widget.docname)
+            .delete()
+            .then((value) {
+          print("Delete pgm to technicain");
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomeAlertbx("Processing Program Updated",
+                    Colors.greenAccent, "Sucessfull", widget.username);
+              });
+          setState(() {
+            _upload = false;
+          });
+        }).catchError((error) {
+          print("Failed to delete from technician list program : $error");
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomeAlertbx("Something went Wrong, Try again!",
+                    Colors.redAccent, "Error", widget.username);
+              });
+        });
+        
+
+      } else {
+        setState(() {
+          _err = true;
+        });
+      }
+    }
+  }
+
+}
+
+class CustomeAlertbx extends StatelessWidget {
+  String? username;
+  final String? titles;
+  final Color colorr;
+  final String? done;
+  CustomeAlertbx(this.titles, this.colorr, this.done, this.username);
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: colorr,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      child: Container(
+        height: 200,
+        width: 450,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.warning_amber_rounded,
+                    color: primarybg,
+                    size: 30,
+                  ),
+                  Text(
+                    done!,
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              titles!,
+              style: TextStyle(
+                fontFamily: "Nunito",
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: 28,
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeTech(
+                            username: username,
+                          )),
+                );
+              },
+              color: Colors.white,
+              child: Text(
+                "Okay",
+                style: TextStyle(
+                  fontFamily: "Nunito",
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: colorr,
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

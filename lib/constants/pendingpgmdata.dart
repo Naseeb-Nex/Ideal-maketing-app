@@ -16,7 +16,6 @@ class Pendingpgmdata {
   String? assignedtime;
   String? assigneddate;
   String? priority;
-  String? camount;
   String? remarks;
   String? ptime;
   String? pdate;
@@ -44,7 +43,6 @@ class Pendingpgmdata {
       this.assignedtime,
       this.assigneddate,
       this.priority,
-      this.camount,
       this.remarks,
       this.pdate,
       this.ptime,
@@ -72,7 +70,6 @@ class Pendingpgmdata {
       assignedtime: map['assignedtime'],
       assigneddate: map['assigneddate'],
       priority: map['priority'],
-      camount: map['camount'],
       remarks: map['remarks'],
       pdate: map['pdate'],
       ptime: map['ptime'],
@@ -101,7 +98,6 @@ class Pendingpgmdata {
       'assignedtime': assignedtime,
       'assigneddate': assigneddate,
       'priority': priority,
-      'camount': camount,
       'remarks': remarks,
       'pdate': pdate,
       'ptime': ptime,

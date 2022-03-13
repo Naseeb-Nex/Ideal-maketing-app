@@ -123,41 +123,20 @@ class _ProfilesrcState extends State<Profilesrc> {
                           SizedBox(
                             height: 20,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              logout(context);
-                            },
-                            child: Text(
-                              'My Activity',
-                              style: TextStyle(
-                                color: Color.fromRGBO(39, 105, 171, 1),
-                                fontSize: 27,
-                                fontFamily: 'Nunito',
-                              ),
+                          Text(
+                            'My Activity',
+                            style: TextStyle(
+                              color: Color.fromRGBO(39, 105, 171, 1),
+                              fontSize: 27,
+                              fontFamily: 'Nunito',
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           Divider(
-                            thickness: 2.5,
+                            thickness: 2,
                           ),
                           SizedBox(
                             height: 10,
-                          ),
-                          Container(
-                            height: height * 0.15,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            height: height * 0.15,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
                           ),
                         ],
                       ),

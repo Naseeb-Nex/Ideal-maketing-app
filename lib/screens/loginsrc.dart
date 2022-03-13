@@ -128,22 +128,6 @@ class _LoginSrcState extends State<LoginSrc> {
                     SizedBox(height: 35),
                     loginButton,
                     SizedBox(height: 15),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("Don't have an account? "),
-                          GestureDetector(
-                            onTap: () {
-                            },
-                            child: Text(
-                              "SignUp",
-                              style: TextStyle(
-                                  color: Colors.redAccent,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ),
-                          )
-                        ])
                   ],
                 ),
               ),

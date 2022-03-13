@@ -107,7 +107,6 @@ class _HomeTechState extends State<HomeTech> {
                                   builder: (context) => Profilewrapper(
                                         name: profile.name,
                                         uid: loggedInUser.uid,
-                                        pic: profile.profilepic,
                                       )),
                             );
                           },

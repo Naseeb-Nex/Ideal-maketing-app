@@ -22,11 +22,9 @@ class Pendingpgmdata {
   String? pcollname;
   String? pdocname;
 
-  
-  
-
   Pendingpgmdata(
-      {this.uid,
+      {
+      this.uid,
       this.name,
       this.address,
       this.loc,

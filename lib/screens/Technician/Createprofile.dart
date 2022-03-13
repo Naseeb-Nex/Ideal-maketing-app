@@ -10,7 +10,6 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/hometech.dart';
 import 'package:ideal_marketing/services/user_model.dart';
-import 'package:image_picker/image_picker.dart';
 
 class CreateProfile extends StatefulWidget {
   CreateProfile({Key? key, required this.uid}) : super(key: key);
@@ -21,8 +20,6 @@ class CreateProfile extends StatefulWidget {
 
 class _CreateProfileState extends State<CreateProfile> {
   //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker = ImagePicker();
   late String imageUrl = "Empty";
 
   // form
@@ -231,62 +228,26 @@ class _CreateProfileState extends State<CreateProfile> {
                 height: 18,
               ),
               Center(
-                child: Stack(
-                  children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 4,
-                            color: Theme.of(context).scaffoldBackgroundColor),
-                        boxShadow: [
-                          BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.1),
-                              offset: Offset(0, 10))
-                        ],
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: _imageFile == null
-                                // ? const AssetImage("assets/icons/avataricon.png")
-                                // : AssetImage("assets/icons/up.png"),
-                                // : FileImage(File(_imageFile.path)),
-                                ? NetworkImage(
-                                    "https://www.w3schools.com/howto/img_avatar.png")
-                                : NetworkImage(imageUrl)),
-                      ),
-                    ),
-                    Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                child: Container(
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 4,
+                        color: Theme.of(context).scaffoldBackgroundColor),
+                    boxShadow: [
+                      BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          color: Colors.black.withOpacity(0.1),
+                          offset: Offset(0, 10))
+                    ],
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/icons/avataricon.png")
                             ),
-                            color: Colors.green,
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: ((builder) => bottomSheet()),
-                              );
-                            },
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ),
-                          ),
-                        )),
-                  ],
+                  ),
                 ),
               ),
               SizedBox(
@@ -395,72 +356,7 @@ class _CreateProfileState extends State<CreateProfile> {
     );
   }
 
-  Widget bottomSheet() {
-    return Container(
-      height: 100.0,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 20,
-      ),
-      child: Column(
-        children: <Widget>[
-          Text(
-            "Choose Profile photo",
-            style: TextStyle(
-              fontFamily: "Nunito",
-              fontSize: 20.0,
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                FlatButton.icon(
-                  icon: Icon(Icons.camera),
-                  onPressed: () {
-                    takePhoto(ImageSource.camera);
-                  },
-                  label: Text("Camera"),
-                ),
-                FlatButton.icon(
-                  icon: Icon(Icons.image),
-                  onPressed: () {
-                    takePhoto(ImageSource.gallery);
-                  },
-                  label: Text("Gallery"),
-                ),
-              ])
-        ],
-      ),
-    );
-  }
 
-  void takePhoto(ImageSource source) async {
-    final _firebasein = FirebaseStorage.instance;
-    final pickedFile = await _picker.getImage(
-      source: source,
-    );
-    setState(() {
-      _imageFile = pickedFile!;
-    });
-    if (_imageFile!.path != null) {
-      var file = File(_imageFile!.path);
-      //Upload to Firebase
-      var snapshot = await _firebasein
-          .ref()
-          .child('Technician/Profile/' + nameController.text)
-          .putFile(file);
-
-      var downloadUrl = await snapshot.ref.getDownloadURL();
-
-      setState(() {
-        imageUrl = downloadUrl;
-      });
-    }
-  }
 
   void uploadData() async {
     final _firebasein = FirebaseStorage.instance;
@@ -476,7 +372,7 @@ class _CreateProfileState extends State<CreateProfile> {
             phn1: phn1Controller.text,
             phn2: phn2Controller.text,
             location: locationController.text,
-            profilepic: imageUrl);
+            );
 
         await firebaseFirestore
             .collection("users")

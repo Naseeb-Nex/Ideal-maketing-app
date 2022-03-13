@@ -6,7 +6,6 @@ class Profile {
   String? phn1;
   String? phn2;
   String? location;
-  String? profilepic;
 
   Profile(
       {this.uid,
@@ -15,7 +14,6 @@ class Profile {
       this.phn1,
       this.phn2,
       this.location,
-      this.profilepic,
       this.username});
 
   // receiving data from server
@@ -28,7 +26,6 @@ class Profile {
       phn1: map['phn1'],
       phn2: map['phn2'],
       location: map['location'],
-      profilepic: map['pic'],
     );
   }
 
@@ -42,7 +39,6 @@ class Profile {
       'phn1': phn1,
       'phn2': phn2,
       'location': location,
-      'pic': profilepic,
     };
   }
 }

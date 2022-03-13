@@ -92,9 +92,9 @@ class Programcard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      child: Text(
+                      Text(
                         "$name",
                         style: TextStyle(
                           fontFamily: "Nunito",
@@ -102,7 +102,6 @@ class Programcard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Container(
@@ -125,7 +124,7 @@ class Programcard extends StatelessWidget {
                       child: Text(
                         "$pgm",
                         style: TextStyle(
-                          fontFamily: "Nunito",
+                          fontFamily: "Montserrat",
                           fontSize: 15,
                           fontWeight: FontWeight.normal,
                         ),

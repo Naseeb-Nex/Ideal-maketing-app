@@ -59,10 +59,6 @@ class _HomeAdminState extends State<HomeAdmin> {
                       color: Colors.redAccent,
                     ),
                   )),
-              Text(
-                "Welcome Back",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
               SizedBox(
                 height: 10,
               ),

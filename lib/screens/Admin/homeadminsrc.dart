@@ -189,43 +189,6 @@ class _HomeAdminState extends State<HomeAdmin> {
         ),
       )
     ]);
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: const Text("Welcome"),
-    //     centerTitle: true,
-    //   ),
-    //   body: SingleChildScrollView(
-    //     physics: BouncingScrollPhysics(),
-    //     child: Padding(
-    //       padding: EdgeInsets.all(20),
-    //       child: Column(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         crossAxisAlignment: CrossAxisAlignment.center,
-    //         children: <Widget>[
-    //           SizedBox(
-    //               height: 150,
-    //               child: Text(
-    //                 "Staff Registration",
-    //                 style: GoogleFonts.nunito(
-    //                   fontSize: 40,
-    //                   fontWeight: FontWeight.bold,
-    //                   color: Colors.redAccent,
-    //                 ),
-    //               )),
-    //           SizedBox(
-    //             height: 10,
-    //           ),
-    //           Text("${loggedInUser.category}",
-    //               style: TextStyle(
-    //                 color: Colors.black54,
-    //                 fontWeight: FontWeight.w500,
-    //               )),
-    //
-    //         ],
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 
   // the logout function

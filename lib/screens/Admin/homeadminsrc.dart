@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:ideal_marketing/services/user_model.dart';
 import '../register.dart';
-import '../Office/homeoffice.dart';
-import '../Technician/hometech.dart';
-
 
 class HomeAdmin extends StatefulWidget {
   const HomeAdmin({Key? key}) : super(key: key);
@@ -36,63 +33,199 @@ class _HomeAdminState extends State<HomeAdmin> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Welcome"),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                  height: 150,
-                  child: Text(
-                    "Staff Registration",
-                    style: GoogleFonts.nunito(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                    ),
-                  )),
-              SizedBox(
-                height: 10,
-              ),
-              Text("${loggedInUser.category}",
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w500,
-                  )),
-              Text("${loggedInUser.email}",
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w500,
-                  )),
-              SizedBox(
-                height: 15,
-              ),
-              ActionChip(
-                  label: Text("Logout"),
-                  onPressed: () {
-                    logout(context);
-                  }),
-              RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RegistrationScreen()));
-                },
-              )
+    Size s = MediaQuery.of(context).size;
+    return Stack(fit: StackFit.expand, children: [
+      Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromRGBO(38, 0, 91, 1),
+              Color.fromRGBO(55, 48, 255, 1),
             ],
+            begin: FractionalOffset.center,
+            end: FractionalOffset.topCenter,
           ),
         ),
       ),
-    );
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: Column(
+            children: [
+              Container(
+                width: s.width,
+                height: s.height * 1 / 7,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: () => logout(context),
+                          child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: Center(
+                                  child: Image.asset(
+                                "assets/icons/menu.png",
+                                width: 30,
+                                height: 30,
+                                fit: BoxFit.cover,
+                              ))),
+                        ),
+                        Text(
+                          "Home",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Admin Panel",
+                      style: TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  height: double.infinity,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40)),
+                    color: newbg,
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${loggedInUser.email}",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            logout(context);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 20),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: bluebg),
+                            child: Text(
+                              "Logout",
+                              style: TextStyle(
+                                fontFamily: "Nunito",
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        RegistrationScreen()));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 20),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: bluebg),child: Text("Staff Registration",style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),),),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      )
+    ]);
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     title: const Text("Welcome"),
+    //     centerTitle: true,
+    //   ),
+    //   body: SingleChildScrollView(
+    //     physics: BouncingScrollPhysics(),
+    //     child: Padding(
+    //       padding: EdgeInsets.all(20),
+    //       child: Column(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         crossAxisAlignment: CrossAxisAlignment.center,
+    //         children: <Widget>[
+    //           SizedBox(
+    //               height: 150,
+    //               child: Text(
+    //                 "Staff Registration",
+    //                 style: GoogleFonts.nunito(
+    //                   fontSize: 40,
+    //                   fontWeight: FontWeight.bold,
+    //                   color: Colors.redAccent,
+    //                 ),
+    //               )),
+    //           SizedBox(
+    //             height: 10,
+    //           ),
+    //           Text("${loggedInUser.category}",
+    //               style: TextStyle(
+    //                 color: Colors.black54,
+    //                 fontWeight: FontWeight.w500,
+    //               )),
+    //
+    //         ],
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   // the logout function

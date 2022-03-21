@@ -102,13 +102,12 @@ class _DetailingsrcState extends State<Detailingsrc> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
-                    height: 350,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       color: bluebg,
                     ),
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 60),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

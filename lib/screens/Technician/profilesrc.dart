@@ -47,28 +47,47 @@ class _ProfilesrcState extends State<Profilesrc> {
                   SizedBox(
                     height: 50,
                     child: Row(
-                      children: <Widget>[
-                        IconButton(
-                          alignment: Alignment.centerLeft,
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: <Widget>[
+                            IconButton(
+                              alignment: Alignment.centerLeft,
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                              ),
+                              onPressed: ()=>Navigator.pop(context),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "My Profile",
+                              style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        GestureDetector(
+                          onTap:() => logout(context),
+                          child: Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.white)),
+                            padding: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
+                            child: Text(
+                                  "Log out",
+                                  style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
                           ),
-                          onPressed: () {
-                              ;
-                          },
                         ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "My Profile",
-                          style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
+                        
                       ],
                     ),
                   ),
@@ -152,6 +171,7 @@ class _ProfilesrcState extends State<Profilesrc> {
   }
 
   Future<void> logout(BuildContext context) async {
+    print("tapped");
     await FirebaseAuth.instance.signOut();
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => LoginSrc()));

@@ -363,7 +363,6 @@ class _CreateProfileState extends State<CreateProfile> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     if (_formKey.currentState!.validate()) {
-      if (imageUrl != "Empty") {
         Profile profile = Profile(
             uid: widget.uid,
             username: usernameController.text,
@@ -397,90 +396,9 @@ class _CreateProfileState extends State<CreateProfile> {
 
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomeTech()));
-      } else {
-        print('Select your profile pic');
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return Errorimg("Please select your profile pic!");
-            });
-      }
-
       // assign all data
 
     }
   }
 }
 
-class Errorimg extends StatelessWidget {
-  final title;
-  Errorimg(this.title);
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.redAccent,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      child: Container(
-        height: 230,
-        width: MediaQuery.of(context).size.width - 20,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.warning_amber_rounded,
-                    color: primarybg,
-                    size: 30,
-                  ),
-                  Text(
-                    " Error",
-                    style: TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                fontFamily: "Nunito",
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(
-              height: 28,
-            ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              color: Colors.white,
-              child: Text(
-                "Okay",
-                style: TextStyle(
-                  fontFamily: "Nunito",
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.redAccent,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}

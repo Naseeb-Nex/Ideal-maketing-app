@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/hometech.dart';
-import 'package:ideal_marketing/services/user_model.dart';
+import 'package:ideal_marketing/services/user_model.dart';   
 
 class CreateProfile extends StatefulWidget {
   CreateProfile({Key? key, required this.uid}) : super(key: key);

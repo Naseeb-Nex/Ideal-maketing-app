@@ -195,6 +195,6 @@ class _HomeAdminState extends State<HomeAdmin> {
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => LoginSrc()));
+        .pushReplacement(MaterialPageRoute(builder: (context) => const LoginSrc()));
   }
 }

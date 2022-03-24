@@ -5,7 +5,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:ideal_marketing/services/user_model.dart';
-import '../register.dart';
+import 'package:intl/intl.dart';
 
 class HomeAdmin extends StatefulWidget {
   const HomeAdmin({Key? key}) : super(key: key);
@@ -212,7 +212,25 @@ class _HomeAdminState extends State<HomeAdmin> {
                             )
                           ],
                         ),
-
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Technician Status",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+            height: s.height * 0.3,
+            child: Techcardspace(
+            ),),
                         // Text(
                         //   "${loggedInUser.email}",
                         //   style: TextStyle(
@@ -288,5 +306,310 @@ class _HomeAdminState extends State<HomeAdmin> {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginSrc()));
+  }
+}
+
+class Techcardspace extends StatelessWidget {
+  String? userid;
+  Techcardspace({Key? key, this.userid}) : super(key: key);
+  final Stream<QuerySnapshot> studentsStream =
+      FirebaseFirestore.instance.collection('Technician').snapshots();
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: studentsStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            print('Something went Wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: cheryred,
+              ),
+            );
+          }
+
+          final List techprofile = [];
+          snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map a = document.data() as Map<String, dynamic>;
+            techprofile.add(a);
+            print(a);
+            a['uid'] = document.id;
+          }).toList();
+          return ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: techprofile.length,
+            itemBuilder: (context, i) {
+              return Techcard(
+                name: techprofile[i]['name'],
+                img: techprofile[i]['pic'],
+                username: techprofile[i]['username'],
+                uid: techprofile[i]['uid'],
+              );
+            },
+          );
+        });
+  }
+}
+
+class Techcard extends StatefulWidget {
+  String? name;
+  String? img;
+  String? uid;
+  String? username;
+  Techcard({Key? key, this.name, this.img, this.uid, this.username})
+      : super(key: key);
+
+  @override
+  _TechcardState createState() => _TechcardState();
+}
+
+class _TechcardState extends State<Techcard> {
+  FirebaseFirestore fb = FirebaseFirestore.instance;
+  int a = 0;
+  int c = 0;
+  int p = 0;
+  int pro = 0;
+  @override
+  void initState() {
+    super.initState();
+    if (mounted) startup();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
+    return Card(
+      color: white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      elevation: 10,
+      shadowColor: primarybg,
+      child: Container(
+        width: s.width * 0.4,
+        padding: EdgeInsets.symmetric(vertical: 15),
+        child: ListView(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Container(
+                height: 80,
+                width: 80,
+                child: CircleAvatar(
+                  backgroundColor: bluebg,
+                  backgroundImage: AssetImage("assets/icons/avataricon.png"),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: Text(
+                "${widget.name}",
+                style: TextStyle(
+                  fontFamily: "Nunito",
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff273746),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 10,
+                  width: 10,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.yellow),
+                ),
+                Text(
+                  " Assingned Programs    ",
+                  style: TextStyle(
+                    fontFamily: "Nunito",
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff273746),
+                  ),
+                ),
+                Text(
+                  "$a",
+                  style: TextStyle(
+                    fontFamily: "Nunito",
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff273746),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 10,
+                  width: 10,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.greenAccent),
+                ),
+                Text(
+                  " Completed Programs   ",
+                  style: TextStyle(
+                    fontFamily: "Nunito",
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff273746),
+                  ),
+                ),
+                Text(
+                  "$c",
+                  style: TextStyle(
+                    fontFamily: "Nunito",
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff273746),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 10,
+                  width: 10,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: cheryred),
+                ),
+                Text(
+                  " Pending Programs        ",
+                  style: TextStyle(
+                    fontFamily: "Nunito",
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff273746),
+                  ),
+                ),
+                Text(
+                  "$p",
+                  style: TextStyle(
+                    fontFamily: "Nunito",
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff273746),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 10,
+                  width: 10,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue),
+                ),
+                Text(
+                  " Processing Programs   ",
+                  style: TextStyle(
+                    fontFamily: "Nunito",
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff273746),
+                  ),
+                ),
+                Text(
+                  "$pro",
+                  style: TextStyle(
+                    fontFamily: "Nunito",
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff273746),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  startup() async {
+    DateTime now = DateTime.now();
+    String cday = DateFormat('MM d y').format(now);
+    try {
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Assignedpgm")
+          .get()
+          .then((snap) => {
+                setState(() {
+                  this.a = snap.size;
+                })
+              });
+
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Completedpgm")
+          .doc("Day")
+          .collection(cday)
+          .get()
+          .then((snap) => {
+                setState(() {
+                  this.c = snap.size;
+                })
+              });
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Pendingpgm")
+          .get()
+          .then((snap) => {
+                setState(() {
+                  this.p = snap.size;
+                })
+              });
+
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Processingpgm")
+          .get()
+          .then((snap) => {
+                setState(() {
+                  this.pro = snap.size;
+                })
+              });
+      print(a);
+      print(c);
+      print(p);
+      print(pro);
+    } catch (e) {
+      print(e);
+    }
   }
 }

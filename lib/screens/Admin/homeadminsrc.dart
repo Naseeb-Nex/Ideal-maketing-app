@@ -114,7 +114,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                 child: Container(
                   height: double.infinity,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
@@ -122,11 +122,13 @@ class _HomeAdminState extends State<HomeAdmin> {
                     color: newbg,
                   ),
                   child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: ListView(
                       children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Text(
-                          "${loggedInUser.email}",
+                          "Program Status",
                           style: TextStyle(
                             fontFamily: "Nunito",
                             fontSize: 22,
@@ -135,50 +137,136 @@ class _HomeAdminState extends State<HomeAdmin> {
                           ),
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 15,
                         ),
-                        InkWell(
-                          onTap: () {
-                            logout(context);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 20),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: bluebg),
-                            child: Text(
-                              "Logout",
-                              style: TextStyle(
-                                fontFamily: "Nunito",
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: s.width * 0.4,
+                              height: s.height * 0.14,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Color(0XFFFED4D6)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Pending Program",
+                                    style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      "10",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
+                            Container(
+                              width: s.width * 0.4,
+                              height: s.height * 0.14,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Color(0XFFDBF4F1)),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Completed Program",
+                                    style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      "10",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         ),
-                        SizedBox(height: 20,),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        RegistrationScreen()));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 20),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: bluebg),child: Text("Staff Registration",style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),),),
-                        )
+
+                        // Text(
+                        //   "${loggedInUser.email}",
+                        //   style: TextStyle(
+                        //     fontFamily: "Nunito",
+                        //     fontSize: 22,
+                        //     fontWeight: FontWeight.bold,
+                        //     color: Colors.black,
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                        // InkWell(
+                        //   onTap: () {
+                        //     logout(context);
+                        //   },
+                        //   child: Container(
+                        //     padding: EdgeInsets.symmetric(
+                        //         vertical: 15, horizontal: 20),
+                        //     decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(20),
+                        //         color: bluebg),
+                        //     child: Text(
+                        //       "Logout",
+                        //       style: TextStyle(
+                        //         fontFamily: "Nunito",
+                        //         fontSize: 18,
+                        //         fontWeight: FontWeight.bold,
+                        //         color: Colors.white,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(height: 20,),
+                        // InkWell(
+                        //   onTap: () {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) =>
+                        //                 RegistrationScreen()));
+                        //   },
+                        //   child: Container(
+                        //     padding: EdgeInsets.symmetric(
+                        //         vertical: 15, horizontal: 20),
+                        //     decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(20),
+                        //         color: bluebg),child: Text("Staff Registration",style: TextStyle(
+                        //     fontFamily: "Nunito",
+                        //     fontSize: 22,
+                        //     fontWeight: FontWeight.bold,
+                        //     color: Colors.white,
+                        //   ),),),
+                        // )
                       ],
                     ),
                   ),
@@ -191,10 +279,14 @@ class _HomeAdminState extends State<HomeAdmin> {
     ]);
   }
 
+  // #DBF4F1 green #EEFCEF  #E6F5FA
+  // #FFF5DA orange
+  // #FED4D6 pink  #FFEFE2
+
   // the logout function
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => const LoginSrc()));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginSrc()));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
@@ -229,7 +230,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                           height: 15,
                         ),
                         Container(
-                          height: s.height * 0.3, // here i want to automatically detect the height.
+                          height: 300, // here i want to automatically detect the height.
                           child: Techcardspace(),
                         ),
                         const SizedBox(
@@ -391,7 +392,7 @@ class _TechcardState extends State<Techcard> {
       elevation: 10,
       shadowColor: primarybg,
       child: Container(
-        width: s.width * 0.4,
+        width: 200,//
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 4),
         child: ListView(
           children: [
@@ -440,13 +441,11 @@ class _TechcardState extends State<Techcard> {
                       color: Colors.yellow),
                 ),
                 SizedBox(width: 5,),
-                AutoSizeText(
-                    " Assingned    ",
-                    maxFontSize: 24,
-                    minFontSize: 12,
+                Text(
+                    " Assingned Programs   ",
                     style: TextStyle(
                       fontFamily: "Nunito",
-                      fontSize: 13,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Color(0xff273746),
                     ),
@@ -476,8 +475,9 @@ class _TechcardState extends State<Techcard> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.greenAccent),
                 ),
+                SizedBox(width: 5,),
                 Text(
-                  " Completed   ",
+                  " Completed Programs  ",
                   style: TextStyle(
                     fontFamily: "Nunito",
                     fontSize: 13,
@@ -485,6 +485,7 @@ class _TechcardState extends State<Techcard> {
                     color: Color(0xff273746),
                   ),
                 ),
+                SizedBox(width: 5,),
                 Text(
                   "$c",
                   style: TextStyle(
@@ -508,8 +509,9 @@ class _TechcardState extends State<Techcard> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10), color: cheryred),
                 ),
+                SizedBox(width: 5,),
                 Text(
-                  " Pending         ",
+                  " Pending Programs        ",
                   style: TextStyle(
                     fontFamily: "Nunito",
                     fontSize: 13,
@@ -517,6 +519,7 @@ class _TechcardState extends State<Techcard> {
                     color: Color(0xff273746),
                   ),
                 ),
+                SizedBox(width: 5,),
                 Text(
                   "$p",
                   style: TextStyle(
@@ -541,8 +544,9 @@ class _TechcardState extends State<Techcard> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.blue),
                 ),
+                SizedBox(width: 5,),
                 Text(
-                  " Processing    ",
+                  " Processing Programs   ",
                   style: TextStyle(
                     fontFamily: "Nunito",
                     fontSize: 13,
@@ -550,6 +554,7 @@ class _TechcardState extends State<Techcard> {
                     color: Color(0xff273746),
                   ),
                 ),
+                SizedBox(width: 5,),
                 Text(
                   "$pro",
                   style: TextStyle(

@@ -556,6 +556,7 @@ class _TechcardState extends State<Techcard> {
     );
   }
 
+  
   startup() async {
     DateTime now = DateTime.now();
     String cday = DateFormat('MM d y').format(now);

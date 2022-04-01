@@ -114,7 +114,6 @@ class _HomeAdminState extends State<HomeAdmin> {
                 child: Container(
                   height: double.infinity,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
@@ -127,44 +126,38 @@ class _HomeAdminState extends State<HomeAdmin> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
-                          "Program Status",
-                          style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            "Program Status",
+                            style: TextStyle(
+                              fontFamily: "Nunito",
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                         SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: s.width * 0.4,
-                              height: s.height * 0.14,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: Color(0XFFFED4D6)),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Pending Program",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      "10",
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: s.width * 0.4,
+                                height: s.height * 0.14,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: Color(0XFFFED4D6)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Pending Program",
                                       style: TextStyle(
                                         fontFamily: "Nunito",
                                         fontSize: 19,
@@ -172,33 +165,33 @@ class _HomeAdminState extends State<HomeAdmin> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: s.width * 0.4,
-                              height: s.height * 0.14,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color: Color(0XFFDBF4F1)),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Completed Program",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        "10",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Text(
-                                      "10",
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: s.width * 0.4,
+                                height: s.height * 0.14,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: Color(0XFFDBF4F1)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Completed Program",
                                       style: TextStyle(
                                         fontFamily: "Nunito",
                                         fontSize: 19,
@@ -206,22 +199,37 @@ class _HomeAdminState extends State<HomeAdmin> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Text(
+                                        "10",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
-                          "Technician Status",
-                          style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            "Technician Status",
+                            style: TextStyle(
+                              fontFamily: "Nunito",
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                         SizedBox(

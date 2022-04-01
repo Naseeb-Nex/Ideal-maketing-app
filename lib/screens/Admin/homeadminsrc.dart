@@ -5,6 +5,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:ideal_marketing/services/user_model.dart';
+import 'pendingsrc.dart';
 import 'package:intl/intl.dart';
 
 class HomeAdmin extends StatefulWidget {
@@ -17,20 +18,24 @@ class HomeAdmin extends StatefulWidget {
 class _HomeAdminState extends State<HomeAdmin> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
+  FirebaseFirestore fb = FirebaseFirestore.instance;
+  int p = 0, c = 0;
 
   @override
   void initState() {
     super.initState();
+    if (mounted) {
+      pgmsetup();
+    }
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
         .get()
         .then((value) {
       this.loggedInUser = UserModel.fromMap(value.data());
-      setState(() {});
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -64,18 +69,15 @@ class _HomeAdminState extends State<HomeAdmin> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          onTap: () => logout(context),
-                          child: Container(
-                              padding: EdgeInsets.all(10),
-                              child: Center(
-                                  child: Image.asset(
-                                "assets/icons/menu.png",
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
-                              ))),
-                        ),
+                        Container(
+                            padding: EdgeInsets.all(10),
+                            child: Center(
+                                child: Image.asset(
+                              "assets/icons/menu.png",
+                              width: 30,
+                              height: 30,
+                              fit: BoxFit.cover,
+                            ))),
                         Text(
                           "Home",
                           style: TextStyle(
@@ -146,29 +148,20 @@ class _HomeAdminState extends State<HomeAdmin> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                width: s.width * 0.4,
-                                height: s.height * 0.14,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: Color(0XFFFED4D6)),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Pending Program",
-                                      style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: Text(
-                                        "10",
+                              InkWell(
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>Pendingsrc())),
+                                child: Container(
+                                  width: s.width * 0.4,
+                                  height: s.height * 0.14,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Color(0XFFFED4D6)),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Pending Program",
                                         style: TextStyle(
                                           fontFamily: "Nunito",
                                           fontSize: 19,
@@ -176,8 +169,20 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           color: Colors.black,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Text(
+                                          "$p",
+                                          style: TextStyle(
+                                            fontFamily: "Nunito",
+                                            fontSize: 19,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               Container(
@@ -202,7 +207,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10),
                                       child: Text(
-                                        "10",
+                                        "$c",
                                         style: TextStyle(
                                           fontFamily: "Nunito",
                                           fontSize: 19,
@@ -303,6 +308,31 @@ class _HomeAdminState extends State<HomeAdmin> {
         ),
       )
     ]);
+  }
+  pgmsetup() async {
+    DateTime now = DateTime.now();
+    String cday = DateFormat('MM d y').format(now);
+    try {
+      await fb
+          .collection('Completedpgm')
+          .doc("Day")
+          .collection(cday)
+          .get()
+          .then((snap) => {
+                setState(() {
+                  this.c = snap.size;
+                })
+              });
+      await fb.collection('Programs').get().then((snap) => {
+            setState(() {
+              this.p = snap.size;
+            })
+          });
+      print(c);
+      print(p);
+    } catch (e) {
+      print(e);
+    }
   }
 
   // #DBF4F1 green #EEFCEF  #E6F5FA

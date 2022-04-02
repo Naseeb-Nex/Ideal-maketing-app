@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
 import 'package:ideal_marketing/services/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -68,12 +69,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               _selectedcategory = value as String?;
             });
           },
-          hint: Text("Select item"),
+          hint: Text("Select category"),
           elevation: 12,
           style: TextStyle(color: Colors.grey, fontSize: 16),
           icon: Icon(Icons.arrow_drop_down_circle),
           iconDisabledColor: Colors.grey,
-          iconEnabledColor: Colors.redAccent,
+          iconEnabledColor: bluebg,
           isExpanded: true,
         ),
       ),
@@ -164,7 +165,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final signUpButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
+      color: bluebg,
       child: MaterialButton(
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
@@ -182,10 +183,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: bluebg,
+        elevation: 10,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.red),
+          icon: Icon(Icons.arrow_back, color: white),
           onPressed: () {
             // passing this to our root
             Navigator.of(context).pop();
@@ -211,7 +212,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           style: GoogleFonts.nunito(
                             fontSize: 35,
                             fontWeight: FontWeight.bold,
-                            color: Colors.redAccent,
+                            color: bluebg,
                           ),
                         )),
                     SizedBox(height: 10),

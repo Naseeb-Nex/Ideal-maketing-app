@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:ideal_marketing/screens/loginsrc.dart';
+import 'package:ideal_marketing/screens/register.dart';
 import 'package:ideal_marketing/services/user_model.dart';
 import 'pendingsrc.dart';
 import 'package:intl/intl.dart';
@@ -35,7 +36,7 @@ class _HomeAdminState extends State<HomeAdmin> {
       this.loggedInUser = UserModel.fromMap(value.data());
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -149,7 +150,10 @@ class _HomeAdminState extends State<HomeAdmin> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>Pendingsrc())),
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Pendingsrc())),
                                 child: Container(
                                   width: s.width * 0.4,
                                   height: s.height * 0.14,
@@ -158,7 +162,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       color: Color(0XFFFED4D6)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         "Pending Program",
@@ -241,63 +246,57 @@ class _HomeAdminState extends State<HomeAdmin> {
                           height: 15,
                         ),
                         Container(
-            height: s.height * 0.3,
-            child: Techcardspace(
-            ),),
-                        // Text(
-                        //   "${loggedInUser.email}",
-                        //   style: TextStyle(
-                        //     fontFamily: "Nunito",
-                        //     fontSize: 22,
-                        //     fontWeight: FontWeight.bold,
-                        //     color: Colors.black,
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   height: 20,
-                        // ),
-                        // InkWell(
-                        //   onTap: () {
-                        //     logout(context);
-                        //   },
-                        //   child: Container(
-                        //     padding: EdgeInsets.symmetric(
-                        //         vertical: 15, horizontal: 20),
-                        //     decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(20),
-                        //         color: bluebg),
-                        //     child: Text(
-                        //       "Logout",
-                        //       style: TextStyle(
-                        //         fontFamily: "Nunito",
-                        //         fontSize: 18,
-                        //         fontWeight: FontWeight.bold,
-                        //         color: Colors.white,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // SizedBox(height: 20,),
-                        // InkWell(
-                        //   onTap: () {
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (context) =>
-                        //                 RegistrationScreen()));
-                        //   },
-                        //   child: Container(
-                        //     padding: EdgeInsets.symmetric(
-                        //         vertical: 15, horizontal: 20),
-                        //     decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(20),
-                        //         color: bluebg),child: Text("Staff Registration",style: TextStyle(
-                        //     fontFamily: "Nunito",
-                        //     fontSize: 22,
-                        //     fontWeight: FontWeight.bold,
-                        //     color: Colors.white,
-                        //   ),),),
-                        // )
+                          height: s.height * 0.3,
+                          child: Techcardspace(),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Text(
+                            "Staff Registration",
+                            style: TextStyle(
+                              fontFamily: "Nunito",
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: s.width * 0.2),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          RegistrationScreen()));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: bluebg),
+                              child: Center(
+                                child: Text(
+                                  "Registration",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -309,6 +308,7 @@ class _HomeAdminState extends State<HomeAdmin> {
       )
     ]);
   }
+
   pgmsetup() async {
     DateTime now = DateTime.now();
     String cday = DateFormat('MM d y').format(now);
@@ -532,8 +532,7 @@ class _TechcardState extends State<Techcard> {
                   height: 10,
                   width: 10,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: cheryred),
+                      borderRadius: BorderRadius.circular(10), color: cheryred),
                 ),
                 Text(
                   " Pending Programs        ",
@@ -594,7 +593,6 @@ class _TechcardState extends State<Techcard> {
     );
   }
 
-  
   startup() async {
     DateTime now = DateTime.now();
     String cday = DateFormat('MM d y').format(now);

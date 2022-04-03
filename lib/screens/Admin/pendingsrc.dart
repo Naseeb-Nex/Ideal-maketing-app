@@ -19,7 +19,7 @@ class _PendingsrcState extends State<Pendingsrc> {
     Size s = MediaQuery.of(context).size;
     return Stack(fit: StackFit.expand, children: [
       Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(38, 0, 91, 1),
@@ -38,7 +38,7 @@ class _PendingsrcState extends State<Pendingsrc> {
               Container(
                 width: s.width,
                 height: s.height * 1 / 7,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: Column(
@@ -50,13 +50,13 @@ class _PendingsrcState extends State<Pendingsrc> {
                         InkWell(
                           onTap: () => Navigator.pop(context),
                           child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Center(
+                            padding: const EdgeInsets.all(10),
+                            child: const Center(
                               child: Icon(Icons.arrow_back, color: white, size: 25,),
                             ),
                           ),
                         ),
-                        Text(
+                        const Text(
                           "Programs",
                           style: TextStyle(
                             fontFamily: "Nunito",
@@ -65,8 +65,8 @@ class _PendingsrcState extends State<Pendingsrc> {
                             color: Colors.white,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10),
+                        const Padding(
+                          padding: EdgeInsets.all(10),
                           child: Icon(
                             Icons.person,
                             color: Colors.white,
@@ -75,10 +75,10 @@ class _PendingsrcState extends State<Pendingsrc> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "Pending Program Viewer",
                       style: TextStyle(
                         fontFamily: "Nunito",
@@ -94,17 +94,17 @@ class _PendingsrcState extends State<Pendingsrc> {
                 child: Container(
                   height: double.infinity,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40)),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: const BoxDecoration(
+                    borderRadius:  BorderRadius.only(
+                        topLeft:  Radius.circular(40),
+                        topRight:  Radius.circular(40)),
                     color: newbg,
                   ),
                   child: Padding(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 20),
                     child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       child: Pgmcardwrapper(),
                     ),
                   ),
@@ -147,8 +147,8 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
-              child: Center(
-                child: CircularProgressIndicator(
+              child: const Center(
+                child: const CircularProgressIndicator(
                   color: bluebg,
                 ),
               ),
@@ -164,9 +164,9 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
           return Container(
             child: Column(
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 for (var i = 0; i < _allpgm.length; i++) ...[
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Pendingpgmcard(

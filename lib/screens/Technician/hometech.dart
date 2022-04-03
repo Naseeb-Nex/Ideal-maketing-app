@@ -68,7 +68,7 @@ class _HomeTechState extends State<HomeTech> {
               Container(
                 width: s.width,
                 height: s.height * 1 / 7,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: Column(
@@ -77,20 +77,17 @@ class _HomeTechState extends State<HomeTech> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          onTap: () => logout(context),
-                          child: Container(
-                              height: 50,
-                              width: 60,
-                              child: Center(
-                                  child: Image.asset(
-                                "assets/icons/menu.png",
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
-                              ))),
-                        ),
-                        Text(
+                        SizedBox(
+                            height: 50,
+                            width: 60,
+                            child: Center( 
+                                child: Image.asset(
+                              "assets/icons/menu.png",
+                              width: 30,
+                              height: 30,
+                              fit: BoxFit.cover,
+                            ))),
+                        const Text(
                           "Home",
                           style: TextStyle(
                             fontFamily: "Nunito",

@@ -61,7 +61,7 @@ class _HomeAdminState extends State<HomeAdmin> {
               Container(
                 width: s.width,
                 height: s.height * 1 / 7,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: Column(
@@ -79,7 +79,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                               height: 30,
                               fit: BoxFit.cover,
                             ))),
-                        Text(
+                        const Text(
                           "Home",
                           style: TextStyle(
                             fontFamily: "Nunito",
@@ -88,20 +88,20 @@ class _HomeAdminState extends State<HomeAdmin> {
                             color: Colors.white,
                           ),
                         ),
-                        Padding(
+                        const Padding(
                           padding: const EdgeInsets.all(10),
                           child: Icon(
                             Icons.person,
-                            color: Colors.white,
+                            color: Colors.transparent,
                             size: 30,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "Admin Panel",
                       style: TextStyle(
                         fontFamily: "Nunito",
@@ -125,6 +125,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                   ),
                   child: Center(
                     child: ListView(
+                      physics: BouncingScrollPhysics(),
                       children: [
                         const SizedBox(
                           height: 20,
@@ -296,7 +297,30 @@ class _HomeAdminState extends State<HomeAdmin> {
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        const SizedBox(height: 30,),
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: s.width * 0.3),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                color: bluebg),
+                            child: Center(
+                              child: Text(
+                                "Logout",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 50,)
                       ],
                     ),
                   ),

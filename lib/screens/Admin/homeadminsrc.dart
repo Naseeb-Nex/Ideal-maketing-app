@@ -302,19 +302,22 @@ class _HomeAdminState extends State<HomeAdmin> {
                         Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: s.width * 0.3),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: bluebg),
-                            child: Center(
-                              child: Text(
-                                "Logout",
-                                style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: white,
+                          child: InkWell(
+                            onTap: () => logout(context),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  color: bluebg),
+                              child: const Center(
+                                child: Text(
+                                  "Logout",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: white,
+                                  ),
                                 ),
                               ),
                             ),

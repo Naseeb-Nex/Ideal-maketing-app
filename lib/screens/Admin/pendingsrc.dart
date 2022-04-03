@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
-import 'package:ideal_marketing/components/programcard.dart';
+import 'package:ideal_marketing/components/pendingpgmcard.dart';
 
 import 'package:intl/intl.dart';
 
@@ -169,7 +169,7 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
                   SizedBox(
                     height: 5,
                   ),
-                  Programcard(
+                  Pendingpgmcard(
                     uid: _allpgm[i]['uid'],
                     name: _allpgm[i]['name'],
                     address: _allpgm[i]['address'],
@@ -182,11 +182,6 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
                     upTime: _allpgm[i]['upTime'],
                     docname: _allpgm[i]['docname'],
                     status: _allpgm[i]['status'],
-                    username: _allpgm[i]['username'],
-                    techname: _allpgm[i]['techname'],
-                    assignedtime: _allpgm[i]['assignedtime'],
-                    assigneddate: _allpgm[i]['assigneddate'],
-                    priority: _allpgm[i]['priority'],
                   )
                 ]
               ],

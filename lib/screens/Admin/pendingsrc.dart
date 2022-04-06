@@ -69,7 +69,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                           padding: EdgeInsets.all(10),
                           child: Icon(
                             Icons.person,
-                            color: Colors.white,
+                            color: Colors.transparent,
                             size: 30,
                           ),
                         ),

@@ -6,6 +6,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:ideal_marketing/screens/register.dart';
 import 'package:ideal_marketing/services/user_model.dart';
+import 'package:ideal_marketing/screens/Admin/techprofile.dart';
 import 'pendingsrc.dart';
 import 'package:intl/intl.dart';
 
@@ -462,12 +463,15 @@ class _TechcardState extends State<Techcard> {
                 height: 10,
               ),
               Center(
-                child: Container(
-                  height: 80,
-                  width: 80,
-                  child: CircleAvatar(
-                    backgroundColor: bluebg,
-                    backgroundImage: AssetImage("assets/icons/avataricon.png"),
+                child: InkWell(
+                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>Techprofilesrc())),
+                  child: SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: CircleAvatar(
+                      backgroundColor: bluebg,
+                      backgroundImage: AssetImage("assets/icons/avataricon.png"),
+                    ),
                   ),
                 ),
               ),

@@ -446,175 +446,178 @@ class _TechcardState extends State<Techcard> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
-    return Card(
-      color: white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      elevation: 10,
-      shadowColor: primarybg,
-      child: Container(
-        width: s.width * 0.4,
-        padding: EdgeInsets.symmetric(vertical: 15),
-        child: ListView(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: Container(
-                height: 80,
-                width: 80,
-                child: CircleAvatar(
-                  backgroundColor: bluebg,
-                  backgroundImage: AssetImage("assets/icons/avataricon.png"),
+    return InkWell(
+      onTap: () => print("pressed"),
+      child: Card(
+        color: white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        elevation: 10,
+        shadowColor: primarybg,
+        child: Container(
+          width: s.width * 0.4,
+          padding: EdgeInsets.symmetric(vertical: 15),
+          child: ListView(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: Container(
+                  height: 80,
+                  width: 80,
+                  child: CircleAvatar(
+                    backgroundColor: bluebg,
+                    backgroundImage: AssetImage("assets/icons/avataricon.png"),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: Text(
-                "${widget.name}",
-                style: TextStyle(
-                  fontFamily: "Nunito",
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff273746),
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: Text(
+                  "${widget.name}",
+                  style: TextStyle(
+                    fontFamily: "Nunito",
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff273746),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.yellow),
-                ),
-                Text(
-                  " Assingned Programs    ",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff273746),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.yellow),
                   ),
-                ),
-                Text(
-                  "$a",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff273746),
+                  Text(
+                    " Assingned Programs    ",
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff273746),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.greenAccent),
-                ),
-                Text(
-                  " Completed Programs   ",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff273746),
+                  Text(
+                    "$a",
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff273746),
+                    ),
                   ),
-                ),
-                Text(
-                  "$c",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff273746),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.greenAccent),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10), color: cheryred),
-                ),
-                Text(
-                  " Pending Programs        ",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff273746),
+                  Text(
+                    " Completed Programs   ",
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff273746),
+                    ),
                   ),
-                ),
-                Text(
-                  "$p",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff273746),
+                  Text(
+                    "$c",
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff273746),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.blue),
-                ),
-                Text(
-                  " Processing Programs   ",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff273746),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10), color: cheryred),
                   ),
-                ),
-                Text(
-                  "$pro",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff273746),
+                  Text(
+                    " Pending Programs        ",
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff273746),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  Text(
+                    "$p",
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff273746),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.blue),
+                  ),
+                  Text(
+                    " Processing Programs   ",
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff273746),
+                    ),
+                  ),
+                  Text(
+                    "$pro",
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff273746),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

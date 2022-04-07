@@ -90,25 +90,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  height: double.infinity,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: const BoxDecoration(
-                    borderRadius:  BorderRadius.only(
-                        topLeft:  Radius.circular(40),
-                        topRight:  Radius.circular(40)),
-                    color: newbg,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                    ),
-                  ),
-                ),
-              ),
+              
             ],
           ),
         ),

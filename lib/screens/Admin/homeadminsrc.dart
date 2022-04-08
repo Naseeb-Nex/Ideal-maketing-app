@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -299,7 +300,9 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30,),
+                        const SizedBox(
+                          height: 30,
+                        ),
                         Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: s.width * 0.3),
@@ -324,7 +327,9 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 50,)
+                        const SizedBox(
+                          height: 50,
+                        )
                       ],
                     ),
                   ),
@@ -456,7 +461,7 @@ class _TechcardState extends State<Techcard> {
         shadowColor: primarybg,
         child: Container(
           width: s.width * 0.4,
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           child: ListView(
             children: [
               SizedBox(
@@ -464,13 +469,17 @@ class _TechcardState extends State<Techcard> {
               ),
               Center(
                 child: InkWell(
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>Techprofilesrc())),
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Techprofilesrc())),
                   child: SizedBox(
                     height: 80,
                     width: 80,
                     child: CircleAvatar(
                       backgroundColor: bluebg,
-                      backgroundImage: AssetImage("assets/icons/avataricon.png"),
+                      backgroundImage:
+                          AssetImage("assets/icons/avataricon.png"),
                     ),
                   ),
                 ),
@@ -479,13 +488,15 @@ class _TechcardState extends State<Techcard> {
                 height: 10,
               ),
               Center(
-                child: Text(
-                  "${widget.name}",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff273746),
+                child: FittedBox(
+                  child: Text(
+                    "${widget.name}",
+                    style: TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff273746),
+                    ),
                   ),
                 ),
               ),
@@ -493,23 +504,29 @@ class _TechcardState extends State<Techcard> {
                 height: 10,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.yellow),
-                  ),
-                  Text(
-                    " Assingned Programs    ",
-                    style: TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff273746),
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.yellow),
+                      ),
+                      AutoSizeText(
+                        " Assingned",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff273746),
+                        ),
+                        minFontSize: 10,
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
                   Text(
                     "$a",
@@ -526,23 +543,29 @@ class _TechcardState extends State<Techcard> {
                 height: 10,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.greenAccent),
-                  ),
-                  Text(
-                    " Completed Programs   ",
-                    style: TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff273746),
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.greenAccent),
+                      ),
+                      AutoSizeText(
+                        " Completed",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff273746),
+                        ),
+                        minFontSize: 10,
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
                   Text(
                     "$c",
@@ -559,22 +582,29 @@ class _TechcardState extends State<Techcard> {
                 height: 10,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10), color: cheryred),
-                  ),
-                  Text(
-                    " Pending Programs        ",
-                    style: TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff273746),
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: cheryred),
+                      ),
+                      AutoSizeText(
+                        " Pending",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff273746),
+                        ),
+                        minFontSize: 10,
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
                   Text(
                     "$p",
@@ -591,23 +621,29 @@ class _TechcardState extends State<Techcard> {
                 height: 10,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue),
-                  ),
-                  Text(
-                    " Processing Programs   ",
-                    style: TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff273746),
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.blue),
+                      ),
+                      AutoSizeText(
+                        " Processing",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff273746),
+                        ),
+                        minFontSize: 10,
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
                   Text(
                     "$pro",

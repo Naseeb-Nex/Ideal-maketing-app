@@ -101,12 +101,6 @@ class _TechstatusState extends State<Techstatus> {
                         topRight:  Radius.circular(40)),
                     color: newbg,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                    ),
-                  ),
                 ),
               ),
             ],

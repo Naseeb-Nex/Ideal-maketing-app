@@ -90,19 +90,6 @@ class _TechstatusState extends State<Techstatus> {
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  height: double.infinity,
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: const BoxDecoration(
-                    borderRadius:  BorderRadius.only(
-                        topLeft:  Radius.circular(40),
-                        topRight:  Radius.circular(40)),
-                    color: newbg,
-                  ),
-                ),
-              ),
             ],
           ),
         ),

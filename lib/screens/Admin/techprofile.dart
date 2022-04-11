@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 class Techprofilesrc extends StatefulWidget {
-  const Techprofilesrc({Key? key}) : super(key: key);
+  String? name;
+  String? img;
+  String? uid;
+  String? username;
+  Techprofilesrc({Key? key,this.name, this.img, this.uid, this.username}) : super(key: key);
 
   @override
   _TechprofilesrcState createState() => _TechprofilesrcState();
@@ -43,10 +47,25 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                 children: [
                   const CircleAvatar(
                     radius: 60,
-                      backgroundColor: bluebg,
-                      backgroundImage:
-                          AssetImage("assets/icons/avataricon.png"),
-                    ),
+                    backgroundColor: bluebg,
+                    backgroundImage: AssetImage("assets/icons/avataricon.png"),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Muhammed Naseeb",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24),
+                  ),
+                  SizedBox(height: 10,),
+                  const Text("#Technician",style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15, color: Color(0xffdddde3)))
+
                 ],
               ),
             )

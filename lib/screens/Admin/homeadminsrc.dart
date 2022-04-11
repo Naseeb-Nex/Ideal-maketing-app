@@ -472,7 +472,10 @@ class _TechcardState extends State<Techcard> {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Techprofilesrc())),
+                          builder: (context) => Techprofilesrc(name: widget.name,
+                img: widget.img,
+                username: widget.username,
+                uid: widget.uid,))),
                   child: SizedBox(
                     height: 80,
                     width: 80,

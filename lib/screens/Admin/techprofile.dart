@@ -30,12 +30,24 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
           children: [
             Container(
               height: s.height * 0.25,
+              width: s.width,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),
                 ),
                 color: white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    radius: 60,
+                      backgroundColor: bluebg,
+                      backgroundImage:
+                          AssetImage("assets/icons/avataricon.png"),
+                    ),
+                ],
               ),
             )
           ],

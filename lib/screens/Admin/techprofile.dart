@@ -6,7 +6,8 @@ class Techprofilesrc extends StatefulWidget {
   String? img;
   String? uid;
   String? username;
-  Techprofilesrc({Key? key,this.name, this.img, this.uid, this.username}) : super(key: key);
+  Techprofilesrc({Key? key, this.name, this.img, this.uid, this.username})
+      : super(key: key);
 
   @override
   _TechprofilesrcState createState() => _TechprofilesrcState();
@@ -45,30 +46,39 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const CircleAvatar(
-                    radius: 60,
-                    backgroundColor: bluebg,
-                    backgroundImage: AssetImage("assets/icons/avataricon.png"),
+                  Container(
+                    width: s.height * 0.13,
+                    height: s.height * 0.13,
+                    child: const CircleAvatar(
+                      backgroundColor: bluebg,
+                      backgroundImage: AssetImage("assets/icons/avataricon.png"),
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   Text(
-                    "Muhammed Naseeb",
-                    style: TextStyle(
+                    "${widget.name}",
+                    style: const TextStyle(
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.bold,
                         fontSize: 24),
                   ),
-                  SizedBox(height: 10,),
-                  const Text("#Technician",style: TextStyle(
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15, color: Color(0xffdddde3)))
-
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "#Technician",
+                    style: TextStyle(
+                      fontFamily: "Montserrat",
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Color(0xffdddde3),
+                    ),
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -46,7 +46,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: s.height * 0.13,
                     height: s.height * 0.13,
                     child: const CircleAvatar(

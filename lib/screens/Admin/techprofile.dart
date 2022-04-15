@@ -19,143 +19,166 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
     Size s = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: bluebg,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: bluebg,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: s.height * 0.25,
-              width: s.width,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                width: s.width,
+                height: s.height * 0.06,
                 color: white,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: s.height * 0.13,
-                    height: s.height * 0.13,
-                    child: const CircleAvatar(
-                      backgroundColor: bluebg,
-                      backgroundImage:
-                          AssetImage("assets/icons/avataricon.png"),
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: bluebg,
+                      ),
+                      onPressed: () => Navigator.pop(context),
                     ),
+                  ],
+                ),
+              ),
+              Container(
+                height: s.height * 0.25,
+                width: s.width,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "${widget.name}",
-                    style: const TextStyle(
+                  color: white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      width: s.height * 0.13,
+                      height: s.height * 0.13,
+                      child: const CircleAvatar(
+                        backgroundColor: bluebg,
+                        backgroundImage:
+                            AssetImage("assets/icons/avataricon.png"),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "${widget.name}",
+                      style: const TextStyle(
+                          fontFamily: "Montserrat",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "#Technician",
+                      style: TextStyle(
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.bold,
-                        fontSize: 24),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    "#Technician",
-                    style: TextStyle(
-                      fontFamily: "Montserrat",
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Color(0xffdddde3),
+                        fontSize: 15,
+                        color: Color(0xffdddde3),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Column(
-                    children: [
-                      const Text(
-                        "10",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: white),
-                      ),
-                      const Text(
-                        "Completed",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 15,
-                            color: white),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Text(
-                        "10",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: white),
-                      ),
-                      const Text(
-                        "Pending",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 15,
-                            color: white),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const Text(
-                        "10",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: white),
-                      ),
-                      const Text(
-                        "Processing",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 15,
-                            color: white),
-                      ),
-                    ],
-                  ),
-                ],
+              const Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text("Monthly",
+                    style: TextStyle(
+                        fontFamily: "Montserrat", color: white, fontSize: 17)),
               ),
-            ),
-            const SizedBox(height: 15,),
-            Container(
-              width: s.width,
-              color: white,
-              height: 200,
-            )
-
-          ],
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        const Text(
+                          "10",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: white),
+                        ),
+                        const Text(
+                          "Completed",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 15,
+                              color: white),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        const Text(
+                          "10",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: white),
+                        ),
+                        const Text(
+                          "Pending",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 15,
+                              color: white),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        const Text(
+                          "10",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: white),
+                        ),
+                        const Text(
+                          "Processing",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 15,
+                              color: white),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Container(
+                width: s.width,
+                height: s.height * 0.57,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                    color: white),
+              ),
+            ],
+          ),
         ),
       ),
     );

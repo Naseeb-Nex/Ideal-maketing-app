@@ -461,10 +461,10 @@ class _TechcardState extends State<Techcard> {
         shadowColor: primarybg,
         child: Container(
           width: s.width * 0.4,
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           child: ListView(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Center(
@@ -476,7 +476,7 @@ class _TechcardState extends State<Techcard> {
                 img: widget.img,
                 username: widget.username,
                 uid: widget.uid,))),
-                  child: SizedBox(
+                  child: const SizedBox(
                     height: 80,
                     width: 80,
                     child: CircleAvatar(

@@ -32,7 +32,7 @@ class _HomeTechState extends State<HomeTech> {
         .doc(user!.uid)
         .get()
         .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
+      loggedInUser = UserModel.fromMap(value.data());
     });
 
     FirebaseFirestore.instance
@@ -40,7 +40,7 @@ class _HomeTechState extends State<HomeTech> {
         .doc("profile")
         .get()
         .then((value) {
-      this.profile = Profile.fromMap(value.data());
+      profile = Profile.fromMap(value.data());
     });
   }
 

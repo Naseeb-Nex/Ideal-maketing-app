@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
+import 'package:ideal_marketing/constants/profile.dart';
+
 class Techprofilesrc extends StatefulWidget {
   String? name;
   String? img;
@@ -14,10 +19,24 @@ class Techprofilesrc extends StatefulWidget {
 }
 
 class _TechprofilesrcState extends State<Techprofilesrc> {
+  int c = 0;
+  int p = 0;
+  int pro = 0;
+
+  Profile profile = Profile();
+
+  FirebaseFirestore fb = FirebaseFirestore.instance;
+
   @override
-  int _c = 0;
-  int _p = 0;
-  int _pro = 0;
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (mounted) {
+      setupsrc();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return Scaffold(
@@ -110,7 +129,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                     Column(
                       children: [
                         Text(
-                          "$_p",
+                          "$c",
                           style: const TextStyle(
                               fontFamily: "Montserrat",
                               fontWeight: FontWeight.bold,
@@ -129,7 +148,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                     Column(
                       children: [
                         Text(
-                          "$_p",
+                          "$p",
                           style: const TextStyle(
                               fontFamily: "Montserrat",
                               fontWeight: FontWeight.bold,
@@ -148,7 +167,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                     Column(
                       children: [
                         Text(
-                          "$_pro",
+                          "$pro",
                           style: const TextStyle(
                               fontFamily: "Montserrat",
                               fontWeight: FontWeight.bold,
@@ -179,25 +198,153 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                       topRight: Radius.circular(30),
                     ),
                     color: white),
-                    child: Column(children: [
-                      const SizedBox(height: 20,),
-                      Padding(
-                        padding: EdgeInsets.only(left: s.width * .05),
-                        child: Row(children: [const Text(
-                          "Address :",
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: s.width * .1),
+                      child: Row(children: [
+                        const Text(
+                          "Designation :",
                           style: TextStyle(
                               fontFamily: "Montserrat",
                               fontSize: 15,
                               color: Color(0xffadadad)),
-                        ),]),
-                      ),
-                      
-                    ],),
+                        ),
+                        SizedBox(width: s.width * 0.05,),
+                        Text(
+                          "${profile.designation}",
+                          style: const TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 16,
+                              ),
+                        ),
+                      ]),
+                    ),
+                    const SizedBox(height: 15,),
+                    Padding(
+                      padding: EdgeInsets.only(left: s.width * .1),
+                      child: Row(children: [
+                        const Text(
+                          "Home Location :",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 15,
+                              color: Color(0xffadadad)),
+                        ),
+                        SizedBox(width: s.width * 0.05,),
+                        Flexible(
+                          child: Text(
+                            "${profile.location}",
+                            style: const TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 16,
+                                ),
+                          ),
+                        ),
+                      ]),
+                    ),
+                    const SizedBox(height: 15,),
+                    Padding(
+                      padding: EdgeInsets.only(left: s.width * .1),
+                      child: Row(children: [
+                        const Text(
+                          "Phone Number1 :",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 15,
+                              color: Color(0xffadadad)),
+                        ),
+                        SizedBox(width: s.width * 0.05,),
+                        SelectableText(
+                          "${profile.phn1}",
+                          style: const TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 16,
+                              ),
+                        ),
+                      ]),
+                    ),
+                    const SizedBox(height: 15,),
+                    Padding(
+                      padding: EdgeInsets.only(left: s.width * .1),
+                      child: Row(children: [
+                        const Text(
+                          "Phone Number2 :",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 15,
+                              color: Color(0xffadadad)),
+                        ),
+                        SizedBox(width: s.width * 0.05,),
+                        SelectableText(
+                          "${profile.phn2}",
+                          style: const TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 16,
+                              ),
+                        ),
+                      ]),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  setupsrc() async {
+    DateTime now = DateTime.now();
+    String mnth = DateFormat('MM y').format(now);
+    try {
+      FirebaseFirestore.instance
+        .collection("Technician")
+        .doc(widget.username)
+        .get()
+        .then((value) {
+      profile = Profile.fromMap(value.data());
+    });
+
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Completedpgm")
+          .doc("Day")
+          .collection(mnth)
+          .get()
+          .then((snap) => {
+                setState(() {
+                  c = snap.size;
+                })
+              });
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Pendingpgm")
+          .get()
+          .then((snap) => {
+                setState(() {
+                  p = snap.size;
+                })
+              });
+
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Processingpgm")
+          .get()
+          .then((snap) => {
+                setState(() {
+                  pro = snap.size;
+                })
+              });
+    } catch (e) {
+      print(e);
+    }
   }
 }

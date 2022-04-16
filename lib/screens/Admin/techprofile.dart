@@ -15,6 +15,9 @@ class Techprofilesrc extends StatefulWidget {
 
 class _TechprofilesrcState extends State<Techprofilesrc> {
   @override
+  int _c = 0;
+  int _p = 0;
+  int _pro = 0;
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return Scaffold(
@@ -106,9 +109,9 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                   children: <Widget>[
                     Column(
                       children: [
-                        const Text(
-                          "10",
-                          style: TextStyle(
+                        Text(
+                          "$_p",
+                          style: const TextStyle(
                               fontFamily: "Montserrat",
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -125,9 +128,9 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                     ),
                     Column(
                       children: [
-                        const Text(
-                          "10",
-                          style: TextStyle(
+                        Text(
+                          "$_p",
+                          style: const TextStyle(
                               fontFamily: "Montserrat",
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -144,9 +147,9 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                     ),
                     Column(
                       children: [
-                        const Text(
-                          "10",
-                          style: TextStyle(
+                        Text(
+                          "$_pro",
+                          style: const TextStyle(
                               fontFamily: "Montserrat",
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -170,12 +173,26 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
               Container(
                 width: s.width,
                 height: s.height * 0.57,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
                     ),
                     color: white),
+                    child: Column(children: [
+                      const SizedBox(height: 20,),
+                      Padding(
+                        padding: EdgeInsets.only(left: s.width * .05),
+                        child: Row(children: [const Text(
+                          "Address :",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 15,
+                              color: Color(0xffadadad)),
+                        ),]),
+                      ),
+                      
+                    ],),
               ),
             ],
           ),

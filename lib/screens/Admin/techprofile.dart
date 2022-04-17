@@ -201,13 +201,13 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 20,
+                      height: 50,
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: s.width * .1),
                       child: Row(children: [
                         const Text(
-                          "Designation :",
+                          "Designation         :",
                           style: TextStyle(
                               fontFamily: "Montserrat",
                               fontSize: 15,
@@ -228,7 +228,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                       padding: EdgeInsets.only(left: s.width * .1),
                       child: Row(children: [
                         const Text(
-                          "Home Location :",
+                          "Home Location   :",
                           style: TextStyle(
                               fontFamily: "Montserrat",
                               fontSize: 15,

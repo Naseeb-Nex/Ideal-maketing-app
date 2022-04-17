@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/screens/Admin/techstatus.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
@@ -303,30 +304,43 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                       ]),
                     ),
                     const SizedBox(
-                      height: 30,
+                      height: 50,
                     ),
-                    Container(
-                      width: s.width * 0.4,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: white,
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 5),
-                            blurRadius: 10,
-                            color: secondbg.withOpacity(0.20),
+                    InkWell(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Techstatus(
+                            name: widget.name,
+                            img: widget.img,
+                            username: widget.username,
+                            uid: widget.uid,
                           ),
-                        ],
+                        ),
                       ),
-                      child: const Center(
-                        child: Text(
-                          "Status",
-                          style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            // color: white,
+                      child: Container(
+                        width: s.width * 0.4,
+                        height: 35,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: white,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 5),
+                              blurRadius: 10,
+                              color: secondbg.withOpacity(0.20),
+                            ),
+                          ],
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Status",
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              // color: white,
+                            ),
                           ),
                         ),
                       ),
@@ -370,7 +384,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                         color: Colors.redAccent,
                         boxShadow: [
                           BoxShadow(
-                            offset: Offset(0, 5),
+                            offset: const Offset(0, 5),
                             blurRadius: 10,
                             color: secondbg.withOpacity(0.20),
                           ),

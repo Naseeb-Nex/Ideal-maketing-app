@@ -5,21 +5,26 @@ import 'package:ideal_marketing/components/pendingpgmcard.dart';
 
 import 'package:intl/intl.dart';
 
-
 class Techstatus extends StatefulWidget {
-  const Techstatus({Key? key}) : super(key: key);
+  String? name;
+  String? img;
+  String? uid;
+  String? username;
+  Techstatus({Key? key, this.name, this.img, this.uid, this.username})
+      : super(key: key);
 
   @override
   _TechstatusState createState() => _TechstatusState();
 }
 
 class _TechstatusState extends State<Techstatus> {
+  
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return Stack(fit: StackFit.expand, children: [
       Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(38, 0, 91, 1),
@@ -47,20 +52,18 @@ class _TechstatusState extends State<Techstatus> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            child: const Center(
-                              child: Icon(Icons.arrow_back, color: white, size: 25,),
-                            ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: white,
                           ),
+                          onPressed: () => Navigator.pop(context),
                         ),
-                        const Text(
-                          "Programs",
-                          style: TextStyle(
+                        Text(
+                          "${widget.name}'s Status",
+                          style: const TextStyle(
                             fontFamily: "Nunito",
-                            fontSize: 22,
+                            fontSize: 19,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -75,19 +78,20 @@ class _TechstatusState extends State<Techstatus> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "Pending Program Viewer",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      ),
-                    ),
                   ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  height: double.infinity,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40)),
+                    color: newbg,
+                  ),
                 ),
               ),
             ],

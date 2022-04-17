@@ -213,17 +213,21 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                               fontSize: 15,
                               color: Color(0xffadadad)),
                         ),
-                        SizedBox(width: s.width * 0.05,),
+                        SizedBox(
+                          width: s.width * 0.05,
+                        ),
                         Text(
                           "${profile.designation}",
                           style: const TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 16,
-                              ),
+                            fontFamily: "Montserrat",
+                            fontSize: 16,
+                          ),
                         ),
                       ]),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(left: s.width * .1),
                       child: Row(children: [
@@ -234,19 +238,23 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                               fontSize: 15,
                               color: Color(0xffadadad)),
                         ),
-                        SizedBox(width: s.width * 0.05,),
+                        SizedBox(
+                          width: s.width * 0.05,
+                        ),
                         Flexible(
                           child: Text(
                             "${profile.location}",
                             style: const TextStyle(
-                                fontFamily: "Montserrat",
-                                fontSize: 16,
-                                ),
+                              fontFamily: "Montserrat",
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ]),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(left: s.width * .1),
                       child: Row(children: [
@@ -257,17 +265,21 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                               fontSize: 15,
                               color: Color(0xffadadad)),
                         ),
-                        SizedBox(width: s.width * 0.05,),
+                        SizedBox(
+                          width: s.width * 0.05,
+                        ),
                         SelectableText(
                           "${profile.phn1}",
                           style: const TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 16,
-                              ),
+                            fontFamily: "Montserrat",
+                            fontSize: 16,
+                          ),
                         ),
                       ]),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(
+                      height: 15,
+                    ),
                     Padding(
                       padding: EdgeInsets.only(left: s.width * .1),
                       child: Row(children: [
@@ -278,15 +290,102 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                               fontSize: 15,
                               color: Color(0xffadadad)),
                         ),
-                        SizedBox(width: s.width * 0.05,),
+                        SizedBox(
+                          width: s.width * 0.05,
+                        ),
                         SelectableText(
                           "${profile.phn2}",
                           style: const TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 16,
-                              ),
+                            fontFamily: "Montserrat",
+                            fontSize: 16,
+                          ),
                         ),
                       ]),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: s.width * 0.4,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: white,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 5),
+                            blurRadius: 10,
+                            color: secondbg.withOpacity(0.20),
+                          ),
+                        ],
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Status",
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            // color: white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: s.width * 0.4,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: bluebg,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 5),
+                            blurRadius: 10,
+                            color: secondbg.withOpacity(0.20),
+                          ),
+                        ],
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Edit Profile",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: white),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Container(
+                      width: s.width * 0.5,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.redAccent,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 5),
+                            blurRadius: 10,
+                            color: secondbg.withOpacity(0.20),
+                          ),
+                        ],
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Remove Technitian",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: white),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -303,12 +402,12 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
     String mnth = DateFormat('MM y').format(now);
     try {
       FirebaseFirestore.instance
-        .collection("Technician")
-        .doc(widget.username)
-        .get()
-        .then((value) {
-      profile = Profile.fromMap(value.data());
-    });
+          .collection("Technician")
+          .doc(widget.username)
+          .get()
+          .then((value) {
+        profile = Profile.fromMap(value.data());
+      });
 
       await fb
           .collection('Technician')

@@ -419,11 +419,4 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
     );
   }
 
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launch(launchUri.toString());
-  }
 }

@@ -201,7 +201,7 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                     ),
                   ),
                   SizedBox(
-                    height: 15,
+                    height: 8,
                   ),
                   Row(
                     children: [
@@ -317,38 +317,6 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Container(
-                            child: Text(
-                              "Type :",
-                              style: TextStyle(
-                                fontFamily: "Nunito",
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              "  ${widget.type}",
-                              style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
                     children: [
                       SizedBox(
                         width: 30,
@@ -375,7 +343,7 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                 ],

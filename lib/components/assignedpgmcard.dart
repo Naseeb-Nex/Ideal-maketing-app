@@ -317,38 +317,6 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Container(
-                            child: Text(
-                              "Type :",
-                              style: TextStyle(
-                                fontFamily: "Nunito",
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              "  ${widget.type}",
-                              style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
                     children: [
                       SizedBox(
                         width: 30,
@@ -363,15 +331,13 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                           ),
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          "  ${widget.chrg}",
-                          style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white),
-                        ),
+                      Text(
+                        "  ${widget.chrg}",
+                        style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),
                       ),
                     ],
                   ),
@@ -407,14 +373,12 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                       SizedBox(
                         width: 30,
                       ),
-                      Container(
-                        child: Text(
-                          "Priority :",
-                          style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
+                      const Text(
+                        "Priority :",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          color: Colors.white,
                         ),
                       ),
                       Text(

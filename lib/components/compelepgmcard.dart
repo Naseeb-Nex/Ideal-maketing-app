@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,6 +21,9 @@ class Completedpgmcard extends StatefulWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+  String? camount;
+  String? ctime;
+  String? remarks;
 
   Completedpgmcard({
     Key? key,
@@ -40,6 +44,9 @@ class Completedpgmcard extends StatefulWidget {
     this.assignedtime,
     this.assigneddate,
     this.priority,
+    this.camount,
+    this.ctime,
+    this.remarks
   }) : super(key: key);
 
   @override
@@ -122,21 +129,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                         ),
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        print("Phone call initiated");
-                        _makePhoneCall(widget.phn!);
-                      },
-                      child: Container(
-                        height: 40,
-                        width: 35,
-                        child: Icon(
-                          Icons.call,
-                          size: 25,
-                          color: Colors.lightBlueAccent,
-                        ),
-                      ),
-                    )
+                    
                   ],
                 ),
                 Padding(
@@ -317,66 +310,79 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                     ],
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Container(
-                            child: Text(
-                              "Type :",
-                              style: TextStyle(
-                                fontFamily: "Nunito",
-                                fontSize: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              "  ${widget.type}",
-                              style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                          ),
-                        ],
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      const Text(
+                        "Collection Amount :",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        "  ${widget.chrg}",
+                        style: const TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),
                       ),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 5,
                   ),
                   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
-                      Container(
-                        child: Text(
-                          "Collection Amount :",
-                          style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
+                      const Text(
+                        "Collected Amount :",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          color: Colors.white,
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          "  ${widget.chrg}",
-                          style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white),
-                        ),
+                      Text(
+                        "  ${widget.camount}",
+                        style: const TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
+                  ),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      const Text(
+                        "Program :",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                      "  ${widget.pgm}",
+                      style: const TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white),
+                    ),
+                    ],
                   ),
                 ],
               ),

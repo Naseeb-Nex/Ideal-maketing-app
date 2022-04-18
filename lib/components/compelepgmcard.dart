@@ -323,7 +323,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                         ),
                       ),
                       Text(
-                        "  ${widget.chrg}",
+                        " ${widget.camount} / ${widget.chrg}",
                         style: const TextStyle(
                             fontFamily: "Nunito",
                             fontSize: 18,
@@ -341,7 +341,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                         width: 30,
                       ),
                       const Text(
-                        "Collected Amount :",
+                        "Assigned Time :",
                         style: TextStyle(
                           fontFamily: "Nunito",
                           fontSize: 18,
@@ -349,7 +349,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                         ),
                       ),
                       Text(
-                        "  ${widget.camount}",
+                        "  ${widget.assignedtime}",
                         style: const TextStyle(
                             fontFamily: "Nunito",
                             fontSize: 18,
@@ -367,7 +367,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                         width: 30,
                       ),
                       const Text(
-                        "Program :",
+                        "Completed Time :",
                         style: TextStyle(
                           fontFamily: "Nunito",
                           fontSize: 18,
@@ -375,7 +375,33 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                         ),
                       ),
                       Text(
-                      "  ${widget.pgm}",
+                        "  ${widget.ctime}",
+                        style: const TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 30,
+                      ),
+                      const Text(
+                        "Remarks :",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                      "  ${widget.remarks}",
                       style: const TextStyle(
                           fontFamily: "Nunito",
                           fontSize: 18,

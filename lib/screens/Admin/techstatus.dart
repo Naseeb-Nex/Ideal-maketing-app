@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/components/pendingpgmcard.dart';
+import 'package:ideal_marketing/components/assignedpgmcard.dart';
 
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Techstatus extends StatefulWidget {
   String? name;
@@ -23,7 +25,7 @@ class _TechstatusState extends State<Techstatus> {
     Size s = MediaQuery.of(context).size;
     return Stack(fit: StackFit.expand, children: [
       Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(38, 0, 91, 1),
@@ -112,10 +114,8 @@ class _TechstatusState extends State<Techstatus> {
                     
                     child: TabBarView(
                       children: [
-                        Container(
-                          width: 100,
-                          height: 100,
-                          color: white,
+                        SingleChildScrollView(
+                          child: Assignedpgmwrapper(username: widget.username,),
                         ),
                         Container(
                           width: 100,
@@ -144,3 +144,91 @@ class _TechstatusState extends State<Techstatus> {
     ]);
   }
 }
+
+class Assignedpgmwrapper extends StatefulWidget {
+  String? username;
+  Assignedpgmwrapper({Key? key, required this.username}) : super(key: key);
+
+  @override
+  State<Assignedpgmwrapper> createState() => _AssignedpgmwrapperState();
+}
+
+class _AssignedpgmwrapperState extends State<Assignedpgmwrapper> {
+  bool _hasCallSupport = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    canLaunch('tel:123').then((bool result) {
+      setState(() {
+        _hasCallSupport = result;
+      });
+      print("its working or not :$_hasCallSupport");
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        // this code is not updating
+        // we want to update this code
+        stream: FirebaseFirestore.instance
+            .collection('/Technician/${widget.username}/Assignedpgm')
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            print('Something went Wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: bluebg,
+                ),
+              ),
+            );
+          }
+
+          List _allpgm = [];
+          snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map a = document.data() as Map<String, dynamic>;
+            _allpgm.add(a);
+            a['uid'] = document.id;
+          }).toList();
+          _allpgm.sort((a, b) => a["priority"].compareTo(b["priority"]));
+          return Container(
+            child: Column(
+              children: [
+                SizedBox(height: 10),
+                for (var i = 0; i < _allpgm.length; i++) ...[
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Assignedpgmcard(
+                    uid: _allpgm[i]['uid'],
+                    name: _allpgm[i]['name'],
+                    address: _allpgm[i]['address'],
+                    loc: _allpgm[i]['loc'],
+                    phn: _allpgm[i]['phn'],
+                    pgm: _allpgm[i]['pgm'],
+                    chrg: _allpgm[i]['chrg'],
+                    type: _allpgm[i]['type'],
+                    upDate: _allpgm[i]['upDate'],
+                    upTime: _allpgm[i]['upTime'],
+                    docname: _allpgm[i]['docname'],
+                    status: _allpgm[i]['status'],
+                    username: _allpgm[i]['username'],
+                    techname: _allpgm[i]['techname'],
+                    assignedtime: _allpgm[i]['assignedtime'],
+                    assigneddate: _allpgm[i]['assigneddate'],
+                    priority: _allpgm[i]['priority'],
+                  )
+                ]
+              ],
+            ),
+          );
+        });
+  }
+}
+

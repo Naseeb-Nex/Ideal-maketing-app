@@ -18,7 +18,6 @@ class Techstatus extends StatefulWidget {
 }
 
 class _TechstatusState extends State<Techstatus> {
-  
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -38,6 +37,8 @@ class _TechstatusState extends State<Techstatus> {
       Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
+          child:DefaultTabController(
+                      length: 3,
           child: Column(
             children: [
               Container(
@@ -78,6 +79,18 @@ class _TechstatusState extends State<Techstatus> {
                         ),
                       ],
                     ),
+                    
+                      TabBar(
+                        tabs: [
+                          Tab(text: "1"),
+                          Tab(
+                            text: "2",
+                          ),
+                          Tab(
+                            text: "3",
+                          )
+                        ],
+                      ),
                   ],
                 ),
               ),
@@ -92,11 +105,18 @@ class _TechstatusState extends State<Techstatus> {
                         topRight: Radius.circular(40)),
                     color: newbg,
                   ),
+                  child: TabBarView(
+                    children: [
+                      Container(width: 100, height: 100, color: white,),
+                      Container(width: 100, height: 100, color: Colors.redAccent,),
+                      Container(width: 100, height: 100, color: bluebg,),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
-        ),
+        ),),
       )
     ]);
   }

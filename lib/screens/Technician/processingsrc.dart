@@ -71,7 +71,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -82,14 +82,14 @@ class _ProcessingsrcState extends State<Processingsrc> {
                           child: Container(
                             width: 50,
                             alignment: Alignment.centerRight,
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_back_sharp,
                               size: 30,
                               color: pclr,
                             ),
                           ),
                         ),
-                        Text(
+                        const Text(
                           "Processing Programs",
                           style: TextStyle(
                             fontFamily: "Nunito",
@@ -98,13 +98,13 @@ class _ProcessingsrcState extends State<Processingsrc> {
                             color: pclr,
                           ),
                         ),
-                        Container(
+                        const SizedBox(
                           height: 30,
                           width: 50,
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     Padding(
@@ -120,43 +120,37 @@ class _ProcessingsrcState extends State<Processingsrc> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              child: Text(
-                                "  ${widget.name}",
-                                style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
+                            Text(
+                              "  ${widget.name}",
+                              style: const TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Row(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 30,
                                 ),
-                                Container(
-                                  child: Text(
-                                    "Address :",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
+                                const Text(
+                                  "Address :",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    color: Colors.white,
                                   ),
                                 ),
-                                Container(
-                                  child: Text(
-                                    "  ${widget.address}",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
+                                Text(
+                                  "  ${widget.address}",
+                                  style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
                                 ),
                               ],
                             ),

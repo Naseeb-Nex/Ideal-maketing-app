@@ -683,14 +683,14 @@ class CustomeAlertbx extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.warning_amber_rounded,
                     color: primarybg,
                     size: 30,
                   ),
                   Text(
                     done!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -700,19 +700,19 @@ class CustomeAlertbx extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
               titles!,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "Nunito",
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 28,
             ),
             RaisedButton(

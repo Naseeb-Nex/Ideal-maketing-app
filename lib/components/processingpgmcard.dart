@@ -20,7 +20,7 @@ class Processingpgmcard extends StatefulWidget {
   String? assigneddate;
   String? priority;
   String? camount;
-  String? ctime;
+  String? ptime;
   String? remarks;
 
   Processingpgmcard({
@@ -43,7 +43,7 @@ class Processingpgmcard extends StatefulWidget {
     this.assigneddate,
     this.priority,
     this.camount,
-    this.ctime,
+    this.ptime,
     this.remarks
   }) : super(key: key);
 
@@ -347,7 +347,7 @@ class _ProcessingpgmcardState extends State<Processingpgmcard> {
                         width: 30,
                       ),
                       const Text(
-                        "Completed Time :",
+                        "Uploaded Time :",
                         style: TextStyle(
                           fontFamily: "Nunito",
                           fontSize: 18,
@@ -355,12 +355,12 @@ class _ProcessingpgmcardState extends State<Processingpgmcard> {
                         ),
                       ),
                       Text(
-                        "  ${widget.ctime}",
+                        "  ${widget.ptime}",
                         style: const TextStyle(
                             fontFamily: "Nunito",
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
-                            color: Colors.white),
+                            color: Colors.white,),
                       ),
                     ],
                   ),

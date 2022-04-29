@@ -73,7 +73,7 @@ class _SplashSrcState extends State<SplashSrc> {
         fit: BoxFit.contain,
       ),
       nextScreen: AuthenticationWrapper(),
-      duration: 2000,
+      duration: 100,
       backgroundColor: primarybg,
       splashTransition: SplashTransition.slideTransition,
       pageTransitionType: PageTransitionType.fade,

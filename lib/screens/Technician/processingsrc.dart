@@ -154,98 +154,88 @@ class _ProcessingsrcState extends State<Processingsrc> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
                               children: [
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                const Text(
+                                  "Phone :",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  "  ${widget.phn}",
+                                  style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: [
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                const Text(
+                                  "Location :",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  "  ${widget.loc}",
+                                  style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: const <Widget>[
                                 SizedBox(
                                   width: 30,
                                 ),
-                                Container(
-                                  child: Text(
-                                    "Phone :",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    "  ${widget.phn}",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
+                                Text(
+                                  "Program :",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ],
                             ),
                             SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 30,
-                                ),
-                                Container(
-                                  child: Text(
-                                    "Location :",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    "  ${widget.loc}",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 30,
-                                ),
-                                Container(
-                                  child: Text(
-                                    "Program :",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
                                 "  ${widget.pgm}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: "Nunito",
                                     fontSize: 18,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.white),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
@@ -596,7 +586,8 @@ class _ProcessingsrcState extends State<Processingsrc> {
             .set(ppgm.toMap())
             .then((value) {
           print("Pending pgmlist Updated");
-        }).catchError((error) => print("Failed to update Pending pgm list : $error"));
+        }).catchError(
+                (error) => print("Failed to update Pending pgm list : $error"));
 
         fb
             .collection("Programs")
@@ -632,8 +623,6 @@ class _ProcessingsrcState extends State<Processingsrc> {
                     Colors.redAccent, "Error", widget.username);
               });
         });
-        
-
       } else {
         setState(() {
           _err = true;
@@ -641,7 +630,6 @@ class _ProcessingsrcState extends State<Processingsrc> {
       }
     }
   }
-
 }
 
 class CustomeAlertbx extends StatelessWidget {

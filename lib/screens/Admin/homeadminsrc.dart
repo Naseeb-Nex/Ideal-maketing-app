@@ -406,7 +406,6 @@ class Techcardspace extends StatelessWidget {
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Map a = document.data() as Map<String, dynamic>;
             techprofile.add(a);
-            print(a);
             a['uid'] = document.id;
           }).toList();
           return ListView.builder(

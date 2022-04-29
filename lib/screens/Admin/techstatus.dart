@@ -323,4 +323,94 @@ class _CompletepgmwrapperState extends State<Completepgmwrapper> {
   }
 }
 
+class Pendingpgmwrapper extends StatefulWidget {
+  String? username;
+  Pendingpgmwrapper({Key? key, required this.username}) : super(key: key);
+
+  @override
+  State<Pendingpgmwrapper> createState() => _PendingpgmwrapperState();
+}
+
+class _PendingpgmwrapperState extends State<Pendingpgmwrapper> {
+  bool _hasCallSupport = false;
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String cday = DateFormat('MM d y').format(now);
+    return StreamBuilder<QuerySnapshot>(
+        // this code is not updating
+        // we want to update this code
+        stream: 
+            FirebaseFirestore.instance
+                .collection('Technician')
+                .doc(widget.username)
+                .collection("Completedpgm")
+                .doc("Day")
+                .collection(cday).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            print('Something went Wrong');
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: bluebg,
+                ),
+              ),
+            );
+          }
+
+          List _allpgm = [];
+          snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map a = document.data() as Map<String, dynamic>;
+            _allpgm.add(a);
+            a['uid'] = document.id;
+          }).toList();
+          _allpgm.sort((a, b) => a["priority"].compareTo(b["priority"]));
+          return Container(
+            child: Column(
+              children: [
+                SizedBox(height: 10),
+                for (var i = 0; i < _allpgm.length; i++) ...[
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Completedpgmcard(
+                    uid: _allpgm[i]['uid'],
+                    name: _allpgm[i]['name'],
+                    address: _allpgm[i]['address'],
+                    loc: _allpgm[i]['loc'],
+                    phn: _allpgm[i]['phn'],
+                    pgm: _allpgm[i]['pgm'],
+                    chrg: _allpgm[i]['chrg'],
+                    type: _allpgm[i]['type'],
+                    upDate: _allpgm[i]['upDate'],
+                    upTime: _allpgm[i]['upTime'],
+                    docname: _allpgm[i]['docname'],
+                    status: _allpgm[i]['status'],
+                    username: _allpgm[i]['username'],
+                    techname: _allpgm[i]['techname'],
+                    assignedtime: _allpgm[i]['assignedtime'],
+                    assigneddate: _allpgm[i]['assigneddate'],
+                    priority: _allpgm[i]['priority'],
+                    camount: _allpgm[i]['camount'],
+                    ctime: _allpgm[i]['ctime'],
+                    remarks: _allpgm[i]['remarks'],
+                  )
+                ]
+              ],
+            ),
+          );
+        });
+  }
+}
+
 

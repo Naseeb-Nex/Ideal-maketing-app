@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/screens/Admin/editprofile.dart';
 import 'package:ideal_marketing/screens/Admin/techstatus.dart';
 import 'package:intl/intl.dart';
 
@@ -348,28 +349,31 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Container(
-                      width: s.width * 0.4,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: bluebg,
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 5),
-                            blurRadius: 10,
-                            color: secondbg.withOpacity(0.20),
+                    InkWell(
+                      onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>Editprofile())),
+                      child: Container(
+                        width: s.width * 0.4,
+                        height: 35,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: bluebg,
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 5),
+                              blurRadius: 10,
+                              color: secondbg.withOpacity(0.20),
+                            ),
+                          ],
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Edit Profile",
+                            style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: white),
                           ),
-                        ],
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Edit Profile",
-                          style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: white),
                         ),
                       ),
                     ),

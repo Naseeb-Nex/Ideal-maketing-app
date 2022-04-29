@@ -97,7 +97,7 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                           child: Container(
                             child: Text(
                               "${widget.address}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontFamily: "Nunito",
                                 fontSize: 15,
                                 fontWeight: FontWeight.normal,
@@ -109,11 +109,11 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                     ),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(5),
                         child: Center(
                           child: Text(
                             "${widget.pgm}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Montserrat",
                               fontSize: 15,
                               fontWeight: FontWeight.normal,
@@ -124,10 +124,9 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                     ),
                     InkWell(
                       onTap: () {
-                        print("Phone call initiated");
                         _makePhoneCall(widget.phn!);
                       },
-                      child: Container(
+                      child: const SizedBox(
                         height: 40,
                         width: 35,
                         child: Icon(
@@ -140,21 +139,19 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.pin_drop_outlined,
                         color: cheryred,
                       ),
-                      Container(
-                        child: Text(
-                          "${widget.loc}",
-                          style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
+                      Text(
+                        "${widget.loc}",
+                        style: const TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       Expanded(
@@ -162,7 +159,7 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                           alignment: Alignment.centerRight,
                           child: Text(
                             "${widget.type}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: "Nunito",
                               fontSize: 15,
                             ),
@@ -186,36 +183,32 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                 borderRadius: BorderRadius.circular(30),
                 color: bluebg,
               ),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    child: Text(
-                      "  ${widget.name}",
-                      style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
+                  Text(
+                    "  ${widget.name}",
+                    style: const TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
-                      Container(
-                        child: Text(
-                          "Address :",
-                          style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
+                      const Text(
+                        "Address :",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 18,
+                          color: Colors.white,
                         ),
                       ),
                       Container(

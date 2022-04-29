@@ -113,19 +113,22 @@ class _TechstatusState extends State<Techstatus> {
                           topRight: Radius.circular(40)),
                       color: newbg,
                     ),
-                    
                     child: TabBarView(
                       children: [
                         SingleChildScrollView(
-                          child: Assignedpgmwrapper(username: widget.username,),
+                          child: Assignedpgmwrapper(
+                            username: widget.username,
+                          ),
                         ),
                         SingleChildScrollView(
-                          child: Completepgmwrapper(username: widget.username,),
+                          child: Completepgmwrapper(
+                            username: widget.username,
+                          ),
                         ),
-                        Container(
-                          width: 100,
-                          height: 100,
-                          color: bluebg,
+                        SingleChildScrollView(
+                          child: Pendingpgmwrapper(
+                            username: widget.username,
+                          ),
                         ),
                         Container(
                           width: 100,
@@ -232,7 +235,6 @@ class _AssignedpgmwrapperState extends State<Assignedpgmwrapper> {
   }
 }
 
-
 class Completepgmwrapper extends StatefulWidget {
   String? username;
   Completepgmwrapper({Key? key, required this.username}) : super(key: key);
@@ -243,7 +245,7 @@ class Completepgmwrapper extends StatefulWidget {
 
 class _CompletepgmwrapperState extends State<Completepgmwrapper> {
   bool _hasCallSupport = false;
-  
+
   @override
   void initState() {
     // TODO: implement initState
@@ -257,13 +259,13 @@ class _CompletepgmwrapperState extends State<Completepgmwrapper> {
     return StreamBuilder<QuerySnapshot>(
         // this code is not updating
         // we want to update this code
-        stream: 
-            FirebaseFirestore.instance
-                .collection('Technician')
-                .doc(widget.username)
-                .collection("Completedpgm")
-                .doc("Day")
-                .collection(cday).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('Technician')
+            .doc(widget.username)
+            .collection("Completedpgm")
+            .doc("Day")
+            .collection(cday)
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
@@ -332,38 +334,27 @@ class Pendingpgmwrapper extends StatefulWidget {
 }
 
 class _PendingpgmwrapperState extends State<Pendingpgmwrapper> {
-  bool _hasCallSupport = false;
-  
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    String cday = DateFormat('MM d y').format(now);
     return StreamBuilder<QuerySnapshot>(
-        // this code is not updating
-        // we want to update this code
-        stream: 
-            FirebaseFirestore.instance
-                .collection('Technician')
-                .doc(widget.username)
-                .collection("Completedpgm")
-                .doc("Day")
-                .collection(cday).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('Technician')
+            .doc(widget.username)
+            .collection("Pendingpgm")
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: bluebg,
-                ),
+            return const Center(
+              child: CircularProgressIndicator(
+                color: bluebg,
               ),
             );
           }
@@ -375,42 +366,35 @@ class _PendingpgmwrapperState extends State<Pendingpgmwrapper> {
             a['uid'] = document.id;
           }).toList();
           _allpgm.sort((a, b) => a["priority"].compareTo(b["priority"]));
-          return Container(
-            child: Column(
-              children: [
-                SizedBox(height: 10),
-                for (var i = 0; i < _allpgm.length; i++) ...[
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Completedpgmcard(
-                    uid: _allpgm[i]['uid'],
-                    name: _allpgm[i]['name'],
-                    address: _allpgm[i]['address'],
-                    loc: _allpgm[i]['loc'],
-                    phn: _allpgm[i]['phn'],
-                    pgm: _allpgm[i]['pgm'],
-                    chrg: _allpgm[i]['chrg'],
-                    type: _allpgm[i]['type'],
-                    upDate: _allpgm[i]['upDate'],
-                    upTime: _allpgm[i]['upTime'],
-                    docname: _allpgm[i]['docname'],
-                    status: _allpgm[i]['status'],
-                    username: _allpgm[i]['username'],
-                    techname: _allpgm[i]['techname'],
-                    assignedtime: _allpgm[i]['assignedtime'],
-                    assigneddate: _allpgm[i]['assigneddate'],
-                    priority: _allpgm[i]['priority'],
-                    camount: _allpgm[i]['camount'],
-                    ctime: _allpgm[i]['ctime'],
-                    remarks: _allpgm[i]['remarks'],
-                  )
-                ]
-              ],
-            ),
+          return Column(
+            children: [
+              const SizedBox(height: 10),
+              for (var i = 0; i < _allpgm.length; i++) ...[
+                const SizedBox(
+                  height: 5,
+                ),
+                Pendingpgmcard(
+                  uid: _allpgm[i]['uid'],
+                  name: _allpgm[i]['name'],
+                  address: _allpgm[i]['address'],
+                  loc: _allpgm[i]['loc'],
+                  phn: _allpgm[i]['phn'],
+                  pgm: _allpgm[i]['pgm'],
+                  chrg: _allpgm[i]['chrg'],
+                  type: _allpgm[i]['type'],
+                  upDate: _allpgm[i]['upDate'],
+                  upTime: _allpgm[i]['upTime'],
+                  docname: _allpgm[i]['docname'],
+                  status: _allpgm[i]['status'],
+                  username: _allpgm[i]['username'],
+                  techname: _allpgm[i]['techname'],
+                  assignedtime: _allpgm[i]['assignedtime'],
+                  assigneddate: _allpgm[i]['assigneddate'],
+                  priority: _allpgm[i]['priority'],
+                )
+              ]
+            ],
           );
         });
   }
 }
-
-

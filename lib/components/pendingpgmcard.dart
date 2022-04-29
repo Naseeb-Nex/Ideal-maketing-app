@@ -68,7 +68,7 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  offset: Offset(0, 10),
+                  offset: const Offset(0, 10),
                   blurRadius: 20,
                   color: secondbg.withOpacity(0.23),
                 ),

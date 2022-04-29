@@ -7,9 +7,11 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:ideal_marketing/screens/register.dart';
 import 'package:ideal_marketing/services/user_model.dart';
-import 'package:ideal_marketing/screens/Admin/techprofile.dart';
 import 'pendingsrc.dart';
 import 'package:intl/intl.dart';
+
+import 'package:ideal_marketing/screens/Admin/techprofile.dart';
+import 'package:ideal_marketing/screens/Admin/techstatus.dart';
 
 class HomeAdmin extends StatefulWidget {
   const HomeAdmin({Key? key}) : super(key: key);
@@ -383,7 +385,7 @@ class _HomeAdminState extends State<HomeAdmin> {
 class Techcardspace extends StatelessWidget {
   String? userid;
   Techcardspace({Key? key, this.userid}) : super(key: key);
-  final Stream<QuerySnapshot> studentsStream =
+  Stream<QuerySnapshot> studentsStream =
       FirebaseFirestore.instance.collection('Technician').snapshots();
 
   @override
@@ -392,7 +394,6 @@ class Techcardspace extends StatelessWidget {
         stream: studentsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            print('Something went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
@@ -452,7 +453,12 @@ class _TechcardState extends State<Techcard> {
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return InkWell(
-      onTap: () => print("pressed"),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>Techstatus(
+                            name: widget.name,
+                            img: widget.img,
+                            username: widget.username,
+                            uid: widget.uid,
+                          ),)),
       child: Card(
         color: white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

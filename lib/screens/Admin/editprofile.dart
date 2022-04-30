@@ -9,7 +9,8 @@ class Editprofile extends StatefulWidget {
   String? name;
   String? uid;
   String? username;
-  Editprofile({Key? key, this.name, this.uid, this.username})
+  Profile p = Profile();
+  Editprofile({Key? key, this.name, this.uid, this.username, required this.p})
       : super(key: key);
 
   @override
@@ -24,7 +25,6 @@ class _EditprofileState extends State<Editprofile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (mounted) {
       setupsrc();

@@ -31,7 +31,6 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (mounted) {
       setupsrc();
@@ -350,7 +349,15 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                       height: 30,
                     ),
                     InkWell(
-                      onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>Editprofile())),
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Editprofile(
+                                    p: profile,
+                                    name: widget.name,
+                                    uid: widget.uid,
+                                    username: widget.username,
+                                  ))),
                       child: Container(
                         width: s.width * 0.4,
                         height: 35,

@@ -243,7 +243,7 @@ class _CreateProfileState extends State<CreateProfile> {
                           offset: Offset(0, 10))
                     ],
                     shape: BoxShape.circle,
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         fit: BoxFit.cover,
                         image: AssetImage("assets/icons/avataricon.png")
                             ),

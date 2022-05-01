@@ -353,7 +353,10 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => Editprofile(
-                                    p: profile,
+                                    des: profile.designation,
+                                    loc: profile.location,
+                                    phn1: profile.phn1,
+                                    phn2: profile.phn2,
                                     name: widget.name,
                                     uid: widget.uid,
                                     username: widget.username,

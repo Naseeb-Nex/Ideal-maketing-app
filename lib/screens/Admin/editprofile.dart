@@ -9,8 +9,20 @@ class Editprofile extends StatefulWidget {
   String? name;
   String? uid;
   String? username;
-  Profile p = Profile();
-  Editprofile({Key? key, this.name, this.uid, this.username, required this.p})
+  String? des;
+  String? loc;
+  String? phn1;
+  String? phn2;
+
+  Editprofile(
+      {Key? key,
+      this.name,
+      this.uid,
+      this.username,
+      required this.des,
+      required this.loc,
+      required this.phn1,
+      required this.phn2})
       : super(key: key);
 
   @override
@@ -24,13 +36,12 @@ class _EditprofileState extends State<Editprofile> {
   final _formKey = GlobalKey<FormState>();
 
   // editing controller
-  final TextEditingController nameController = new TextEditingController();
-  final TextEditingController usernameController = new TextEditingController();
-  final TextEditingController designationController =
-      new TextEditingController();
-  final TextEditingController phn1Controller = new TextEditingController();
-  final TextEditingController phn2Controller = new TextEditingController();
-  final TextEditingController locationController = new TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController designationController = TextEditingController();
+  TextEditingController phn1Controller = TextEditingController();
+  TextEditingController phn2Controller = TextEditingController();
+  TextEditingController locationController = TextEditingController();
 
   @override
   void initState() {
@@ -43,6 +54,12 @@ class _EditprofileState extends State<Editprofile> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
+
+    nameController.text = "${widget.name}";
+    designationController.text = "${widget.des}";
+    phn1Controller.text = "${widget.phn1}";
+    phn2Controller.text = "${widget.phn2}";
+    locationController.text = "${widget.loc}";
 
     final namefield = TextFormField(
       autofocus: false,
@@ -59,9 +76,9 @@ class _EditprofileState extends State<Editprofile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Full Name",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -84,9 +101,9 @@ class _EditprofileState extends State<Editprofile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Designation",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -111,9 +128,9 @@ class _EditprofileState extends State<Editprofile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Phone Number 2",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -138,9 +155,9 @@ class _EditprofileState extends State<Editprofile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Phone Number 1",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -163,9 +180,9 @@ class _EditprofileState extends State<Editprofile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Home Location",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -176,6 +193,7 @@ class _EditprofileState extends State<Editprofile> {
       backgroundColor: primarybg,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               Container(
@@ -205,8 +223,41 @@ class _EditprofileState extends State<Editprofile> {
               const SizedBox(height: 30),
               Center(
                 child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),border: Border.all(color: bluebg,),),
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        width: 4,
+                        color: Theme.of(context).scaffoldBackgroundColor),
+                    boxShadow: [
+                      BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          color: Colors.black.withOpacity(0.1),
+                          offset: Offset(0, 10))
+                    ],
+                    shape: BoxShape.circle,
+                    image: const DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/icons/avataricon.png")
+                            ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20), color: white,
+                    boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 5),
+                              blurRadius: 10,
+                              color: secondbg.withOpacity(0.20),
+                            ),
+                          ],
+                  ),
                   child: Text(
                     "${widget.name}'s Profile",
                     style: const TextStyle(
@@ -244,13 +295,46 @@ class _EditprofileState extends State<Editprofile> {
                         height: 35,
                       ),
                       locationfield,
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                     ],
                   ),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: s.width * 0.1, vertical:15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20), color: Colors.red[400]),
+                    
+                    child: const Text("CANCEL",
+                        style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 14,
+                            letterSpacing: 2.2,
+                            color: Colors.black)),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: s.width * 0.1, vertical: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20), color: Colors.green[400]),
+                    child: const Text(
+                      "SAVE",
+                      style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 14,
+                          letterSpacing: 2.2,
+                          color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: s.height * 0.1,
+              )
             ],
           ),
         ),

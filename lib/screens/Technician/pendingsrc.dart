@@ -631,7 +631,6 @@ class _PendingsrcState extends State<Pendingsrc> {
             .doc(widget.docname)
             .delete()
             .then((value) {
-          print("Delete pgm to technicain");
           showDialog(
               context: context,
               builder: (BuildContext context) {

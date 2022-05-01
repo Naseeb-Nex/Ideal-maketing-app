@@ -356,10 +356,7 @@ class _CreateProfileState extends State<CreateProfile> {
     );
   }
 
-
-
   void uploadData() async {
-    final _firebasein = FirebaseStorage.instance;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     if (_formKey.currentState!.validate()) {

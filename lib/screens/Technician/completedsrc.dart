@@ -68,13 +68,13 @@ class _CompletedsrcState extends State<Completedsrc> {
           physics: BouncingScrollPhysics(),
           child: Stack(
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
@@ -85,14 +85,14 @@ class _CompletedsrcState extends State<Completedsrc> {
                           child: Container(
                             width: 50,
                             alignment: Alignment.centerRight,
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_back_sharp,
                               size: 30,
                               color: bluebg,
                             ),
                           ),
                         ),
-                        Text(
+                        const Text(
                           "Program Completion",
                           style: TextStyle(
                             fontFamily: "Nunito",
@@ -101,13 +101,13 @@ class _CompletedsrcState extends State<Completedsrc> {
                             color: bluebg,
                           ),
                         ),
-                        Container(
+                        const SizedBox(
                           height: 30,
                           width: 50,
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     Padding(
@@ -124,7 +124,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                           children: [
                             Text(
                               "${widget.name}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: "Nunito",
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,

@@ -49,7 +49,7 @@ class _HomeTechState extends State<HomeTech> {
     Size s = MediaQuery.of(context).size;
     return Stack(fit: StackFit.expand, children: [
       Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(38, 0, 91, 1),
@@ -107,16 +107,16 @@ class _HomeTechState extends State<HomeTech> {
                                       )),
                             );
                           },
-                          icon: Icon(Icons.person),
+                          icon: const Icon(Icons.person),
                           color: Colors.white,
                           iconSize: 30,
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "Today's Program",
                       style: TextStyle(
                         fontFamily: "Nunito",
@@ -132,15 +132,15 @@ class _HomeTechState extends State<HomeTech> {
                 child: Container(
                   height: double.infinity,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
                         topRight: Radius.circular(40)),
                     color: newbg,
                   ),
                   child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     child: Pgmcardwrapper(username: widget.username,),
                   ),
                 ),
@@ -175,7 +175,7 @@ class Profilewrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (name == null) {
-      print("No profile");
+      // print("No profile");
       return CreateProfile(
         uid: uid,
       );

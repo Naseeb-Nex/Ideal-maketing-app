@@ -235,7 +235,7 @@ class _CreateProfileState extends State<CreateProfile> {
                           spreadRadius: 2,
                           blurRadius: 10,
                           color: Colors.black.withOpacity(0.1),
-                          offset: Offset(0, 10))
+                          offset: const Offset(0, 10))
                     ],
                     shape: BoxShape.circle,
                     image: const DecorationImage(
@@ -245,37 +245,37 @@ class _CreateProfileState extends State<CreateProfile> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 35,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     children: [
                       usernamefield,
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       namefield,
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       designationfield,
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       phn1field,
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       phn2field,
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       locationfield,
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                     ],
@@ -286,13 +286,13 @@ class _CreateProfileState extends State<CreateProfile> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   OutlineButton(
-                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text("CANCEL",
+                    child: const Text("CANCEL",
                         style: TextStyle(
                             fontFamily: "Nunito",
                             fontSize: 14,
@@ -308,7 +308,7 @@ class _CreateProfileState extends State<CreateProfile> {
                     elevation: 2,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    child: Text(
+                    child: const Text(
                       "SAVE",
                       style: TextStyle(
                           fontFamily: "Nunito",
@@ -319,7 +319,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 35,
               )
             ],

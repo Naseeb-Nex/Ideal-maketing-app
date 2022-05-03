@@ -1,15 +1,10 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/hometech.dart';
-import 'package:ideal_marketing/services/user_model.dart';   
 
 class CreateProfile extends StatefulWidget {
   CreateProfile({Key? key, required this.uid}) : super(key: key);
@@ -51,9 +46,9 @@ class _CreateProfileState extends State<CreateProfile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Username",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -75,9 +70,9 @@ class _CreateProfileState extends State<CreateProfile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Full Name",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -100,9 +95,9 @@ class _CreateProfileState extends State<CreateProfile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Designation",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -127,9 +122,9 @@ class _CreateProfileState extends State<CreateProfile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Phone Number 2",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -154,9 +149,9 @@ class _CreateProfileState extends State<CreateProfile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Phone Number 1",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -179,9 +174,9 @@ class _CreateProfileState extends State<CreateProfile> {
         return null;
       },
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: "Home Location",
-        labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+        labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -190,7 +185,7 @@ class _CreateProfileState extends State<CreateProfile> {
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+        padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
         child: GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
@@ -203,7 +198,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   children: <Widget>[
                     IconButton(
                       alignment: Alignment.centerLeft,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: Colors.green,
                       ),
@@ -211,10 +206,10 @@ class _CreateProfileState extends State<CreateProfile> {
                         Navigator.pop(context);
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
-                    Text(
+                    const Text(
                       "Create Profile",
                       style: TextStyle(
                           fontFamily: "Nunito",
@@ -224,7 +219,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 18,
               ),
               Center(
@@ -345,9 +340,9 @@ class _CreateProfileState extends State<CreateProfile> {
           return null;
         },
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           labelText: labelText,
-          labelStyle: TextStyle(fontFamily: "Nunito", fontSize: 14),
+          labelStyle: const TextStyle(fontFamily: "Nunito", fontSize: 14),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),

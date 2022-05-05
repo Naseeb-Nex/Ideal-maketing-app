@@ -490,7 +490,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             color: Colors.greenAccent),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Update",
                             style: TextStyle(

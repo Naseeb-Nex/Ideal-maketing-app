@@ -268,15 +268,13 @@ class _PendingsrcState extends State<Pendingsrc> {
                                   children: [
                                     Row(
                                       children: [
-                                        Container(
-                                          child: Text(
-                                            "Date :",
-                                            style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white),
-                                          ),
+                                        const Text(
+                                          "Date :",
+                                          style: TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white),
                                         ),
                                         Container(
                                           child: Text(

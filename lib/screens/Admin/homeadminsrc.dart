@@ -393,8 +393,7 @@ class Techcardspace extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
         stream: studentsStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-          }
+          if (snapshot.hasError) {}
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(
@@ -407,8 +406,9 @@ class Techcardspace extends StatelessWidget {
           snapshot.data!.docs.map((DocumentSnapshot document) {
             Map a = document.data() as Map<String, dynamic>;
             techprofile.add(a);
-            a['uid'] = document.id;
+            // a['uid'] = document.id;
           }).toList();
+          print("${techprofile}");
           return ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: techprofile.length,
@@ -453,12 +453,16 @@ class _TechcardState extends State<Techcard> {
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return InkWell(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>Techstatus(
-                            name: widget.name,
-                            img: widget.img,
-                            username: widget.username,
-                            uid: widget.uid,
-                          ),)),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Techstatus(
+              name: widget.name,
+              img: widget.img,
+              username: widget.username,
+              uid: widget.uid,
+            ),
+          )),
       child: Card(
         color: white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -475,12 +479,16 @@ class _TechcardState extends State<Techcard> {
               Center(
                 child: InkWell(
                   onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Techprofilesrc(name: widget.name,
-                img: widget.img,
-                username: widget.username,
-                uid: widget.uid,))),
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Techprofilesrc(
+                        name: widget.name,
+                        img: widget.img,
+                        username: widget.username,
+                        uid: widget.uid,
+                      ),
+                    ),
+                  ),
                   child: const SizedBox(
                     height: 80,
                     width: 80,

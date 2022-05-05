@@ -479,7 +479,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                             )
                           : null,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     InkWell(

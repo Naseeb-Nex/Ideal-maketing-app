@@ -47,14 +47,18 @@ class _EditprofileState extends State<Editprofile> {
   TextEditingController locationController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
-    Size s = MediaQuery.of(context).size;
-
+  void initState() {
+    super.initState();
     nameController.text = "${widget.name}";
     designationController.text = "${widget.des}";
     phn1Controller.text = "${widget.phn1}";
     phn2Controller.text = "${widget.phn2}";
     locationController.text = "${widget.loc}";
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
 
     final namefield = TextFormField(
       autofocus: false,
@@ -381,8 +385,8 @@ class _EditprofileState extends State<Editprofile> {
 
     if (_formKey.currentState!.validate()) {
       setState(() {
-          _upload = true;
-        });
+        _upload = true;
+      });
 
       await firebaseFirestore
           .collection("users")
@@ -420,11 +424,11 @@ class _EditprofileState extends State<Editprofile> {
         });
       }).catchError((error) {
         showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomeAlertbx("Something went Wrong, Try again!",
-                    Colors.redAccent, "Error", widget.username);
-              });
+            context: context,
+            builder: (BuildContext context) {
+              return CustomeAlertbx("Something went Wrong, Try again!",
+                  Colors.redAccent, "Error", widget.username);
+            });
       });
     }
   }

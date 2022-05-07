@@ -146,11 +146,9 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
             print('Something went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(
-              child: const Center(
-                child: const CircularProgressIndicator(
-                  color: bluebg,
-                ),
+            return const Center(
+              child: CircularProgressIndicator(
+                color: bluebg,
               ),
             );
           }
@@ -161,31 +159,29 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
             _allpgm.add(a);
             a['uid'] = document.id;
           }).toList();
-          return Container(
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
-                for (var i = 0; i < _allpgm.length; i++) ...[
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Pendingpgmcard(
-                    uid: _allpgm[i]['uid'],
-                    name: _allpgm[i]['name'],
-                    address: _allpgm[i]['address'],
-                    loc: _allpgm[i]['loc'],
-                    phn: _allpgm[i]['phn'],
-                    pgm: _allpgm[i]['pgm'],
-                    chrg: _allpgm[i]['chrg'],
-                    type: _allpgm[i]['type'],
-                    upDate: _allpgm[i]['upDate'],
-                    upTime: _allpgm[i]['upTime'],
-                    docname: _allpgm[i]['docname'],
-                    status: _allpgm[i]['status'],
-                  )
-                ]
-              ],
-            ),
+          return Column(
+            children: [
+              const SizedBox(height: 10),
+              for (var i = 0; i < _allpgm.length; i++) ...[
+                const SizedBox(
+                  height: 5,
+                ),
+                Pendingpgmcard(
+                  uid: _allpgm[i]['uid'],
+                  name: _allpgm[i]['name'],
+                  address: _allpgm[i]['address'],
+                  loc: _allpgm[i]['loc'],
+                  phn: _allpgm[i]['phn'],
+                  pgm: _allpgm[i]['pgm'],
+                  chrg: _allpgm[i]['chrg'],
+                  type: _allpgm[i]['type'],
+                  upDate: _allpgm[i]['upDate'],
+                  upTime: _allpgm[i]['upTime'],
+                  docname: _allpgm[i]['docname'],
+                  status: _allpgm[i]['status'],
+                )
+              ]
+            ],
           );
         });
   }

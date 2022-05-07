@@ -326,7 +326,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                           color: white,
                           boxShadow: [
                             BoxShadow(
-                              offset: Offset(0, 5),
+                              offset: const Offset(0, 5),
                               blurRadius: 10,
                               color: secondbg.withOpacity(0.20),
                             ),
@@ -369,7 +369,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                           color: bluebg,
                           boxShadow: [
                             BoxShadow(
-                              offset: Offset(0, 5),
+                              offset: const Offset(0, 5),
                               blurRadius: 10,
                               color: secondbg.withOpacity(0.20),
                             ),

@@ -46,7 +46,7 @@ class _HomeAdminState extends State<HomeAdmin> {
     Size s = MediaQuery.of(context).size;
     return Stack(fit: StackFit.expand, children: [
       Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(38, 0, 91, 1),
@@ -75,7 +75,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Center(
                                 child: Image.asset(
                               "assets/icons/menu.png",
@@ -92,12 +92,15 @@ class _HomeAdminState extends State<HomeAdmin> {
                             color: Colors.white,
                           ),
                         ),
-                        const Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Icon(
-                            Icons.person,
-                            color: Colors.transparent,
-                            size: 30,
+                        InkWell(
+                          onTap: () => logout(context),
+                          child: const Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                           ),
                         ),
                       ],
@@ -121,7 +124,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                 child: Container(
                   height: double.infinity,
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
                         topRight: Radius.circular(40)),
@@ -134,7 +137,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             "Program Status",
@@ -146,7 +149,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Padding(
@@ -158,19 +161,28 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 onTap: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Pendingsrc())),
+                                        builder: (context) =>
+                                            const Pendingsrc())),
                                 child: Container(
                                   width: s.width * 0.4,
                                   height: s.height * 0.14,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(25),
-                                      color: Color(0XFFFED4D6)),
+                                      color: const Color(0XFFFED4D6),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            color:
+                                                Colors.black.withOpacity(0.2),
+                                            offset: const Offset(0, 5))
+                                      ]),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Pending Program",
                                         style: TextStyle(
                                           fontFamily: "Nunito",
@@ -183,7 +195,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                         padding: const EdgeInsets.only(top: 10),
                                         child: Text(
                                           "$p",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontFamily: "Nunito",
                                             fontSize: 19,
                                             fontWeight: FontWeight.bold,
@@ -200,12 +212,19 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 height: s.height * 0.14,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(25),
-                                    color: Color(0XFFDBF4F1)),
+                                    color: const Color(0XFFDBF4F1),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          color: Colors.black.withOpacity(0.2),
+                                          offset: const Offset(0,5))
+                                    ]),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Completed Program",
                                       style: TextStyle(
                                         fontFamily: "Nunito",
@@ -218,7 +237,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       padding: const EdgeInsets.only(top: 10),
                                       child: Text(
                                         "$c",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontFamily: "Nunito",
                                           fontSize: 19,
                                           fontWeight: FontWeight.bold,
@@ -235,8 +254,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
                             "Technician Status",
                             style: TextStyle(
@@ -247,29 +266,29 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
-                        Container(
+                        SizedBox(
                           height: s.height * 0.3,
                           child: Techcardspace(),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Text(
-                            "Staff Registration",
-                            style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left: 20),
+                        //   child: Text(
+                        //     "Staff Registration",
+                        //     style: TextStyle(
+                        //       fontFamily: "Nunito",
+                        //       fontSize: 22,
+                        //       fontWeight: FontWeight.bold,
+                        //       color: Colors.black,
+                        //     ),
+                        //   ),
+                        // ),
+                        const SizedBox(
                           height: 20,
                         ),
                         Padding(
@@ -281,16 +300,26 @@ class _HomeAdminState extends State<HomeAdmin> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          RegistrationScreen()));
+                                          const RegistrationScreen()));
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 10),
+                              height: s.height * 0.1,
+                              width: s.width * 0.4,
+                              padding: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30),
-                                  color: bluebg),
-                              child: Center(
+                                  color: bluebg,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      spreadRadius: 5,
+                                      blurRadius: 10,
+                                      color: bluebg.withOpacity(0.2),
+                                      offset: const Offset(0, 5),
+                                    )
+                                  ]),
+                              child: const Center(
                                 child: Text(
-                                  "Registration",
+                                  "Staff Registration",
                                   style: TextStyle(
                                     fontFamily: "Nunito",
                                     fontSize: 18,
@@ -305,33 +334,6 @@ class _HomeAdminState extends State<HomeAdmin> {
                         const SizedBox(
                           height: 30,
                         ),
-                        Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: s.width * 0.3),
-                          child: InkWell(
-                            onTap: () => logout(context),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: bluebg),
-                              child: const Center(
-                                child: Text(
-                                  "Logout",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 50,
-                        )
                       ],
                     ),
                   ),
@@ -500,14 +502,14 @@ class _TechcardState extends State<Techcard> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Center(
                 child: FittedBox(
                   child: Text(
                     "${widget.name}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -516,7 +518,7 @@ class _TechcardState extends State<Techcard> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -531,7 +533,7 @@ class _TechcardState extends State<Techcard> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.yellow),
                       ),
-                      AutoSizeText(
+                      const AutoSizeText(
                         " Assingned",
                         style: TextStyle(
                           fontFamily: "Nunito",
@@ -546,7 +548,7 @@ class _TechcardState extends State<Techcard> {
                   ),
                   Text(
                     "$a",
-                    style: TextStyle(
+                    style:const  TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
@@ -555,7 +557,7 @@ class _TechcardState extends State<Techcard> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -570,7 +572,7 @@ class _TechcardState extends State<Techcard> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.greenAccent),
                       ),
-                      AutoSizeText(
+                      const AutoSizeText(
                         " Completed",
                         style: TextStyle(
                           fontFamily: "Nunito",
@@ -585,7 +587,7 @@ class _TechcardState extends State<Techcard> {
                   ),
                   Text(
                     "$c",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 13,
                       fontWeight: FontWeight.bold,

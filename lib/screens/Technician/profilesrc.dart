@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/constants/constants.dart';
 
 import '../loginsrc.dart';
 
@@ -282,7 +283,32 @@ class _ProfilesrcState extends State<Profilesrc> {
                               ],
                             ),
                           ),
-                          const SizedBox(height: 10,),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            height: s.height * 0.04,
+                            width: s.width * 0.5,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: white,
+                              boxShadow: [
+                                BoxShadow(
+                                    spreadRadius: 3,
+                                    blurRadius: 5,
+                                    color: Colors.black.withOpacity(0.1),
+                                    offset: const Offset(0, 5))
+                              ],
+                            ),
+                            child: Center(
+                              child: Text("Reset Password", style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.red[400],
+                              ),),
+                            ),
+                          )
                         ],
                       ),
                     ),

@@ -37,7 +37,7 @@ class _HomeAdminState extends State<HomeAdmin> {
         .doc(user!.uid)
         .get()
         .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
+      loggedInUser = UserModel.fromMap(value.data());
     });
   }
 
@@ -596,7 +596,7 @@ class _TechcardState extends State<Techcard> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -611,7 +611,7 @@ class _TechcardState extends State<Techcard> {
                             borderRadius: BorderRadius.circular(10),
                             color: cheryred),
                       ),
-                      AutoSizeText(
+                      const AutoSizeText(
                         " Pending",
                         style: TextStyle(
                           fontFamily: "Nunito",
@@ -626,7 +626,7 @@ class _TechcardState extends State<Techcard> {
                   ),
                   Text(
                     "$p",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
@@ -635,7 +635,7 @@ class _TechcardState extends State<Techcard> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Row(
@@ -650,7 +650,7 @@ class _TechcardState extends State<Techcard> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.blue),
                       ),
-                      AutoSizeText(
+                      const AutoSizeText(
                         " Processing",
                         style: TextStyle(
                           fontFamily: "Nunito",
@@ -665,7 +665,7 @@ class _TechcardState extends State<Techcard> {
                   ),
                   Text(
                     "$pro",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 13,
                       fontWeight: FontWeight.bold,

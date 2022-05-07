@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:ideal_marketing/screens/Technician/Createprofile.dart';
 
 import '../loginsrc.dart';
 
@@ -17,15 +15,18 @@ class Profilesrc extends StatefulWidget {
 }
 
 class _ProfilesrcState extends State<Profilesrc> {
+  int a = 0;
+  int c = 0;
+  int p = 0;
+  int pro = 0;
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    Size s = MediaQuery.of(context).size;
     return Stack(
       fit: StackFit.expand,
       children: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 Color.fromRGBO(38, 0, 91, 1),
@@ -39,7 +40,7 @@ class _ProfilesrcState extends State<Profilesrc> {
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
               child: Column(
@@ -53,16 +54,16 @@ class _ProfilesrcState extends State<Profilesrc> {
                           children: <Widget>[
                             IconButton(
                               alignment: Alignment.centerLeft,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_back,
                                 color: Colors.white,
                               ),
-                              onPressed: ()=>Navigator.pop(context),
+                              onPressed: () => Navigator.pop(context),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
-                            Text(
+                            const Text(
                               "My Profile",
                               style: TextStyle(
                                   fontFamily: "Nunito",
@@ -73,25 +74,27 @@ class _ProfilesrcState extends State<Profilesrc> {
                           ],
                         ),
                         GestureDetector(
-                          onTap:() => logout(context),
+                          onTap: () => logout(context),
                           child: Container(
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(color: Colors.white)),
-                            padding: EdgeInsets.symmetric(vertical: 3, horizontal: 8),
-                            child: Text(
-                                  "Log out",
-                                  style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.white)),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 3, horizontal: 8),
+                            child: const Text(
+                              "Log out",
+                              style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
                           ),
                         ),
-                        
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 22,
                   ),
                   Container(
@@ -105,32 +108,32 @@ class _ProfilesrcState extends State<Profilesrc> {
                         BoxShadow(
                             spreadRadius: 2,
                             blurRadius: 10,
-                            color: Colors.black.withOpacity(0.4),
-                            offset: Offset(0, 10))
+                            color: Colors.black.withOpacity(0.1),
+                            offset: const Offset(0, 10))
                       ],
                       shape: BoxShape.circle,
-                      image: DecorationImage(
+                      image: const DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage("assets/icons/avataricon.png")),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Text(
                     "${widget.name}",
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: "Nunito",
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
-                    height: height * 0.5,
-                    width: width,
+                    height: s.height * 0.5,
+                    width: s.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       color: Colors.white,
@@ -139,10 +142,10 @@ class _ProfilesrcState extends State<Profilesrc> {
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
-                          Text(
+                          const Text(
                             'My Activity',
                             style: TextStyle(
                               color: Color.fromRGBO(39, 105, 171, 1),
@@ -151,12 +154,135 @@ class _ProfilesrcState extends State<Profilesrc> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             thickness: 2,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                width: s.width * 0.4,
+                                height: s.height * 0.1,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: const Color(0XFFDBF4F1),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          color: Colors.black.withOpacity(0.1),
+                                          offset: const Offset(0, 5))
+                                    ]),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Completed Program",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      "$c",
+                                      style: const TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: s.width * 0.4,
+                                height: s.height * 0.1,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: const Color(0XFFFED4D6),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          color: Colors.black.withOpacity(0.1),
+                                          offset: const Offset(0, 5))
+                                    ]),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Pending Program",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      "$p",
+                                      style: const TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: s.width * 0.45,
+                            height: s.height * 0.1,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color: const Color(0XFFC8D7FE),
+                                boxShadow: [
+                                  BoxShadow(
+                                      spreadRadius: 2,
+                                      blurRadius: 5,
+                                      color: Colors.black.withOpacity(0.1),
+                                      offset: const Offset(0, 5))
+                                ]),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  "Processing Program",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  "$pro",
+                                  style: const TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 10,),
                         ],
                       ),
                     ),
@@ -171,9 +297,8 @@ class _ProfilesrcState extends State<Profilesrc> {
   }
 
   Future<void> logout(BuildContext context) async {
-    print("tapped");
     await FirebaseAuth.instance.signOut();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => LoginSrc()));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginSrc()));
   }
 }

@@ -7,8 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'homeWrapper.dart';
-
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -25,10 +23,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // our form key
   final _formKey = GlobalKey<FormState>();
   // editing Controller
-  final firstNameEditingController = new TextEditingController();
-  final emailEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
-  final confirmPasswordEditingController = new TextEditingController();
+  final firstNameEditingController = TextEditingController();
+  final emailEditingController = TextEditingController();
+  final passwordEditingController = TextEditingController();
+  final confirmPasswordEditingController = TextEditingController();
 
   List<DropdownMenuItem<String>> _dropDownItem() {
     List<String> categorylist = ["Technician", "Office"];
@@ -53,15 +51,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     //first name field
     final categoryselector = InputDecorator(
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.category),
-        contentPadding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+        prefixIcon: const Icon(Icons.category),
+        contentPadding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
         hintText: "Category",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      child: new DropdownButtonHideUnderline(
-        child: new DropdownButton(
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
           value: _selectedcategory,
           items: _dropDownItem(),
           onChanged: (value) {
@@ -69,10 +67,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               _selectedcategory = value as String?;
             });
           },
-          hint: Text("Select category"),
+          hint: const Text("Select category"),
           elevation: 12,
-          style: TextStyle(color: Colors.grey, fontSize: 16),
-          icon: Icon(Icons.arrow_drop_down_circle),
+          style: const TextStyle(color: Colors.grey, fontSize: 16),
+          icon: const Icon(Icons.arrow_drop_down_circle),
           iconDisabledColor: Colors.grey,
           iconEnabledColor: bluebg,
           isExpanded: true,
@@ -101,8 +99,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          prefixIcon: const Icon(Icons.mail),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Email",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -115,7 +113,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         controller: passwordEditingController,
         obscureText: true,
         validator: (value) {
-          RegExp regex = new RegExp(r'^.{6,}$');
+          RegExp regex = RegExp(r'^.{6,}$');
           if (value!.isEmpty) {
             return ("Password is required for login");
           }
@@ -128,8 +126,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.vpn_key),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          prefixIcon: const Icon(Icons.vpn_key),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -153,8 +151,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.vpn_key),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          prefixIcon: const Icon(Icons.vpn_key),
+          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Confirm Password",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -167,12 +165,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       borderRadius: BorderRadius.circular(30),
       color: bluebg,
       child: MaterialButton(
-          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
             signUp(emailEditingController.text, passwordEditingController.text);
           },
-          child: Text(
+          child: const Text(
             "SignUp",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -186,7 +184,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         backgroundColor: bluebg,
         elevation: 10,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: white),
+          icon: const Icon(Icons.arrow_back, color: white),
           onPressed: () {
             // passing this to our root
             Navigator.of(context).pop();
@@ -215,17 +213,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             color: bluebg,
                           ),
                         )),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     categoryselector,
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     emailField,
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     passwordField,
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     confirmPasswordField,
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     signUpButton,
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                   ],
                 ),
               ),
@@ -241,7 +239,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       try {
         await _auth
             .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) => {postDetailsToFirestore()})
+            .then((value) => {postDetailsToFirestore(password)})
             .catchError((e) {
           Fluttertoast.showToast(msg: e!.message);
         });
@@ -269,16 +267,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             errorMessage = "An undefined Error happened.";
         }
         Fluttertoast.showToast(msg: errorMessage!);
-        print(error.code);
       }
     }
   }
 
-  postDetailsToFirestore() async {
-    // calling our firestore
-    // calling our user model
-    // sedning these values
-
+  postDetailsToFirestore(String password) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
@@ -288,8 +281,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.email = user!.email;
     userModel.uid = user.uid;
     userModel.category = _selectedcategory;
-
-    print(_selectedcategory);
+    userModel.password = password;
 
     await firebaseFirestore
         .collection("users")
@@ -302,12 +294,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             email: "imaidealmarketing@gmail.com", password: "12345678")
         .then((uid) => {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => HomeAdmin())),
+                  MaterialPageRoute(builder: (context) => const HomeAdmin())),
             });
-
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => HomeAdmin()));
-    // Navigator.pushAndRemoveUntil((context),
-    //     MaterialPageRoute(builder: (context) => HomeAdmin()), (route) => false);
   }
 }

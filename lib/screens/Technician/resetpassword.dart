@@ -38,6 +38,7 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
+          appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,),
           body: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),

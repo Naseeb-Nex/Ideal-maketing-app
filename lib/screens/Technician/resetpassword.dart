@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 class Resetpswdsrc extends StatefulWidget {
@@ -95,10 +96,28 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: bluebg),),
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal:10.0, vertical: 10),
+                                    padding: const EdgeInsets.fromLTRB(20, 5, 10, 6),
                                     child: TextFormField(
+                                      autofocus: false,
                                       controller: newpswrd,
-                                      
+                                      obscureText: true,
+                                      textInputAction: TextInputAction.next,
+                                      validator: (value){
+                                        RegExp regex = RegExp(r'^.{6,}$');
+                                        if(value!.isEmpty){
+                                          return ("Enter a password");
+                                        }
+                                        if(!regex.hasMatch(value)){
+                                          return ("Enter a valid password");
+                                        }
+                                      },
+                                      onSaved: (value)=>newpswrd.text= value!,
+                                      cursorColor: bluebg,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                      ),
+                                      style: const TextStyle(fontSize: 20),
+
                                     ),
                                   ),
                             ),
@@ -134,27 +153,30 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                       const SizedBox(
                         height: 30,
                       ),
-                      Container(
-                        height: s.height * 0.05,
-                        width: s.width * 0.5,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: bluebg,
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 5,
-                                  color: Colors.black.withOpacity(0.1),
-                                  offset: const Offset(0, 5))
-                            ]),
-                        child: const Center(
-                          child: Text(
-                            "Update Password",
-                            style: TextStyle(
-                                fontFamily: "Montserrat",
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                color: white),
+                      InkWell(
+                        onTap: () => updatepswrd(),
+                        child: Container(
+                          height: s.height * 0.05,
+                          width: s.width * 0.5,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: bluebg,
+                              boxShadow: [
+                                BoxShadow(
+                                    spreadRadius: 2,
+                                    blurRadius: 5,
+                                    color: Colors.black.withOpacity(0.1),
+                                    offset: const Offset(0, 5))
+                              ]),
+                          child: const Center(
+                            child: Text(
+                              "Update Password",
+                              style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                  color: white),
+                            ),
                           ),
                         ),
                       )
@@ -167,5 +189,12 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
         )
       ],
     );
+  }
+
+  void updatepswrd(){
+    print("Updateing");
+    if(formkey.currentState!.validate()){
+      print("validated");
+    }
   }
 }

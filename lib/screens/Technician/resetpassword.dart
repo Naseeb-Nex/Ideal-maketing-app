@@ -79,6 +79,7 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const Text(
                               "New Password :",
@@ -88,38 +89,38 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                               ),
                             ),
                             const Spacer(),
-                            Container(
-                              height: 40,
+                            SizedBox(
                               width: s.width * 0.55,
-                              alignment: Alignment.centerLeft,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: bluebg),),
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(20, 5, 10, 6),
-                                    child: TextFormField(
-                                      autofocus: false,
-                                      controller: newpswrd,
-                                      obscureText: true,
-                                      textInputAction: TextInputAction.next,
-                                      validator: (value){
-                                        RegExp regex = RegExp(r'^.{6,}$');
-                                        if(value!.isEmpty){
-                                          return ("Enter a password");
-                                        }
-                                        if(!regex.hasMatch(value)){
-                                          return ("Enter a valid password");
-                                        }
-                                      },
-                                      onSaved: (value)=>newpswrd.text= value!,
-                                      cursorColor: bluebg,
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                      ),
-                                      style: const TextStyle(fontSize: 20),
-
+                              child: TextFormField(
+                                autofocus: false,
+                                controller: newpswrd,
+                                obscureText: true,
+                                textInputAction: TextInputAction.next,
+                                validator: (value) {
+                                  RegExp regex = RegExp(r'^.{6,}$');
+                                  if (value!.isEmpty) {
+                                    return ("Enter a password");
+                                  }
+                                  if (!regex.hasMatch(value)) {
+                                    return ("Enter a valid password");
+                                  }
+                                },
+                                onSaved: (value) => newpswrd.text = value!,
+                                cursorColor: bluebg,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25)),
+                                    focusColor: bluebg,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          color: bluebg, width: 2.0),
+                                      borderRadius: BorderRadius.circular(25.0),
                                     ),
-                                  ),
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        30, 5, 10, 5)),
+                                style: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ],
                         ),
@@ -139,13 +140,37 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                               ),
                             ),
                             const Spacer(),
-                            Container(
-                              height: 40,
+                            SizedBox(
                               width: s.width * 0.5,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: bluebg)),
-                              alignment: Alignment.centerLeft,
+                              child: TextFormField(
+                                autofocus: false,
+                                controller: confrimpswrd,
+                                obscureText: true,
+                                textInputAction: TextInputAction.next,
+                                validator: (value) {
+                                  if (value == newpswrd.text) {
+                                    return null;
+                                  }else{
+                                    return "Do not match";
+                                  }
+                                  
+                                },
+                                onSaved: (value) => newpswrd.text = value!,
+                                cursorColor: bluebg,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25)),
+                                    focusColor: bluebg,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                          color: bluebg, width: 2.0),
+                                      borderRadius: BorderRadius.circular(25.0),
+                                    ),
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        30, 5, 10, 5)),
+                                style: const TextStyle(fontSize: 20),
+                              ),
                             ),
                           ],
                         ),
@@ -191,9 +216,9 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
     );
   }
 
-  void updatepswrd(){
+  void updatepswrd() {
     print("Updateing");
-    if(formkey.currentState!.validate()){
+    if (formkey.currentState!.validate()) {
       print("validated");
     }
   }

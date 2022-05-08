@@ -13,6 +13,10 @@ class Resetpswdsrc extends StatefulWidget {
 
 class _ResetpswdsrcState extends State<Resetpswdsrc> {
   final formkey = GlobalKey<FormState>();
+
+  final newpswrd = TextEditingController();
+  final confrimpswrd = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -76,25 +80,34 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                         child: Row(
                           children: [
                             const Text(
-                              "Password :",
+                              "New Password :",
                               style: TextStyle(
                                 fontFamily: "Montserrat",
-                                fontSize: 18,
+                                fontSize: 16,
                               ),
                             ),
                             const Spacer(),
                             Container(
                               height: 40,
-                              width: s.width * 0.6,
+                              width: s.width * 0.55,
+                              alignment: Alignment.centerLeft,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: bluebg)),
-                              alignment: Alignment.centerLeft,
+                                  border: Border.all(color: bluebg),),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal:10.0, vertical: 10),
+                                    child: TextFormField(
+                                      controller: newpswrd,
+                                      
+                                    ),
+                                  ),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Row(
@@ -103,13 +116,13 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                               "Confirm Password :",
                               style: TextStyle(
                                 fontFamily: "Montserrat",
-                                fontSize: 18,
+                                fontSize: 16,
                               ),
                             ),
                             const Spacer(),
                             Container(
                               height: 40,
-                              width: s.width * 0.6,
+                              width: s.width * 0.5,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: bluebg)),
@@ -118,6 +131,33 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        height: s.height * 0.05,
+                        width: s.width * 0.5,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: bluebg,
+                            boxShadow: [
+                              BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  color: Colors.black.withOpacity(0.1),
+                                  offset: const Offset(0, 5))
+                            ]),
+                        child: const Center(
+                          child: Text(
+                            "Update Password",
+                            style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: white),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),

@@ -56,7 +56,7 @@ class _PendingsrcState extends State<Pendingsrc> {
   bool _upload = false;
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController reason = new TextEditingController();
+  final TextEditingController reason = TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: newbg,
@@ -276,39 +276,33 @@ class _PendingsrcState extends State<Pendingsrc> {
                                               fontWeight: FontWeight.w400,
                                               color: Colors.white),
                                         ),
-                                        Container(
-                                          child: Text(
-                                            "  ${widget.assigneddate}",
-                                            style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white),
-                                          ),
+                                        Text(
+                                          "  ${widget.assigneddate}",
+                                          style: const TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Container(
-                                          child: Text(
-                                            "Time :",
-                                            style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white),
-                                          ),
+                                        const Text(
+                                          "Time :",
+                                          style: TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white),
                                         ),
-                                        Container(
-                                          child: Text(
-                                            "  ${widget.assignedtime}",
-                                            style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white),
-                                          ),
+                                        Text(
+                                          "  ${widget.assignedtime}",
+                                          style: const TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -318,43 +312,39 @@ class _PendingsrcState extends State<Pendingsrc> {
                             ),
                             Row(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 30,
                                 ),
-                                Container(
-                                  child: Text(
-                                    "Collection Amount :",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
+                                const Text(
+                                  "Collection Amount :",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    color: Colors.white,
                                   ),
                                 ),
-                                Container(
-                                  child: Text(
-                                    "  ${widget.chrg}",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
+                                Text(
+                                  "  ${widget.chrg}",
+                                  style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Container(
+                    const SizedBox(height: 10),
+                    SizedBox(
                       height: 60,
                       width: MediaQuery.of(context).size.width / 1.12,
-                      child: Text(
+                      child: const Text(
                         "Note : If there is no reason for pending or cancel a program will be decrease the performance",
                         style: TextStyle(
                             fontFamily: "Nunito",
@@ -367,59 +357,57 @@ class _PendingsrcState extends State<Pendingsrc> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 130,
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    "Reason :",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 130,
+                                alignment: Alignment.topCenter,
+                                child: const Text(
+                                  "Reason :",
+                                  style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.5,
-                                  height: 130,
-                                  child: TextFormField(
-                                    autofocus: false,
-                                    controller: reason,
-                                    keyboardType: TextInputType.multiline,
-                                    maxLines: 6,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return ("Enter the Reason!!");
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (value) {
-                                      reason.text = value!;
-                                    },
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      hintText: "Enter the Reason",
-                                      hintStyle: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 15,
-                                      ),
-                                      focusColor: Colors.green,
-                                      hoverColor: bluebg,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width / 1.5,
+                                height: 130,
+                                child: TextFormField(
+                                  autofocus: false,
+                                  controller: reason,
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 6,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return ("Enter the Reason!!");
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    reason.text = value!;
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    hintText: "Enter the Reason",
+                                    hintStyle: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 15,
+                                    ),
+                                    focusColor: Colors.green,
+                                    hoverColor: bluebg,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           ),
                         ],
                       ),
@@ -446,17 +434,17 @@ class _PendingsrcState extends State<Pendingsrc> {
                                 border: Border.all(color: Colors.grey)),
                             child: Center(
                                 child: _value
-                                    ? Icon(
+                                    ? const Icon(
                                         Icons.check,
                                         size: 20.0,
                                         color: Colors.greenAccent,
                                       )
                                     : null),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
-                          Text(
+                          const Text(
                             "Verify the Details",
                             style: TextStyle(
                                 fontFamily: "Nunito",
@@ -469,7 +457,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                     ),
                     Container(
                       child: _err
-                          ? Text(
+                          ? const Text(
                               "please verify the details then check the box",
                               style: TextStyle(
                                   fontFamily: "Nunito",
@@ -511,7 +499,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             color: Colors.redAccent),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Cancel",
                             style: TextStyle(
@@ -526,12 +514,12 @@ class _PendingsrcState extends State<Pendingsrc> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: _upload
-                      ? CircularProgressIndicator(
+                      ? const CircularProgressIndicator(
                           color: bluebg,
                         )
                       : null,
@@ -545,7 +533,7 @@ class _PendingsrcState extends State<Pendingsrc> {
   }
 
   void pendingupdate() async {
-    FirebaseFirestore fb = await FirebaseFirestore.instance;
+    FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String pendingdate = DateFormat('d MMM y').format(now);
     String pendingtime = DateFormat('kk:mm').format(now);

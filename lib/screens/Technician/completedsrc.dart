@@ -175,64 +175,62 @@ class _CompletedsrcState extends State<Completedsrc> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Form(
                       key: _formKey,
                       child: Column(
                         children: [
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Collected Amount :",
-                                  style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Container(
-                                  width: 160,
-                                  height: 50,
-                                  child: TextFormField(
-                                      autofocus: false,
-                                      controller: cost,
-                                      keyboardType: TextInputType.number,
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return ("Collection Amount!!");
-                                        }
-                                        return null;
-                                      },
-                                      onSaved: (value) {
-                                        cost.text = value!;
-                                      },
-                                      textInputAction: TextInputAction.next,
-                                      decoration: InputDecoration(
-                                        prefixIcon: Icon(
-                                          Icons.attach_money_outlined,
-                                          color: Colors.green,
-                                        ),
-                                        contentPadding:
-                                            EdgeInsets.fromLTRB(20, 15, 20, 15),
-                                        hintText: "Collection",
-                                        focusColor: Colors.green,
-                                        hoverColor: bluebg,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        ),
-                                      )),
-                                )
-                              ],
-                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Collected Amount :",
+                                style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              SizedBox(
+                                width: 160,
+                                height: 50,
+                                child: TextFormField(
+                                    autofocus: false,
+                                    controller: cost,
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return ("Collection Amount!!");
+                                      }
+                                      return null;
+                                    },
+                                    onSaved: (value) {
+                                      cost.text = value!;
+                                    },
+                                    textInputAction: TextInputAction.next,
+                                    decoration: InputDecoration(
+                                      prefixIcon: const Icon(
+                                        Icons.attach_money_outlined,
+                                        color: Colors.green,
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                      hintText: "Collection",
+                                      focusColor: Colors.green,
+                                      hoverColor: bluebg,
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25),
+                                      ),
+                                    )),
+                              )
+                            ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Container(
@@ -242,7 +240,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                                 Container(
                                   height: 130,
                                   alignment: Alignment.topCenter,
-                                  child: Text(
+                                  child: const Text(
                                     "Remarks :",
                                     style: TextStyle(
                                         fontFamily: "Nunito",
@@ -250,10 +248,10 @@ class _CompletedsrcState extends State<Completedsrc> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 20,
                                 ),
-                                Container(
+                                SizedBox(
                                   width: MediaQuery.of(context).size.width / 1.74,
                                   height: 130,
                                   child: TextFormField(
@@ -287,7 +285,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     InkWell(
@@ -298,7 +296,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                       },
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 40,
                           ),
                           Container(
@@ -316,7 +314,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                                       )
                                     : null),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -332,7 +330,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                     ),
                     Container(
                         child: _err
-                            ? Text(
+                            ? const Text(
                                 "please verify the details then check the box",
                                 style: TextStyle(
                                     fontFamily: "Nunito",
@@ -341,7 +339,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                                     color: Colors.redAccent),
                               )
                             : null),
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
                     InkWell(
@@ -352,7 +350,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             color: Colors.greenAccent),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Completed",
                             style: TextStyle(
@@ -373,7 +371,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             color: Colors.redAccent),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Cancel",
                             style: TextStyle(
@@ -393,7 +391,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: _upload
-                      ? CircularProgressIndicator(
+                      ? const CircularProgressIndicator(
                           color: bluebg,
                         )
                       : null,
@@ -407,7 +405,7 @@ class _CompletedsrcState extends State<Completedsrc> {
   }
 
   void detailsup() async {
-    FirebaseFirestore fb = await FirebaseFirestore.instance;
+    FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String completeddate = DateFormat('d MMM y').format(now);
     String completedtime = DateFormat('kk:mm').format(now);
@@ -573,7 +571,7 @@ class CustomeAlertbx extends StatelessWidget {
     return Dialog(
       backgroundColor: colorr,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      child: Container(
+      child: SizedBox(
         height: 200,
         width: 450,
         child: Column(
@@ -584,14 +582,14 @@ class CustomeAlertbx extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.warning_amber_rounded,
                     color: primarybg,
                     size: 30,
                   ),
                   Text(
                     done!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -601,19 +599,19 @@ class CustomeAlertbx extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
               titles!,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "Nunito",
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 28,
             ),
             RaisedButton(

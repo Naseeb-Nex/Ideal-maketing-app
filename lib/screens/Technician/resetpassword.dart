@@ -1,12 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+
+import 'package:ideal_marketing/components/alertbox.dart';
 
 class Resetpswdsrc extends StatefulWidget {
   String? uid;
-  String? name;
-  String? img;
-  Resetpswdsrc({Key? key}) : super(key: key);
+  Resetpswdsrc({Key? key, this.uid}) : super(key: key);
 
   @override
   _ResetpswdsrcState createState() => _ResetpswdsrcState();
@@ -14,6 +15,8 @@ class Resetpswdsrc extends StatefulWidget {
 
 class _ResetpswdsrcState extends State<Resetpswdsrc> {
   final formkey = GlobalKey<FormState>();
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   final newpswrd = TextEditingController();
   final confrimpswrd = TextEditingController();
@@ -38,7 +41,10 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
           body: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -151,10 +157,9 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                                 validator: (value) {
                                   if (value == newpswrd.text) {
                                     return null;
-                                  }else{
+                                  } else {
                                     return "Do not match";
                                   }
-                                  
                                 },
                                 onSaved: (value) => newpswrd.text = value!,
                                 cursorColor: bluebg,
@@ -205,7 +210,8 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      Text("${widget.uid}\n ${newpswrd.text}\n $user"),
                     ],
                   ),
                 ),
@@ -217,10 +223,24 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
     );
   }
 
-  void updatepswrd() {
-    print("Updateing");
+  void updatepswrd() async {
+    FirebaseFirestore fb = FirebaseFirestore.instance;
     if (formkey.currentState!.validate()) {
-      print("validated");
+      // user?.updatePassword(newpswrd.text).then((value) {
+      //   fb
+      //       .collection("users")
+      //       .doc(widget.uid)
+      //       .set({'password': newpswrd.text}, SetOptions(merge: true))
+      //       .then((value) => print("Succesfully updated"))
+      //       .catchError((onError) {
+      //         print("Error in updating password in user colleciton");
+      //       });
+      // }).catchError((onError) {
+      //   print("The password is not updated");
+      // });
+
+      try{await user?.updatePassword(newpswrd.text);}
+      catch(error){print(error);}
     }
   }
 }

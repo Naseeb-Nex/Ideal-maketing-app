@@ -320,7 +320,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Resetpswdsrc())),
+                                    builder: (context) => Resetpswdsrc(uid: widget.uid,))),
                             child: Container(
                               height: s.height * 0.04,
                               width: s.width * 0.5,

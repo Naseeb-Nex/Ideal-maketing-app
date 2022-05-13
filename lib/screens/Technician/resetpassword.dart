@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:ideal_marketing/components/alertbox.dart';
+import 'package:ideal_marketing/screens/loginsrc.dart';
 
 class Resetpswdsrc extends StatefulWidget {
   String? uid;
@@ -17,6 +18,9 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
   final formkey = GlobalKey<FormState>();
 
   User? user = FirebaseAuth.instance.currentUser;
+  FirebaseFirestore fb = FirebaseFirestore.instance;
+
+  String newp = "";
 
   final newpswrd = TextEditingController();
   final confrimpswrd = TextEditingController();
@@ -211,7 +215,7 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                           ),
                         ),
                       ),
-                      Text("${widget.uid}\n ${newpswrd.text}\n $user"),
+                      // Text("${widget.uid}\n ${newpswrd.text}\n $user"),
                     ],
                   ),
                 ),
@@ -223,8 +227,7 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
     );
   }
 
-  void updatepswrd() async {
-    FirebaseFirestore fb = FirebaseFirestore.instance;
+  void updatepswrd() {
     if (formkey.currentState!.validate()) {
       // user?.updatePassword(newpswrd.text).then((value) {
       //   fb
@@ -238,9 +241,20 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
       // }).catchError((onError) {
       //   print("The password is not updated");
       // });
+      setState(() {
+        newp = newpswrd.text;
+      });
+      changepswrd();
+    } 
+  }
 
-      try{await user?.updatePassword(newpswrd.text);}
-      catch(error){print(error);}
-    }
+  changepswrd() async{
+    try {
+        await user?.updatePassword(newp);
+        // FirebaseAuth.instance.signOut();
+        // Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginSrc()));
+      } catch (error) {
+        print(error);
+      }
   }
 }

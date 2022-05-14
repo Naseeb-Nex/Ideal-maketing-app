@@ -3,10 +3,12 @@ import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/screens/Admin/editprofile.dart';
+import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
 import 'package:ideal_marketing/screens/Admin/techstatus.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
+import 'package:ideal_marketing/services/user_model.dart';
 
 class Techprofilesrc extends StatefulWidget {
   String? name;
@@ -26,6 +28,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
   int pro = 0;
 
   Profile profile = Profile();
+  UserModel removeuser = UserModel();
 
   FirebaseFirestore fb = FirebaseFirestore.instance;
 
@@ -369,9 +372,10 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                           color: bluebg,
                           boxShadow: [
                             BoxShadow(
-                              offset: const Offset(0, 5),
-                              blurRadius: 10,
-                              color: secondbg.withOpacity(0.20),
+                              spreadRadius: 3,
+                              blurRadius: 5,
+                              color: Colors.black.withOpacity(0.20),
+                              offset: const Offset(0, 4),
                             ),
                           ],
                         ),
@@ -390,28 +394,32 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                     const SizedBox(
                       height: 30,
                     ),
-                    Container(
-                      width: s.width * 0.5,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.redAccent,
-                        boxShadow: [
-                          BoxShadow(
-                            offset: const Offset(0, 5),
-                            blurRadius: 10,
-                            color: secondbg.withOpacity(0.20),
+                    InkWell(
+                      onTap: () => removetech(),
+                      child: Container(
+                        width: s.width * 0.5,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.redAccent,
+                          boxShadow: [
+                            BoxShadow(
+                              spreadRadius: 3,
+                              blurRadius: 5,
+                              color: Colors.black.withOpacity(0.20),
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Remove Technitian",
+                            style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: white),
                           ),
-                        ],
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Remove Technitian",
-                          style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: white),
                         ),
                       ),
                     ),
@@ -473,5 +481,133 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
     } catch (e) {
       print(e);
     }
+  }
+
+  removetech() async {
+    await fb.collection("users").doc(widget.uid).get().then((value) {
+      removeuser = UserModel.fromMap(value.data());
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Removetechalert(
+                colorr: bluebg,
+                emailid: removeuser.email,
+                password: removeuser.password,
+                name: widget.name);
+          });
+    }).catchError((onError) => print("Something wents wrong"));
+  }
+}
+
+class Removetechalert extends StatelessWidget {
+  String? username;
+  String? name;
+  String? emailid;
+  String? password;
+  final Color colorr;
+  Removetechalert(
+      {Key? key,
+      required this.colorr,
+      this.username,
+      this.emailid,
+      this.password,
+      this.name})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
+    return Dialog(
+      backgroundColor: white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      child: SizedBox(
+        height: s.height * 0.3,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.warning_amber_rounded,
+                  color: colorr,
+                  size: 30,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  "Do you want to Remove $name ?",
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: colorr,
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              "Technicain Details will be deleted permently !",
+              style: TextStyle(
+                fontFamily: "Nunito",
+                fontSize: 14,
+                color: Colors.black38,
+              ),
+            ),
+            const SizedBox(
+              height: 28,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20), color: colorr),
+                    child: const Text(
+                      "Cancell",
+                      style: TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: white,
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeAdmin()),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20), color: colorr),
+                    child: const Text(
+                      "Okay",
+                      style: TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

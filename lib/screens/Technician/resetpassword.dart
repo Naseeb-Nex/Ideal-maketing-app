@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:ideal_marketing/components/simplealertbox.dart';
@@ -322,6 +323,9 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                 );
               }))
           .catchError((onError) {
+            setState(() {
+              _loading = false;
+            });
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -334,7 +338,7 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                 });
           });
     } catch (error) {
-      print(error);
+      Fluttertoast.showToast(msg: "Something Wrong try agin");
     }
   }
 

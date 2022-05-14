@@ -104,6 +104,7 @@ class _HomeTechState extends State<HomeTech> {
                                   builder: (context) => Profilewrapper(
                                         name: profile.name,
                                         uid: loggedInUser.uid,
+                                        username: widget.username,
                                       )),
                             );
                           },
@@ -170,7 +171,8 @@ class Profilewrapper extends StatelessWidget {
   String? uid;
   String? name;
   String? pic;
-  Profilewrapper({Key? key, this.name, this.uid, this.pic}) : super(key: key);
+  String? username;
+  Profilewrapper({Key? key, this.name, this.uid, this.pic, this.username}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -184,6 +186,7 @@ class Profilewrapper extends StatelessWidget {
       uid: uid,
       name: name,
       img: pic,
+      username : username,
     );
   }
 }

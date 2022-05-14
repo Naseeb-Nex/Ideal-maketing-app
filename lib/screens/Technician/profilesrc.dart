@@ -9,7 +9,8 @@ class Profilesrc extends StatefulWidget {
   String? uid;
   String? name;
   String? img;
-  Profilesrc({Key? key, required this.uid, this.name, this.img})
+  String? username;
+  Profilesrc({Key? key, required this.uid, this.name, this.img, this.username})
       : super(key: key);
 
   @override
@@ -320,7 +321,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Resetpswdsrc(uid: widget.uid,))),
+                                    builder: (context) => Resetpswdsrc(uid: widget.uid,username: widget.username))),
                             child: Container(
                               height: s.height * 0.04,
                               width: s.width * 0.5,

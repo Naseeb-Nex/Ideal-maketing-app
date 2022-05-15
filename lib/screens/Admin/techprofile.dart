@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
@@ -5,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/screens/Admin/editprofile.dart';
 import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
 import 'package:ideal_marketing/screens/Admin/techstatus.dart';
+import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
@@ -490,16 +493,18 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
           context: context,
           builder: (BuildContext context) {
             return Removetechalert(
-                colorr: bluebg,
-                emailid: removeuser.email,
-                password: removeuser.password,
-                name: widget.name);
+              colorr: bluebg,
+              emailid: removeuser.email,
+              password: removeuser.password,
+              name: widget.name,
+              username: widget.username,
+            );
           });
     }).catchError((onError) => print("Something wents wrong"));
   }
 }
 
-class Removetechalert extends StatelessWidget {
+class Removetechalert extends StatefulWidget {
   String? username;
   String? name;
   String? emailid;
@@ -513,6 +518,15 @@ class Removetechalert extends StatelessWidget {
       this.password,
       this.name})
       : super(key: key);
+
+  @override
+  State<Removetechalert> createState() => _RemovetechalertState();
+}
+
+class _RemovetechalertState extends State<Removetechalert> {
+  bool _loading = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore fb = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -520,94 +534,127 @@ class Removetechalert extends StatelessWidget {
       backgroundColor: white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       child: SizedBox(
-        height: s.height * 0.3,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+        height: s.height * 0.25,
+        child: Stack(
           children: [
-            Row(
+            Center(
+              child: _loading
+                  ? const CircularProgressIndicator(color: bluebg)
+                  : null,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.warning_amber_rounded,
-                  color: colorr,
-                  size: 30,
+                Flexible(
+                  child: Text(
+                    "Do you want to Remove \n${widget.name} ?",
+                    style: TextStyle(
+                      fontFamily: "Montserrat",
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: widget.colorr,
+                    ),
+                  ),
                 ),
                 const SizedBox(
-                  width: 5,
+                  height: 20,
                 ),
-                Text(
-                  "Do you want to Remove $name ?",
+                const Text(
+                  "Technician Details will be deleted permently !",
                   style: TextStyle(
-                    fontFamily: "Montserrat",
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: colorr,
+                    fontFamily: "Nunito",
+                    fontSize: 14,
+                    color: Colors.black38,
                   ),
+                ),
+                const SizedBox(
+                  height: 28,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        width: s.width * 0.3,
+                        height: s.height * 0.05,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: widget.colorr),
+                        child: const Center(
+                          child: Text(
+                            "Cancell",
+                            style: TextStyle(
+                              fontFamily: "Nunito",
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => removedata(),
+                      child: Container(
+                        width: s.width * 0.3,
+                        height: s.height * 0.05,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: widget.colorr),
+                        child: const Center(
+                          child: Text(
+                            "Okay",
+                            style: TextStyle(
+                              fontFamily: "Nunito",
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              "Technicain Details will be deleted permently !",
-              style: TextStyle(
-                fontFamily: "Nunito",
-                fontSize: 14,
-                color: Colors.black38,
-              ),
-            ),
-            const SizedBox(
-              height: 28,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20), color: colorr),
-                    child: const Text(
-                      "Cancell",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: white,
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeAdmin()),
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20), color: colorr),
-                    child: const Text(
-                      "Okay",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )
           ],
         ),
       ),
     );
+  }
+
+  removedata() async {
+    setState(() {
+      _loading = true;
+    });
+    print(widget.emailid);
+    print(widget.password);
+    await _auth.signOut();
+    await _auth.signInWithEmailAndPassword(
+        email: "${widget.emailid}", password: "${widget.password}");
+    User? user = _auth.currentUser;
+    if (user!.email == widget.emailid) {
+      await user.delete();
+      await fb
+          .collection("users")
+          .doc(user.uid)
+          .delete()
+          .then((value) => print("user detials deleted"))
+          .catchError((onError) => print("user not deletd"));
+
+      await fb
+          .collection("Technician")
+          .doc(widget.username)
+          .delete()
+          .then((value) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => const LoginSrc()));
+      }).catchError((onError) => print("Technician not deletd"));
+    }
   }
 }

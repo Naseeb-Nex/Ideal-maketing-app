@@ -111,9 +111,9 @@ class _HomeAdminState extends State<HomeAdmin> {
                     const Text(
                       "Admin Panel",
                       style: TextStyle(
-                        fontFamily: "Nunito",
+                        fontFamily: "Montserrat",
                         fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w700,
                         color: Colors.white,
                       ),
                     ),
@@ -132,7 +132,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                   ),
                   child: Center(
                     child: ListView(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       children: [
                         const SizedBox(
                           height: 20,
@@ -410,7 +410,6 @@ class Techcardspace extends StatelessWidget {
             techprofile.add(a);
             // a['uid'] = document.id;
           }).toList();
-          print("${techprofile}");
           return ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: techprofile.length,
@@ -692,7 +691,7 @@ class _TechcardState extends State<Techcard> {
           .get()
           .then((snap) => {
                 setState(() {
-                  this.a = snap.size;
+                  a = snap.size;
                 })
               });
 
@@ -705,7 +704,7 @@ class _TechcardState extends State<Techcard> {
           .get()
           .then((snap) => {
                 setState(() {
-                  this.c = snap.size;
+                  c = snap.size;
                 })
               });
       await fb
@@ -715,7 +714,7 @@ class _TechcardState extends State<Techcard> {
           .get()
           .then((snap) => {
                 setState(() {
-                  this.p = snap.size;
+                  p = snap.size;
                 })
               });
 
@@ -726,13 +725,9 @@ class _TechcardState extends State<Techcard> {
           .get()
           .then((snap) => {
                 setState(() {
-                  this.pro = snap.size;
+                  pro = snap.size;
                 })
               });
-      print(a);
-      print(c);
-      print(p);
-      print(pro);
     } catch (e) {
       print(e);
     }

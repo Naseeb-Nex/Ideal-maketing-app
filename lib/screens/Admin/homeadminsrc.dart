@@ -97,7 +97,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                           child: const Padding(
                             padding: EdgeInsets.all(10),
                             child: Icon(
-                              Icons.logout,
+                              Icons.logout_outlined,
                               color: Colors.white,
                               size: 20,
                             ),

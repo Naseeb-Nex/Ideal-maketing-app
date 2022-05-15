@@ -357,16 +357,14 @@ class _HomeAdminState extends State<HomeAdmin> {
           .get()
           .then((snap) => {
                 setState(() {
-                  this.c = snap.size;
+                  c = snap.size;
                 })
               });
       await fb.collection('Programs').get().then((snap) => {
             setState(() {
-              this.p = snap.size;
+              p = snap.size;
             })
           });
-      print(c);
-      print(p);
     } catch (e) {
       print(e);
     }

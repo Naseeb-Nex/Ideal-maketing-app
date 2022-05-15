@@ -268,11 +268,9 @@ class _CompletepgmwrapperState extends State<Completepgmwrapper> {
             print('Something went Wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(
-              child: Center(
-                child: CircularProgressIndicator(
-                  color: bluebg,
-                ),
+            return const Center(
+              child: CircularProgressIndicator(
+                color: bluebg,
               ),
             );
           }
@@ -287,9 +285,9 @@ class _CompletepgmwrapperState extends State<Completepgmwrapper> {
           return Container(
             child: Column(
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 for (var i = 0; i < _allpgm.length; i++) ...[
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Completedpgmcard(

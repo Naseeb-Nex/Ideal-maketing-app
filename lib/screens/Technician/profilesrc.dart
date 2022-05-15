@@ -1,9 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/constants/profile.dart';
+
+import 'package:ideal_marketing/screens/Technician/edittechprofile.dart';
 import 'package:ideal_marketing/screens/Technician/resetpassword.dart';
 
 import '../loginsrc.dart';
+import 'package:intl/intl.dart';
 
 class Profilesrc extends StatefulWidget {
   String? uid;
@@ -18,10 +24,19 @@ class Profilesrc extends StatefulWidget {
 }
 
 class _ProfilesrcState extends State<Profilesrc> {
+
+  FirebaseFirestore fb = FirebaseFirestore.instance;
   int a = 0;
   int c = 0;
   int p = 0;
   int pro = 0;
+
+  Profile profile = Profile();
+  @override
+  void initState() {
+    super.initState();
+    if (mounted) startup();
+  }
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -288,28 +303,31 @@ class _ProfilesrcState extends State<Profilesrc> {
                           const SizedBox(
                             height: 25,
                           ),
-                          Container(
-                            height: s.height * 0.04,
-                            width: s.width * 0.4,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: white,
-                              boxShadow: [
-                                BoxShadow(
-                                    spreadRadius: 3,
-                                    blurRadius: 5,
-                                    color: Colors.black.withOpacity(0.1),
-                                    offset: const Offset(0, 5))
-                              ],
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Edit profile",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.blue[400],
+                          InkWell(
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>EditTechprofile(name : widget.name, uid: widget.uid, username: widget.username,des: profile.designation, loc: profile.location, phn1: profile.phn1, phn2: profile.phn2))),
+                            child: Container(
+                              height: s.height * 0.04,
+                              width: s.width * 0.4,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      spreadRadius: 3,
+                                      blurRadius: 5,
+                                      color: Colors.black.withOpacity(0.1),
+                                      offset: const Offset(0, 5))
+                                ],
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Edit profile",
+                                  style: TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.blue[400],
+                                  ),
                                 ),
                               ),
                             ),
@@ -360,6 +378,72 @@ class _ProfilesrcState extends State<Profilesrc> {
         )
       ],
     );
+  }
+
+  
+  startup() async {
+    DateTime now = DateTime.now();
+    String cday = DateFormat('MM d y').format(now);
+    try {
+
+      FirebaseFirestore.instance
+          .collection("Technician")
+          .doc(widget.username)
+          .get()
+          .then((value) {
+        profile = Profile.fromMap(value.data());
+      });
+
+
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Assignedpgm")
+          .get()
+          .then((snap) => {
+                setState(() {
+                  a = snap.size;
+                })
+              });
+
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Completedpgm")
+          .doc("Day")
+          .collection(cday)
+          .get()
+          .then((snap) => {
+                setState(() {
+                  c = snap.size;
+                })
+              });
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Pendingpgm")
+          .get()
+          .then((snap) => {
+                setState(() {
+                  p = snap.size;
+                })
+              });
+
+      await fb
+          .collection('Technician')
+          .doc(widget.username)
+          .collection("Processingpgm")
+          .get()
+          .then((snap) => {
+                setState(() {
+                  pro = snap.size;
+                })
+              });
+
+
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> logout(BuildContext context) async {

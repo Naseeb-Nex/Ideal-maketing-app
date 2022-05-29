@@ -146,18 +146,18 @@ class _CompletedsrcState extends State<Completedsrc> {
                             ),
                             Text(
                               "${widget.phn}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: "Nunito",
                                   fontSize: 16,
                                   color: Colors.white),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   "Collection amount :",
                                   style: TextStyle(
                                       fontFamily: "Nunito",
@@ -165,12 +165,12 @@ class _CompletedsrcState extends State<Completedsrc> {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
                                   "${widget.chrg}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontFamily: "Nunito",
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -314,7 +314,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                                 border: Border.all(color: Colors.grey)),
                             child: Center(
                                 child: _value
-                                    ? Icon(
+                                    ? const Icon(
                                         Icons.check,
                                         size: 20.0,
                                         color: Colors.greenAccent,
@@ -324,7 +324,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                           const SizedBox(
                             width: 10,
                           ),
-                          Text(
+                          const Text(
                             "Verify the Details",
                             style: TextStyle(
                                 fontFamily: "Nunito",
@@ -393,7 +393,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Center(
@@ -500,18 +500,6 @@ class _CompletedsrcState extends State<Completedsrc> {
           print("Monthly list Updated");
         }).catchError(
                 (error) => print("Failed to update Monthilylist : $error"));
-
-        fb
-            .collection("Technician")
-            .doc(widget.username)
-            .collection("Completedpgm")
-            .doc("Year")
-            .collection(ycollname)
-            .doc(cdocname)
-            .set(cpgm.toMap())
-            .then((value) {
-          print("Yearlylist Updated");
-        }).catchError((error) => print("Failed to update Yearlylist : $error"));
 
         fb
             .collection("Completedpgm")

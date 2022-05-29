@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/services/pgmhistory.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/pendingpgmdata.dart';
@@ -24,6 +25,8 @@ class Pendingsrc extends StatefulWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+  String? prospec;
+  String? instadate;
   Pendingsrc({
     Key? key,
     this.uid,
@@ -43,6 +46,8 @@ class Pendingsrc extends StatefulWidget {
     this.assignedtime,
     this.assigneddate,
     this.priority,
+    this.prospec,
+    this.instadate,
   }) : super(key: key);
 
   @override
@@ -50,19 +55,19 @@ class Pendingsrc extends StatefulWidget {
 }
 
 class _PendingsrcState extends State<Pendingsrc> {
-  @override
   bool _value = false;
   bool _err = false;
   bool _upload = false;
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController reason = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: newbg,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Stack(
             children: [
               SizedBox(
@@ -412,7 +417,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     InkWell(
@@ -423,7 +428,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                       },
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 25,
                           ),
                           Container(
@@ -565,6 +570,25 @@ class _PendingsrcState extends State<Pendingsrc> {
       pdocname: pdocname,
     );
 
+    Pgmhistory history = Pgmhistory(
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      remarks: reason.text,
+      upDate: pendingdate,
+      upTime: pendingtime,
+      techname: widget.techname,
+      prospec: widget.prospec,
+      instadate: widget.instadate,
+      docname: pdocname,
+      status: "unresolved",
+      ch: "Program unsolved"
+    );
+
     if (_formKey.currentState!.validate()) {
       if (_value == true) {
         setState(() {
@@ -589,6 +613,8 @@ class _PendingsrcState extends State<Pendingsrc> {
             .then((value) => print("Pgm Deleted From office list"))
             .catchError((error) =>
                 print("Failed to delete from office list program : $error"));
+
+                fb.collection("history").doc(pdocname).set(history.toMap());
 
         fb
             .collection("Technician")

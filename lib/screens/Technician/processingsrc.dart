@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/services/pgmhistory.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/pendingpgmdata.dart';
@@ -24,6 +25,8 @@ class Processingsrc extends StatefulWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+  String? prospec;
+  String? instadate;
   Processingsrc({
     Key? key,
     this.uid,
@@ -43,6 +46,8 @@ class Processingsrc extends StatefulWidget {
     this.assignedtime,
     this.assigneddate,
     this.priority,
+    this.prospec,
+    this.instadate,
   }) : super(key: key);
 
   @override
@@ -50,22 +55,22 @@ class Processingsrc extends StatefulWidget {
 }
 
 class _ProcessingsrcState extends State<Processingsrc> {
-  @override
   bool _value = false;
   bool _err = false;
   bool _upload = false;
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController reason = new TextEditingController();
+  final TextEditingController reason = TextEditingController();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: newbg,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Stack(
             children: [
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -116,7 +121,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                           borderRadius: BorderRadius.circular(30),
                           color: pclr,
                         ),
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -243,28 +248,24 @@ class _ProcessingsrcState extends State<Processingsrc> {
                               children: [
                                 Row(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 30,
                                     ),
-                                    Container(
-                                      child: Text(
-                                        "Type :",
-                                        style: TextStyle(
-                                          fontFamily: "Nunito",
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
+                                    const Text(
+                                      "Type :",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 18,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                    Container(
-                                      child: Text(
-                                        "  ${widget.type}",
-                                        style: TextStyle(
-                                            fontFamily: "Nunito",
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.white),
-                                      ),
+                                    Text(
+                                      "  ${widget.type}",
+                                      style: const TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white),
                                     ),
                                   ],
                                 ),
@@ -272,49 +273,41 @@ class _ProcessingsrcState extends State<Processingsrc> {
                                   children: [
                                     Row(
                                       children: [
-                                        Container(
-                                          child: Text(
-                                            "Date :",
-                                            style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white),
-                                          ),
+                                        const Text(
+                                          "Date :",
+                                          style: TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white),
                                         ),
-                                        Container(
-                                          child: Text(
-                                            "  ${widget.assigneddate}",
-                                            style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white),
-                                          ),
+                                        Text(
+                                          "  ${widget.assigneddate}",
+                                          style: const TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        Container(
-                                          child: Text(
-                                            "Time :",
-                                            style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white),
-                                          ),
+                                        const Text(
+                                          "Time :",
+                                          style: TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white),
                                         ),
-                                        Container(
-                                          child: Text(
-                                            "  ${widget.assignedtime}",
-                                            style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white),
-                                          ),
+                                        Text(
+                                          "  ${widget.assignedtime}",
+                                          style: const TextStyle(
+                                              fontFamily: "Nunito",
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -324,101 +317,94 @@ class _ProcessingsrcState extends State<Processingsrc> {
                             ),
                             Row(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   width: 30,
                                 ),
-                                Container(
-                                  child: Text(
-                                    "Collection Amount :",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
+                                const Text(
+                                  "Collection Amount :",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    color: Colors.white,
                                   ),
                                 ),
-                                Container(
-                                  child: Text(
-                                    "  ${widget.chrg}",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
+                                Text(
+                                  "  ${widget.chrg}",
+                                  style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Form(
                       key: _formKey,
                       child: Column(
                         children: [
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 130,
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    "Remarks :",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 130,
+                                alignment: Alignment.topCenter,
+                                child: const Text(
+                                  "Remarks :",
+                                  style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.5,
-                                  height: 130,
-                                  child: TextFormField(
-                                    autofocus: false,
-                                    controller: reason,
-                                    keyboardType: TextInputType.multiline,
-                                    maxLines: 6,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return ("Enter the Remarks!!");
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (value) {
-                                      reason.text = value!;
-                                    },
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      hintText: "Enter the Reason",
-                                      hintStyle: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 15,
-                                      ),
-                                      focusColor: Colors.green,
-                                      hoverColor: bluebg,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 1.5,
+                                height: 130,
+                                child: TextFormField(
+                                  autofocus: false,
+                                  controller: reason,
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 6,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return ("Enter the Remarks!!");
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    reason.text = value!;
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    hintText: "Enter the Reason",
+                                    hintStyle: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 15,
+                                    ),
+                                    focusColor: Colors.green,
+                                    hoverColor: bluebg,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     InkWell(
@@ -429,7 +415,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                       },
                       child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 25,
                           ),
                           Container(
@@ -440,17 +426,17 @@ class _ProcessingsrcState extends State<Processingsrc> {
                                 border: Border.all(color: Colors.grey)),
                             child: Center(
                                 child: _value
-                                    ? Icon(
+                                    ? const Icon(
                                         Icons.check,
                                         size: 20.0,
                                         color: Colors.greenAccent,
                                       )
                                     : null),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
-                          Text(
+                          const Text(
                             "Verify the Details",
                             style: TextStyle(
                                 fontFamily: "Nunito",
@@ -463,7 +449,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                     ),
                     Container(
                       child: _err
-                          ? Text(
+                          ? const Text(
                               "please verify the details then check the box",
                               style: TextStyle(
                                   fontFamily: "Nunito",
@@ -473,7 +459,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                             )
                           : null,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     ),
                     InkWell(
@@ -484,7 +470,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             color: pclr),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Upload Details",
                             style: TextStyle(
@@ -505,7 +491,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
                             color: Colors.redAccent),
-                        child: Center(
+                        child: const Center(
                           child: Text(
                             "Cancel",
                             style: TextStyle(
@@ -520,12 +506,12 @@ class _ProcessingsrcState extends State<Processingsrc> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Center(
                   child: _upload
-                      ? CircularProgressIndicator(
+                      ? const CircularProgressIndicator(
                           color: bluebg,
                         )
                       : null,
@@ -539,10 +525,10 @@ class _ProcessingsrcState extends State<Processingsrc> {
   }
 
   void processingupdate() async {
-    FirebaseFirestore fb = await FirebaseFirestore.instance;
+    FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
-    String pendingdate = DateFormat('d MMM y').format(now);
-    String pendingtime = DateFormat('kk:mm').format(now);
+    String prodate = DateFormat('d MMM y').format(now);
+    String protime = DateFormat('kk:mm').format(now);
     String pcollname = DateFormat('MM d y').format(now);
     String pdocname = DateFormat('MM d y kk:mm:ss').format(now);
 
@@ -565,11 +551,29 @@ class _ProcessingsrcState extends State<Processingsrc> {
       assigneddate: widget.assigneddate,
       assignedtime: widget.assignedtime,
       remarks: reason.text,
-      pdate: pendingdate,
-      ptime: pendingtime,
+      pdate: prodate,
+      ptime: protime,
       pcollname: pcollname,
       pdocname: pdocname,
     );
+
+    Pgmhistory history = Pgmhistory(
+        name: widget.name,
+        address: widget.address,
+        loc: widget.loc,
+        phn: widget.phn,
+        pgm: widget.pgm,
+        chrg: widget.chrg,
+        type: widget.type,
+        remarks: reason.text,
+        upDate: prodate,
+        upTime: protime,
+        techname: widget.techname,
+        prospec: widget.prospec,
+        instadate: widget.instadate,
+        docname: pdocname,
+        status: "pro",
+        ch: "Program in processing");
 
     if (_formKey.currentState!.validate()) {
       if (_value == true) {
@@ -596,6 +600,8 @@ class _ProcessingsrcState extends State<Processingsrc> {
             .then((value) => print("Pgm Deleted From office list"))
             .catchError((error) =>
                 print("Failed to delete from office list program : $error"));
+
+        fb.collection("history").doc(pdocname).set(history.toMap());
 
         fb
             .collection("Technician")
@@ -654,14 +660,14 @@ class CustomeAlertbx extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.warning_amber_rounded,
                     color: primarybg,
                     size: 30,
                   ),
                   Text(
                     done!,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
@@ -671,19 +677,19 @@ class CustomeAlertbx extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
               titles!,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: "Nunito",
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 28,
             ),
             RaisedButton(

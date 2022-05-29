@@ -19,6 +19,8 @@ class Programcard extends StatelessWidget {
   String? status;
   String? username;
   String? techname;
+  String? prospec;
+  String? instadate;
   String? assignedtime;
   String? assigneddate;
   String? priority;
@@ -39,6 +41,8 @@ class Programcard extends StatelessWidget {
     this.status,
     this.username,
     this.techname,
+    this.prospec,
+    this.instadate,
     this.assignedtime,
     this.assigneddate,
     this.priority,
@@ -68,6 +72,8 @@ class Programcard extends StatelessWidget {
                     assignedtime: assignedtime,
                     assigneddate: assigneddate,
                     priority: priority,
+                    prospec: prospec,
+                    instadate: instadate,
                   ))),
       child: Container(
         height: 150,

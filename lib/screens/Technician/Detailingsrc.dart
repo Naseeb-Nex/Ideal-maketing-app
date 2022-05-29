@@ -19,6 +19,8 @@ class Detailingsrc extends StatefulWidget {
   String? status;
   String? username;
   String? techname;
+  String? prospec;
+  String? instadate;
   String? assignedtime;
   String? assigneddate;
   String? priority;
@@ -39,6 +41,8 @@ class Detailingsrc extends StatefulWidget {
     this.status,
     this.username,
     this.techname,
+    this.prospec,
+    this.instadate,
     this.assignedtime,
     this.assigneddate,
     this.priority,
@@ -53,7 +57,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: newbg,
+      backgroundColor: white,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -106,6 +110,12 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       color: bluebg,
+                      boxShadow: [BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                          color: Colors.black.withOpacity(0.13),
+                          offset: const Offset(0, 3)
+                        )]
                     ),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 60),
@@ -219,11 +229,57 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                 child: Text(
                                   "${widget.pgm}",
                                   style: const TextStyle(
-                                      fontFamily: "Nunito",
+                                      fontFamily: "Montserrat",
                                       fontSize: 18,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.w500,
                                       color: Colors.white),
                                 ),
+                              ),
+                            ],
+                          ),
+                          
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "Product Specification :",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                "  ${widget.prospec}",
+                                style: const TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
+                              ),
+                            ],
+                          ),const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "Installation Date :",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                "  ${widget.instadate}",
+                                style: const TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.white),
                               ),
                             ],
                           ),
@@ -357,7 +413,14 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: const Color(0xFF7ae582)),
+                        color: const Color(0xFF7ae582),
+                        boxShadow: [BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                          color: Colors.black.withOpacity(0.13),
+                          offset: const Offset(0, 3)
+                        )]
+                        ),
                     child: const Center(
                       child: Text(
                         "Completed",
@@ -399,7 +462,13 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Colors.redAccent),
+                        color: Colors.redAccent,
+                        boxShadow: [BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                          color: Colors.black.withOpacity(0.13),
+                          offset: const Offset(0, 3)
+                        )]),
                     child: const Center(
                       child: Text(
                         "Pending",
@@ -441,7 +510,13 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Color(0xFF56cfe1)),
+                        color: const Color(0xFF56cfe1),
+                        boxShadow: [BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                          color: Colors.black.withOpacity(0.13),
+                          offset: const Offset(0, 3)
+                        )]),
                     child: const Center(
                       child: Text(
                         "Processing",

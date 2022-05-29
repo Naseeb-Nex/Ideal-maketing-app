@@ -407,6 +407,8 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                 assignedtime: widget.assignedtime,
                                 assigneddate: widget.assigneddate,
                                 priority: widget.priority,
+                                prospec: widget.prospec,
+                                instadate: widget.instadate,
                               ))),
                   child: Container(
                     width: 250,

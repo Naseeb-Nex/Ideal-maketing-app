@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ideal_marketing/screens/Technician/hometech.dart';
 import 'package:intl/intl.dart';
-import 'hometech.dart';
 
 import 'package:ideal_marketing/constants/completepgmdata.dart';
+import 'package:ideal_marketing/screens/Technician/hometech.dart';
+import 'package:ideal_marketing/services/pgmhistory.dart';
+import 'hometech.dart';
+
 
 class Completedsrc extends StatefulWidget {
   String? uid;
@@ -25,6 +28,8 @@ class Completedsrc extends StatefulWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+  String? prospec;
+  String? instadate;
   Completedsrc({
     Key? key,
     this.uid,
@@ -44,6 +49,8 @@ class Completedsrc extends StatefulWidget {
     this.assignedtime,
     this.assigneddate,
     this.priority,
+    this.prospec,
+    this.instadate,
   }) : super(key: key);
 
   @override
@@ -51,21 +58,21 @@ class Completedsrc extends StatefulWidget {
 }
 
 class _CompletedsrcState extends State<Completedsrc> {
-  @override
   bool _value = false;
   bool _err = false;
   bool _upload = false;
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController cost = new TextEditingController();
-  final TextEditingController remarks = new TextEditingController();
+  final TextEditingController cost = TextEditingController();
+  final TextEditingController remarks = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: newbg,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Stack(
             children: [
               SizedBox(
@@ -132,7 +139,7 @@ class _CompletedsrcState extends State<Completedsrc> {
                             ),
                             Text(
                               "${widget.address}",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: "Nunito",
                                   fontSize: 16,
                                   color: Colors.white),
@@ -442,6 +449,26 @@ class _CompletedsrcState extends State<Completedsrc> {
       ycollname: ycollname,
     );
 
+    Pgmhistory history = Pgmhistory(
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      collection: cost.text,
+      remarks: remarks.text,
+      upDate: completeddate,
+      upTime: completeddate,
+      techname: widget.techname,
+      prospec: widget.prospec,
+      instadate: widget.instadate,
+      docname: cdocname,
+      status: "completed",
+      ch: "Program Completed"
+    );
+
     if (_formKey.currentState!.validate()) {
       if (_value == true) {
         setState(() {
@@ -508,22 +535,14 @@ class _CompletedsrcState extends State<Completedsrc> {
                 (error) => print("Failed to update Monthilylist : $error"));
 
         fb
-            .collection("Completedpgm")
-            .doc("Year")
-            .collection(ycollname)
-            .doc(cdocname)
-            .set(cpgm.toMap())
-            .then((value) {
-          print("Yearlylist Updated");
-        }).catchError((error) => print("Failed to update Yearlylist : $error"));
-
-        fb
             .collection("Programs")
             .doc(widget.docname)
             .delete()
             .then((value) => print("Pgm Deleted From office list"))
             .catchError((error) =>
                 print("Failed to delete from office list program : $error"));
+        
+        fb.collection("history").doc(cdocname).set(history.toMap());
 
         fb
             .collection("Technician")
@@ -532,7 +551,6 @@ class _CompletedsrcState extends State<Completedsrc> {
             .doc(widget.docname)
             .delete()
             .then((value) {
-          print("Delete pgm to technicain");
           showDialog(
               context: context,
               builder: (BuildContext context) {

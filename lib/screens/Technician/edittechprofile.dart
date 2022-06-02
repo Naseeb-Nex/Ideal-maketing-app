@@ -5,7 +5,6 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
-import 'package:ideal_marketing/components/alertbox.dart';
 
 class EditTechprofile extends StatefulWidget {
   String? name;
@@ -233,7 +232,7 @@ class _EditTechprofileState extends State<EditTechprofile> {
                           spreadRadius: 2,
                           blurRadius: 10,
                           color: Colors.black.withOpacity(0.1),
-                          offset: Offset(0, 10))
+                          offset: const Offset(0, 10))
                     ],
                     shape: BoxShape.circle,
                     image: const DecorationImage(

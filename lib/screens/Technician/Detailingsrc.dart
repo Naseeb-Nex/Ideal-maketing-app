@@ -4,6 +4,7 @@ import 'package:ideal_marketing/screens/Technician/completedsrc.dart';
 import 'package:ideal_marketing/screens/Technician/pendingsrc.dart';
 import 'package:ideal_marketing/screens/Technician/processingsrc.dart';
 
+// ignore: must_be_immutable
 class Detailingsrc extends StatefulWidget {
   String? uid;
   String? name;

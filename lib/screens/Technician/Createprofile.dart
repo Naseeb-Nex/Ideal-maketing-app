@@ -21,13 +21,13 @@ class _CreateProfileState extends State<CreateProfile> {
   final _formKey = GlobalKey<FormState>();
 
   // editing controller
-  final TextEditingController nameController = new TextEditingController();
-  final TextEditingController usernameController = new TextEditingController();
+  final TextEditingController nameController =  TextEditingController();
+  final TextEditingController usernameController =  TextEditingController();
   final TextEditingController designationController =
-      new TextEditingController();
-  final TextEditingController phn1Controller = new TextEditingController();
-  final TextEditingController phn2Controller = new TextEditingController();
-  final TextEditingController locationController = new TextEditingController();
+       TextEditingController();
+  final TextEditingController phn1Controller =  TextEditingController();
+  final TextEditingController phn2Controller =  TextEditingController();
+  final TextEditingController locationController =  TextEditingController();
 
   @override
   Widget build(BuildContext context) {

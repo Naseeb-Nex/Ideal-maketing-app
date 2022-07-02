@@ -85,6 +85,7 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
                     instadate: _allpgm[i]['instadate'],
                     assigneddate: _allpgm[i]['assigneddate'],
                     priority: _allpgm[i]['priority'],
+                    custdocname: _allpgm[i]['custdocname'],
                   )
                 ]
               ],

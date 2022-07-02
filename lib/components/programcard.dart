@@ -24,6 +24,7 @@ class Programcard extends StatelessWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+  String? custdocname;
 
   Programcard({
     Key? key,
@@ -46,6 +47,7 @@ class Programcard extends StatelessWidget {
     this.assignedtime,
     this.assigneddate,
     this.priority,
+    this.custdocname,
   }) : super(key: key);
 
   @override
@@ -74,6 +76,7 @@ class Programcard extends StatelessWidget {
                     priority: priority,
                     prospec: prospec,
                     instadate: instadate,
+                    custdocname: custdocname,
                   ))),
       child: Container(
         height: 150,

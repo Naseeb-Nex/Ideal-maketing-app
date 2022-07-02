@@ -25,6 +25,7 @@ class Detailingsrc extends StatefulWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+  String? custdocname;
 
   Detailingsrc({
     Key? key,
@@ -47,6 +48,7 @@ class Detailingsrc extends StatefulWidget {
     this.assignedtime,
     this.assigneddate,
     this.priority,
+    this.custdocname,
   }) : super(key: key);
 
   @override
@@ -410,6 +412,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                 priority: widget.priority,
                                 prospec: widget.prospec,
                                 instadate: widget.instadate,
+                                custdocname: widget.custdocname,
                               ))),
                   child: Container(
                     width: 250,
@@ -461,6 +464,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                 priority: widget.priority,
                                 prospec: widget.prospec,
                                 instadate: widget.instadate,
+                                custdocname: widget.custdocname,
                               ))),
                   child: Container(
                     width: 250,
@@ -511,6 +515,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                 priority: widget.priority,
                                 prospec: widget.prospec,
                                 instadate: widget.instadate,
+                                custdocname: widget.custdocname,
                               ))),
                   child: Container(
                     width: 250,

@@ -391,7 +391,7 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                 ],

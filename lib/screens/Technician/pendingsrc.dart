@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/services/customer_history.dart';
 import 'package:ideal_marketing/services/pgmhistory.dart';
 import 'package:intl/intl.dart';
 
@@ -27,6 +28,8 @@ class Pendingsrc extends StatefulWidget {
   String? priority;
   String? prospec;
   String? instadate;
+  String? custdocname;
+
   Pendingsrc({
     Key? key,
     this.uid,
@@ -48,6 +51,7 @@ class Pendingsrc extends StatefulWidget {
     this.priority,
     this.prospec,
     this.instadate,
+    this.custdocname,
   }) : super(key: key);
 
   @override
@@ -215,7 +219,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                               height: 5,
                             ),
                             Row(
-                              children: const[
+                              children: const [
                                 SizedBox(
                                   width: 30,
                                 ),
@@ -380,8 +384,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                                 width: 20,
                               ),
                               SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width / 1.5,
+                                width: MediaQuery.of(context).size.width / 1.5,
                                 height: 130,
                                 child: TextFormField(
                                   autofocus: false,
@@ -571,23 +574,34 @@ class _PendingsrcState extends State<Pendingsrc> {
     );
 
     Pgmhistory history = Pgmhistory(
-      name: widget.name,
-      address: widget.address,
-      loc: widget.loc,
-      phn: widget.phn,
-      pgm: widget.pgm,
-      chrg: widget.chrg,
-      type: widget.type,
-      remarks: reason.text,
-      upDate: pendingdate,
-      upTime: pendingtime,
-      techname: widget.techname,
-      prospec: widget.prospec,
-      instadate: widget.instadate,
-      docname: pdocname,
-      status: "unresolved",
-      ch: "Program unsolved"
-    );
+        name: widget.name,
+        address: widget.address,
+        loc: widget.loc,
+        phn: widget.phn,
+        pgm: widget.pgm,
+        chrg: widget.chrg,
+        type: widget.type,
+        remarks: reason.text,
+        upDate: pendingdate,
+        upTime: pendingtime,
+        techname: widget.techname,
+        prospec: widget.prospec,
+        instadate: widget.instadate,
+        docname: pdocname,
+        status: "unresolved",
+        ch: "Program unsolved");
+
+    CustomerPgmHistory custhistory = CustomerPgmHistory(
+        upDate: pendingdate,
+        upTime: pendingtime,
+        msg: "${widget.techname} Changed to the Pending list",
+        remarks: reason.text,
+        techname: widget.techname,
+        status: "pending",
+        docname: pdocname,
+        custdocname: widget.custdocname);
+
+        print(custhistory);
 
     if (_formKey.currentState!.validate()) {
       if (_value == true) {
@@ -604,7 +618,16 @@ class _PendingsrcState extends State<Pendingsrc> {
             .set(ppgm.toMap())
             .then((value) {
           print("Pending pgmlist Updated");
-        }).catchError((error) => print("Failed to update Pending pgm list : $error"));
+        }).catchError(
+                (error) => print("Failed to update Pending pgm list : $error"));
+
+        // Updating the Customer program status
+        fb
+            .collection("Customer")
+            .doc(widget.custdocname)
+            .collection("Programs")
+            .doc(widget.docname)
+            .update({'status': 'pending'});
 
         fb
             .collection("Programs")
@@ -614,7 +637,7 @@ class _PendingsrcState extends State<Pendingsrc> {
             .catchError((error) =>
                 print("Failed to delete from office list program : $error"));
 
-                fb.collection("history").doc(pdocname).set(history.toMap());
+        fb.collection("history").doc(pdocname).set(history.toMap());
 
         fb
             .collection("Technician")
@@ -623,6 +646,15 @@ class _PendingsrcState extends State<Pendingsrc> {
             .doc(widget.docname)
             .delete()
             .then((value) {
+          // customer program history updated
+          fb
+              .collection("Customer")
+              .doc(widget.custdocname)
+              .collection("Programs")
+              .doc(widget.docname)
+              .collection("History")
+              .doc(pdocname)
+              .set(custhistory.toMap());
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -641,8 +673,6 @@ class _PendingsrcState extends State<Pendingsrc> {
                     Colors.redAccent, "Error", widget.username);
               });
         });
-        
-
       } else {
         setState(() {
           _err = true;

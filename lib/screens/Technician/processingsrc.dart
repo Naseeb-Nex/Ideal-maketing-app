@@ -27,6 +27,8 @@ class Processingsrc extends StatefulWidget {
   String? priority;
   String? prospec;
   String? instadate;
+  String? custdocname;
+
   Processingsrc({
     Key? key,
     this.uid,
@@ -48,6 +50,7 @@ class Processingsrc extends StatefulWidget {
     this.priority,
     this.prospec,
     this.instadate,
+    this.custdocname,
   }) : super(key: key);
 
   @override

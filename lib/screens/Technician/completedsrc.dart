@@ -30,6 +30,8 @@ class Completedsrc extends StatefulWidget {
   String? priority;
   String? prospec;
   String? instadate;
+  String? custdocname;
+
   Completedsrc({
     Key? key,
     this.uid,
@@ -51,6 +53,7 @@ class Completedsrc extends StatefulWidget {
     this.priority,
     this.prospec,
     this.instadate,
+    this.custdocname,
   }) : super(key: key);
 
   @override

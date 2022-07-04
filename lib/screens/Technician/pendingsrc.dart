@@ -560,7 +560,7 @@ class _PendingsrcState extends State<Pendingsrc> {
       upDate: widget.upDate,
       upTime: widget.upTime,
       docname: widget.docname,
-      status: "completed",
+      status: "pending",
       username: widget.username,
       techname: widget.techname,
       priority: widget.priority,
@@ -571,6 +571,7 @@ class _PendingsrcState extends State<Pendingsrc> {
       ptime: pendingtime,
       pcollname: pcollname,
       pdocname: pdocname,
+      custdocname: widget.custdocname,
     );
 
     Pgmhistory history = Pgmhistory(
@@ -591,6 +592,7 @@ class _PendingsrcState extends State<Pendingsrc> {
         status: "unresolved",
         ch: "Program unsolved");
 
+  //customer program history
     CustomerPgmHistory custhistory = CustomerPgmHistory(
         upDate: pendingdate,
         upTime: pendingtime,
@@ -600,8 +602,6 @@ class _PendingsrcState extends State<Pendingsrc> {
         status: "pending",
         docname: pdocname,
         custdocname: widget.custdocname);
-
-        print(custhistory);
 
     if (_formKey.currentState!.validate()) {
       if (_value == true) {
@@ -646,6 +646,7 @@ class _PendingsrcState extends State<Pendingsrc> {
             .doc(widget.docname)
             .delete()
             .then((value) {
+
           // customer program history updated
           fb
               .collection("Customer")
@@ -655,6 +656,7 @@ class _PendingsrcState extends State<Pendingsrc> {
               .collection("History")
               .doc(pdocname)
               .set(custhistory.toMap());
+              
           showDialog(
               context: context,
               builder: (BuildContext context) {

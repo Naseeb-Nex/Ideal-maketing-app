@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/services/customer_history.dart';
 import 'package:ideal_marketing/services/pgmhistory.dart';
 import 'package:intl/intl.dart';
 
@@ -578,6 +579,18 @@ class _ProcessingsrcState extends State<Processingsrc> {
         status: "pro",
         ch: "Program in processing");
 
+
+  //customer program history
+    CustomerPgmHistory custhistory = CustomerPgmHistory(
+        upDate: prodate,
+        upTime: protime,
+        msg: "${widget.techname} Changed to Processing List",
+        remarks: reason.text,
+        techname: widget.techname,
+        status: "processing",
+        docname: pdocname,
+        custdocname: widget.custdocname);
+
     if (_formKey.currentState!.validate()) {
       if (_value == true) {
         setState(() {
@@ -595,6 +608,14 @@ class _ProcessingsrcState extends State<Processingsrc> {
           print("Pending pgmlist Updated");
         }).catchError(
                 (error) => print("Failed to update Pending pgm list : $error"));
+
+                // Updating the Customer program status
+        fb
+            .collection("Customer")
+            .doc(widget.custdocname)
+            .collection("Programs")
+            .doc(widget.docname)
+            .update({'status': 'processing'});
 
         fb
             .collection("Programs")
@@ -614,6 +635,17 @@ class _ProcessingsrcState extends State<Processingsrc> {
             .delete()
             .then((value) {
           print("Delete pgm to technicain");
+
+          // customer program history updated
+          fb
+              .collection("Customer")
+              .doc(widget.custdocname)
+              .collection("Programs")
+              .doc(widget.docname)
+              .collection("History")
+              .doc(pdocname)
+              .set(custhistory.toMap());
+
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -652,7 +684,7 @@ class CustomeAlertbx extends StatelessWidget {
     return Dialog(
       backgroundColor: colorr,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      child: Container(
+      child: SizedBox(
         height: 200,
         width: 450,
         child: Column(

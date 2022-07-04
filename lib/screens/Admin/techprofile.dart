@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/screens/Admin/editprofile.dart';
-import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
 import 'package:ideal_marketing/screens/Admin/techstatus.dart';
 import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:intl/intl.dart';

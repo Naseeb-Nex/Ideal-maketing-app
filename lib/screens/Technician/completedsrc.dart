@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/services/customer_history.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/completepgmdata.dart';
@@ -472,6 +473,18 @@ class _CompletedsrcState extends State<Completedsrc> {
       ch: "Program Completed"
     );
 
+    //customer program history
+    CustomerPgmHistory custhistory = CustomerPgmHistory(
+        upDate: completeddate,
+        upTime: completedtime,
+        msg: "${widget.techname} completed the Program",
+        remarks: remarks.text,
+        techname: widget.techname,
+        status: "completed",
+        camount: cost.text,
+        docname: cdocname,
+        custdocname: widget.custdocname); 
+
     if (_formKey.currentState!.validate()) {
       if (_value == true) {
         setState(() {
@@ -490,6 +503,14 @@ class _CompletedsrcState extends State<Completedsrc> {
             .then((value) {
           print("Daylist Updated");
         }).catchError((error) => print("Failed to update Daily list : $error"));
+
+         // Updating the Customer program status
+        fb
+            .collection("Customer")
+            .doc(widget.custdocname)
+            .collection("Programs")
+            .doc(widget.docname)
+            .update({'status': 'completed'});
 
         fb
             .collection("Technician")
@@ -513,6 +534,16 @@ class _CompletedsrcState extends State<Completedsrc> {
             .then((value) {
           print("Daylist Updated");
         }).catchError((error) => print("Failed to update Daily list : $error"));
+
+        // customer program history updated
+          fb
+              .collection("Customer")
+              .doc(widget.custdocname)
+              .collection("Programs")
+              .doc(widget.docname)
+              .collection("History")
+              .doc(cdocname)
+              .set(custhistory.toMap());
 
         fb
             .collection("Completedpgm")

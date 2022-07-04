@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -24,7 +25,6 @@ class Profilesrc extends StatefulWidget {
 }
 
 class _ProfilesrcState extends State<Profilesrc> {
-
   FirebaseFirestore fb = FirebaseFirestore.instance;
   int a = 0;
   int c = 0;
@@ -37,6 +37,7 @@ class _ProfilesrcState extends State<Profilesrc> {
     super.initState();
     if (mounted) startup();
   }
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -184,6 +185,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                               Container(
                                 width: s.width * 0.4,
                                 height: s.height * 0.1,
+                                padding: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(25),
                                     color: const Color(0XFFDBF4F1),
@@ -198,20 +200,22 @@ class _ProfilesrcState extends State<Profilesrc> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    const AutoSizeText(
                                       "Completed Program",
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: "Nunito",
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
+                                      maxLines: 2,
                                     ),
                                     Text(
                                       "$c",
                                       style: const TextStyle(
                                         fontFamily: "Nunito",
-                                        fontSize: 19,
+                                        fontSize: 17,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
@@ -232,11 +236,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                                           color: Colors.black.withOpacity(0.1),
                                           offset: const Offset(0, 5))
                                     ]),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 2),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    const AutoSizeText(
                                       "Pending Program",
                                       style: TextStyle(
                                         fontFamily: "Nunito",
@@ -244,12 +250,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
+                                      maxLines: 2,
                                     ),
                                     Text(
                                       "$p",
                                       style: const TextStyle(
                                         fontFamily: "Nunito",
-                                        fontSize: 19,
+                                        fontSize: 17,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
                                       ),
@@ -275,11 +282,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                                       color: Colors.black.withOpacity(0.1),
                                       offset: const Offset(0, 5))
                                 ]),
+                                                    padding: const EdgeInsets.symmetric(horizontal: 2),
+
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const Text(
+                                const AutoSizeText(
                                   "Processing Program",
                                   style: TextStyle(
                                     fontFamily: "Nunito",
@@ -287,12 +296,14 @@ class _ProfilesrcState extends State<Profilesrc> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
                                 ),
                                 Text(
                                   "$pro",
                                   style: const TextStyle(
                                     fontFamily: "Nunito",
-                                    fontSize: 19,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
@@ -304,7 +315,18 @@ class _ProfilesrcState extends State<Profilesrc> {
                             height: 25,
                           ),
                           InkWell(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>EditTechprofile(name : widget.name, uid: widget.uid, username: widget.username,des: profile.designation, loc: profile.location, phn1: profile.phn1, phn2: profile.phn2))),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        EditTechprofile(
+                                            name: widget.name,
+                                            uid: widget.uid,
+                                            username: widget.username,
+                                            des: profile.designation,
+                                            loc: profile.location,
+                                            phn1: profile.phn1,
+                                            phn2: profile.phn2))),
                             child: Container(
                               height: s.height * 0.04,
                               width: s.width * 0.4,
@@ -339,7 +361,9 @@ class _ProfilesrcState extends State<Profilesrc> {
                             onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Resetpswdsrc(uid: widget.uid,username: widget.username))),
+                                    builder: (context) => Resetpswdsrc(
+                                        uid: widget.uid,
+                                        username: widget.username))),
                             child: Container(
                               height: s.height * 0.04,
                               width: s.width * 0.5,
@@ -380,12 +404,10 @@ class _ProfilesrcState extends State<Profilesrc> {
     );
   }
 
-  
   startup() async {
     DateTime now = DateTime.now();
     String cday = DateFormat('MM d y').format(now);
     try {
-
       FirebaseFirestore.instance
           .collection("Technician")
           .doc(widget.username)
@@ -393,7 +415,6 @@ class _ProfilesrcState extends State<Profilesrc> {
           .then((value) {
         profile = Profile.fromMap(value.data());
       });
-
 
       await fb
           .collection('Technician')
@@ -439,8 +460,6 @@ class _ProfilesrcState extends State<Profilesrc> {
                   pro = snap.size;
                 })
               });
-
-
     } catch (e) {
       print(e);
     }

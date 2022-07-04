@@ -510,7 +510,7 @@ class _CompletedsrcState extends State<Completedsrc> {
             .doc(widget.custdocname)
             .collection("Programs")
             .doc(widget.docname)
-            .update({'status': 'completed'});
+            .set({'status': 'completed', 'camount' : cost.text}, SetOptions(merge : true));
 
         fb
             .collection("Technician")

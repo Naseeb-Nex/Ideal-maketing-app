@@ -327,7 +327,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                                             loc: profile.location,
                                             phn1: profile.phn1,
                                             phn2: profile.phn2))),
-                            child: Container(
+                            child: Container( 
                               height: s.height * 0.04,
                               width: s.width * 0.4,
                               decoration: BoxDecoration(

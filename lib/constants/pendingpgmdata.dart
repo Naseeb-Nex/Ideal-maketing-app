@@ -22,6 +22,8 @@ class Pendingpgmdata {
   String? pcollname;
   String? pdocname;
   String? custdocname;
+  String? prospec;
+  String? instadate;
 
   Pendingpgmdata(
       {
@@ -48,6 +50,8 @@ class Pendingpgmdata {
       this.pcollname,
       this.pdocname,
       this.custdocname,
+      this.prospec,
+      this.instadate,
       });
 
   // receiving data from server
@@ -76,6 +80,8 @@ class Pendingpgmdata {
       pcollname: map['pcollname'],
       pdocname: map['pdocname'],
       custdocname: map['custdocname'],
+      prospec: map['prospec'],
+      instadate: map['instadate'],
     );
   }
 
@@ -105,6 +111,8 @@ class Pendingpgmdata {
       'pcollname': pcollname,
       'pdocname': pdocname,
       'custdocname': custdocname,
+      'prospec': prospec,
+      'instadate': instadate, 
     };
   }
 }

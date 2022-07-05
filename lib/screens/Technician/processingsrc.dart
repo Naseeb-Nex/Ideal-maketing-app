@@ -555,6 +555,8 @@ class _ProcessingsrcState extends State<Processingsrc> {
       assigneddate: widget.assigneddate,
       assignedtime: widget.assignedtime,
       custdocname: widget.custdocname,
+      prospec: widget.prospec,
+      instadate: widget.instadate,
       remarks: reason.text,
       pdate: prodate,
       ptime: protime,

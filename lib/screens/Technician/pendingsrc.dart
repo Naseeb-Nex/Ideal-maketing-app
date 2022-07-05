@@ -572,6 +572,8 @@ class _PendingsrcState extends State<Pendingsrc> {
       pcollname: pcollname,
       pdocname: pdocname,
       custdocname: widget.custdocname,
+      prospec: widget.prospec,
+      instadate: widget.instadate,
     );
 
     Pgmhistory history = Pgmhistory(

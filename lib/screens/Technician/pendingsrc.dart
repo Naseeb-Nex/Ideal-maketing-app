@@ -3,6 +3,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/services/customer_history.dart';
 import 'package:ideal_marketing/services/pgmhistory.dart';
+import 'package:ideal_marketing/services/techhistory.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/pendingpgmdata.dart';
@@ -594,7 +595,20 @@ class _PendingsrcState extends State<Pendingsrc> {
         status: "unresolved",
         ch: "Program unsolved");
 
-  //customer program history
+    Techhistory techhis = Techhistory(
+      name: widget.name,
+      loc: widget.loc,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      remarks: reason.text,
+      upDate: pendingdate,
+      upTime: pendingtime,
+      username: widget.username,
+      docname: pdocname,
+      status: "pending",
+    );
+
+    //customer program history
     CustomerPgmHistory custhistory = CustomerPgmHistory(
         upDate: pendingdate,
         upTime: pendingtime,
@@ -631,11 +645,17 @@ class _PendingsrcState extends State<Pendingsrc> {
             .doc(widget.docname)
             .update({'status': 'pending'});
 
+        // history of the technician
         fb
             .collection("Programs")
             .doc(widget.docname)
             .delete()
-            .then((value) => print("Pgm Deleted From office list"))
+            .then((value) => fb
+                .collection("Technician")
+                .doc(widget.username)
+                .collection("History")
+                .doc(pdocname)
+                .set(techhis.toMap()))
             .catchError((error) =>
                 print("Failed to delete from office list program : $error"));
 
@@ -648,7 +668,6 @@ class _PendingsrcState extends State<Pendingsrc> {
             .doc(widget.docname)
             .delete()
             .then((value) {
-
           // customer program history updated
           fb
               .collection("Customer")
@@ -658,7 +677,7 @@ class _PendingsrcState extends State<Pendingsrc> {
               .collection("History")
               .doc(pdocname)
               .set(custhistory.toMap());
-              
+
           showDialog(
               context: context,
               builder: (BuildContext context) {

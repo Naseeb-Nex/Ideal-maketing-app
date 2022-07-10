@@ -3,6 +3,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/services/customer_history.dart';
 import 'package:ideal_marketing/services/pgmhistory.dart';
+import 'package:ideal_marketing/services/techhistory.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/pendingpgmdata.dart';
@@ -582,6 +583,18 @@ class _ProcessingsrcState extends State<Processingsrc> {
         status: "pro",
         ch: "Program in processing");
 
+    Techhistory techhis = Techhistory(
+        name: widget.name,
+        loc: widget.loc,
+        pgm: widget.pgm,
+        chrg: widget.chrg,
+        remarks: reason.text,
+        upDate: prodate,
+        upTime: protime,
+        username: widget.username,
+        docname: pdocname,
+        status: "processing",
+        );
 
   //customer program history
     CustomerPgmHistory custhistory = CustomerPgmHistory(
@@ -624,7 +637,12 @@ class _ProcessingsrcState extends State<Processingsrc> {
             .collection("Programs")
             .doc(widget.docname)
             .delete()
-            .then((value) => print("Pgm Deleted From office list"))
+            .then((value) => fb
+                .collection("Technician")
+                .doc(widget.username)
+                .collection("History")
+                .doc(pdocname)
+                .set(techhis.toMap()))
             .catchError((error) =>
                 print("Failed to delete from office list program : $error"));
 

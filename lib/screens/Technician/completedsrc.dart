@@ -3,13 +3,13 @@ import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/services/customer_history.dart';
+import 'package:ideal_marketing/services/techhistory.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/completepgmdata.dart';
 import 'package:ideal_marketing/screens/Technician/hometech.dart';
 import 'package:ideal_marketing/services/pgmhistory.dart';
 import 'hometech.dart';
-
 
 class Completedsrc extends StatefulWidget {
   String? uid;
@@ -228,14 +228,13 @@ class _CompletedsrcState extends State<Completedsrc> {
                                         Icons.attach_money_outlined,
                                         color: Colors.green,
                                       ),
-                                      contentPadding:
-                                          const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                      contentPadding: const EdgeInsets.fromLTRB(
+                                          20, 15, 20, 15),
                                       hintText: "Collection",
                                       focusColor: Colors.green,
                                       hoverColor: bluebg,
                                       border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25),
+                                        borderRadius: BorderRadius.circular(25),
                                       ),
                                     )),
                               )
@@ -263,7 +262,8 @@ class _CompletedsrcState extends State<Completedsrc> {
                                   width: 20,
                                 ),
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width / 1.74,
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.74,
                                   height: 130,
                                   child: TextFormField(
                                     autofocus: false,
@@ -454,23 +454,36 @@ class _CompletedsrcState extends State<Completedsrc> {
     );
 
     Pgmhistory history = Pgmhistory(
+        name: widget.name,
+        address: widget.address,
+        loc: widget.loc,
+        phn: widget.phn,
+        pgm: widget.pgm,
+        chrg: widget.chrg,
+        type: widget.type,
+        collection: cost.text,
+        remarks: remarks.text,
+        upDate: completeddate,
+        upTime: completeddate,
+        techname: widget.techname,
+        prospec: widget.prospec,
+        instadate: widget.instadate,
+        docname: cdocname,
+        status: "completed",
+        ch: "Program Completed");
+
+    Techhistory techhis = Techhistory(
       name: widget.name,
-      address: widget.address,
       loc: widget.loc,
-      phn: widget.phn,
       pgm: widget.pgm,
       chrg: widget.chrg,
-      type: widget.type,
       collection: cost.text,
       remarks: remarks.text,
       upDate: completeddate,
-      upTime: completeddate,
-      techname: widget.techname,
-      prospec: widget.prospec,
-      instadate: widget.instadate,
+      upTime: completedtime,
+      username: widget.username,
       docname: cdocname,
       status: "completed",
-      ch: "Program Completed"
     );
 
     //customer program history
@@ -483,7 +496,7 @@ class _CompletedsrcState extends State<Completedsrc> {
         status: "completed",
         camount: cost.text,
         docname: cdocname,
-        custdocname: widget.custdocname); 
+        custdocname: widget.custdocname);
 
     if (_formKey.currentState!.validate()) {
       if (_value == true) {
@@ -504,13 +517,14 @@ class _CompletedsrcState extends State<Completedsrc> {
           print("Daylist Updated");
         }).catchError((error) => print("Failed to update Daily list : $error"));
 
-         // Updating the Customer program status
+        // Updating the Customer program status
         fb
             .collection("Customer")
             .doc(widget.custdocname)
             .collection("Programs")
             .doc(widget.docname)
-            .set({'status': 'completed', 'camount' : cost.text}, SetOptions(merge : true));
+            .set({'status': 'completed', 'camount': cost.text},
+                SetOptions(merge: true));
 
         fb
             .collection("Technician")
@@ -536,14 +550,14 @@ class _CompletedsrcState extends State<Completedsrc> {
         }).catchError((error) => print("Failed to update Daily list : $error"));
 
         // customer program history updated
-          fb
-              .collection("Customer")
-              .doc(widget.custdocname)
-              .collection("Programs")
-              .doc(widget.docname)
-              .collection("History")
-              .doc(cdocname)
-              .set(custhistory.toMap());
+        fb
+            .collection("Customer")
+            .doc(widget.custdocname)
+            .collection("Programs")
+            .doc(widget.docname)
+            .collection("History")
+            .doc(cdocname)
+            .set(custhistory.toMap());
 
         fb
             .collection("Completedpgm")
@@ -560,10 +574,10 @@ class _CompletedsrcState extends State<Completedsrc> {
             .collection("Programs")
             .doc(widget.docname)
             .delete()
-            .then((value) => print("Pgm Deleted From office list"))
+            .then((value) => fb.collection("Technician").doc(widget.username).collection("History").doc(cdocname).set(techhis.toMap()))
             .catchError((error) =>
                 print("Failed to delete from office list program : $error"));
-        
+
         fb.collection("history").doc(cdocname).set(history.toMap());
 
         fb
@@ -573,15 +587,15 @@ class _CompletedsrcState extends State<Completedsrc> {
             .doc(widget.docname)
             .delete()
             .then((value) {
+          setState(() {
+            _upload = false;
+          });
           showDialog(
               context: context,
               builder: (BuildContext context) {
                 return CustomeAlertbx("Program Registration Completed!",
                     Colors.greenAccent, "Sucessfull", widget.username);
               });
-          setState(() {
-            _upload = false;
-          });
         }).catchError((error) {
           print("Failed to delete from technician list program : $error");
           showDialog(
@@ -681,4 +695,3 @@ class CustomeAlertbx extends StatelessWidget {
     );
   }
 }
-

@@ -536,8 +536,44 @@ class _CompletedsrcState extends State<Completedsrc> {
             .set(cpgm.toMap())
             .then((value) {
           print("Monthly list Updated");
-        }).catchError(
-                (error) => print("Failed to update Monthilylist : $error"));
+        }).catchError((error) {
+          print("Failed to update Monthilylist : $error");
+        });
+
+        // Tech perfromance Counter
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Performance")
+            .doc("Completed")
+            .collection("Month")
+            .doc(mcollname)
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Completed")
+                  .collection("Month")
+                  .doc(mcollname)
+                  .set({'count': 1});
+            } else {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Completed")
+                  .collection("Month")
+                  .doc(mcollname)
+                  .update({'count': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("Counter update Error: $e"),
+        );
 
         fb
             .collection("Completedpgm")
@@ -575,7 +611,12 @@ class _CompletedsrcState extends State<Completedsrc> {
             .collection("Programs")
             .doc(widget.docname)
             .delete()
-            .then((value) => fb.collection("Technician").doc(widget.username).collection("History").doc(cdocname).set(techhis.toMap()))
+            .then((value) => fb
+                .collection("Technician")
+                .doc(widget.username)
+                .collection("History")
+                .doc(cdocname)
+                .set(techhis.toMap()))
             .catchError((error) =>
                 print("Failed to delete from office list program : $error"));
 

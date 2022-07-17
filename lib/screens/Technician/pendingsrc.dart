@@ -548,6 +548,7 @@ class _PendingsrcState extends State<Pendingsrc> {
     String pendingtime = DateFormat('kk:mm').format(now);
     String pcollname = DateFormat('MM d y').format(now);
     String pdocname = DateFormat('MM d y kk:mm:ss').format(now);
+    String monthdoc = DateFormat('MM y').format(now);
 
     Pendingpgmdata ppgm = Pendingpgmdata(
       uid: widget.uid,
@@ -636,7 +637,42 @@ class _PendingsrcState extends State<Pendingsrc> {
           print("Pending pgmlist Updated");
         }).catchError(
                 (error) => print("Failed to update Pending pgm list : $error"));
+        
+        // Tech perfromance Counter
 
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Performance")
+            .doc("Pending")
+            .collection("Month")
+            .doc(monthdoc)
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Pending")
+                  .collection("Month")
+                  .doc(monthdoc)
+                  .set({'count': 1});
+            } else {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Pending")
+                  .collection("Month")
+                  .doc(monthdoc)
+                  .update({'count': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("Error getting document: $e"),
+        );
+        
         // Updating the Customer program status
         fb
             .collection("Customer")

@@ -536,6 +536,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
     String protime = DateFormat('kk:mm').format(now);
     String pcollname = DateFormat('MM d y').format(now);
     String pdocname = DateFormat('MM d y kk:mm:ss').format(now);
+    String monthdoc = DateFormat('MM y').format(now);
 
     Pendingpgmdata ppgm = Pendingpgmdata(
       uid: widget.uid,
@@ -584,19 +585,19 @@ class _ProcessingsrcState extends State<Processingsrc> {
         ch: "Program in processing");
 
     Techhistory techhis = Techhistory(
-        name: widget.name,
-        loc: widget.loc,
-        pgm: widget.pgm,
-        chrg: widget.chrg,
-        remarks: reason.text,
-        upDate: prodate,
-        upTime: protime,
-        username: widget.username,
-        docname: pdocname,
-        status: "processing",
-        );
+      name: widget.name,
+      loc: widget.loc,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      remarks: reason.text,
+      upDate: prodate,
+      upTime: protime,
+      username: widget.username,
+      docname: pdocname,
+      status: "processing",
+    );
 
-  //customer program history
+    //customer program history
     CustomerPgmHistory custhistory = CustomerPgmHistory(
         upDate: prodate,
         upTime: protime,
@@ -625,7 +626,42 @@ class _ProcessingsrcState extends State<Processingsrc> {
         }).catchError(
                 (error) => print("Failed to update Pending pgm list : $error"));
 
-                // Updating the Customer program status
+        // Tech perfromance Counter
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Performance")
+            .doc("Processing")
+            .collection("Month")
+            .doc(monthdoc)
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Processing")
+                  .collection("Month")
+                  .doc(monthdoc)
+                  .set({'count': 1});
+            } else {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Processing")
+                  .collection("Month")
+                  .doc(monthdoc)
+                  .update({'count': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("Processing Counter updated: $e"),
+        );
+
+        // Updating the Customer program status
         fb
             .collection("Customer")
             .doc(widget.custdocname)

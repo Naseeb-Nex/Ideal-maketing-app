@@ -1,25 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:ideal_marketing/components/compelepgmcard.dart';
+import 'package:ideal_marketing/components/pendingpgmcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
-import 'package:intl/intl.dart';
 
-class Compeltedpgmview extends StatefulWidget {
+// ignore: must_be_immutable
+class Pendingpgmview extends StatefulWidget {
   String? username;
-  Compeltedpgmview({Key? key, this.username}) : super(key: key);
+  Pendingpgmview({Key? key, this.username}) : super(key: key);
 
   @override
   _CompeltedpgmviewState createState() => _CompeltedpgmviewState();
 }
 
-class _CompeltedpgmviewState extends State<Compeltedpgmview> {
+class _CompeltedpgmviewState extends State<Pendingpgmview> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
-    DateTime now = DateTime.now();
-    String cday = DateFormat('MM d y').format(now);
     return Scaffold(
-      backgroundColor: limegreen,
+      backgroundColor: cheryred,
       body: SafeArea(
         child: Column(
           children: [
@@ -46,7 +44,7 @@ class _CompeltedpgmviewState extends State<Compeltedpgmview> {
                             ))),
                       ),
                       const Text(
-                        "Completed Program List",
+                        "Pending Program List",
                         style: TextStyle(
                           fontFamily: "Nunito",
                           fontSize: 20,
@@ -79,9 +77,7 @@ class _CompeltedpgmviewState extends State<Compeltedpgmview> {
                       stream: FirebaseFirestore.instance
                           .collection('Technician')
                           .doc(widget.username)
-                          .collection("Completedpgm")
-                          .doc("Day")
-                          .collection(cday)
+                          .collection("Pendingpgm")
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -91,10 +87,10 @@ class _CompeltedpgmviewState extends State<Compeltedpgmview> {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return Padding(
-                            padding: EdgeInsets.only(top :s.height * 0.35),
+                            padding: EdgeInsets.only(top: s.height * 0.35),
                             child: const Center(
                               child: CircularProgressIndicator(
-                                color: limegreen,
+                                color: cheryred,
                               ),
                             ),
                           );
@@ -108,39 +104,34 @@ class _CompeltedpgmviewState extends State<Compeltedpgmview> {
                         }).toList();
                         _allpgm.sort(
                             (a, b) => a["priority"].compareTo(b["priority"]));
-                        return Container(
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 10),
-                              for (var i = 0; i < _allpgm.length; i++) ...[
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Completedpgmcard(
-                                  uid: _allpgm[i]['uid'],
-                                  name: _allpgm[i]['name'],
-                                  address: _allpgm[i]['address'],
-                                  loc: _allpgm[i]['loc'],
-                                  phn: _allpgm[i]['phn'],
-                                  pgm: _allpgm[i]['pgm'],
-                                  chrg: _allpgm[i]['chrg'],
-                                  type: _allpgm[i]['type'],
-                                  upDate: _allpgm[i]['upDate'],
-                                  upTime: _allpgm[i]['upTime'],
-                                  docname: _allpgm[i]['docname'],
-                                  status: _allpgm[i]['status'],
-                                  username: _allpgm[i]['username'],
-                                  techname: _allpgm[i]['techname'],
-                                  assignedtime: _allpgm[i]['assignedtime'],
-                                  assigneddate: _allpgm[i]['assigneddate'],
-                                  priority: _allpgm[i]['priority'],
-                                  camount: _allpgm[i]['camount'],
-                                  ctime: _allpgm[i]['ctime'],
-                                  remarks: _allpgm[i]['remarks'],
-                                )
-                              ]
-                            ],
-                          ),
+                        return Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            for (var i = 0; i < _allpgm.length; i++) ...[
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Pendingpgmcard(
+                                uid: _allpgm[i]['uid'],
+                                name: _allpgm[i]['name'],
+                                address: _allpgm[i]['address'],
+                                loc: _allpgm[i]['loc'],
+                                phn: _allpgm[i]['phn'],
+                                pgm: _allpgm[i]['pgm'],
+                                chrg: _allpgm[i]['chrg'],
+                                type: _allpgm[i]['type'],
+                                upDate: _allpgm[i]['upDate'],
+                                upTime: _allpgm[i]['upTime'],
+                                docname: _allpgm[i]['docname'],
+                                status: _allpgm[i]['status'],
+                                username: _allpgm[i]['username'],
+                                techname: _allpgm[i]['techname'],
+                                assignedtime: _allpgm[i]['assignedtime'],
+                                assigneddate: _allpgm[i]['assigneddate'],
+                                priority: _allpgm[i]['priority'],
+                              )
+                            ]
+                          ],
                         );
                       }),
                 ),

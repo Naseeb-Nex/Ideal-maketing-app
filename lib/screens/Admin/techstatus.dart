@@ -329,10 +329,6 @@ class Pendingpgmwrapper extends StatefulWidget {
 }
 
 class _PendingpgmwrapperState extends State<Pendingpgmwrapper> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/Completedpgmview.dart';
+import 'package:ideal_marketing/screens/Technician/Pendingpgmview.dart';
 
 import 'package:ideal_marketing/screens/Technician/edittechprofile.dart';
 import 'package:ideal_marketing/screens/Technician/resetpassword.dart';
@@ -184,7 +185,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               InkWell(
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>Compeltedpgmview(username: widget.username,))),
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            Compeltedpgmview(
+                                              username: widget.username,
+                                            ))),
                                 child: Container(
                                   width: s.width * 0.4,
                                   height: s.height * 0.1,
@@ -196,12 +203,14 @@ class _ProfilesrcState extends State<Profilesrc> {
                                         BoxShadow(
                                             spreadRadius: 2,
                                             blurRadius: 5,
-                                            color: Colors.black.withOpacity(0.1),
+                                            color:
+                                                Colors.black.withOpacity(0.1),
                                             offset: const Offset(0, 5))
                                       ]),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       const AutoSizeText(
                                         "Completed Program",
@@ -220,52 +229,63 @@ class _ProfilesrcState extends State<Profilesrc> {
                                           fontFamily: "Nunito",
                                           fontSize: 17,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.green,
+                                          color: Color(0XFF95d5b2),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                              Container(
-                                width: s.width * 0.4,
-                                height: s.height * 0.1,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: const Color(0XFFFED4D6),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          color: Colors.black.withOpacity(0.1),
-                                          offset: const Offset(0, 5))
-                                    ]),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 2),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const AutoSizeText(
-                                      "Pending Program",
-                                      style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.redAccent,
+                              InkWell(
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            Pendingpgmview(
+                                              username: widget.username,
+                                            ))),
+                                child: Container(
+                                  width: s.width * 0.4,
+                                  height: s.height * 0.1,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: const Color(0XFFFED4D6),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            color:
+                                                Colors.black.withOpacity(0.1),
+                                            offset: const Offset(0, 5))
+                                      ]),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 2),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      const AutoSizeText(
+                                        "Pending Program",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.redAccent,
+                                        ),
+                                        maxLines: 2,
                                       ),
-                                      maxLines: 2,
-                                    ),
-                                    Text(
-                                      "$p",
-                                      style: const TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.red,
+                                      Text(
+                                        "$p",
+                                        style: const TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -286,8 +306,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                                       color: Colors.black.withOpacity(0.1),
                                       offset: const Offset(0, 5))
                                 ]),
-                                                    padding: const EdgeInsets.symmetric(horizontal: 2),
-
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -331,7 +350,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                                             loc: profile.location,
                                             phn1: profile.phn1,
                                             phn2: profile.phn2))),
-                            child: Container( 
+                            child: Container(
                               height: s.height * 0.04,
                               width: s.width * 0.4,
                               decoration: BoxDecoration(

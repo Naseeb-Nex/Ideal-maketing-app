@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
+import 'package:ideal_marketing/screens/Technician/Completedpgmview.dart';
 
 import 'package:ideal_marketing/screens/Technician/edittechprofile.dart';
 import 'package:ideal_marketing/screens/Technician/resetpassword.dart';
@@ -182,45 +183,48 @@ class _ProfilesrcState extends State<Profilesrc> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Container(
-                                width: s.width * 0.4,
-                                height: s.height * 0.1,
-                                padding: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25),
-                                    color: const Color(0XFFDBF4F1),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          color: Colors.black.withOpacity(0.1),
-                                          offset: const Offset(0, 5))
-                                    ]),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const AutoSizeText(
-                                      "Completed Program",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                              InkWell(
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=>Compeltedpgmview(username: widget.username,))),
+                                child: Container(
+                                  width: s.width * 0.4,
+                                  height: s.height * 0.1,
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: const Color(0XFFDBF4F1),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            color: Colors.black.withOpacity(0.1),
+                                            offset: const Offset(0, 5))
+                                      ]),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      const AutoSizeText(
+                                        "Completed Program",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.greenAccent,
+                                        ),
+                                        maxLines: 2,
                                       ),
-                                      maxLines: 2,
-                                    ),
-                                    Text(
-                                      "$c",
-                                      style: const TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                      Text(
+                                        "$c",
+                                        style: const TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                               Container(
@@ -248,7 +252,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                                         fontFamily: "Nunito",
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                        color: Colors.redAccent,
                                       ),
                                       maxLines: 2,
                                     ),
@@ -258,7 +262,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                                         fontFamily: "Nunito",
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                        color: Colors.red,
                                       ),
                                     ),
                                   ],
@@ -294,7 +298,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                                     fontFamily: "Nunito",
                                     fontSize: 19,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                                    color: Colors.blueAccent,
                                   ),
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
@@ -305,7 +309,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                                     fontFamily: "Nunito",
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                                    color: Colors.blue,
                                   ),
                                 ),
                               ],

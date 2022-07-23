@@ -107,6 +107,31 @@ class _PendingpgmviewState extends State<Pendingpgmview> {
                         return Column(
                           children: [
                             const SizedBox(height: 10),
+                            Container(
+                                child: _allpgm.isEmpty
+                                    ? Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(top: s.height * 0.35),
+                                            child: SizedBox(
+                                                height: s.width * 0.4,
+                                                width: s.width * 0.4,
+                                                child: Image.asset(
+                                                    "assets/icons/no_result.png")),
+                                          ),
+                                          Center(
+                                            child: Text(
+                                              "No Programs Found",
+                                              style: TextStyle(
+                                                fontFamily: "Montserrat",
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    : null,
+                              ),
                             for (var i = 0; i < _allpgm.length; i++) ...[
                               const SizedBox(
                                 height: 5,

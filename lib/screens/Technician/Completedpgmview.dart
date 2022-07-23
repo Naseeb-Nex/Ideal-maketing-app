@@ -124,6 +124,15 @@ class _CompeltedpgmviewState extends State<Compeltedpgmview> {
                                                 child: Image.asset(
                                                     "assets/icons/no_result.png")),
                                           ),
+                                          Center(
+                                            child: Text(
+                                              "No Programs Found",
+                                              style: TextStyle(
+                                                fontFamily: "Montserrat",
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          )
                                         ],
                                       )
                                     : null,

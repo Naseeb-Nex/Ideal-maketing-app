@@ -9,10 +9,10 @@ class Pendingpgmview extends StatefulWidget {
   Pendingpgmview({Key? key, this.username}) : super(key: key);
 
   @override
-  _CompeltedpgmviewState createState() => _CompeltedpgmviewState();
+  _PendingpgmviewState createState() => _PendingpgmviewState();
 }
 
-class _CompeltedpgmviewState extends State<Pendingpgmview> {
+class _PendingpgmviewState extends State<Pendingpgmview> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;

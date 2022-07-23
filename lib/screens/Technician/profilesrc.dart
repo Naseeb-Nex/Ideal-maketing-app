@@ -7,6 +7,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/Completedpgmview.dart';
 import 'package:ideal_marketing/screens/Technician/Pendingpgmview.dart';
+import 'package:ideal_marketing/screens/Technician/Processingpgmview.dart';
 
 import 'package:ideal_marketing/screens/Technician/edittechprofile.dart';
 import 'package:ideal_marketing/screens/Technician/resetpassword.dart';
@@ -14,6 +15,7 @@ import 'package:ideal_marketing/screens/Technician/resetpassword.dart';
 import '../loginsrc.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class Profilesrc extends StatefulWidget {
   String? uid;
   String? name;
@@ -293,45 +295,54 @@ class _ProfilesrcState extends State<Profilesrc> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Container(
-                            width: s.width * 0.45,
-                            height: s.height * 0.1,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: const Color(0XFFC8D7FE),
-                                boxShadow: [
-                                  BoxShadow(
-                                      spreadRadius: 2,
-                                      blurRadius: 5,
-                                      color: Colors.black.withOpacity(0.1),
-                                      offset: const Offset(0, 5))
-                                ]),
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const AutoSizeText(
-                                  "Processing Program",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blueAccent,
+                          InkWell(
+                            onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            Processingpgmview(
+                                              username: widget.username,
+                                            ))),
+                            child: Container(
+                              width: s.width * 0.45,
+                              height: s.height * 0.1,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: const Color(0XFFC8D7FE),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        spreadRadius: 2,
+                                        blurRadius: 5,
+                                        color: Colors.black.withOpacity(0.1),
+                                        offset: const Offset(0, 5))
+                                  ]),
+                              padding: const EdgeInsets.symmetric(horizontal: 2),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const AutoSizeText(
+                                    "Processing Program",
+                                    style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blueAccent,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
                                   ),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                ),
-                                Text(
-                                  "$pro",
-                                  style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                  Text(
+                                    "$pro",
+                                    style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(

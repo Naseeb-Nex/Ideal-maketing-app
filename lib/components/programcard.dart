@@ -52,6 +52,7 @@ class Programcard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
     return InkWell(
       onTap: () => Navigator.push(
           context,
@@ -79,9 +80,9 @@ class Programcard extends StatelessWidget {
                     custdocname: custdocname,
                   ))),
       child: Container(
-        height: 150,
+        // height: 150,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           color: Colors.white,
@@ -103,24 +104,34 @@ class Programcard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                      Text(
-                        "$name",
-                        style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      "$name",
+                      style: TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Container(
-                        child: Text(
-                          "$address",
-                          style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal,
-                          ),
+                        width: MediaQuery.of(context).size.width * 0.32,
+                        child: Row(
+                          children: [
+                            Flexible(
+                                child: RichText(
+                              overflow: TextOverflow.ellipsis,
+                              strutStyle: StrutStyle(fontSize: 12.0),
+                              text: TextSpan(
+                                text: "$address",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 15,
+                                  color: Colors.black
+                                ),
+                              ),
+                            )),
+                          ],
                         ),
                       ),
                     ),
@@ -148,7 +159,7 @@ class Programcard extends StatelessWidget {
                   },
                   child: Container(
                     height: 40,
-                    width: 35,
+                    width: s.width * 0.07,
                     child: Icon(
                       Icons.call,
                       size: 25,

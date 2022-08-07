@@ -285,10 +285,10 @@ class _CreateProfileState extends State<CreateProfile> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  OutlineButton(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
+                  OutlinedButton(
+                    // padding: const EdgeInsets.symmetric(horizontal: 50),
+                    // shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(20)),
                     onPressed: () {
                       Navigator.pop(context);
                     },

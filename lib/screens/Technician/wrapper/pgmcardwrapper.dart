@@ -57,39 +57,38 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
             a['uid'] = document.id;
           }).toList();
           _allpgm.sort((a, b) => a["priority"].compareTo(b["priority"]));
-          return Container(
-            child: Column(
-              children: [
-                SizedBox(height: 10),
-                for (var i = 0; i < _allpgm.length; i++) ...[
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Programcard(
-                    uid: _allpgm[i]['uid'],
-                    name: _allpgm[i]['name'],
-                    address: _allpgm[i]['address'],
-                    loc: _allpgm[i]['loc'],
-                    phn: _allpgm[i]['phn'],
-                    pgm: _allpgm[i]['pgm'],
-                    chrg: _allpgm[i]['chrg'],
-                    type: _allpgm[i]['type'],
-                    upDate: _allpgm[i]['upDate'],
-                    upTime: _allpgm[i]['upTime'],
-                    docname: _allpgm[i]['docname'],
-                    status: _allpgm[i]['status'],
-                    username: _allpgm[i]['username'],
-                    techname: _allpgm[i]['techname'],
-                    assignedtime: _allpgm[i]['assignedtime'],
-                    prospec: _allpgm[i]['prospec'],
-                    instadate: _allpgm[i]['instadate'],
-                    assigneddate: _allpgm[i]['assigneddate'],
-                    priority: _allpgm[i]['priority'],
-                    custdocname: _allpgm[i]['custdocname'],
-                  )
-                ]
+          return Column(
+            children: [
+              SizedBox(height: 10),
+              for (var i = 0; i < _allpgm.length; i++) ...[
+                SizedBox(
+                  height: 5,
+                ),
+                Programcard(
+                  uid: _allpgm[i]['uid'],
+                  name: _allpgm[i]['name'],
+                  address: _allpgm[i]['address'],
+                  loc: _allpgm[i]['loc'],
+                  phn: _allpgm[i]['phn'],
+                  pgm: _allpgm[i]['pgm'],
+                  chrg: _allpgm[i]['chrg'],
+                  type: _allpgm[i]['type'],
+                  upDate: _allpgm[i]['upDate'],
+                  upTime: _allpgm[i]['upTime'],
+                  docname: _allpgm[i]['docname'],
+                  status: _allpgm[i]['status'],
+                  username: _allpgm[i]['username'],
+                  techname: _allpgm[i]['techname'],
+                  assignedtime: _allpgm[i]['assignedtime'],
+                  prospec: _allpgm[i]['prospec'],
+                  instadate: _allpgm[i]['instadate'],
+                  assigneddate: _allpgm[i]['assigneddate'],
+                  priority: _allpgm[i]['priority'],
+                  custdocname: _allpgm[i]['custdocname'],
+                ),
               ],
-            ),
+              const SizedBox(height: 30,)
+            ],
           );
         });
   }

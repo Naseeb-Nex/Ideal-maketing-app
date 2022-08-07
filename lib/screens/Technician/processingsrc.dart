@@ -533,7 +533,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
     FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String prodate = DateFormat('d MMM y').format(now);
-    String protime = DateFormat('kk:mm').format(now);
+    String protime = DateFormat('h:mma').format(now);
     String pcollname = DateFormat('MM d y').format(now);
     String pdocname = DateFormat('MM d y kk:mm:ss').format(now);
     String monthdoc = DateFormat('MM y').format(now);

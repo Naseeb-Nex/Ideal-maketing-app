@@ -419,7 +419,7 @@ class _CompletedsrcState extends State<Completedsrc> {
     FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String completeddate = DateFormat('d MMM y').format(now);
-    String completedtime = DateFormat('kk:mm').format(now);
+    String completedtime = DateFormat('h:mma').format(now);
     String ccollname = DateFormat('MM d y').format(now);
     String cdocname = DateFormat('MM d y kk:mm:ss').format(now);
     String mcollname = DateFormat('MM y').format(now);

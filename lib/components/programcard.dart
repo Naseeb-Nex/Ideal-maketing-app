@@ -80,15 +80,14 @@ class Programcard extends StatelessWidget {
                     custdocname: custdocname,
                   ))),
       child: Container(
-        // height: 150,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 10),
+              offset: const Offset(0, 10),
               blurRadius: 20,
               color: secondbg.withOpacity(0.23),
             ),
@@ -98,52 +97,52 @@ class Programcard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              "$name",
+              style: TextStyle(
+                fontFamily: "Nunito",
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "$name",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.32,
-                        child: Row(
-                          children: [
-                            Flexible(
-                                child: RichText(
-                              overflow: TextOverflow.ellipsis,
-                              strutStyle: StrutStyle(fontSize: 12.0),
-                              text: TextSpan(
-                                text: "$address",
-                                style: TextStyle(
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.32,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Flexible(
+                              child: RichText(
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            strutStyle: StrutStyle(fontSize: 12.0),
+                            text: TextSpan(
+                              text: "$address",
+                              style: TextStyle(
                                   fontFamily: "Nunito",
                                   fontSize: 15,
-                                  color: Colors.black
-                                ),
-                              ),
-                            )),
-                          ],
-                        ),
+                                  color: Colors.black),
+                            ),
+                          )),
+                        ],
                       ),
                     ),
                   ],
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     child: Center(
                       child: Text(
                         "$pgm",
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "Montserrat",
                           fontSize: 15,
                           fontWeight: FontWeight.normal,
@@ -154,49 +153,60 @@ class Programcard extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    print("Phone call initiated");
                     _makePhoneCall(phn!);
                   },
                   child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: white,
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 1,
+                            blurRadius: 3,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: const Offset(3, 0),
+                          
+                          )
+                        ]),
                     height: 40,
-                    width: s.width * 0.07,
-                    child: Icon(
-                      Icons.call,
-                      size: 25,
-                      color: Colors.lightBlueAccent,
+                    width: 38,
+                    child: Center(
+                      child: Icon(
+                        Icons.call,
+                        size: 25,
+                        color: Colors.lightBlueAccent,
+                      ),
                     ),
                   ),
                 )
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.pin_drop_outlined,
-                    color: cheryred,
-                  ),
-                  Container(
-                    child: Text(
-                      "$loc",
-                      style: TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.pin_drop_outlined,
+                        color: cheryred,
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "$type",
-                        style: TextStyle(
+                      Text(
+                        "$loc",
+                        style: const TextStyle(
                           fontFamily: "Nunito",
-                          fontSize: 15,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
+                    ],
+                  ),
+                  Text(
+                    "$type",
+                    style: const TextStyle(
+                      fontFamily: "Nunito",
+                      fontSize: 13,
                     ),
                   )
                 ],

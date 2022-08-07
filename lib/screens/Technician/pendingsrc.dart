@@ -545,7 +545,7 @@ class _PendingsrcState extends State<Pendingsrc> {
     FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String pendingdate = DateFormat('d MMM y').format(now);
-    String pendingtime = DateFormat('kk:mm').format(now);
+    String pendingtime = DateFormat('h:mma').format(now);
     String pcollname = DateFormat('MM d y').format(now);
     String pdocname = DateFormat('MM d y kk:mm:ss').format(now);
     String monthdoc = DateFormat('MM y').format(now);

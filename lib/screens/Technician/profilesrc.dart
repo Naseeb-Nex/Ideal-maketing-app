@@ -187,13 +187,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               InkWell(
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            Compeltedpgmview(
-                                              username: widget.username,
-                                            ))),
+                                // onTap: () => Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (BuildContext context) =>
+                                //             Compeltedpgmview(
+                                //               username: widget.username,
+                                //             ))),
                                 child: Container(
                                   width: s.width * 0.4,
                                   height: s.height * 0.1,
@@ -296,13 +296,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                             height: 10,
                           ),
                           InkWell(
-                            onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            Processingpgmview(
-                                              username: widget.username,
-                                            ))),
+                            // onTap: () => Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (BuildContext context) =>
+                            //                 Processingpgmview(
+                            //                   username: widget.username,
+                            //                 ))),
                             child: Container(
                               width: s.width * 0.45,
                               height: s.height * 0.1,
@@ -349,18 +349,18 @@ class _ProfilesrcState extends State<Profilesrc> {
                             height: 25,
                           ),
                           InkWell(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        EditTechprofile(
-                                            name: widget.name,
-                                            uid: widget.uid,
-                                            username: widget.username,
-                                            des: profile.designation,
-                                            loc: profile.location,
-                                            phn1: profile.phn1,
-                                            phn2: profile.phn2))),
+                            // onTap: () => Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) =>
+                            //             EditTechprofile(
+                            //                 name: widget.name,
+                            //                 uid: widget.uid,
+                            //                 username: widget.username,
+                            //                 des: profile.designation,
+                            //                 loc: profile.location,
+                            //                 phn1: profile.phn1,
+                            //                 phn2: profile.phn2))),
                             child: Container(
                               height: s.height * 0.04,
                               width: s.width * 0.4,
@@ -375,14 +375,19 @@ class _ProfilesrcState extends State<Profilesrc> {
                                       offset: const Offset(0, 5))
                                 ],
                               ),
-                              child: Center(
-                                child: Text(
-                                  "Edit profile",
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.blue[400],
+                              child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                      "Edit profile",
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.blue[400],
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -412,14 +417,17 @@ class _ProfilesrcState extends State<Profilesrc> {
                                       offset: const Offset(0, 5))
                                 ],
                               ),
-                              child: Center(
-                                child: Text(
-                                  "Change Password",
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.red[400],
+                              child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Text(
+                                    "Change Password",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.red[400],
+                                    ),
                                   ),
                                 ),
                               ),

@@ -112,7 +112,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      color: bluebg,
+                      color: Color(0Xff9381ff),
                       boxShadow: [BoxShadow(
                           spreadRadius: 2,
                           blurRadius: 3,
@@ -168,7 +168,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(
+                          Row(crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Phone :",
@@ -191,7 +191,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(
+                          Row(crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Location :",
@@ -201,13 +201,15 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                   color: Colors.white,
                                 ),
                               ),
-                              Text(
-                                "  ${widget.loc}",
-                                style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
+                              Flexible(
+                                child: Text(
+                                  "  ${widget.loc}",
+                                  style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
                               ),
                             ],
                           ),
@@ -244,7 +246,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(
+                          Row(crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Product Specification :",
@@ -254,19 +256,22 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                   color: Colors.white,
                                 ),
                               ),
-                              Text(
-                                "  ${widget.prospec}",
-                                style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
+                              const SizedBox(width: 5,),
+                              Flexible(
+                                child: Text(
+                                  "${widget.prospec}",
+                                  style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
                               ),
                             ],
                           ),const SizedBox(
                             height: 5,
                           ),
-                          Row(
+                          Row(crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Installation Date :",
@@ -289,7 +294,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(
+                          Row(crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
@@ -312,7 +317,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                   ),
                                 ],
                               ),
-                              Row(
+                              Row(crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
                                     "Date :",
@@ -541,6 +546,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     ),
                   ),
                 ),
+                SizedBox(height: 40,),
               ],
             ),
           ),

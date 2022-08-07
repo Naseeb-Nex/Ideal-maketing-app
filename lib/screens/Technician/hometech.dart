@@ -86,6 +86,7 @@ class _HomeTechState extends State<HomeTech> {
                               width: 30,
                               height: 30,
                               fit: BoxFit.cover,
+                              color: bluebg,
                             ))),
                         const Text(
                           "Home",
@@ -133,7 +134,7 @@ class _HomeTechState extends State<HomeTech> {
                 child: Container(
                   height: double.infinity,
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.fromLTRB(10,20,10,0),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),

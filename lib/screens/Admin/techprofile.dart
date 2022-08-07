@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/services/user_model.dart';
+import 'package:ideal_marketing/services/getcounts.dart';
 
 class Techprofilesrc extends StatefulWidget {
   String? name;
@@ -24,11 +25,14 @@ class Techprofilesrc extends StatefulWidget {
 }
 
 class _TechprofilesrcState extends State<Techprofilesrc> {
-  int c = 0;
-  int p = 0;
-  int pro = 0;
+  int? c = 0;
+  int? p = 0;
+  int? pro = 0;
 
   Profile profile = Profile();
+  
+  // Getcount pdata = Getcount();
+  // Getcount prodata = Getcount();
   UserModel removeuser = UserModel();
 
   FirebaseFirestore fb = FirebaseFirestore.instance;
@@ -437,51 +441,70 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
   setupsrc() async {
     DateTime now = DateTime.now();
     String mnth = DateFormat('MM y').format(now);
-    try {
-      FirebaseFirestore.instance
-          .collection("Technician")
-          .doc(widget.username)
-          .get()
-          .then((value) {
+    print(mnth);
+
+    FirebaseFirestore.instance
+        .collection("Technician")
+        .doc(widget.username)
+        .get()
+        .then((value) {
+      setState(() {
         profile = Profile.fromMap(value.data());
       });
+    });
 
-      await fb
-          .collection('Technician')
-          .doc(widget.username)
-          .collection("Completedpgm")
-          .doc("Day")
-          .collection(mnth)
-          .get()
-          .then((snap) => {
+    await fb
+        .collection('Technician')
+        .doc(widget.username)
+        .collection("Performance")
+        .doc("Completed")
+        .collection("Month")
+        .doc(mnth)
+        .get()
+        .then((DocumentSnapshot doc) {
+              if (doc.exists) {
+                Getcount cdata = Getcount.fromMap(doc.data());
+                print(cdata.count);
                 setState(() {
-                  c = snap.size;
-                })
-              });
-      await fb
-          .collection('Technician')
-          .doc(widget.username)
-          .collection("Pendingpgm")
-          .get()
-          .then((snap) => {
-                setState(() {
-                  p = snap.size;
-                })
-              });
+                  c = cdata.count;
+                });
+              }
+            });
 
-      await fb
-          .collection('Technician')
-          .doc(widget.username)
-          .collection("Processingpgm")
-          .get()
-          .then((snap) => {
+    await fb
+        .collection('Technician')
+        .doc(widget.username)
+        .collection("Performance")
+        .doc("Pending")
+        .collection("Month")
+        .doc(mnth)
+        .get()
+        .then((DocumentSnapshot doc) {
+              if (doc.exists) {
+                Getcount pdata = Getcount.fromMap(doc.data());
+                print(pdata.count);
                 setState(() {
-                  pro = snap.size;
-                })
-              });
-    } catch (e) {
-      print(e);
-    }
+                  p = pdata.count;
+                });
+              }
+            });
+
+    await fb
+        .collection('Technician')
+        .doc(widget.username)
+        .collection("Performance")
+        .doc("Completed")
+        .collection("Month")
+        .doc(mnth)
+        .get()
+        .then((DocumentSnapshot doc) {
+              if (doc.exists) {
+                Getcount prodata= Getcount.fromMap(doc.data());
+                setState(() {
+                  pro = prodata.count;
+                });
+              }
+            });
   }
 
   removetech() async {

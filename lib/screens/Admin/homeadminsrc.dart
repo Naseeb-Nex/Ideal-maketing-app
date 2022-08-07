@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/screens/Admin/confirmationlist.dart';
 
 import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:ideal_marketing/screens/register.dart';
@@ -24,7 +25,7 @@ class _HomeAdminState extends State<HomeAdmin> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   FirebaseFirestore fb = FirebaseFirestore.instance;
-  int p = 0, c = 0;
+  int p = 0, c = 0, cm = 0;
 
   @override
   void initState() {
@@ -129,7 +130,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
                         topRight: Radius.circular(40)),
-                    color: newbg,
+                    color: Color(0XffF9F9FB),
                   ),
                   child: Center(
                     child: ListView(
@@ -145,7 +146,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                             style: TextStyle(
                               fontFamily: "Nunito",
                               fontSize: 22,
-                              fontWeight: FontWeight.bold,
+                              // fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),
@@ -189,8 +190,10 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           fontFamily: "Nunito",
                                           fontSize: 19,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.black,
+                                          color: Color(0XFFff5c8a),
                                         ),
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 10),
@@ -200,7 +203,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                             fontFamily: "Nunito",
                                             fontSize: 19,
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.black,
+                                            color: Color(0XFFff5c8a),
                                           ),
                                         ),
                                       ),
@@ -219,20 +222,21 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           spreadRadius: 2,
                                           blurRadius: 5,
                                           color: Colors.black.withOpacity(0.2),
-                                          offset: const Offset(0,5))
+                                          offset: const Offset(0, 5))
                                     ]),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    Text(
                                       "Completed Program",
                                       style: TextStyle(
                                         fontFamily: "Nunito",
                                         fontSize: 19,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                        color: Color(0XFF52b788),
                                       ),
+                                      textAlign: TextAlign.center,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10),
@@ -242,7 +246,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           fontFamily: "Nunito",
                                           fontSize: 19,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.black,
+                                          color: Color(0XFF52b788),
                                         ),
                                       ),
                                     ),
@@ -255,6 +259,80 @@ class _HomeAdminState extends State<HomeAdmin> {
                         const SizedBox(
                           height: 20,
                         ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: InkWell(
+                            onTap: (() => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        const Confirmationlist()))),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 15),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        spreadRadius: 4,
+                                        blurRadius: 7,
+                                        color: Colors.black.withOpacity(0.1),
+                                        offset: const Offset(5, 0))
+                                  ]),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      SizedBox(
+                                          width: 30,
+                                          height: 30,
+                                          child: Image.asset(
+                                            "assets/icons/confimmsg.png",
+                                          )),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "Confirmation List",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 17,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: cm == 0
+                                              ? Color(0xFFc1fba4)
+                                              : cheryred),
+                                      padding: EdgeInsets.all(11),
+                                      child: Text(
+                                        "$cm",
+                                        style: TextStyle(
+                                            color: white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
@@ -262,7 +340,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                             style: TextStyle(
                               fontFamily: "Nunito",
                               fontSize: 22,
-                              fontWeight: FontWeight.bold,
+                              // fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),
@@ -366,14 +444,19 @@ class _HomeAdminState extends State<HomeAdmin> {
               p = snap.size;
             })
           });
+
+      //confirm list counter
+      await fb.collection('ConfirmList').get().then((snap) => {
+            setState(() {
+              cm = snap.size;
+              print(cm);
+              
+            })
+          });
     } catch (e) {
       print(e);
     }
   }
-
-  // #DBF4F1 green #EEFCEF  #E6F5FA
-  // #FFF5DA orange
-  // #FED4D6 pink  #FFEFE2
 
   // the logout function
   Future<void> logout(BuildContext context) async {
@@ -546,7 +629,7 @@ class _TechcardState extends State<Techcard> {
                   ),
                   Text(
                     "$a",
-                    style:const  TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 13,
                       fontWeight: FontWeight.bold,

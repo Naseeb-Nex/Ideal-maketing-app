@@ -86,7 +86,7 @@ class _HomeTechState extends State<HomeTech> {
                               width: 30,
                               height: 30,
                               fit: BoxFit.cover,
-                              color: bluebg,
+                              color: Colors.transparent,
                             ))),
                         const Text(
                           "Home",

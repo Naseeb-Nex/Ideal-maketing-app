@@ -102,164 +102,179 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                           const SizedBox(
                             height: 20,
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  "Old Password :",
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 16,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left : 8.0),
+                                child: SizedBox(
+                                  width: s.width * 0.3,
+                                  child: FittedBox(
+                                    fit: BoxFit.fitWidth,
+                                    child: const Text(
+                                      "Old Password :",
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                const Spacer(),
-                                SizedBox(
-                                  width: s.width * 0.55,
-                                  child: TextFormField(
-                                    autofocus: true,
-                                    controller: oldpswrd,
-                                    obscureText: true,
-                                    textInputAction: TextInputAction.next,
-                                    validator: (value) {
-                                      RegExp regex = RegExp(r'^.{6,}$');
-                                      if (value!.isEmpty) {
-                                        return ("Password feild cannot be empty");
-                                      }
-                                      if (!regex.hasMatch(value)) {
-                                        return ("Enter a valid password");
-                                      }
-                                    },
-                                    onSaved: (value) => oldpswrd.text = value!,
-                                    cursorColor: bluebg,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        focusColor: bluebg,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: bluebg, width: 2.0),
+                              ),
+                              SizedBox(
+                                width: s.width * 0.55,
+                                child: TextFormField(
+                                  autofocus: true,
+                                  controller: oldpswrd,
+                                  obscureText: true,
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    RegExp regex = RegExp(r'^.{6,}$');
+                                    if (value!.isEmpty) {
+                                      return ("Password feild cannot be empty");
+                                    }
+                                    if (!regex.hasMatch(value)) {
+                                      return ("Enter a valid password");
+                                    }
+                                  },
+                                  onSaved: (value) => oldpswrd.text = value!,
+                                  cursorColor: bluebg,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(25.0),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.fromLTRB(
-                                                30, 5, 10, 5)),
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
+                                              BorderRadius.circular(25)),
+                                      focusColor: bluebg,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: bluebg, width: 2.0),
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.fromLTRB(
+                                              30, 5, 10, 5)),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 20,
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  "New Password :",
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 16,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left : 8.0),
+                                child: SizedBox(
+                                  width: s.width * 0.33,
+                                  child: FittedBox(
+                                    fit: BoxFit.fitWidth,
+                                    child: const Text(
+                                      "New Password :",
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 16,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                const Spacer(),
-                                SizedBox(
-                                  width: s.width * 0.55,
-                                  child: TextFormField(
-                                    autofocus: false,
-                                    controller: newpswrd,
-                                    obscureText: true,
-                                    textInputAction: TextInputAction.next,
-                                    validator: (value) {
-                                      RegExp regex = RegExp(r'^.{6,}$');
-                                      if (value!.isEmpty) {
-                                        return ("Enter a password");
-                                      }
-                                      if (!regex.hasMatch(value)) {
-                                        return ("Enter a valid password");
-                                      }
-                                    },
-                                    onSaved: (value) => newpswrd.text = value!,
-                                    cursorColor: bluebg,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        focusColor: bluebg,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: bluebg, width: 2.0),
+                              ),
+                              SizedBox(
+                                width: s.width * 0.55,
+                                child: TextFormField(
+                                  autofocus: false,
+                                  controller: newpswrd,
+                                  obscureText: true,
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    RegExp regex = RegExp(r'^.{6,}$');
+                                    if (value!.isEmpty) {
+                                      return ("Enter a password");
+                                    }
+                                    if (!regex.hasMatch(value)) {
+                                      return ("Enter a valid password");
+                                    }
+                                  },
+                                  onSaved: (value) => newpswrd.text = value!,
+                                  cursorColor: bluebg,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(25.0),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.fromLTRB(
-                                                30, 5, 10, 5)),
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
+                                              BorderRadius.circular(25)),
+                                      focusColor: bluebg,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: bluebg, width: 2.0),
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.fromLTRB(
+                                              30, 5, 10, 5)),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 20,
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Row(
-                              children: [
-                                const Text(
-                                  "Confirm Password :",
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 16,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left : 8.0),
+                                child: SizedBox(
+                                  width: s.width * 0.38,
+                                  child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    child: const Text(
+                                      "Confirm Password :",
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                const Spacer(),
-                                SizedBox(
-                                  width: s.width * 0.5,
-                                  child: TextFormField(
-                                    autofocus: false,
-                                    controller: confrimpswrd,
-                                    obscureText: true,
-                                    textInputAction: TextInputAction.next,
-                                    validator: (value) {
-                                      if (value == newpswrd.text) {
-                                        return null;
-                                      } else {
-                                        return "Do not match";
-                                      }
-                                    },
-                                    onSaved: (value) => newpswrd.text = value!,
-                                    cursorColor: bluebg,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        focusColor: bluebg,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                              color: bluebg, width: 2.0),
+                              ),
+                              SizedBox(
+                                width: s.width * 0.5,
+                                child: TextFormField(
+                                  autofocus: false,
+                                  controller: confrimpswrd,
+                                  obscureText: true,
+                                  textInputAction: TextInputAction.next,
+                                  validator: (value) {
+                                    if (value == newpswrd.text) {
+                                      return null;
+                                    } else {
+                                      return "Do not match";
+                                    }
+                                  },
+                                  onSaved: (value) => newpswrd.text = value!,
+                                  cursorColor: bluebg,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(25.0),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.fromLTRB(
-                                                30, 5, 10, 5)),
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
+                                              BorderRadius.circular(25)),
+                                      focusColor: bluebg,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: bluebg, width: 2.0),
+                                        borderRadius:
+                                            BorderRadius.circular(25.0),
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.fromLTRB(
+                                              30, 5, 10, 5)),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 30,
@@ -279,14 +294,19 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                                         color: Colors.black.withOpacity(0.1),
                                         offset: const Offset(0, 5))
                                   ]),
-                              child: const Center(
-                                child: Text(
-                                  "Update Password",
-                                  style: TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      color: white),
+                              child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Update Password",
+                                      style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontWeight: FontWeight.w700,
+                                          color: white),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

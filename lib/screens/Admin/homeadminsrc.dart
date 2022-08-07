@@ -82,6 +82,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                               width: 30,
                               height: 30,
                               fit: BoxFit.cover,
+                              color: Colors.transparent,
                             ))),
                         const Text(
                           "Home",

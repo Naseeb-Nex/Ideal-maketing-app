@@ -3,6 +3,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
 
+// ignore: must_be_immutable
 class CustomeAlertbx extends StatelessWidget {
   String? username;
   final String? titles;

@@ -155,19 +155,15 @@ class _ProfilesrcState extends State<Profilesrc> {
                     height: 20,
                   ),
                   Container(
-                    height: s.height * 0.5,
                     width: s.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       color: Colors.white,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
                       child: Column(
                         children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
                           const Text(
                             'My Activity',
                             style: TextStyle(
@@ -362,8 +358,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                             //                 phn1: profile.phn1,
                             //                 phn2: profile.phn2))),
                             child: Container(
-                              height: s.height * 0.04,
-                              width: s.width * 0.4,
+                              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: white,
@@ -375,20 +370,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                                       offset: const Offset(0, 5))
                                 ],
                               ),
-                              child: FittedBox(
-                                fit: BoxFit.contain,
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Text(
-                                      "Edit profile",
-                                      style: TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.blue[400],
-                                      ),
-                                    ),
-                                  ),
+                              child: Text(
+                                "Edit profile",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.blue[400],
                                 ),
                               ),
                             ),
@@ -404,8 +392,7 @@ class _ProfilesrcState extends State<Profilesrc> {
                                         uid: widget.uid,
                                         username: widget.username))),
                             child: Container(
-                              height: s.height * 0.04,
-                              width: s.width * 0.5,
+                              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: white,
@@ -417,18 +404,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                                       offset: const Offset(0, 5))
                                 ],
                               ),
-                              child: FittedBox(
-                                fit: BoxFit.contain,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Text(
-                                    "Change Password",
-                                    style: TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.red[400],
-                                    ),
-                                  ),
+                              child: Text(
+                                "Change Password",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
+                                  color: Colors.red[400],
                                 ),
                               ),
                             ),

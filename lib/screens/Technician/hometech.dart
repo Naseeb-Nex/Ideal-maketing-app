@@ -67,7 +67,7 @@ class _HomeTechState extends State<HomeTech> {
             children: [
               Container(
                 width: s.width,
-                height: s.height * 1 / 7,
+                height: s.height * 0.14,
                 decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
@@ -80,7 +80,7 @@ class _HomeTechState extends State<HomeTech> {
                         SizedBox(
                             height: 50,
                             width: 60,
-                            child: Center( 
+                            child: Center(
                                 child: Image.asset(
                               "assets/icons/menu.png",
                               width: 30,
@@ -115,8 +115,8 @@ class _HomeTechState extends State<HomeTech> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 5,
                     ),
                     const Text(
                       "Today's Program",
@@ -134,7 +134,7 @@ class _HomeTechState extends State<HomeTech> {
                 child: Container(
                   height: double.infinity,
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.fromLTRB(10,20,10,0),
+                  padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
@@ -143,7 +143,9 @@ class _HomeTechState extends State<HomeTech> {
                   ),
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
-                    child: Pgmcardwrapper(username: widget.username,),
+                    child: Pgmcardwrapper(
+                      username: widget.username,
+                    ),
                   ),
                 ),
               ),
@@ -173,7 +175,8 @@ class Profilewrapper extends StatelessWidget {
   String? name;
   String? pic;
   String? username;
-  Profilewrapper({Key? key, this.name, this.uid, this.pic, this.username}) : super(key: key);
+  Profilewrapper({Key? key, this.name, this.uid, this.pic, this.username})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +190,7 @@ class Profilewrapper extends StatelessWidget {
       uid: uid,
       name: name,
       img: pic,
-      username : username,
+      username: username,
     );
   }
 }

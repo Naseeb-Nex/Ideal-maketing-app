@@ -1,4 +1,4 @@
-package com.example.ideal_marketing
+package com.idealassociate.ideal_marketing
 
 import io.flutter.embedding.android.FlutterActivity
 

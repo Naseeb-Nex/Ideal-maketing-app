@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:670832400441:android:b9d3dce86b8dfe9e0d15e8",
         "android_client_info": {
-          "package_name": "com.example.ideal_marketing"
+          "package_name": "com.idealassociate.ideal_marketing"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "670832400441-svpksa7pd7d4eb29el8sgc9ndfu7t60d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.ideal_marketing",
+            "package_name": "com.idealassociate.ideal_marketing",
             "certificate_hash": "6eb33f9311be507370cf2f42ee2c6d8e8f319e68"
           }
         },

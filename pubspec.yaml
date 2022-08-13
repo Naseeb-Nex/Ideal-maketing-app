@@ -47,6 +47,7 @@ dependencies:
   image_picker: ^0.8.4+4
   url_launcher: ^6.0.18
   auto_size_text: ^3.0.0
+  change_app_package_name: ^1.1.0
   
 
 dev_dependencies:

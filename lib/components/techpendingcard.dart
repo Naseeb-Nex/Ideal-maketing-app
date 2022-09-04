@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Pendingpgmcard extends StatefulWidget {
+class TechpendingCard extends StatefulWidget {
   String? uid;
   String? name;
   String? address;
@@ -20,8 +20,11 @@ class Pendingpgmcard extends StatefulWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+  String? remarks;
+  String? pdate;
+  String? ptime;
 
-  Pendingpgmcard({
+  TechpendingCard({
     Key? key,
     this.uid,
     this.name,
@@ -40,13 +43,16 @@ class Pendingpgmcard extends StatefulWidget {
     this.assignedtime,
     this.assigneddate,
     this.priority,
+    this.remarks,
+    this.pdate,
+    this.ptime,
   }) : super(key: key);
 
   @override
-  State<Pendingpgmcard> createState() => _PendingpgmcardState();
+  State<TechpendingCard> createState() => _TechpendingCardState();
 }
 
-class _PendingpgmcardState extends State<Pendingpgmcard> {
+class _TechpendingCardState extends State<TechpendingCard> {
   bool isviz = false;
 
   @override
@@ -407,6 +413,35 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Remarks :",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Text(
+                            "${widget.remarks}",
+                            style: TextStyle(
+                                fontFamily: "Nunito",
+                                fontSize: 15,
+                                color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 5),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -433,8 +468,67 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                         ),
                       ),
                     ],
+                  
                   ),
-                  const SizedBox(
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Text(
+                          "Updated Time :",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Text(
+                          "  ${widget.ptime}",
+                          style: TextStyle(
+                              fontFamily: "Nunito",
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Text(
+                          "Updated Date :",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: Text(
+                          "  ${widget.pdate}",
+                          style: TextStyle(
+                              fontFamily: "Nunito",
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
                     height: 5,
                   ),
                 ],

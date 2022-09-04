@@ -87,26 +87,31 @@ class _ConfirmationcardState extends State<Confirmationcard> {
               Row(
                 children: [
                   SizedBox(
-                    height: 70,
-                    width: 70,
+                    height: s.width * 0.15,
+                    width: s.width * 0.15,
                     child: CircleAvatar(
                       backgroundImage:
                           AssetImage("assets/icons/customer_icon.jpg"),
                     ),
                   ),
-                  const SizedBox(
-                    width: 10,
+                  SizedBox(
+                    width: s.width * 0.02,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        "${widget.name}",
-                        style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                      SizedBox(
+                        width: s.width * 0.65,
+                        child: Text(
+                          "${widget.name}",
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       SizedBox(

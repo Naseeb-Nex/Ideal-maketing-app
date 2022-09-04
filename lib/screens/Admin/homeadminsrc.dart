@@ -61,7 +61,7 @@ class _HomeAdminState extends State<HomeAdmin> {
       Scaffold(
         backgroundColor: Colors.transparent,
         body: RefreshIndicator(
-          onRefresh: ()=>pgmsetup(),
+          onRefresh: () => pgmsetup(),
           child: SafeArea(
             child: Column(
               children: [
@@ -132,7 +132,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40)),
-                      color: Color(0XffF9F9FB),
+                      color: Color(0Xffedf2fb),
                     ),
                     child: Center(
                       child: ListView(
@@ -148,7 +148,6 @@ class _HomeAdminState extends State<HomeAdmin> {
                               style: TextStyle(
                                 fontFamily: "Nunito",
                                 fontSize: 22,
-                                // fontWeight: FontWeight.bold,
                                 color: Colors.black,
                               ),
                             ),
@@ -176,13 +175,14 @@ class _HomeAdminState extends State<HomeAdmin> {
                                         boxShadow: [
                                           BoxShadow(
                                               spreadRadius: 2,
-                                              blurRadius: 5,
+                                              blurRadius: 4,
                                               color:
-                                                  Colors.black.withOpacity(0.2),
+                                                  Colors.black.withOpacity(0.1),
                                               offset: const Offset(0, 5))
                                         ]),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
@@ -198,7 +198,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           maxLines: 2,
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 10),
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
                                           child: Text(
                                             "$p",
                                             style: const TextStyle(
@@ -222,13 +223,15 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       boxShadow: [
                                         BoxShadow(
                                             spreadRadius: 2,
-                                            blurRadius: 5,
-                                            color: Colors.black.withOpacity(0.2),
+                                            blurRadius: 4,
+                                            color:
+                                                Colors.black.withOpacity(0.1),
                                             offset: const Offset(0, 5))
                                       ]),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         "Completed Program",
@@ -277,7 +280,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                     color: white,
                                     boxShadow: [
                                       BoxShadow(
-                                          spreadRadius: 4,
+                                          spreadRadius: 2,
                                           blurRadius: 7,
                                           color: Colors.black.withOpacity(0.1),
                                           offset: const Offset(5, 0))
@@ -350,9 +353,9 @@ class _HomeAdminState extends State<HomeAdmin> {
                           const SizedBox(
                             height: 15,
                           ),
-                          SizedBox(
-                            height: s.height * 0.3,
-                            child: Techcardspace(),
+                          Container(
+                            height: 300,
+                            child: Center(child: Techcardspace()),
                           ),
                           const SizedBox(
                             height: 20,
@@ -386,7 +389,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                               child: Container(
                                 height: s.height * 0.1,
                                 width: s.width * 0.4,
-                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30),
                                     color: bluebg,
@@ -453,7 +457,6 @@ class _HomeAdminState extends State<HomeAdmin> {
             setState(() {
               cm = snap.size;
               print(cm);
-
             })
           });
     } catch (e) {
@@ -496,6 +499,7 @@ class Techcardspace extends StatelessWidget {
             // a['uid'] = document.id;
           }).toList();
           return ListView.builder(
+            shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: techprofile.length,
             itemBuilder: (context, i) {
@@ -537,228 +541,234 @@ class _TechcardState extends State<Techcard> {
 
   @override
   Widget build(BuildContext context) {
-    Size s = MediaQuery.of(context).size;
-    return InkWell(
-      onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Techstatus(
-              name: widget.name,
-              img: widget.img,
-              username: widget.username,
-              uid: widget.uid,
-            ),
-          )),
-      child: Card(
-        color: white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 10,
-        shadowColor: primarybg,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: InkWell(
+        onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Techstatus(
+                name: widget.name,
+                img: widget.img,
+                username: widget.username,
+                uid: widget.uid,
+              ),
+            )),
         child: Container(
-          width: s.width * 0.4,
-          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          child: ListView(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: InkWell(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Techprofilesrc(
-                        name: widget.name,
-                        img: widget.img,
-                        username: widget.username,
-                        uid: widget.uid,
+          width: 160,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: white,
+              boxShadow: [
+                BoxShadow(
+                    spreadRadius: 1,
+                    blurRadius: 3,
+                    color: Colors.black.withOpacity(0.1),
+                    offset: const Offset(0, 2))
+              ]),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Techprofilesrc(
+                          name: widget.name,
+                          img: widget.img,
+                          username: widget.username,
+                          uid: widget.uid,
+                        ),
                       ),
                     ),
-                  ),
-                  child: const SizedBox(
-                    height: 80,
-                    width: 80,
-                    child: CircleAvatar(
-                      backgroundColor: bluebg,
-                      backgroundImage:
-                          AssetImage("assets/icons/avataricon.png"),
+                    child: const SizedBox(
+                      height: 80,
+                      width: 80,
+                      child: CircleAvatar(
+                        backgroundColor: bluebg,
+                        backgroundImage:
+                            AssetImage("assets/icons/avataricon.png"),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: FittedBox(
-                  child: Text(
-                    "${widget.name}",
-                    style: const TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff273746),
+                const SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: FittedBox(
+                    child: Text(
+                      "${widget.name}",
+                      style: const TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff273746),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 10,
-                        width: 10,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.yellow),
-                      ),
-                      const AutoSizeText(
-                        " Assingned",
-                        style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff273746),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 10,
+                          width: 10,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.yellow),
                         ),
-                        minFontSize: 10,
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "$a",
-                    style: const TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff273746),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 10,
-                        width: 10,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.greenAccent),
-                      ),
-                      const AutoSizeText(
-                        " Completed",
-                        style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff273746),
+                        const AutoSizeText(
+                          " Assingned",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff273746),
+                          ),
+                          minFontSize: 10,
+                          maxLines: 1,
                         ),
-                        minFontSize: 10,
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "$c",
-                    style: const TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff273746),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 10,
-                        width: 10,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: cheryred),
+                    Text(
+                      "$a",
+                      style: const TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff273746),
                       ),
-                      const AutoSizeText(
-                        " Pending",
-                        style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff273746),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 10,
+                          width: 10,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.greenAccent),
                         ),
-                        minFontSize: 10,
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "$p",
-                    style: const TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff273746),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 10,
-                        width: 10,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.blue),
-                      ),
-                      const AutoSizeText(
-                        " Processing",
-                        style: TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff273746),
+                        const AutoSizeText(
+                          " Completed",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff273746),
+                          ),
+                          minFontSize: 10,
+                          maxLines: 1,
                         ),
-                        minFontSize: 10,
-                        maxLines: 1,
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "$pro",
-                    style: const TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff273746),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Text(
+                      "$c",
+                      style: const TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff273746),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 10,
+                          width: 10,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: cheryred),
+                        ),
+                        const AutoSizeText(
+                          " Pending",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff273746),
+                          ),
+                          minFontSize: 10,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "$p",
+                      style: const TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff273746),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 10,
+                          width: 10,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.blue),
+                        ),
+                        const AutoSizeText(
+                          " Processing",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff273746),
+                          ),
+                          minFontSize: 10,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "$pro",
+                      style: const TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff273746),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

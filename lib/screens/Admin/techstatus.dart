@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/components/techpendingcard.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -224,6 +225,8 @@ class _AssignedpgmwrapperState extends State<Assignedpgmwrapper> {
                   assignedtime: _allpgm[i]['assignedtime'],
                   assigneddate: _allpgm[i]['assigneddate'],
                   priority: _allpgm[i]['priority'],
+                  prospec: _allpgm[i]['prospec'],
+                  instadate: _allpgm[i]['instadate'],
                 )
               ]
             ],
@@ -364,7 +367,7 @@ class _PendingpgmwrapperState extends State<Pendingpgmwrapper> {
                 const SizedBox(
                   height: 5,
                 ),
-                Pendingpgmcard(
+                TechpendingCard(
                   uid: _allpgm[i]['uid'],
                   name: _allpgm[i]['name'],
                   address: _allpgm[i]['address'],
@@ -382,6 +385,9 @@ class _PendingpgmwrapperState extends State<Pendingpgmwrapper> {
                   assignedtime: _allpgm[i]['assignedtime'],
                   assigneddate: _allpgm[i]['assigneddate'],
                   priority: _allpgm[i]['priority'],
+                  remarks: _allpgm[i]['remarks'],
+                  pdate: _allpgm[i]['pdate'],
+                  ptime: _allpgm[i]['ptime'],
                 )
               ]
             ],

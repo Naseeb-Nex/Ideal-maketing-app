@@ -199,7 +199,7 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: greenbg),
+                          color: Color(0XFFe1ecf7)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 20),
                       child: Column(

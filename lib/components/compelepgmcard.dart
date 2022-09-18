@@ -86,7 +86,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "${widget.name}",

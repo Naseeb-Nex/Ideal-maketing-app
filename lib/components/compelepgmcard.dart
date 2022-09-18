@@ -67,7 +67,6 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
           },
           child: Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: Colors.white,
@@ -83,106 +82,115 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "${widget.name}",
-                  style: TextStyle(
-                    fontFamily: "Nunito",
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.32,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                  child: RichText(
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                strutStyle: StrutStyle(fontSize: 12.0),
-                                text: TextSpan(
-                                  text: "${widget.address}",
-                                  style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 15,
-                                      color: Colors.black),
-                                ),
-                              )),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        child: Center(
-                          child: Text(
-                            "${widget.pgm}",
-                            style: const TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${widget.name}",
+                        style: TextStyle(
+                          fontFamily: "Nunito",
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Icon(
-                            Icons.pin_drop_outlined,
-                            color: cheryred,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.32,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                        child: RichText(
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      strutStyle: StrutStyle(fontSize: 12.0),
+                                      text: TextSpan(
+                                        text: "${widget.address}",
+                                        style: TextStyle(
+                                            fontFamily: "Nunito",
+                                            fontSize: 15,
+                                            color: Colors.black),
+                                      ),
+                                    )),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "${widget.loc}",
-                            style: const TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.all(5),
+                              child: Center(
+                                child: Text(
+                                  "${widget.pgm}",
+                                  style: const TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: limegreen),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 2),
-                        child: Text(
-                          "${widget.chrg} / ${widget.camount}",
-                          style: TextStyle(
-                            color: white,
-                            fontFamily: "Nunito",
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.pin_drop_outlined,
+                                  color: cheryred,
+                                ),
+                                Text(
+                                  "${widget.loc}",
+                                  style: const TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: limegreen),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 2),
+                              child: Text(
+                                "${widget.chrg} / ${widget.camount}",
+                                style: TextStyle(
+                                  color: white,
+                                  fontFamily: "Nunito",
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "${widget.type}",
+                              style: const TextStyle(
+                                fontFamily: "Nunito",
+                                fontSize: 15,
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      Text(
-                        "${widget.type}",
-                        style: const TextStyle(
-                          fontFamily: "Nunito",
-                          fontSize: 15,
-                        ),
-                      )
                     ],
                   ),
                 ),

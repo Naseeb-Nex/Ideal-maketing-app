@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:ideal_marketing/components/techpendingcard.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:ideal_marketing/constants/constants.dart';
 
-import 'package:ideal_marketing/components/pendingpgmcard.dart';
+import 'package:ideal_marketing/components/techpendingcard.dart';
 import 'package:ideal_marketing/components/assignedpgmcard.dart';
 import 'package:ideal_marketing/components/compelepgmcard.dart';
 import 'package:ideal_marketing/components/processingpgmcard.dart';
@@ -463,6 +462,7 @@ class _ProcessingpgmwrapperState extends State<Processingpgmwrapper> {
                   assigneddate: _allpgm[i]['assigneddate'],
                   priority: _allpgm[i]['priority'],
                   ptime: _allpgm[i]['upTime'],
+                  pdate: _allpgm[i]['upDate'],
                   remarks: _allpgm[i]['remarks'],
                 )
               ]

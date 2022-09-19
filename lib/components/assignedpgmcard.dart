@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
+
+import '../services/customer_history.dart';
+import '../services/pgmhistory.dart';
 
 // ignore: must_be_immutable
 class Assignedpgmcard extends StatefulWidget {
@@ -23,6 +29,7 @@ class Assignedpgmcard extends StatefulWidget {
   String? priority;
   String? prospec;
   String? instadate;
+  String? custdocname;
 
   Assignedpgmcard({
     Key? key,
@@ -45,6 +52,7 @@ class Assignedpgmcard extends StatefulWidget {
     this.priority,
     this.prospec,
     this.instadate,
+    this.custdocname,
   }) : super(key: key);
 
   @override
@@ -52,7 +60,7 @@ class Assignedpgmcard extends StatefulWidget {
 }
 
 class _AssignedpgmcardState extends State<Assignedpgmcard> {
-  bool isviz = false;
+  bool _isviz = false;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +69,7 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
         InkWell(
           onTap: () => {
             setState(() {
-              isviz = !isviz;
+              _isviz = !_isviz;
             })
           },
           child: Container(
@@ -192,7 +200,7 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                   ),
                 ),
                 Visibility(
-                  visible: isviz,
+                  visible: _isviz,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Container(
@@ -466,6 +474,49 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () => PanaraConfirmDialog.show(
+                                  context,
+                                  title: "Are you sure?",
+                                  message:
+                                      "Do you really want to convert this program? It will be convert to the MainList",
+                                  confirmButtonText: "Confirm",
+                                  cancelButtonText: "Cancel",
+                                  onTapCancel: () {
+                                    Navigator.pop(context);
+                                  },
+                                  onTapConfirm: ()=> converttomainlist(),
+                                  panaraDialogType: PanaraDialogType.error,
+                                  barrierDismissible: false,
+                                  textColor: Color(0XFF727272),
+                                ),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: redfg),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  child: Text(
+                                    "Convert",
+                                    style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 16,
+                                        color: white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
                         ],
                       ),
                     ),
@@ -485,5 +536,103 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
       path: phoneNumber,
     );
     await launch(launchUri.toString());
+  }
+
+  Future<void> converttomainlist() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: bluebg,
+            ),
+          );
+        });
+
+    FirebaseFirestore fb = FirebaseFirestore.instance;
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('MM d y kk:mm:ss').format(now);
+    String assigneddate = DateFormat('d MM y').format(now);
+    String assignedtime = DateFormat('h:mma').format(now);
+
+    CustomerPgmHistory custhistory = CustomerPgmHistory(
+        upDate: assigneddate,
+        upTime: assignedtime,
+        msg: "Convert the program to MainList",
+        techname: widget.techname,
+        status: "pending",
+        docname: formattedDate,
+        custdocname: widget.custdocname);
+
+    Pgmhistory history = Pgmhistory(
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: assigneddate,
+      upTime: assignedtime,
+      docname: formattedDate,
+      prospec: widget.prospec,
+      instadate: widget.instadate,
+      status: "pending",
+      ch: "program converted to MainList",
+    );
+
+// Update the Program status with pending
+    await fb.collection("Programs").doc(widget.docname).update({
+      'status': 'pending',
+      'techname': null,
+      'techuname': null,
+    }).then((value) {
+      print("Pending program status updated");
+    }).catchError((error) => print("Failed to Pending update program : $error"));
+
+    // Updating the Customer program status as pending
+    await fb
+        .collection("Customer")
+        .doc(widget.custdocname)
+        .collection("Programs")
+        .doc(widget.docname)
+        .update({'status': 'pending'});
+
+    fb
+        .collection("Programs")
+        .doc(widget.docname)
+        .collection("AssignedPgm")
+        .doc("Technician")
+        .delete()
+        .then((value) {
+      print("Deleted the assigned details in program");
+    }).catchError((error) =>
+            print("Failed to Deleted the assigned details in program : $error"));
+
+    await fb
+        .collection("Technician")
+        .doc(widget.username)
+        .collection("Assignedpgm")
+        .doc(widget.docname)
+        .delete()
+        .catchError((error) => print("Failed to assign program : $error"));
+
+      await fb.collection("history").doc(formattedDate).set(history.toMap());
+    // customer program history updated
+      await fb
+          .collection("Customer")
+          .doc(widget.custdocname)
+          .collection("Programs")
+          .doc(widget.docname)
+          .collection("History")
+          .doc(formattedDate)
+          .set(custhistory.toMap());
+
+      await fb.collection("ConfirmList").doc(widget.docname).delete();
+      setState(() {
+        _isviz = false;
+      });
+    Navigator.of(context).pop();
+    Navigator.pop(context);
   }
 }

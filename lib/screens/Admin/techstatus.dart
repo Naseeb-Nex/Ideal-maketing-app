@@ -226,6 +226,7 @@ class _AssignedpgmwrapperState extends State<Assignedpgmwrapper> {
                   priority: _allpgm[i]['priority'],
                   prospec: _allpgm[i]['prospec'],
                   instadate: _allpgm[i]['instadate'],
+                  custdocname: _allpgm[i]['custdocname'],
                 )
               ]
             ],

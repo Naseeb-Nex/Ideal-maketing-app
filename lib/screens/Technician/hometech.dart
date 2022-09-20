@@ -141,6 +141,7 @@ class _HomeTechState extends State<HomeTech> {
                         topRight: Radius.circular(40)),
                     color: newbg,
                   ),
+                  clipBehavior: Clip.hardEdge,
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Pgmcardwrapper(

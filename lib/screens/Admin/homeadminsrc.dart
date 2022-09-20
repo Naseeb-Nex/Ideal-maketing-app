@@ -134,6 +134,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                           topRight: Radius.circular(40)),
                       color: Color(0Xffedf2fb),
                     ),
+                    clipBehavior: Clip.hardEdge,
                     child: Center(
                       child: ListView(
                         physics: const BouncingScrollPhysics(),

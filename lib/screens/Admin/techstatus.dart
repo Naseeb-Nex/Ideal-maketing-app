@@ -315,7 +315,29 @@ class _CompletepgmwrapperState extends State<Completepgmwrapper> {
                     ctime: _allpgm[i]['ctime'],
                     remarks: _allpgm[i]['remarks'],
                   )
-                ]
+                ],
+                // Completedpgmcard(
+                //     uid: 'uid',
+                //     name: 'name',
+                //     address: 'address',
+                //     loc: 'loc',
+                //     phn: 'phn',
+                //     pgm: 'pgm',
+                //     chrg: '1000',
+                //     type: 'type',
+                //     upDate: 'upDate',
+                //     upTime: 'upTime',
+                //     docname: 'docname',
+                //     status: 'status',
+                //     username: 'username',
+                //     techname: 'techname',
+                //     assignedtime: 'assignedtime',
+                //     assigneddate: 'assigneddate',
+                //     priority: 'priority',
+                //     camount: '500',
+                //     ctime: 'ctime',
+                //     remarks: 'remarks',
+                //   )
               ],
             ),
           );

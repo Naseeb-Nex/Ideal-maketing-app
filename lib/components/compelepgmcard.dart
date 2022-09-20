@@ -57,6 +57,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
 
   @override
   Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
     return Column(
       children: [
         InkWell(
@@ -150,42 +151,60 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Icon(
                                   Icons.pin_drop_outlined,
                                   color: cheryred,
                                 ),
-                                Text(
-                                  "${widget.loc}",
-                                  style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
+                                SizedBox(
+                                  width: s.width * 0.3,
+                                  child: Text(
+                                    "${widget.loc}",
+                                    style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ],
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: limegreen),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 2),
-                              child: Text(
-                                "${widget.chrg} / ${widget.camount}",
-                                style: TextStyle(
-                                  color: white,
-                                  fontFamily: "Nunito",
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+                            SizedBox(
+                              width: s.width * 0.25,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: limegreen),
+                                    clipBehavior: Clip.none,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 2),
+                                child: Center(
+                                  child: Text(
+                                    "${widget.chrg} / ${widget.camount}",
+                                    style: TextStyle(
+                                      color: white,
+                                      fontFamily: "Nunito",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                            Text(
-                              "${widget.type}",
-                              style: const TextStyle(
-                                fontFamily: "Nunito",
-                                fontSize: 15,
+                            Container(
+                              width: s.width * 0.2,
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                "${widget.type}",
+                                style: const TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 15,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             )
                           ],

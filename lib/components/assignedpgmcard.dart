@@ -64,6 +64,8 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
 
   @override
   Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
+
     return Column(
       children: [
         InkWell(
@@ -176,12 +178,16 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                                   Icons.pin_drop_outlined,
                                   color: cheryred,
                                 ),
-                                Text(
-                                  "${widget.loc}",
-                                  style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
+                                SizedBox(
+                                  width: s.width * 0.45,
+                                  child: Text(
+                                    "${widget.loc}",
+                                    style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                               ],
@@ -491,7 +497,7 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                                   onTapCancel: () {
                                     Navigator.pop(context);
                                   },
-                                  onTapConfirm: ()=> converttomainlist(),
+                                  onTapConfirm: () => converttomainlist(),
                                   panaraDialogType: PanaraDialogType.error,
                                   barrierDismissible: false,
                                   textColor: Color(0XFF727272),
@@ -588,7 +594,8 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
       'techuname': null,
     }).then((value) {
       print("Pending program status updated");
-    }).catchError((error) => print("Failed to Pending update program : $error"));
+    }).catchError(
+        (error) => print("Failed to Pending update program : $error"));
 
     // Updating the Customer program status as pending
     await fb
@@ -606,8 +613,8 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
         .delete()
         .then((value) {
       print("Deleted the assigned details in program");
-    }).catchError((error) =>
-            print("Failed to Deleted the assigned details in program : $error"));
+    }).catchError((error) => print(
+            "Failed to Deleted the assigned details in program : $error"));
 
     await fb
         .collection("Technician")
@@ -617,21 +624,21 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
         .delete()
         .catchError((error) => print("Failed to assign program : $error"));
 
-      await fb.collection("history").doc(formattedDate).set(history.toMap());
+    await fb.collection("history").doc(formattedDate).set(history.toMap());
     // customer program history updated
-      await fb
-          .collection("Customer")
-          .doc(widget.custdocname)
-          .collection("Programs")
-          .doc(widget.docname)
-          .collection("History")
-          .doc(formattedDate)
-          .set(custhistory.toMap());
+    await fb
+        .collection("Customer")
+        .doc(widget.custdocname)
+        .collection("Programs")
+        .doc(widget.docname)
+        .collection("History")
+        .doc(formattedDate)
+        .set(custhistory.toMap());
 
-      await fb.collection("ConfirmList").doc(widget.docname).delete();
-      setState(() {
-        _isviz = false;
-      });
+    await fb.collection("ConfirmList").doc(widget.docname).delete();
+    setState(() {
+      _isviz = false;
+    });
     Navigator.of(context).pop();
     Navigator.pop(context);
   }

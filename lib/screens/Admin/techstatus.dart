@@ -229,7 +229,29 @@ class _AssignedpgmwrapperState extends State<Assignedpgmwrapper> {
                   instadate: _allpgm[i]['instadate'],
                   custdocname: _allpgm[i]['custdocname'],
                 )
-              ]
+              ],
+              // Assignedpgmcard(
+              //     uid: 'uid',
+              //     name: 'name',
+              //     address: 'address',
+              //     loc: 'loc',
+              //     phn: 'phn',
+              //     pgm: 'pgm',
+              //     chrg: 'chrg',
+              //     type: 'type',
+              //     upDate: 'upDate',
+              //     upTime: 'upTime',
+              //     docname: 'docname',
+              //     status: 'status',
+              //     username: 'username',
+              //     techname: 'techname',
+              //     assignedtime: 'assignedtime',
+              //     assigneddate: 'assigneddate',
+              //     priority: 'priority',
+              //     prospec: 'prospec',
+              //     instadate: 'instadate',
+              //     custdocname: 'custdocname',
+              //   )
             ],
           );
         });

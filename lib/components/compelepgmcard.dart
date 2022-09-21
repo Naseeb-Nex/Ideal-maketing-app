@@ -168,6 +168,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                                       fontWeight: FontWeight.w500,
                                     ),
                                     overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
                                   ),
                                 ),
                               ],
@@ -180,7 +181,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                                     color: limegreen),
                                     clipBehavior: Clip.none,
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 5, vertical: 2),
+                                    horizontal: 5, vertical: 4),
                                 child: Center(
                                   child: Text(
                                     "${widget.chrg} / ${widget.camount}",
@@ -190,6 +191,7 @@ class _CompletedpgmcardState extends State<Completedpgmcard> {
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
                                     ),
+                                    softWrap: true,
                                   ),
                                 ),
                               ),

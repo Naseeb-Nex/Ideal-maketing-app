@@ -114,6 +114,7 @@ class _TechstatusState extends State<Techstatus> {
                           topRight: Radius.circular(40)),
                       color: newbg,
                     ),
+                    clipBehavior: Clip.hardEdge,
                     child: TabBarView(
                       children: [
                         SingleChildScrollView(

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/screens/Admin/editassignedpgmsrc.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
@@ -60,7 +61,9 @@ class Assignedpgmcard extends StatefulWidget {
 }
 
 class _AssignedpgmcardState extends State<Assignedpgmcard> {
-  bool _isviz = false;
+  // bool _isviz = false;
+  bool _isviz = true;
+  bool _ismore = false;
 
   @override
   Widget build(BuildContext context) {
@@ -216,312 +219,416 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                           color: Color(0XFFe1ecf7)),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Stack(
                         children: [
-                          Text(
-                            "More Details",
-                            style: const TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                "Address :",
-                                style: TextStyle(
+                              Text(
+                                "More Details",
+                                style: const TextStyle(
                                   fontFamily: "Nunito",
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 16,
                                 ),
                               ),
-                              Flexible(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "${widget.address}",
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Address :",
                                     style: TextStyle(
                                       fontFamily: "Nunito",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
                                     ),
                                   ),
-                                ),
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Text(
+                                        "${widget.address}",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Program :",
-                                style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
+                              SizedBox(
+                                height: 5,
                               ),
-                              Flexible(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "${widget.pgm}",
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Program :",
                                     style: TextStyle(
                                       fontFamily: "Nunito",
-                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
                                     ),
                                   ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Phone :",
-                                style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "  ${widget.phn}",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Text(
+                                        "${widget.pgm}",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  "Date :",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
+                              SizedBox(
+                                height: 5,
                               ),
-                              Flexible(
-                                child: Text(
-                                  "  ${widget.upDate}",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  "Time :",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "  ${widget.upTime}",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  "Location :",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "  ${widget.loc}",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 5),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  "Collection Amount :",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  "  ${widget.chrg}",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Product Specification :",
-                                style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Flexible(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "${widget.prospec}",
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Phone :",
                                     style: TextStyle(
                                       fontFamily: "Nunito",
-                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
                                     ),
                                   ),
-                                ),
+                                  Container(
+                                    child: Text(
+                                      "  ${widget.phn}",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Installation Date :",
-                                style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
+                              SizedBox(
+                                height: 5,
                               ),
-                              Flexible(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "${widget.instadate}",
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      "Date :",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "  ${widget.upDate}",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      "Time :",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "  ${widget.upTime}",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      "Location :",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "  ${widget.loc}",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      "Collection Amount :",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "  ${widget.chrg}",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Product Specification :",
                                     style: TextStyle(
                                       fontFamily: "Nunito",
-                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
                                     ),
                                   ),
-                                ),
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Text(
+                                        "${widget.prospec}",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Installation Date :",
+                                    style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Text(
+                                        "${widget.instadate}",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  //delete this if wanted
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
                               ),
                             ],
-                          ),
-                          const SizedBox(
-                            height: 5,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               InkWell(
-                                onTap: () => PanaraConfirmDialog.show(
-                                  context,
-                                  title: "Are you sure?",
-                                  message:
-                                      "Do you really want to convert this program? It will be convert to the MainList",
-                                  confirmButtonText: "Confirm",
-                                  cancelButtonText: "Cancel",
-                                  onTapCancel: () {
-                                    Navigator.pop(context);
-                                  },
-                                  onTapConfirm: () => converttomainlist(),
-                                  panaraDialogType: PanaraDialogType.error,
-                                  barrierDismissible: false,
-                                  textColor: Color(0XFF727272),
-                                ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: redfg),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  child: Text(
-                                    "Convert",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 16,
-                                        color: white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                onTap: () => setState(() {
+                                  _ismore = !_ismore;
+                                }),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: _ismore ? redbg : Color(0XFFe9eff9),
+                                      ),
+                                      child: Center(
+                                        child: _ismore
+                                            ? Icon(Icons.close,
+                                                color: cheryred)
+                                            : Icon(Icons.more_horiz,
+                                                color: Colors.grey),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(
-                            height: 5,
+                          Visibility(
+                            visible: _ismore,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 30),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: white,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 8),
+                                      child: Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: () =>
+                                                PanaraConfirmDialog.show(
+                                              context,
+                                              title: "Are you sure?",
+                                              message:
+                                                  "Do you really want to convert this program? It will be convert to the MainList",
+                                              confirmButtonText: "Confirm",
+                                              cancelButtonText: "Cancel",
+                                              onTapCancel: () {
+                                                Navigator.pop(context);
+                                              },
+                                              onTapConfirm: () =>
+                                                  converttomainlist(),
+                                              panaraDialogType:
+                                                  PanaraDialogType.error,
+                                              barrierDismissible: false,
+                                              textColor: Color(0XFF727272),
+                                            ),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: redfg),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 5),
+                                              child: Text(
+                                                "Convert",
+                                                style: TextStyle(
+                                                    fontFamily: "Nunito",
+                                                    fontSize: 16,
+                                                    color: white,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10,),
+                                          InkWell(
+                                            onTap: () =>
+                                                PanaraConfirmDialog.show(
+                                              context,
+                                              title: "Do you want to edit?",
+                                              message:
+                                                  "This will be change the details of the Program!",
+                                              confirmButtonText: "Confirm",
+                                              cancelButtonText: "Cancel",
+                                              onTapCancel: () {
+                                                Navigator.pop(context);
+                                              },
+                                              onTapConfirm: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Editassignedpgm())),
+                                              panaraDialogType:
+                                                  PanaraDialogType.warning,
+                                              barrierDismissible: false,
+                                              textColor: Color(0XFF727272),
+                                            ),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: Color(0xFFf48c06)),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20,
+                                                      vertical: 5),
+                                              child: Text(
+                                                "Edit",
+                                                style: TextStyle(
+                                                    fontFamily: "Nunito",
+                                                    fontSize: 16,
+                                                    color: white,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),

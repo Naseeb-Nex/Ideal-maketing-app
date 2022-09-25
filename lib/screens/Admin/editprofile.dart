@@ -5,8 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/components/alertbox.dart';
-import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
 
+// ignore: must_be_immutable
 class Editprofile extends StatefulWidget {
   String? name;
   String? uid;

@@ -512,12 +512,12 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                                       width: 40,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
-                                        color: _ismore ? redbg : Color(0XFFe9eff9),
+                                        color:
+                                            _ismore ? redbg : Color(0XFFe9eff9),
                                       ),
                                       child: Center(
                                         child: _ismore
-                                            ? Icon(Icons.close,
-                                                color: cheryred)
+                                            ? Icon(Icons.close, color: cheryred)
                                             : Icon(Icons.more_horiz,
                                                 color: Colors.grey),
                                       ),
@@ -583,7 +583,9 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(height: 10,),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
                                           InkWell(
                                             onTap: () =>
                                                 PanaraConfirmDialog.show(
@@ -596,7 +598,47 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                                               onTapCancel: () {
                                                 Navigator.pop(context);
                                               },
-                                              onTapConfirm: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Editassignedpgm())),
+                                              onTapConfirm: () {
+                                                Navigator.pop(context);
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Editassignedpgm(
+                                                              name: widget.name,
+                                                              address: widget
+                                                                  .address,
+                                                              loc: widget.loc,
+                                                              phn: widget.phn,
+                                                              pgm: widget.pgm,
+                                                              chrg: widget.chrg,
+                                                              type: widget.type,
+                                                              upDate:
+                                                                  widget.upDate,
+                                                              upTime:
+                                                                  widget.upTime,
+                                                              docname: widget
+                                                                  .docname,
+                                                              status:
+                                                                  widget.status,
+                                                              username: widget
+                                                                  .username,
+                                                              techname: widget
+                                                                  .techname,
+                                                              assignedtime: widget
+                                                                  .assignedtime,
+                                                              assigneddate: widget
+                                                                  .assigneddate,
+                                                              priority: widget
+                                                                  .priority,
+                                                              prospec: widget
+                                                                  .prospec,
+                                                              instadate: widget
+                                                                  .instadate,
+                                                              custdocname: widget
+                                                                  .custdocname,
+                                                            )));
+                                              },
                                               panaraDialogType:
                                                   PanaraDialogType.warning,
                                               barrierDismissible: false,

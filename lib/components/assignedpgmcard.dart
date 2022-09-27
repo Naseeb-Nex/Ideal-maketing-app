@@ -61,8 +61,7 @@ class Assignedpgmcard extends StatefulWidget {
 }
 
 class _AssignedpgmcardState extends State<Assignedpgmcard> {
-  // bool _isviz = false;
-  bool _isviz = true;
+  bool _isviz = false;
   bool _ismore = false;
 
   @override

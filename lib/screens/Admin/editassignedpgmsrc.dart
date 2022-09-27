@@ -174,19 +174,112 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
                 )
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            // const SizedBox(
+            //   height: 5,
+            // ),
+            Divider(),
             SingleChildScrollView(
               physics: BouncingScrollPhysics(parent: ScrollPhysics()),
               child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
+                    child: SizedBox(
+                      height: s.height * 0.75,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 5.0,
+                                      bottom: 5.0,
+                                      right: s.width * 0.01),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        "Full Name",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 40,
+                                        child: TextField(
+                                          autofocus: false,
+                                          controller: nameController,
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                8.0, 5.0, 5.0, 5.0),
+                                            filled: true,
+                                            fillColor: const Color(0XFFe5e6e4),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 5.0,
+                                      bottom: 5.0,
+                                      left: s.width * 0.01),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        "Address",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 40,
+                                        child: TextField(
+                                          autofocus: false,
+                                          controller: addressController,
+                                          enabled: false,
+                                          decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                8.0, 5.0, 5.0, 5.0),
+                                            filled: true,
+                                            fillColor: const Color(0XFFe5e6e4),
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Row(children: [
                             Flexible(
                               flex: 1,
                               child: Padding(
@@ -198,7 +291,7 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Text(
-                                      "Full Name",
+                                      "Location",
                                       style: TextStyle(
                                         fontFamily: "Nunito",
                                         fontSize: 16,
@@ -211,16 +304,16 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
                                       height: 40,
                                       child: TextField(
                                         autofocus: false,
-                                        controller: nameController,
-                                        enabled: false,
+                                        controller: locController,
                                         decoration: InputDecoration(
                                           contentPadding: EdgeInsets.fromLTRB(
                                               8.0, 5.0, 5.0, 5.0),
                                           filled: true,
-                                          fillColor: const Color(0XFFe5e6e4),
+                                          fillColor: const Color(0XFFfbfefb),
                                           border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -240,7 +333,7 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Text(
-                                      "Address",
+                                      "Phone Number",
                                       style: TextStyle(
                                         fontFamily: "Nunito",
                                         fontSize: 16,
@@ -253,13 +346,12 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
                                       height: 40,
                                       child: TextField(
                                         autofocus: false,
-                                        controller: addressController,
-                                        enabled: false,
+                                        controller: phnController,
                                         decoration: InputDecoration(
                                           contentPadding: EdgeInsets.fromLTRB(
                                               8.0, 5.0, 5.0, 5.0),
                                           filled: true,
-                                          fillColor: const Color(0XFFe5e6e4),
+                                          fillColor: const Color(0XFFfbfefb),
                                           border: OutlineInputBorder(
                                             borderRadius:
                                                 BorderRadius.circular(15),
@@ -271,96 +363,8 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
                                 ),
                               ),
                             )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Row(children: [
-                          Flexible(
-                            flex: 1,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: 5.0, bottom: 5.0, right: s.width * 0.01),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Location",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 40,
-                                    child: TextField(
-                                      autofocus: false,
-                                      controller: locController,
-                                      decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.fromLTRB(
-                                            8.0, 5.0, 5.0, 5.0),
-                                        filled: true,
-                                        fillColor: const Color(0XFFfbfefb),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                  top: 5.0, bottom: 5.0, left: s.width * 0.01),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Phone Number",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Container(
-                                    height: 40,
-                                    child: TextField(
-                                      autofocus: false,
-                                      controller: phnController,
-                                      decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.fromLTRB(
-                                            8.0, 5.0, 5.0, 5.0),
-                                        filled: true,
-                                        fillColor: const Color(0XFFfbfefb),
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ]),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 5.0, bottom: 5.0, left: s.width * 0.01),
-                          child: Column(
+                          ]),
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
@@ -387,125 +391,144 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(children: [
-                                Flexible(
-                                  flex: 1,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 5.0,
-                                        bottom: 5.0,
-                                        right: s.width * 0.01),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Collection Amount",
-                                          style: TextStyle(
-                                            fontFamily: "Nunito",
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                          height: 40,
-                                          child: TextField(
-                                            autofocus: false,
-                                            controller: collectionController,
-                                            decoration: InputDecoration(
-                                              contentPadding:
-                                                  EdgeInsets.fromLTRB(
-                                                      8.0, 5.0, 5.0, 5.0),
-                                              filled: true,
-                                              fillColor:
-                                                  const Color(0XFFfbfefb),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                            ],
+                          ),
+                          Row(children: [
+                            Flexible(
+                              flex: 1,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 5.0,
+                                    bottom: 5.0,
+                                    right: s.width * 0.01),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Collection Amount",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 16,
+                                      ),
                                     ),
-                                  ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      height: 40,
+                                      child: TextField(
+                                        autofocus: false,
+                                        controller: collectionController,
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.fromLTRB(
+                                                  8.0, 5.0, 5.0, 5.0),
+                                          filled: true,
+                                          fillColor:
+                                              const Color(0XFFfbfefb),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Flexible(
-                                  flex: 1,
-                                  fit: FlexFit.tight,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 5.0,
-                                        bottom: 5.0,
-                                        left: s.width * 0.01),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          "Category",
-                                          style: TextStyle(
-                                            fontFamily: "Nunito",
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Container(
-                                            height: 40, child: categoryselector)
-                                      ],
+                              ),
+                            ),
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.tight,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 5.0,
+                                    bottom: 5.0,
+                                    left: s.width * 0.01),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      "Category",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 16,
+                                      ),
                                     ),
-                                  ),
-                                )
-                              ]),
-                              const SizedBox(height: 15,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    width: 120,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: cheryred),
-                                    child: Center(
-                                        child: Text(
-                                      "Cancel",
-                                      style: TextStyle(
-                                          color: white,
-                                          fontFamily: "Nunito",
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                                  ),
-                                  Container(
-                                    width: 120,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: limegreen),
-                                    child: Center(
-                                        child: Text(
-                                      "Update",
-                                      style: TextStyle(
-                                          color: white,
-                                          fontFamily: "Nunito",
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                                  )
-                                ],
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                        height: 40,
+                                        child: categoryselector)
+                                  ],
+                                ),
+                              ),
+                            )
+                          ]),
+                          // const SizedBox(
+                          //   height: 15,
+                          // ),
+                          Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                width: 120,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(20),
+                                    color: cheryred,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        spreadRadius: 1,
+                                        blurRadius: 2,
+                                        color: black.withOpacity(0.2),
+                                        offset: const Offset(0, 3)
+                                      )
+                                    ]),
+                                child: Center(
+                                    child: Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      color: white,
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                              ),
+                              Container(
+                                width: 120,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(20),
+                                    color: limegreen,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        spreadRadius: 1,
+                                        blurRadius: 2,
+                                        color: black.withOpacity(0.2),
+                                        offset: const Offset(0, 3)
+                                      )
+                                    ]),
+                                child: Center(
+                                    child: Text(
+                                  "Update",
+                                  style: TextStyle(
+                                      color: white,
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                )),
                               )
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],

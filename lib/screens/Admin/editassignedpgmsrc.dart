@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
+import 'package:intl/intl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/constants/profile.dart';
+import 'package:ideal_marketing/services/customer_history.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 
 // ignore: must_be_immutable
@@ -601,8 +604,85 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
   }
 
   Future<void> upEditedData() async {
-    if (_formKey.currentState!.validate() && _selectedcategory!=null) {
-      
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('MM d y kk:mm:ss').format(now);
+    String assigneddate = DateFormat('d MM y').format(now);
+    String assignedtime = DateFormat('h:mma').format(now);
+
+    CustomerPgmHistory custhistory = CustomerPgmHistory(
+        upDate: assigneddate,
+        upTime: assignedtime,
+        msg: "Assigned Program updated By Admin",
+        techname: widget.techname,
+        status: "editted",
+        docname: formattedDate,
+        custdocname: widget.custdocname);
+
+    if (_formKey.currentState!.validate() && _selectedcategory != null) {
+// Loading Dialog box
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: bluebg,
+              ),
+            );
+          });
+
+      // Updating the Customer program data with new data
+      await fb
+          .collection("Customer")
+          .doc(widget.custdocname)
+          .collection("Programs")
+          .doc(widget.docname)
+          .update({
+        'loc': locController.text,
+        'phn': phnController.text,
+        'pgm': pgmController.text,
+        'chrg': collectionController.text,
+        'type': _selectedcategory,
+      });
+
+      // Update data in tech assigned pgm
+      await fb
+          .collection("Technician")
+          .doc(widget.username)
+          .collection("Assignedpgm")
+          .doc(widget.docname)
+          .update({
+        'loc': locController.text,
+        'phn': phnController.text,
+        'pgm': pgmController.text,
+        'chrg': collectionController.text,
+        'type': _selectedcategory,
+      });
+
+      // customer program history updated
+      await fb
+          .collection("Customer")
+          .doc(widget.custdocname)
+          .collection("Programs")
+          .doc(widget.docname)
+          .collection("History")
+          .doc(formattedDate)
+          .set(custhistory.toMap());
+
+      Navigator.of(context).pop();
+      PanaraInfoDialog.show(
+        context,
+        title: "Success!",
+        message: "Your update was completed Successfully :)",
+        buttonText: "Okay",
+        onTapDismiss: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const HomeAdmin()));
+        },
+        panaraDialogType: PanaraDialogType.success,
+        barrierDismissible: false,
+        textColor: Color(0XFF727272),
+      );
     } else {
       PanaraInfoDialog.show(
         context,

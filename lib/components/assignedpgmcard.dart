@@ -756,7 +756,7 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
         .doc(widget.docname)
         .update({'status': 'pending'});
 
-    fb
+    await fb
         .collection("Programs")
         .doc(widget.docname)
         .collection("AssignedPgm")

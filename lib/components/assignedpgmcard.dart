@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Admin/editassignedpgmsrc.dart';
+import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
@@ -696,15 +697,7 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
   }
 
   Future<void> converttomainlist() async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: CircularProgressIndicator(
-              color: bluebg,
-            ),
-          );
-        });
+    Navigator.pop(context);
 
     FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
@@ -743,10 +736,7 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
       'status': 'pending',
       'techname': null,
       'techuname': null,
-    }).then((value) {
-      print("Pending program status updated");
-    }).catchError(
-        (error) => print("Failed to Pending update program : $error"));
+    });
 
     // Updating the Customer program status as pending
     await fb
@@ -761,19 +751,14 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
         .doc(widget.docname)
         .collection("AssignedPgm")
         .doc("Technician")
-        .delete()
-        .then((value) {
-      print("Deleted the assigned details in program");
-    }).catchError((error) => print(
-            "Failed to Deleted the assigned details in program : $error"));
+        .delete();
 
     await fb
         .collection("Technician")
         .doc(widget.username)
         .collection("Assignedpgm")
         .doc(widget.docname)
-        .delete()
-        .catchError((error) => print("Failed to assign program : $error"));
+        .delete();
 
     await fb.collection("history").doc(formattedDate).set(history.toMap());
     // customer program history updated
@@ -787,10 +772,8 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
         .set(custhistory.toMap());
 
     await fb.collection("ConfirmList").doc(widget.docname).delete();
-    setState(() {
-      _isviz = false;
-    });
-    Navigator.of(context).pop();
-    Navigator.pop(context);
+
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const HomeAdmin()));
   }
 }

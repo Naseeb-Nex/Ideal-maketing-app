@@ -407,7 +407,7 @@ class _ConfirmationcardState extends State<Confirmationcard> {
       docname: widget.docname,
       prospec: widget.prospec,
       instadate: widget.instadate,
-      status: "pending",
+      status: "assigned",
       username: widget.username,
       techname: widget.techname,
       priority: widget.priority,

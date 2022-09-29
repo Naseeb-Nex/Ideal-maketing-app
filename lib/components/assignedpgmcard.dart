@@ -414,13 +414,16 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    child: Text(
-                                      "  ${widget.chrg}",
-                                      style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400,
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 5),
+                                      child: Text(
+                                        "${widget.chrg}",
+                                        style: TextStyle(
+                                          fontFamily: "Nunito",
+                                          fontSize: 15,
+                                        ),
                                       ),
                                     ),
                                   ),

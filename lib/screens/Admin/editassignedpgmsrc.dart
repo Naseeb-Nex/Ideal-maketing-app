@@ -602,7 +602,7 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
 
   Future<void> upEditedData() async {
     if (_formKey.currentState!.validate() && _selectedcategory!=null) {
-      print("UP Edited Data");
+      
     } else {
       PanaraInfoDialog.show(
         context,

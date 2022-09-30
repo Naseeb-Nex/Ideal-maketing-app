@@ -65,6 +65,12 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
   bool _isviz = false;
   bool _ismore = false;
 
+@override
+void setState(VoidCallback fn) {
+  if (mounted){
+    super.setState(fn);
+  }
+}
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -699,6 +705,17 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
   Future<void> converttomainlist() async {
     Navigator.pop(context);
 
+    // Loading circle
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: bluebg,
+              ),
+            );
+          });
+
     FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('MM d y kk:mm:ss').format(now);
@@ -772,6 +789,9 @@ class _AssignedpgmcardState extends State<Assignedpgmcard> {
         .set(custhistory.toMap());
 
     await fb.collection("ConfirmList").doc(widget.docname).delete();
+
+    //Closing loading circle
+    Navigator.of(context).pop();
 
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const HomeAdmin()));

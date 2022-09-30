@@ -619,7 +619,7 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
         custdocname: widget.custdocname);
 
     if (_formKey.currentState!.validate() && _selectedcategory != null) {
-// Loading Dialog box
+    // Loading circle
       showDialog(
           context: context,
           builder: (context) {
@@ -629,6 +629,18 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
               ),
             );
           });
+
+      // Update the Program status
+      fb.collection("Programs").doc(widget.docname).update({
+        'loc': locController.text,
+        'phn': phnController.text,
+        'pgm': pgmController.text,
+        'chrg': collectionController.text,
+        'type': _selectedcategory,
+        'status': 'assigned',
+        'techname': '${widget.techname}',
+        'techuname': '${widget.username}'
+      });
 
       // Updating the Customer program data with new data
       await fb
@@ -677,7 +689,7 @@ class _EditassignedpgmState extends State<Editassignedpgm> {
         onTapDismiss: () {
           Navigator.pop(context);
           Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => const HomeAdmin()));
+              MaterialPageRoute(builder: (context) => const HomeAdmin()));
         },
         panaraDialogType: PanaraDialogType.success,
         barrierDismissible: false,

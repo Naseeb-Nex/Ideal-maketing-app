@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Admin/editassignedpgmsrc.dart';
 import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
+import 'package:ideal_marketing/screens/loadingsrc.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
@@ -64,13 +65,15 @@ class Assignedpgmcard extends StatefulWidget {
 class _AssignedpgmcardState extends State<Assignedpgmcard> {
   bool _isviz = false;
   bool _ismore = false;
+  bool _loading = false;
 
-@override
-void setState(VoidCallback fn) {
-  if (mounted){
-    super.setState(fn);
+  @override
+  void setState(VoidCallback fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
   }
-}
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -681,6 +684,14 @@ void setState(VoidCallback fn) {
                               ),
                             ),
                           ),
+                          Container(
+                            height: s.height * 0.3,
+                            child: _loading
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                        color: cheryred))
+                                : null,
+                          )
                         ],
                       ),
                     ),
@@ -706,15 +717,9 @@ void setState(VoidCallback fn) {
     Navigator.pop(context);
 
     // Loading circle
-      showDialog(
-          context: context,
-          builder: (context) {
-            return Center(
-              child: CircularProgressIndicator(
-                color: bluebg,
-              ),
-            );
-          });
+    setState(() {
+      _loading = true;
+    });
 
     FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
@@ -763,19 +768,7 @@ void setState(VoidCallback fn) {
         .doc(widget.docname)
         .update({'status': 'pending'});
 
-    await fb
-        .collection("Programs")
-        .doc(widget.docname)
-        .collection("AssignedPgm")
-        .doc("Technician")
-        .delete();
 
-    await fb
-        .collection("Technician")
-        .doc(widget.username)
-        .collection("Assignedpgm")
-        .doc(widget.docname)
-        .delete();
 
     await fb.collection("history").doc(formattedDate).set(history.toMap());
     // customer program history updated
@@ -788,12 +781,25 @@ void setState(VoidCallback fn) {
         .doc(formattedDate)
         .set(custhistory.toMap());
 
-    await fb.collection("ConfirmList").doc(widget.docname).delete();
+    // Loading circle
+    setState(() {
+      _loading = false;
+      _ismore = false;
+      _isviz = false;
+    });
 
-    //Closing loading circle
-    Navigator.of(context).pop();
+        await fb
+        .collection("Programs")
+        .doc(widget.docname)
+        .collection("AssignedPgm")
+        .doc("Technician")
+        .delete();
 
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeAdmin()));
+    await fb
+        .collection("Technician")
+        .doc(widget.username)
+        .collection("Assignedpgm")
+        .doc(widget.docname)
+        .delete();
   }
 }

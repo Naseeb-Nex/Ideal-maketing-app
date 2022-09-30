@@ -536,8 +536,28 @@ class _TechcardState extends State<Techcard> {
   int pro = 0;
   @override
   void initState() {
+    if (mounted) {
+      startup();
+    }
     super.initState();
-    if (mounted) startup();
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
+  void dispose() {
+      a = 0;
+      c = 0;
+      p = 0;
+      pro = 0;
+    print('Dispose used');
+    super.dispose();
   }
 
   @override

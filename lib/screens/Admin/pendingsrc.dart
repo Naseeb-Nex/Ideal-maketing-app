@@ -179,6 +179,7 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
                   upTime: _allpgm[i]['upTime'],
                   docname: _allpgm[i]['docname'],
                   status: _allpgm[i]['status'],
+                  custdocname: _allpgm[i]['custdocname'],
                 )
               ]
             ],

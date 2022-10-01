@@ -22,6 +22,7 @@ class Pendingpgmcard extends StatefulWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+  String? custdocname;
 
   Pendingpgmcard({
     Key? key,
@@ -42,6 +43,7 @@ class Pendingpgmcard extends StatefulWidget {
     this.assignedtime,
     this.assigneddate,
     this.priority,
+    this.custdocname,
   }) : super(key: key);
 
   @override
@@ -533,12 +535,8 @@ class _PendingpgmcardState extends State<Pendingpgmcard> {
                                                                   .assigneddate,
                                                               priority: widget
                                                                   .priority,
-                                                              // prospec: widget
-                                                              //     .prospec,
-                                                              // instadate: widget
-                                                              //     .instadate,
-                                                              // custdocname: widget
-                                                              //     .custdocname,
+                                                              custdocname: widget
+                                                                  .custdocname,
                                                             )));
                                               },
                                               panaraDialogType:

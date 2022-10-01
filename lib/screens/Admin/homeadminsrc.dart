@@ -43,6 +43,13 @@ class _HomeAdminState extends State<HomeAdmin> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    pgmsetup().dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return Stack(fit: StackFit.expand, children: [
@@ -534,6 +541,7 @@ class _TechcardState extends State<Techcard> {
   int c = 0;
   int p = 0;
   int pro = 0;
+  
   @override
   void initState() {
     if (mounted) {
@@ -552,12 +560,19 @@ class _TechcardState extends State<Techcard> {
 
   @override
   void dispose() {
-      a = 0;
-      c = 0;
-      p = 0;
-      pro = 0;
-    print('Dispose used');
+    // TODO: implement dispose
+    a = 0;
+    c = 0;
+    p = 0;
+    pro = 0;
     super.dispose();
+  }
+
+  @override
+  void activate() {
+    // TODO: implement activate
+    startup();
+    super.activate();
   }
 
   @override
@@ -799,7 +814,6 @@ class _TechcardState extends State<Techcard> {
   startup() async {
     DateTime now = DateTime.now();
     String cday = DateFormat('MM d y').format(now);
-    try {
       await fb
           .collection('Technician')
           .doc(widget.username)
@@ -844,8 +858,5 @@ class _TechcardState extends State<Techcard> {
                   pro = snap.size;
                 })
               });
-    } catch (e) {
-      print(e);
-    }
   }
 }

@@ -116,7 +116,6 @@ class confrimationcardwrapper extends StatefulWidget {
 }
 
 class _confrimationcardwrapperState extends State<confrimationcardwrapper> {
-  bool _hasCallSupport = false;
 
   @override
   void initState() {

@@ -44,7 +44,6 @@ class _HomeAdminState extends State<HomeAdmin> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     pgmsetup().dispose();
     super.dispose();
   }

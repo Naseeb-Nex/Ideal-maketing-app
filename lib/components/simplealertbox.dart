@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
-import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
 import 'package:ideal_marketing/screens/Technician/hometech.dart';
 
+// ignore: must_be_immutable
 class Simplealert extends StatelessWidget {
   String? username;
   final String? titles;

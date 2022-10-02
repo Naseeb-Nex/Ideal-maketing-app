@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:ideal_marketing/screens/Technician/Detailingsrc.dart';
 
+// ignore: must_be_immutable
 class Programcard extends StatelessWidget {
   String? uid;
   String? name;
@@ -52,7 +53,6 @@ class Programcard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size s = MediaQuery.of(context).size;
     return InkWell(
       onTap: () => Navigator.push(
           context,

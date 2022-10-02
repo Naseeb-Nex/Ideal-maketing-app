@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
+// ignore: must_be_immutable
 class Processingpgmcard extends StatefulWidget {
   String? uid;
   String? name;

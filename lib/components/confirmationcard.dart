@@ -452,9 +452,7 @@ class _ConfirmationcardState extends State<Confirmationcard> {
       'status': 'assigned',
       'techname': '${widget.techname}',
       'techuname': '${widget.username}'
-    }).then((value) {
-      print("Updated as assigned");
-    }).catchError((error) => print("Failed to update program : $error"));
+    });
 
     // Updating the Customer program status
     fb
@@ -470,11 +468,7 @@ class _ConfirmationcardState extends State<Confirmationcard> {
         .doc(widget.docname)
         .collection("AssignedPgm")
         .doc("Technician")
-        .set(apgm.toMap())
-        .then((value) {
-      print("Updated as assigned in program");
-    }).catchError((error) =>
-            print("Failed to update program in program field : $error"));
+        .set(apgm.toMap());
 
     fb
         .collection("Technician")

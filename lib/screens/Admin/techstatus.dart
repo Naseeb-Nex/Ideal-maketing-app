@@ -511,7 +511,32 @@ class _ProcessingpgmwrapperState extends State<Processingpgmwrapper> {
                   pdate: _allpgm[i]['upDate'],
                   remarks: _allpgm[i]['remarks'],
                 )
-              ]
+              ],
+              
+              //Test Calll
+
+              // Processingpgmcard(
+              //     uid: "uid",
+              //     name: "name",
+              //     address: "address",
+              //     loc: "loc",
+              //     phn: "phn",
+              //     pgm: "pgm",
+              //     chrg: "chrg",
+              //     type: "type",
+              //     upDate: "upDate",
+              //     upTime: "upTime",
+              //     docname: "docname",
+              //     status: "status",
+              //     username: "username",
+              //     techname: "techname",
+              //     assignedtime: "assignedtime",
+              //     assigneddate: "assigneddate",
+              //     priority: "priority",
+              //     ptime: "upTime",
+              //     pdate: "upDate",
+              //     remarks: "remarks",
+              //   )
             ],
           );
         });

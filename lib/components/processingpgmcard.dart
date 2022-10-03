@@ -151,27 +151,37 @@ class _ProcessingpgmcardState extends State<Processingpgmcard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.pin_drop_outlined,
-                                  color: cheryred,
-                                ),
-                                Text(
-                                  "${widget.loc}",
-                                  style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.pin_drop_outlined,
+                                    color: cheryred,
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    "${widget.loc}",
+                                    style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              "${widget.type}",
-                              style: const TextStyle(
-                                fontFamily: "Nunito",
-                                fontSize: 15,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Text(
+                                "${widget.type}",
+                                style: const TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 15,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             )
                           ],
@@ -385,13 +395,16 @@ class _ProcessingpgmcardState extends State<Processingpgmcard> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                child: Text(
-                                  "  ${widget.chrg}",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
+                              Flexible(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  child: Text(
+                                    "${widget.chrg}",
+                                    style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 15,
+                                    ),
                                   ),
                                 ),
                               ),

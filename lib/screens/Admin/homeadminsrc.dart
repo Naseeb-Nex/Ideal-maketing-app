@@ -542,34 +542,37 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Container(
-                                          width: s.width*0.3,
+                                          width: s.width * 0.3,
                                           alignment: Alignment.centerLeft,
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                width: 10,
-                                                height: 10,
-                                                color: Color(0xFF70e000),
-                                              ),
-                                              SizedBox(
-                                                width: s.width * 0.02,
-                                              ),
-                                              Text(
-                                                "Completed",
-                                                style: const TextStyle(
-                                                  fontFamily: "Montserrat",
-                                                  fontSize: 13,
-                                                  // color: Color(0xff70e000),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width: 10,
+                                                    height: 10,
+                                                    color: Color(0xFF70e000),
+                                                  ),
+                                                  SizedBox(
+                                                    width: s.width * 0.02,
+                                                  ),
+                                                  Text(
+                                                    "Completed",
+                                                    style: const TextStyle(
+                                                      fontFamily: "Montserrat",
+                                                      fontSize: 13,
+                                                      // color: Color(0xff70e000),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     width: 10,
@@ -590,7 +593,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 ],
                                               ),
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     width: 10,
@@ -611,7 +615,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 ],
                                               ),
                                               Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     width: 10,
@@ -636,10 +641,51 @@ class _HomeAdminState extends State<HomeAdmin> {
                                         ),
                                       ],
                                     ),
+                                    Text(
+                                      "*Today's Summary",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 10,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
-                            )
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: s.width * 0.03),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: s.width * 0.06,
+                                      vertical: s.height * 0.03),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            spreadRadius: 2,
+                                            blurRadius: 5,
+                                            color: black.withOpacity(0.1))
+                                      ]),
+                                  child: Column(children: [
+                                    Text(
+                                      "REPORT",
+                                      style: TextStyle(
+                                          color: bluebg,
+                                          fontFamily: "Montserrat",
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Divider(
+                                      endIndent: 10,
+                                    ),
+                                  ]),
+                                ))
                           ],
                         )
                       ],

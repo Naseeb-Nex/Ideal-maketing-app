@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/components/techreportcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Admin/confirmationlist.dart';
 
@@ -684,6 +685,13 @@ class _HomeAdminState extends State<HomeAdmin> {
                                     Divider(
                                       endIndent: 10,
                                     ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Techreportcard(),
+                                    Techreportcard(),
+                                    Techreportcard(),
+                                    Techreportcard(),
                                   ]),
                                 ))
                           ],

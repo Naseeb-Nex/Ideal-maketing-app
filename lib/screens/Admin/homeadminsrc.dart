@@ -874,6 +874,7 @@ class _Badge extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Techcardspace extends StatelessWidget {
   String? userid;
   Techcardspace({Key? key, this.userid}) : super(key: key);
@@ -917,6 +918,7 @@ class Techcardspace extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class Techcard extends StatefulWidget {
   String? name;
   String? img;
@@ -946,7 +948,6 @@ class _TechcardState extends State<Techcard> {
 
   @override
   void setState(VoidCallback fn) {
-    // TODO: implement setState
     if (mounted) {
       super.setState(fn);
     }
@@ -954,7 +955,6 @@ class _TechcardState extends State<Techcard> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     a = 0;
     c = 0;
     p = 0;
@@ -964,7 +964,6 @@ class _TechcardState extends State<Techcard> {
 
   @override
   void activate() {
-    // TODO: implement activate
     startup();
     super.activate();
   }

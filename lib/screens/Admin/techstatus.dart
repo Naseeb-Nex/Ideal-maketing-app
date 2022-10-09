@@ -10,6 +10,7 @@ import 'package:ideal_marketing/components/assignedpgmcard.dart';
 import 'package:ideal_marketing/components/compelepgmcard.dart';
 import 'package:ideal_marketing/components/processingpgmcard.dart';
 
+// ignore: must_be_immutable
 class Techstatus extends StatefulWidget {
   String? name;
   String? img;
@@ -150,6 +151,7 @@ class _TechstatusState extends State<Techstatus> {
   }
 }
 
+// ignore: must_be_immutable
 class Assignedpgmwrapper extends StatefulWidget {
   String? username;
   Assignedpgmwrapper({Key? key, required this.username}) : super(key: key);
@@ -163,7 +165,6 @@ class _AssignedpgmwrapperState extends State<Assignedpgmwrapper> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     canLaunch('tel:123').then((bool result) {
       setState(() {
@@ -258,6 +259,7 @@ class _AssignedpgmwrapperState extends State<Assignedpgmwrapper> {
   }
 }
 
+// ignore: must_be_immutable
 class Completepgmwrapper extends StatefulWidget {
   String? username;
   Completepgmwrapper({Key? key, required this.username}) : super(key: key);
@@ -267,11 +269,9 @@ class Completepgmwrapper extends StatefulWidget {
 }
 
 class _CompletepgmwrapperState extends State<Completepgmwrapper> {
-  bool _hasCallSupport = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -368,6 +368,7 @@ class _CompletepgmwrapperState extends State<Completepgmwrapper> {
   }
 }
 
+// ignore: must_be_immutable
 class Pendingpgmwrapper extends StatefulWidget {
   String? username;
   Pendingpgmwrapper({Key? key, required this.username}) : super(key: key);
@@ -441,6 +442,7 @@ class _PendingpgmwrapperState extends State<Pendingpgmwrapper> {
   }
 }
 
+// ignore: must_be_immutable
 class Processingpgmwrapper extends StatefulWidget {
   String? username;
   Processingpgmwrapper({Key? key, required this.username}) : super(key: key);

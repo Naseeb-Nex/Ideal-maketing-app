@@ -12,6 +12,7 @@ import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/services/user_model.dart';
 import 'package:ideal_marketing/services/getcounts.dart';
 
+// ignore: must_be_immutable
 class Techprofilesrc extends StatefulWidget {
   String? name;
   String? img;
@@ -525,6 +526,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
   }
 }
 
+// ignore: must_be_immutable
 class Removetechalert extends StatefulWidget {
   String? username;
   String? name;

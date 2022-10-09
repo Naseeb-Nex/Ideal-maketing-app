@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/components/pendingpgmcard.dart';
 
-import 'package:intl/intl.dart';
-
 
 class Pendingsrc extends StatefulWidget {
   const Pendingsrc({Key? key}) : super(key: key);
@@ -126,7 +124,6 @@ class Pgmcardwrapper extends StatefulWidget {
 }
 
 class _PgmcardwrapperState extends State<Pgmcardwrapper> {
-  bool _hasCallSupport = false;
 
   @override
   void initState() {

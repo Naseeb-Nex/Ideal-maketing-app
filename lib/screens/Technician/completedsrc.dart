@@ -11,6 +11,7 @@ import 'package:ideal_marketing/screens/Technician/hometech.dart';
 import 'package:ideal_marketing/services/pgmhistory.dart';
 import 'hometech.dart';
 
+// ignore: must_be_immutable
 class Completedsrc extends StatefulWidget {
   String? uid;
   String? name;
@@ -656,6 +657,7 @@ class _CompletedsrcState extends State<Completedsrc> {
   }
 }
 
+// ignore: must_be_immutable
 class CustomeAlertbx extends StatelessWidget {
   String? username;
   final String? titles;

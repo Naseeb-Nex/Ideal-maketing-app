@@ -4,6 +4,7 @@ import 'package:ideal_marketing/components/compelepgmcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class Compeltedpgmview extends StatefulWidget {
   String? username;
   Compeltedpgmview({Key? key, this.username}) : super(key: key);

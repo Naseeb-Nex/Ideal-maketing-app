@@ -6,6 +6,7 @@ import 'package:ideal_marketing/services/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:panara_dialogs/panara_dialogs.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -235,7 +236,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   void signUp(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
+    // check the Technitian status changer
+
+    if (_formKey.currentState!.validate() && _selectedcategory != null) {
       try {
         await _auth
             .createUserWithEmailAndPassword(email: email, password: password)
@@ -268,6 +271,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         }
         Fluttertoast.showToast(msg: errorMessage!);
       }
+    }
+    else{
+      PanaraInfoDialog.show(
+        context,
+        title: "Oops",
+        message: "Please verify feilds and Category",
+        buttonText: "Okay",
+        onTapDismiss: () {
+          Navigator.pop(context);
+        },
+        panaraDialogType: PanaraDialogType.error,
+        barrierDismissible: false,
+        textColor: Color(0XFF727272),
+      );
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/hometech.dart';
+import 'package:internet_popup/internet_popup.dart';
 
 class CreateProfile extends StatefulWidget {
   CreateProfile({Key? key, required this.uid}) : super(key: key);
@@ -19,13 +20,17 @@ class _CreateProfileState extends State<CreateProfile> {
   final _formKey = GlobalKey<FormState>();
 
   // editing controller
-  final TextEditingController nameController =  TextEditingController();
-  final TextEditingController usernameController =  TextEditingController();
-  final TextEditingController designationController =
-       TextEditingController();
-  final TextEditingController phn1Controller =  TextEditingController();
-  final TextEditingController phn2Controller =  TextEditingController();
-  final TextEditingController locationController =  TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController designationController = TextEditingController();
+  final TextEditingController phn1Controller = TextEditingController();
+  final TextEditingController phn2Controller = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+
+  void initState() {
+    super.initState();
+    InternetPopup().initialize(context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -238,8 +243,7 @@ class _CreateProfileState extends State<CreateProfile> {
                     shape: BoxShape.circle,
                     image: const DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage("assets/icons/avataricon.png")
-                            ),
+                        image: AssetImage("assets/icons/avataricon.png")),
                   ),
                 ),
               ),
@@ -353,42 +357,41 @@ class _CreateProfileState extends State<CreateProfile> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     if (_formKey.currentState!.validate()) {
-        Profile profile = Profile(
-            uid: widget.uid,
-            username: usernameController.text,
-            name: nameController.text,
-            designation: designationController.text,
-            phn1: phn1Controller.text,
-            phn2: phn2Controller.text,
-            location: locationController.text,
-            );
+      Profile profile = Profile(
+        uid: widget.uid,
+        username: usernameController.text,
+        name: nameController.text,
+        designation: designationController.text,
+        phn1: phn1Controller.text,
+        phn2: phn2Controller.text,
+        location: locationController.text,
+      );
 
-        await firebaseFirestore
-            .collection("users")
-            .doc("${widget.uid}")
-            .collection("Profile")
-            .doc("profile")
-            .set(profile.toMap())
-            .then((value) => print("Successfully created profile"))
-            .catchError((error) => print("Failed to add user: $error"));
+      await firebaseFirestore
+          .collection("users")
+          .doc("${widget.uid}")
+          .collection("Profile")
+          .doc("profile")
+          .set(profile.toMap())
+          .then((value) => print("Successfully created profile"))
+          .catchError((error) => print("Failed to add user: $error"));
 
-        await firebaseFirestore
-            .collection("Technician")
-            .doc(profile.username)
-            .set(profile.toMap())
-            .then((value) {
-          print("admin");
-          Fluttertoast.showToast(msg: "Profile Created Successfully");
-        }).catchError((error) {
-          print("Failed to add user: $error");
-          Fluttertoast.showToast(msg: "Failed to create profile :( $error");
-        });
+      await firebaseFirestore
+          .collection("Technician")
+          .doc(profile.username)
+          .set(profile.toMap())
+          .then((value) {
+        print("admin");
+        Fluttertoast.showToast(msg: "Profile Created Successfully");
+      }).catchError((error) {
+        print("Failed to add user: $error");
+        Fluttertoast.showToast(msg: "Failed to create profile :( $error");
+      });
 
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeTech()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeTech()));
       // assign all data
 
     }
   }
 }
-

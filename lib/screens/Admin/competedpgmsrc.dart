@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:internet_popup/internet_popup.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/components/allcompletedpgmcard.dart';
@@ -13,6 +14,12 @@ class Completedpgmsrc extends StatefulWidget {
 }
 
 class _CompletedpgmsrcState extends State<Completedpgmsrc> {
+  
+  @override
+  void initState() {
+    super.initState();
+    InternetPopup().initialize(context: context);
+  }
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;

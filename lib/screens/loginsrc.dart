@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:internet_popup/internet_popup.dart';
 
 import 'homeWrapper.dart';
 
@@ -26,6 +27,10 @@ class _LoginSrcState extends State<LoginSrc> {
   // string for displaying the error Message
   String? errorMessage;
   bool load = false;
+  void initState() {
+    super.initState();
+    InternetPopup().initialize(context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +200,8 @@ class _LoginSrcState extends State<LoginSrc> {
             errorMessage = "Signing in with Email and Password is not enabled.";
             break;
           default:
-            errorMessage = "Something went wrong. Please check your internet connection?";
+            errorMessage =
+                "Something went wrong. Please check your internet connection?";
         }
         Fluttertoast.showToast(msg: errorMessage!);
         print(error.code);

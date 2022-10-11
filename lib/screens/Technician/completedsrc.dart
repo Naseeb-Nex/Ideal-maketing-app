@@ -4,6 +4,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/services/customer_history.dart';
 import 'package:ideal_marketing/services/techhistory.dart';
+import 'package:internet_popup/internet_popup.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/completepgmdata.dart';
@@ -70,6 +71,11 @@ class _CompletedsrcState extends State<Completedsrc> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController cost = TextEditingController();
   final TextEditingController remarks = TextEditingController();
+  
+  void initState() {
+    super.initState();
+    InternetPopup().initialize(context: context);
+  }
 
   @override
   Widget build(BuildContext context) {

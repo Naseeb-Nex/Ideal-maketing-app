@@ -5,12 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
-import 'package:ideal_marketing/screens/Technician/Completedpgmview.dart';
 import 'package:ideal_marketing/screens/Technician/Pendingpgmview.dart';
-import 'package:ideal_marketing/screens/Technician/Processingpgmview.dart';
 
-import 'package:ideal_marketing/screens/Technician/edittechprofile.dart';
 import 'package:ideal_marketing/screens/Technician/resetpassword.dart';
+import 'package:internet_popup/internet_popup.dart';
 
 import '../loginsrc.dart';
 import 'package:intl/intl.dart';
@@ -39,6 +37,7 @@ class _ProfilesrcState extends State<Profilesrc> {
   @override
   void initState() {
     super.initState();
+    InternetPopup().initialize(context: context);
     if (mounted) startup();
   }
 
@@ -161,7 +160,8 @@ class _ProfilesrcState extends State<Profilesrc> {
                       color: Colors.white,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 25),
                       child: Column(
                         children: [
                           const Text(
@@ -312,7 +312,8 @@ class _ProfilesrcState extends State<Profilesrc> {
                                         color: Colors.black.withOpacity(0.1),
                                         offset: const Offset(0, 5))
                                   ]),
-                              padding: const EdgeInsets.symmetric(horizontal: 2),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -358,7 +359,8 @@ class _ProfilesrcState extends State<Profilesrc> {
                             //                 phn1: profile.phn1,
                             //                 phn2: profile.phn2))),
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: white,
@@ -392,7 +394,8 @@ class _ProfilesrcState extends State<Profilesrc> {
                                         uid: widget.uid,
                                         username: widget.username))),
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 25, vertical: 10),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: white,

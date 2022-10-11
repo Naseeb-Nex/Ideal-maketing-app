@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Admin/homeadminsrc.dart';
+import 'package:internet_popup/internet_popup.dart';
 import 'package:intl/intl.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -105,6 +106,7 @@ class _EditpendingpgmsrcState extends State<Editpendingpgmsrc> {
     phnController.text = "${widget.phn}";
     pgmController.text = "${widget.pgm}";
     collectionController.text = "${widget.chrg}";
+    InternetPopup().initialize(context: context);
   }
 
   @override

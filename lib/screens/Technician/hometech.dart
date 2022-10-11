@@ -7,6 +7,7 @@ import 'package:ideal_marketing/screens/Technician/Createprofile.dart';
 import 'package:ideal_marketing/screens/Technician/profilesrc.dart';
 import 'package:ideal_marketing/screens/Technician/wrapper/pgmcardwrapper.dart';
 import 'package:ideal_marketing/services/user_model.dart';
+import 'package:internet_popup/internet_popup.dart';
 
 import '../loginsrc.dart';
 
@@ -28,6 +29,7 @@ class _HomeTechState extends State<HomeTech> {
   @override
   void initState() {
     super.initState();
+    InternetPopup().initialize(context: context);
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)

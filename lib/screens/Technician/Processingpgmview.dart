@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/processingpgmcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:internet_popup/internet_popup.dart';
 
 // ignore: must_be_immutable
 class Processingpgmview extends StatefulWidget {
@@ -13,6 +14,11 @@ class Processingpgmview extends StatefulWidget {
 }
 
 class _ProcessingpgmviewState extends State<Processingpgmview> {
+  void initState() {
+    super.initState();
+    InternetPopup().initialize(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -105,30 +111,31 @@ class _ProcessingpgmviewState extends State<Processingpgmview> {
                           children: [
                             const SizedBox(height: 10),
                             Container(
-                                child: _allpgm.isEmpty
-                                    ? Column(
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(top: s.height * 0.35),
-                                            child: SizedBox(
-                                                height: s.width * 0.4,
-                                                width: s.width * 0.4,
-                                                child: Image.asset(
-                                                    "assets/icons/no_result.png")),
-                                          ),
-                                          Center(
-                                            child: Text(
-                                              "No Programs Found",
-                                              style: TextStyle(
-                                                fontFamily: "Montserrat",
-                                                fontSize: 16,
-                                              ),
+                              child: _allpgm.isEmpty
+                                  ? Column(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: s.height * 0.35),
+                                          child: SizedBox(
+                                              height: s.width * 0.4,
+                                              width: s.width * 0.4,
+                                              child: Image.asset(
+                                                  "assets/icons/no_result.png")),
+                                        ),
+                                        Center(
+                                          child: Text(
+                                            "No Programs Found",
+                                            style: TextStyle(
+                                              fontFamily: "Montserrat",
+                                              fontSize: 16,
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    : null,
-                              ),
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  : null,
+                            ),
                             for (var i = 0; i < _allpgm.length; i++) ...[
                               const SizedBox(
                                 height: 5,

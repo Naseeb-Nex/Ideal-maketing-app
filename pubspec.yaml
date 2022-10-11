@@ -52,6 +52,7 @@ dependencies:
   custom_sliding_segmented_control: ^1.7.2
   fl_chart: ^0.55.2
   in_app_update: ^3.0.0
+  internet_popup: ^1.0.8+5
   
 
 dev_dependencies:

@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:ideal_marketing/components/simplealertbox.dart';
+import 'package:internet_popup/internet_popup.dart';
 
 class Resetpswdsrc extends StatefulWidget {
   String? uid;
@@ -31,6 +32,10 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
   final oldpswrd = TextEditingController();
   final newpswrd = TextEditingController();
   final confrimpswrd = TextEditingController();
+  void initState() {
+    super.initState();
+    InternetPopup().initialize(context: context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +112,7 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(left : 8.0),
+                                padding: const EdgeInsets.only(left: 8.0),
                                 child: SizedBox(
                                   width: s.width * 0.3,
                                   child: FittedBox(
@@ -151,9 +156,8 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      contentPadding:
-                                          const EdgeInsets.fromLTRB(
-                                              30, 5, 10, 5)),
+                                      contentPadding: const EdgeInsets.fromLTRB(
+                                          30, 5, 10, 5)),
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),
@@ -167,7 +171,7 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(left : 8.0),
+                                padding: const EdgeInsets.only(left: 8.0),
                                 child: SizedBox(
                                   width: s.width * 0.33,
                                   child: FittedBox(
@@ -211,9 +215,8 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      contentPadding:
-                                          const EdgeInsets.fromLTRB(
-                                              30, 5, 10, 5)),
+                                      contentPadding: const EdgeInsets.fromLTRB(
+                                          30, 5, 10, 5)),
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),
@@ -227,7 +230,7 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(left : 8.0),
+                                padding: const EdgeInsets.only(left: 8.0),
                                 child: SizedBox(
                                   width: s.width * 0.38,
                                   child: FittedBox(
@@ -268,9 +271,8 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
                                         borderRadius:
                                             BorderRadius.circular(25.0),
                                       ),
-                                      contentPadding:
-                                          const EdgeInsets.fromLTRB(
-                                              30, 5, 10, 5)),
+                                      contentPadding: const EdgeInsets.fromLTRB(
+                                          30, 5, 10, 5)),
                                   style: const TextStyle(fontSize: 20),
                                 ),
                               ),

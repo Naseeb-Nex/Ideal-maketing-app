@@ -3,17 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:internet_popup/internet_popup.dart';
+
 import 'package:ideal_marketing/components/techreportcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Admin/competedpgmsrc.dart';
 import 'package:ideal_marketing/screens/Admin/confirmationlist.dart';
 
+import 'pendingsrc.dart';
 import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:ideal_marketing/screens/register.dart';
 import 'package:ideal_marketing/services/user_model.dart';
-import 'pendingsrc.dart';
-import 'package:intl/intl.dart';
-
 import 'package:ideal_marketing/screens/Admin/techprofile.dart';
 import 'package:ideal_marketing/screens/Admin/techstatus.dart';
 
@@ -34,6 +35,7 @@ class _HomeAdminState extends State<HomeAdmin> {
   @override
   void initState() {
     super.initState();
+    InternetPopup().initialize(context: context);
     if (mounted) {
       pgmsetup();
     }

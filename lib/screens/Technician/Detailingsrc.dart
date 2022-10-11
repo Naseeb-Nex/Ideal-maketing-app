@@ -3,6 +3,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Technician/completedsrc.dart';
 import 'package:ideal_marketing/screens/Technician/pendingsrc.dart';
 import 'package:ideal_marketing/screens/Technician/processingsrc.dart';
+import 'package:internet_popup/internet_popup.dart';
 
 // ignore: must_be_immutable
 class Detailingsrc extends StatefulWidget {
@@ -56,6 +57,11 @@ class Detailingsrc extends StatefulWidget {
 }
 
 class _DetailingsrcState extends State<Detailingsrc> {
+  void initState() {
+    super.initState();
+    InternetPopup().initialize(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -111,15 +117,15 @@ class _DetailingsrcState extends State<Detailingsrc> {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Color(0Xff9381ff),
-                      boxShadow: [BoxShadow(
-                          spreadRadius: 2,
-                          blurRadius: 3,
-                          color: Colors.black.withOpacity(0.13),
-                          offset: const Offset(0, 3)
-                        )]
-                    ),
+                        borderRadius: BorderRadius.circular(30),
+                        color: Color(0Xff9381ff),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              color: Colors.black.withOpacity(0.13),
+                              offset: const Offset(0, 3))
+                        ]),
                     padding: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 60),
                     child: Padding(
@@ -168,7 +174,8 @@ class _DetailingsrcState extends State<Detailingsrc> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Phone :",
@@ -191,7 +198,8 @@ class _DetailingsrcState extends State<Detailingsrc> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Location :",
@@ -242,11 +250,11 @@ class _DetailingsrcState extends State<Detailingsrc> {
                               ),
                             ],
                           ),
-                          
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Product Specification :",
@@ -256,7 +264,9 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                   color: Colors.white,
                                 ),
                               ),
-                              const SizedBox(width: 5,),
+                              const SizedBox(
+                                width: 5,
+                              ),
                               Flexible(
                                 child: Text(
                                   "${widget.prospec}",
@@ -268,10 +278,12 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                 ),
                               ),
                             ],
-                          ),const SizedBox(
+                          ),
+                          const SizedBox(
                             height: 5,
                           ),
-                          Row(crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
                                 "Installation Date :",
@@ -294,7 +306,8 @@ class _DetailingsrcState extends State<Detailingsrc> {
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
@@ -317,7 +330,8 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                   ),
                                 ],
                               ),
-                              Row(crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
                                     "Date :",
@@ -425,13 +439,13 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: const Color(0xFF7ae582),
-                        boxShadow: [BoxShadow(
-                          spreadRadius: 2,
-                          blurRadius: 3,
-                          color: Colors.black.withOpacity(0.13),
-                          offset: const Offset(0, 3)
-                        )]
-                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              color: Colors.black.withOpacity(0.13),
+                              offset: const Offset(0, 3))
+                        ]),
                     child: const Center(
                       child: Text(
                         "Completed",
@@ -477,12 +491,13 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: Colors.redAccent,
-                        boxShadow: [BoxShadow(
-                          spreadRadius: 2,
-                          blurRadius: 3,
-                          color: Colors.black.withOpacity(0.13),
-                          offset: const Offset(0, 3)
-                        )]),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              color: Colors.black.withOpacity(0.13),
+                              offset: const Offset(0, 3))
+                        ]),
                     child: const Center(
                       child: Text(
                         "Pending",
@@ -528,12 +543,13 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
                         color: const Color(0xFF56cfe1),
-                        boxShadow: [BoxShadow(
-                          spreadRadius: 2,
-                          blurRadius: 3,
-                          color: Colors.black.withOpacity(0.13),
-                          offset: const Offset(0, 3)
-                        )]),
+                        boxShadow: [
+                          BoxShadow(
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              color: Colors.black.withOpacity(0.13),
+                              offset: const Offset(0, 3))
+                        ]),
                     child: const Center(
                       child: Text(
                         "Processing",
@@ -546,7 +562,9 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     ),
                   ),
                 ),
-                SizedBox(height: 40,),
+                SizedBox(
+                  height: 40,
+                ),
               ],
             ),
           ),

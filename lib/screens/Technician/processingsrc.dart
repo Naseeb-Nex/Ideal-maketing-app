@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/services/customer_history.dart';
 import 'package:ideal_marketing/services/pgmhistory.dart';
 import 'package:ideal_marketing/services/techhistory.dart';
+import 'package:internet_popup/internet_popup.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/pendingpgmdata.dart';
 import 'hometech.dart';
 
+// ignore: must_be_immutable
 class Processingsrc extends StatefulWidget {
   String? uid;
   String? name;
@@ -66,6 +68,11 @@ class _ProcessingsrcState extends State<Processingsrc> {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController reason = TextEditingController();
+  void initState() {
+    super.initState();
+    InternetPopup().initialize(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

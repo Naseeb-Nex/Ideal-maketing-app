@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/confirmationcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
-
-
+import 'package:internet_popup/internet_popup.dart';
 
 class Confirmationlist extends StatefulWidget {
   const Confirmationlist({Key? key}) : super(key: key);
@@ -13,6 +12,12 @@ class Confirmationlist extends StatefulWidget {
 }
 
 class _ConfirmationlistState extends State<Confirmationlist> {
+  
+  void initState() {
+    super.initState();
+    InternetPopup().initialize(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -51,7 +56,11 @@ class _ConfirmationlistState extends State<Confirmationlist> {
                           child: Container(
                             padding: const EdgeInsets.all(10),
                             child: const Center(
-                              child: Icon(Icons.arrow_back, color: white, size: 25,),
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: white,
+                                size: 25,
+                              ),
                             ),
                           ),
                         ),
@@ -86,16 +95,16 @@ class _ConfirmationlistState extends State<Confirmationlist> {
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   decoration: const BoxDecoration(
-                    borderRadius:  BorderRadius.only(
-                        topLeft:  Radius.circular(40),
-                        topRight:  Radius.circular(40)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40)),
                     color: newbg,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
-                    child: confrimationcardwrapper(),
+                      child: confrimationcardwrapper(),
                     ),
                   ),
                 ),
@@ -112,11 +121,11 @@ class confrimationcardwrapper extends StatefulWidget {
   confrimationcardwrapper({Key? key}) : super(key: key);
 
   @override
-  State<confrimationcardwrapper> createState() => _confrimationcardwrapperState();
+  State<confrimationcardwrapper> createState() =>
+      _confrimationcardwrapperState();
 }
 
 class _confrimationcardwrapperState extends State<confrimationcardwrapper> {
-
   @override
   void initState() {
     super.initState();
@@ -127,9 +136,8 @@ class _confrimationcardwrapperState extends State<confrimationcardwrapper> {
     return StreamBuilder<QuerySnapshot>(
         // this code is not updating
         // we want to update this code
-        stream: FirebaseFirestore.instance
-            .collection('ConfirmList')
-            .snapshots(),
+        stream:
+            FirebaseFirestore.instance.collection('ConfirmList').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             print('Something went Wrong');
@@ -158,24 +166,24 @@ class _confrimationcardwrapperState extends State<confrimationcardwrapper> {
                 Confirmationcard(
                   uid: _allpgm[i]['uid'],
                   name: _allpgm[i]['name'],
-      address: _allpgm[i]['address'],
-      loc: _allpgm[i]['loc'],
-      phn: _allpgm[i]['phn'],
-      pgm: _allpgm[i]['pgm'],
-      chrg: _allpgm[i]['chrg'],
-      type: _allpgm[i]['type'],
-      upDate: _allpgm[i]['upDate'],
-      upTime: _allpgm[i]['upTime'],
-      docname: _allpgm[i]['docname'],
-      custdocname: _allpgm[i]['custdocname'],
-      prospec: _allpgm[i]['prospec'],
-      instadate: _allpgm[i]['instadate'],
-      status: _allpgm[i]['status'],
-      username: _allpgm[i]['username'],
-      techname: _allpgm[i]['techname'],
-      assignedtime: _allpgm[i]['assignedtime'],
-      assigneddate: _allpgm[i]['assigneddate'],
-      priority: _allpgm[i]['priority'],
+                  address: _allpgm[i]['address'],
+                  loc: _allpgm[i]['loc'],
+                  phn: _allpgm[i]['phn'],
+                  pgm: _allpgm[i]['pgm'],
+                  chrg: _allpgm[i]['chrg'],
+                  type: _allpgm[i]['type'],
+                  upDate: _allpgm[i]['upDate'],
+                  upTime: _allpgm[i]['upTime'],
+                  docname: _allpgm[i]['docname'],
+                  custdocname: _allpgm[i]['custdocname'],
+                  prospec: _allpgm[i]['prospec'],
+                  instadate: _allpgm[i]['instadate'],
+                  status: _allpgm[i]['status'],
+                  username: _allpgm[i]['username'],
+                  techname: _allpgm[i]['techname'],
+                  assignedtime: _allpgm[i]['assignedtime'],
+                  assigneddate: _allpgm[i]['assigneddate'],
+                  priority: _allpgm[i]['priority'],
                 )
               ]
             ],

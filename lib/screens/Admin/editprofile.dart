@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/components/alertbox.dart';
+import 'package:internet_popup/internet_popup.dart';
 
 // ignore: must_be_immutable
 class Editprofile extends StatefulWidget {
@@ -54,6 +55,7 @@ class _EditprofileState extends State<Editprofile> {
     phn1Controller.text = "${widget.phn1}";
     phn2Controller.text = "${widget.phn2}";
     locationController.text = "${widget.loc}";
+    InternetPopup().initialize(context: context);
   }
 
   @override

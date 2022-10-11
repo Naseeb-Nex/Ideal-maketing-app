@@ -5,6 +5,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/techreportcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/screens/Admin/competedpgmsrc.dart';
 import 'package:ideal_marketing/screens/Admin/confirmationlist.dart';
 
 import 'package:ideal_marketing/screens/loginsrc.dart';
@@ -250,51 +251,58 @@ class _HomeAdminState extends State<HomeAdmin> {
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      width: s.width * 0.4,
-                                      height: s.height * 0.14,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                          color: const Color(0XFFDBF4F1),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                spreadRadius: 2,
-                                                blurRadius: 4,
-                                                color: Colors.black
-                                                    .withOpacity(0.1),
-                                                offset: const Offset(0, 5))
-                                          ]),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "Completed Program",
-                                            style: TextStyle(
-                                              fontFamily: "Nunito",
-                                              fontSize: 19,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0XFF52b788),
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 10),
-                                            child: Text(
-                                              "$c",
-                                              style: const TextStyle(
+                                    InkWell(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const Completedpgmsrc())),
+                                      child: Container(
+                                        width: s.width * 0.4,
+                                        height: s.height * 0.14,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                            color: const Color(0XFFDBF4F1),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  spreadRadius: 2,
+                                                  blurRadius: 4,
+                                                  color: Colors.black
+                                                      .withOpacity(0.1),
+                                                  offset: const Offset(0, 5))
+                                            ]),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "Completed Program",
+                                              style: TextStyle(
                                                 fontFamily: "Nunito",
                                                 fontSize: 19,
                                                 fontWeight: FontWeight.bold,
                                                 color: Color(0XFF52b788),
                                               ),
+                                              textAlign: TextAlign.center,
                                             ),
-                                          ),
-                                        ],
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 10),
+                                              child: Text(
+                                                "$c",
+                                                style: const TextStyle(
+                                                  fontFamily: "Nunito",
+                                                  fontSize: 19,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color(0XFF52b788),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     )
                                   ],
@@ -538,6 +546,9 @@ class _HomeAdminState extends State<HomeAdmin> {
                                               sections: showingSections()),
                                         ),
                                       ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
                                     ),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -983,6 +994,7 @@ class _TechcardState extends State<Techcard> {
                 uid: widget.uid,
               ),
             )),
+        onDoubleTap: () => startup(),
         child: Container(
           width: 160,
           decoration: BoxDecoration(

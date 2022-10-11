@@ -10,6 +10,7 @@ import 'package:ideal_marketing/services/user_model.dart';
 
 import '../loginsrc.dart';
 
+// ignore: must_be_immutable
 class HomeTech extends StatefulWidget {
   String? username;
   HomeTech({Key? key, this.username}) : super(key: key);

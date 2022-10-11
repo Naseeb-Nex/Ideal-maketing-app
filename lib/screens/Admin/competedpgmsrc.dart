@@ -1,27 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
-import 'package:ideal_marketing/components/pendingpgmcard.dart';
+import 'package:intl/intl.dart';
 
+import 'package:ideal_marketing/components/allcompletedpgmcard.dart';
 
-class Pendingsrc extends StatefulWidget {
-  const Pendingsrc({Key? key}) : super(key: key);
+class Completedpgmsrc extends StatefulWidget {
+  const Completedpgmsrc({Key? key}) : super(key: key);
 
   @override
-  _PendingsrcState createState() => _PendingsrcState();
+  _CompletedpgmsrcState createState() => _CompletedpgmsrcState();
 }
 
-class _PendingsrcState extends State<Pendingsrc> {
+class _CompletedpgmsrcState extends State<Completedpgmsrc> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return Stack(fit: StackFit.expand, children: [
       Container(
-        decoration: const BoxDecoration(
+        decoration:  BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(38, 0, 91, 1),
-              Color.fromRGBO(55, 48, 255, 1),
+              Colors.green.shade600,
+              limegreen,
             ],
             begin: FractionalOffset.center,
             end: FractionalOffset.topCenter,
@@ -77,7 +78,7 @@ class _PendingsrcState extends State<Pendingsrc> {
                       height: 20,
                     ),
                     const Text(
-                      "Pending Program Viewer",
+                      "Completed Program Viewer",
                       style: TextStyle(
                         fontFamily: "Nunito",
                         fontSize: 18,
@@ -130,11 +131,15 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String cday = DateFormat('MM d y').format(now);
     return StreamBuilder<QuerySnapshot>(
         // this code is not updating
         // we want to update this code
         stream: FirebaseFirestore.instance
-            .collection('Programs')
+            .collection("Completedpgm")
+                .doc("Day")
+                .collection(cday)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -154,30 +159,62 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
             _allpgm.add(a);
             a['uid'] = document.id;
           }).toList();
-          return Column(
-            children: [
-              const SizedBox(height: 10),
-              for (var i = 0; i < _allpgm.length; i++) ...[
-                const SizedBox(
-                  height: 5,
-                ),
-                Pendingpgmcard(
-                  uid: _allpgm[i]['uid'],
-                  name: _allpgm[i]['name'],
-                  address: _allpgm[i]['address'],
-                  loc: _allpgm[i]['loc'],
-                  phn: _allpgm[i]['phn'],
-                  pgm: _allpgm[i]['pgm'],
-                  chrg: _allpgm[i]['chrg'],
-                  type: _allpgm[i]['type'],
-                  upDate: _allpgm[i]['upDate'],
-                  upTime: _allpgm[i]['upTime'],
-                  docname: _allpgm[i]['docname'],
-                  status: _allpgm[i]['status'],
-                  custdocname: _allpgm[i]['custdocname'],
-                )
-              ]
-            ],
+          _allpgm.sort((a, b) => a["priority"].compareTo(b["priority"]));
+          return Container(
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                for (var i = 0; i < _allpgm.length; i++) ...[
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Allcompletedpgmcard(
+                    uid: _allpgm[i]['uid'],
+                    name: _allpgm[i]['name'],
+                    address: _allpgm[i]['address'],
+                    loc: _allpgm[i]['loc'],
+                    phn: _allpgm[i]['phn'],
+                    pgm: _allpgm[i]['pgm'],
+                    chrg: _allpgm[i]['chrg'],
+                    type: _allpgm[i]['type'],
+                    upDate: _allpgm[i]['upDate'],
+                    upTime: _allpgm[i]['upTime'],
+                    docname: _allpgm[i]['docname'],
+                    status: _allpgm[i]['status'],
+                    username: _allpgm[i]['username'],
+                    techname: _allpgm[i]['techname'],
+                    assignedtime: _allpgm[i]['assignedtime'],
+                    assigneddate: _allpgm[i]['assigneddate'],
+                    priority: _allpgm[i]['priority'],
+                    camount: _allpgm[i]['camount'],
+                    ctime: _allpgm[i]['ctime'],
+                    remarks: _allpgm[i]['remarks'],
+                  )
+                ],
+                // Completedpgmcard(
+                //     uid: 'uid',
+                //     name: 'name',
+                //     address: 'address',
+                //     loc: 'loc',
+                //     phn: 'phn',
+                //     pgm: 'pgm',
+                //     chrg: '1000',
+                //     type: 'type',
+                //     upDate: 'upDate',
+                //     upTime: 'upTime',
+                //     docname: 'docname',
+                //     status: 'status',
+                //     username: 'username',
+                //     techname: 'techname',
+                //     assignedtime: 'assignedtime',
+                //     assigneddate: 'assigneddate',
+                //     priority: 'priority',
+                //     camount: '500',
+                //     ctime: 'ctime',
+                //     remarks: 'remarks',
+                //   )
+              ],
+            ),
           );
         });
   }

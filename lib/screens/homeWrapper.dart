@@ -54,7 +54,6 @@ class _HomeWrapperState extends State<HomeWrapper> {
     }else if(loggedInUser.category == "Admin"){
       return HomeAdmin();
     }
-    print("Lodingsrc");
     return LoadingSrc();
     
   }

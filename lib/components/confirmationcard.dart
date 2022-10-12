@@ -157,7 +157,9 @@ class _ConfirmationcardState extends State<Confirmationcard> {
                     ),
                   ),
                   Container(
-                    child: loading ? CircularProgressIndicator( color: bluebg) : null,
+                    child: loading
+                        ? CircularProgressIndicator(color: bluebg)
+                        : null,
                   ),
                   Container(
                     padding: EdgeInsets.all(8),
@@ -386,12 +388,17 @@ class _ConfirmationcardState extends State<Confirmationcard> {
     );
   }
 
-  void Assigntechup() {
+  Future<void> Assigntechup() async{
     FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('MM d y kk:mm:ss').format(now);
     String assigneddate = DateFormat('d MM y').format(now);
     String assignedtime = DateFormat('h:mma').format(now);
+
+    // Report
+    String day = DateFormat('MM d y').format(now);
+    String month = DateFormat('y MM').format(now);
+    String year = DateFormat('y').format(now);
 
     Assignpgmdata apgm = Assignpgmdata(
       uid: widget.uid,
@@ -425,29 +432,31 @@ class _ConfirmationcardState extends State<Confirmationcard> {
         docname: formattedDate,
         custdocname: widget.custdocname);
 
-    Pgmhistory history = Pgmhistory(
-      name: widget.name,
-      address: widget.address,
-      loc: widget.loc,
-      phn: widget.phn,
-      pgm: widget.pgm,
-      chrg: widget.chrg,
-      type: widget.type,
-      upDate: assigneddate,
-      upTime: assignedtime,
-      docname: formattedDate,
-      prospec: widget.prospec,
-      instadate: widget.instadate,
-      status: "assigned",
-      ch: "Program Assigned",
-      techname: widget.techname,
-    );
-
     setState(() {
       loading = true;
     });
 
-// Update the Program status
+    // Update the monthly counter Report
+    await fb.collection("Report").doc(month).get().then(
+      (DocumentSnapshot doc) {
+        if (!doc.exists) {
+          fb
+              .collection("Report")
+              .doc(month)
+              .set({'assigned': 1, 'year': year});
+        } else {
+          fb
+              .collection("Report")
+              .doc(month)
+              .update({'assigned': FieldValue.increment(1)});
+        }
+      },
+      onError: (e) => print("Assigned Counter update Error: $e"),
+    );
+
+
+
+    // Update the Program status
     fb.collection("Programs").doc(widget.docname).update({
       'status': 'assigned',
       'techname': '${widget.techname}',
@@ -470,34 +479,21 @@ class _ConfirmationcardState extends State<Confirmationcard> {
         .doc("Technician")
         .set(apgm.toMap());
 
+    // customer program history updated
     fb
-        .collection("Technician")
-        .doc(widget.username)
-        .collection("Assignedpgm")
+        .collection("Customer")
+        .doc(widget.custdocname)
+        .collection("Programs")
         .doc(widget.docname)
-        .set(apgm.toMap())
-        .then((value) {
-      fb.collection("history").doc(formattedDate).set(history.toMap());
+        .collection("History")
+        .doc(formattedDate)
+        .set(custhistory.toMap());
 
-      // customer program history updated
-      fb
-          .collection("Customer")
-          .doc(widget.custdocname)
-          .collection("Programs")
-          .doc(widget.docname)
-          .collection("History")
-          .doc(formattedDate)
-          .set(custhistory.toMap());
+    fb.collection("ConfirmList").doc(widget.docname).delete();
 
-      fb
-      .collection("ConfirmList")
-      .doc(widget.docname)
-      .delete();
-
-      setState(() {
-        loading = false;
-      });
-    }).catchError((error) => print("Failed to assign program : $error"));
+    setState(() {
+      loading = false;
+    });
   }
 
   void Cancelassinged() {
@@ -505,10 +501,7 @@ class _ConfirmationcardState extends State<Confirmationcard> {
     setState(() {
       loading = true;
     });
-    fb
-      .collection("ConfirmList")
-      .doc(widget.docname)
-      .delete();
+    fb.collection("ConfirmList").doc(widget.docname).delete();
     setState(() {
       loading = false;
     });

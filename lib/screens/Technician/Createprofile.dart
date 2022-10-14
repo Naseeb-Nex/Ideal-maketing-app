@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/hometech.dart';
-import 'package:internet_popup/internet_popup.dart';
 
 class CreateProfile extends StatefulWidget {
   CreateProfile({Key? key, required this.uid}) : super(key: key);
@@ -27,10 +26,6 @@ class _CreateProfileState extends State<CreateProfile> {
   final TextEditingController phn2Controller = TextEditingController();
   final TextEditingController locationController = TextEditingController();
 
-  void initState() {
-    super.initState();
-    InternetPopup().initialize(context: context);
-  }
 
   @override
   Widget build(BuildContext context) {

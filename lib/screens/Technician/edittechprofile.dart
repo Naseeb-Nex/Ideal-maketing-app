@@ -5,7 +5,6 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
-import 'package:internet_popup/internet_popup.dart';
 
 class EditTechprofile extends StatefulWidget {
   String? name;
@@ -54,7 +53,6 @@ class _EditTechprofileState extends State<EditTechprofile> {
     phn1Controller.text = "${widget.phn1}";
     phn2Controller.text = "${widget.phn2}";
     locationController.text = "${widget.loc}";
-    InternetPopup().initialize(context: context);
   }
 
   @override

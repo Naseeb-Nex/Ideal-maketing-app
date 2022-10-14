@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:internet_popup/internet_popup.dart';
 
 import 'package:ideal_marketing/components/techreportcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
@@ -35,7 +34,6 @@ class _HomeAdminState extends State<HomeAdmin> {
   @override
   void initState() {
     super.initState();
-    InternetPopup().initialize(context: context);
     if (mounted) {
       pgmsetup();
     }

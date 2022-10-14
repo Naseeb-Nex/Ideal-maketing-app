@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/screens/Admin/editprofile.dart';
 import 'package:ideal_marketing/screens/Admin/techstatus.dart';
 import 'package:ideal_marketing/screens/loginsrc.dart';
-import 'package:internet_popup/internet_popup.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
@@ -42,7 +41,6 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
   @override
   void initState() {
     super.initState();
-    InternetPopup().initialize(context: context);
     if (mounted) {
       setupsrc();
     }

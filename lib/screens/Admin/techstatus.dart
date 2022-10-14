@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:internet_popup/internet_popup.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,7 +26,6 @@ class Techstatus extends StatefulWidget {
 class _TechstatusState extends State<Techstatus> {
   void initState() {
     super.initState();
-    InternetPopup().initialize(context: context);
   }
   @override
   Widget build(BuildContext context) {

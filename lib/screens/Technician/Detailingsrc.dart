@@ -3,7 +3,6 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Technician/completedsrc.dart';
 import 'package:ideal_marketing/screens/Technician/pendingsrc.dart';
 import 'package:ideal_marketing/screens/Technician/processingsrc.dart';
-import 'package:internet_popup/internet_popup.dart';
 
 // ignore: must_be_immutable
 class Detailingsrc extends StatefulWidget {
@@ -57,10 +56,6 @@ class Detailingsrc extends StatefulWidget {
 }
 
 class _DetailingsrcState extends State<Detailingsrc> {
-  void initState() {
-    super.initState();
-    InternetPopup().initialize(context: context);
-  }
 
   @override
   Widget build(BuildContext context) {

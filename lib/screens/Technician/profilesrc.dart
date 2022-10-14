@@ -8,7 +8,6 @@ import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/Pendingpgmview.dart';
 
 import 'package:ideal_marketing/screens/Technician/resetpassword.dart';
-import 'package:internet_popup/internet_popup.dart';
 
 import '../loginsrc.dart';
 import 'package:intl/intl.dart';
@@ -37,7 +36,6 @@ class _ProfilesrcState extends State<Profilesrc> {
   @override
   void initState() {
     super.initState();
-    InternetPopup().initialize(context: context);
     if (mounted) startup();
   }
 

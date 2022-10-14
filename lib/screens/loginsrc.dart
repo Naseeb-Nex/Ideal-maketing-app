@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/constants/constants.dart';
-import 'package:internet_popup/internet_popup.dart';
 
 import 'homeWrapper.dart';
 
@@ -27,10 +26,6 @@ class _LoginSrcState extends State<LoginSrc> {
   // string for displaying the error Message
   String? errorMessage;
   bool load = false;
-  void initState() {
-    super.initState();
-    InternetPopup().initialize(context: context);
-  }
 
   @override
   Widget build(BuildContext context) {

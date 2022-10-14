@@ -5,7 +5,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:ideal_marketing/components/simplealertbox.dart';
-import 'package:internet_popup/internet_popup.dart';
 
 class Resetpswdsrc extends StatefulWidget {
   String? uid;
@@ -34,7 +33,6 @@ class _ResetpswdsrcState extends State<Resetpswdsrc> {
   final confrimpswrd = TextEditingController();
   void initState() {
     super.initState();
-    InternetPopup().initialize(context: context);
   }
 
   @override

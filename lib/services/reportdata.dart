@@ -1,5 +1,4 @@
-class Completepgmdata {
-  String? uid;
+class Reportdata {
   String? name;
   String? address;
   String? loc;
@@ -22,11 +21,10 @@ class Completepgmdata {
   String? cdate;
   String? ccollname;
   String? cdocname;
-  String? mcollname;
-  String? ycollname;
+  String? custdocname;
+  String? rpdocname;
 
-  Completepgmdata({
-    this.uid,
+  Reportdata({
     this.name,
     this.address,
     this.loc,
@@ -49,14 +47,13 @@ class Completepgmdata {
     this.ctime,
     this.ccollname,
     this.cdocname,
-    this.mcollname,
-    this.ycollname,
+    this.custdocname,
+    this.rpdocname,
   });
 
   // receiving data from server
-  factory Completepgmdata.fromMap(map) {
-    return Completepgmdata(
-      uid: map['uid'],
+  factory Reportdata.fromMap(map) {
+    return Reportdata(
       name: map['name'],
       address: map['address'],
       loc: map['loc'],
@@ -79,15 +76,14 @@ class Completepgmdata {
       ctime: map['ctime'],
       ccollname: map['ccollname'],
       cdocname: map['cdocname'],
-      mcollname: map['mcollname'],
-      ycollname: map['ycollname'],
+      custdocname: map['custdocname'],
+      rpdocname: map['rpdocname'],
     );
   }
 
   // sending data to our server
   Map<String, dynamic> toMap() {
     return {
-      'uid': uid,
       'name': name,
       'address': address,
       'loc': loc,
@@ -110,8 +106,8 @@ class Completepgmdata {
       'ctime': ctime,
       'ccollname': ccollname,
       'cdocname': cdocname,
-      'mcollname': mcollname,
-      'ycollname': ycollname,
+      'custdocname': custdocname,
+      'rpdocname': rpdocname,
     };
   }
 }

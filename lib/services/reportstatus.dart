@@ -1,4 +1,4 @@
-class MonthReport {
+class Reportstatus {
   String? upDate;
   String? upTime;
   String? docname;
@@ -7,7 +7,7 @@ class MonthReport {
   String? name;
   String? pgm;
 
-  MonthReport(
+  Reportstatus(
       {
       this.techname,
       this.name,
@@ -19,8 +19,8 @@ class MonthReport {
       });
 
   // receiving data from server
-  factory MonthReport.fromMap(map) {
-    return MonthReport(
+  factory Reportstatus.fromMap(map) {
+    return Reportstatus(
       techname: map['techname'],
       name: map['name'],
       pgm: map['pgm'],

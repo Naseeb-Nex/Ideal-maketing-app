@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/services/assignedpgmdata.dart';
+import 'package:ideal_marketing/services/reportdata.dart';
 import 'package:intl/intl.dart';
 
 import '../services/customer_history.dart';
@@ -421,6 +422,27 @@ class _ConfirmationcardState extends State<Confirmationcard> {
       assigneddate: assigneddate,
       assignedtime: assignedtime,
       custdocname: widget.custdocname,
+    );
+
+    Reportdata rpdata = Reportdata(
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      status: "assigned",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: assigneddate,
+      assignedtime: assignedtime,
+      custdocname: widget.custdocname,
+      rpdocname: formattedDate,
     );
 
     CustomerPgmHistory custhistory = CustomerPgmHistory(

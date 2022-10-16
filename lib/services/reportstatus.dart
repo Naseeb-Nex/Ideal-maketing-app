@@ -5,7 +5,12 @@ class Reportstatus {
   String? status;
   String? techname;
   String? name;
+  String? phn;
   String? pgm;
+  String? month;
+  String? day;
+  String? more;
+  String? username;
 
   Reportstatus(
       {
@@ -15,7 +20,12 @@ class Reportstatus {
       this.upDate,
       this.upTime,
       this.docname,
+      this.phn,
       this.status,
+      this.month,
+      this.day,
+      this.more,
+      this.username,
       });
 
   // receiving data from server
@@ -28,6 +38,11 @@ class Reportstatus {
       upTime: map['upTime'],
       docname: map['docname'],
       status: map['status'],
+      phn: map['phn'],
+      month: map['month'],
+      day: map['day'],
+      more: map['more'],
+      username: map['username'],
     );  
   }
 
@@ -41,6 +56,11 @@ class Reportstatus {
       'upTime': upTime,
       'docname': docname,
       'status': status,
+      'phn': phn,
+      'month': month,
+      'day': day,
+      'more': more,
+      'username': username,
     };
   }
 }

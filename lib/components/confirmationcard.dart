@@ -3,6 +3,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/services/assignedpgmdata.dart';
 import 'package:ideal_marketing/services/reportdata.dart';
+import 'package:ideal_marketing/services/reportstatus.dart';
 import 'package:intl/intl.dart';
 
 import '../services/customer_history.dart';
@@ -389,12 +390,15 @@ class _ConfirmationcardState extends State<Confirmationcard> {
     );
   }
 
-  Future<void> Assigntechup() async{
+  Future<void> Assigntechup() async {
     FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('MM d y kk:mm:ss').format(now);
     String assigneddate = DateFormat('d MM y').format(now);
     String assignedtime = DateFormat('h:mma').format(now);
+
+    // Daily report docname
+    String daydoc = DateFormat('kk:mm:ss').format(now);
 
     // Report
     String day = DateFormat('MM d y').format(now);
@@ -424,6 +428,7 @@ class _ConfirmationcardState extends State<Confirmationcard> {
       custdocname: widget.custdocname,
     );
 
+    // report data
     Reportdata rpdata = Reportdata(
       name: widget.name,
       address: widget.address,
@@ -445,6 +450,38 @@ class _ConfirmationcardState extends State<Confirmationcard> {
       rpdocname: formattedDate,
     );
 
+    // Daily report status
+    Reportstatus dayrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
+      status: "assigned",
+      upDate: assigneddate,
+      upTime: assignedtime,
+      day: day,
+      month: month,
+      username: widget.username,
+      more: formattedDate,
+    );
+
+    // Montly reports status
+    Reportstatus monthrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
+      status: "assigned",
+      upDate: assigneddate,
+      upTime: assignedtime,
+      day: day,
+      month: month,
+      username: widget.username,
+      more: formattedDate,
+    );
+
     CustomerPgmHistory custhistory = CustomerPgmHistory(
         upDate: assigneddate,
         upTime: assignedtime,
@@ -462,10 +499,7 @@ class _ConfirmationcardState extends State<Confirmationcard> {
     await fb.collection("Report").doc(month).get().then(
       (DocumentSnapshot doc) {
         if (!doc.exists) {
-          fb
-              .collection("Report")
-              .doc(month)
-              .set({'assigned': 1, 'year': year});
+          fb.collection("Report").doc(month).set({'assigned': 1, 'year': year});
         } else {
           fb
               .collection("Report")
@@ -475,8 +509,6 @@ class _ConfirmationcardState extends State<Confirmationcard> {
       },
       onError: (e) => print("Assigned Counter update Error: $e"),
     );
-
-
 
     // Update the Program status
     fb.collection("Programs").doc(widget.docname).update({

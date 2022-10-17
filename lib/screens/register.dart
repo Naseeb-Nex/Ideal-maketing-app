@@ -294,6 +294,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     UserModel userModel = UserModel();
 
+    // Update the diplayName
+    user?.updateDisplayName(_selectedcategory);
+
     // writing all the values
     userModel.email = user!.email;
     userModel.uid = user.uid;

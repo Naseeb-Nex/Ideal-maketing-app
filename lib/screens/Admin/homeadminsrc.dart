@@ -47,12 +47,6 @@ class _HomeAdminState extends State<HomeAdmin> {
   }
 
   @override
-  void dispose() {
-    pgmsetup().dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return Stack(fit: StackFit.expand, children: [

@@ -401,8 +401,8 @@ class _ConfirmationcardState extends State<Confirmationcard> {
     String daydoc = DateFormat('kk:mm:ss').format(now);
 
     // Report
-    String day = DateFormat('MM d y').format(now);
-    String month = DateFormat('y MM').format(now);
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
     String year = DateFormat('y').format(now);
 
     Assignpgmdata apgm = Assignpgmdata(
@@ -483,32 +483,118 @@ class _ConfirmationcardState extends State<Confirmationcard> {
     );
 
     CustomerPgmHistory custhistory = CustomerPgmHistory(
-        upDate: assigneddate,
-        upTime: assignedtime,
-        msg: "Program Assigned to ${widget.techname}",
-        techname: widget.techname,
-        status: "assigned",
-        docname: formattedDate,
-        custdocname: widget.custdocname);
+      upDate: assigneddate,
+      upTime: assignedtime,
+      msg: "Program Assigned to ${widget.techname}",
+      techname: widget.techname,
+      status: "assigned",
+      docname: formattedDate,
+      custdocname: widget.custdocname,
+    );
 
     setState(() {
       loading = true;
     });
 
-    // Update the monthly counter Report
-    await fb.collection("Report").doc(month).get().then(
+    // Report session
+
+    // Update the reportdata
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection(day)
+        .doc("Tech")
+        .collection("${widget.username}")
+        .doc(formattedDate)
+        .set(rpdata.toMap());
+
+    // Update the dayily report data
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection(day)
+        .doc("summary")
+        .collection("all")
+        .doc("${widget.techname} $daydoc")
+        .set(dayrpdata.toMap());
+
+    // Daily counter update
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection(day)
+        .doc("Counter")
+        .get()
+        .then(
       (DocumentSnapshot doc) {
         if (!doc.exists) {
-          fb.collection("Report").doc(month).set({'assigned': 1, 'year': year});
+          fb
+              .collection("Reports")
+              .doc(year)
+              .collection("Month")
+              .doc(month)
+              .collection(day)
+              .doc("Counter")
+              .set({'assigned': 1, 'month': month});
         } else {
           fb
-              .collection("Report")
+              .collection("Reports")
+              .doc(year)
+              .collection("Month")
+              .doc(month)
+              .collection(day)
+              .doc("Counter")
+              .update({'assigned': FieldValue.increment(1)});
+        }
+      },
+      onError: (e) => print("Assigned Counter update Error: $e"),
+    );
+
+    // Update the montly report data
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection("summary")
+        .doc("${widget.techname} $formattedDate")
+        .set(monthrpdata.toMap());
+
+    // Update the monthly counter Report
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .get()
+        .then(
+      (DocumentSnapshot doc) {
+        if (!doc.exists) {
+          fb
+              .collection("Reports")
+              .doc(year)
+              .collection("Month")
+              .doc(month)
+              .set({'assigned': 1, 'year': year});
+        } else {
+          fb
+              .collection("Reports")
+              .doc(year)
+              .collection("Month")
               .doc(month)
               .update({'assigned': FieldValue.increment(1)});
         }
       },
       onError: (e) => print("Assigned Counter update Error: $e"),
     );
+
+    // Report session end
 
     // Update the Program status
     fb.collection("Programs").doc(widget.docname).update({
@@ -525,12 +611,12 @@ class _ConfirmationcardState extends State<Confirmationcard> {
         .doc(widget.docname)
         .update({'status': 'assigned'});
 
-    //  check this updation is importent or not
+    //  Updated Pgm to tech assign list
     fb
-        .collection("Programs")
+       .collection("Technician")
+        .doc(widget.username)
+        .collection("Assignedpgm")
         .doc(widget.docname)
-        .collection("AssignedPgm")
-        .doc("Technician")
         .set(apgm.toMap());
 
     // customer program history updated

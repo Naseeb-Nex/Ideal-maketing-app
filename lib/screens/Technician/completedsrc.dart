@@ -3,6 +3,8 @@ import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/services/customer_history.dart';
+import 'package:ideal_marketing/services/reportdata.dart';
+import 'package:ideal_marketing/services/reportstatus.dart';
 import 'package:ideal_marketing/services/techhistory.dart';
 import 'package:intl/intl.dart';
 
@@ -70,7 +72,6 @@ class _CompletedsrcState extends State<Completedsrc> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController cost = TextEditingController();
   final TextEditingController remarks = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -427,6 +428,14 @@ class _CompletedsrcState extends State<Completedsrc> {
     String mcollname = DateFormat('MM y').format(now);
     String ycollname = DateFormat('y').format(now);
 
+    // Daily report docname
+    String daydoc = DateFormat('kk:mm:ss').format(now);
+
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
     Completepgmdata cpgm = Completepgmdata(
       uid: widget.uid,
       name: widget.name,
@@ -455,37 +464,64 @@ class _CompletedsrcState extends State<Completedsrc> {
       ycollname: ycollname,
     );
 
-    Pgmhistory history = Pgmhistory(
-        name: widget.name,
-        address: widget.address,
-        loc: widget.loc,
-        phn: widget.phn,
-        pgm: widget.pgm,
-        chrg: widget.chrg,
-        type: widget.type,
-        collection: cost.text,
-        remarks: remarks.text,
-        upDate: completeddate,
-        upTime: completeddate,
-        techname: widget.techname,
-        prospec: widget.prospec,
-        instadate: widget.instadate,
-        docname: cdocname,
-        status: "completed",
-        ch: "Program Completed");
-
-    Techhistory techhis = Techhistory(
+    // report data
+    Reportdata rpdata = Reportdata(
       name: widget.name,
+      address: widget.address,
       loc: widget.loc,
+      phn: widget.phn,
       pgm: widget.pgm,
       chrg: widget.chrg,
-      collection: cost.text,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      status: "completed",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: widget.assigneddate,
+      assignedtime: widget.assignedtime,
+      camount: cost.text,
       remarks: remarks.text,
+      cdate: completeddate,
+      ctime: completedtime,
+      ccollname: ccollname,
+      cdocname: cdocname,
+      custdocname: widget.custdocname,
+      rpdocname: cdocname,
+    );
+
+    // Daily report status
+    Reportstatus dayrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
+      status: "completed",
       upDate: completeddate,
       upTime: completedtime,
+      day: day,
+      month: month,
       username: widget.username,
-      docname: cdocname,
+      more: cdocname,
+    );
+
+    // Montly reports status
+    Reportstatus monthrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
       status: "completed",
+      upDate: completeddate,
+      upTime: completedtime,
+      day: day,
+      month: month,
+      username: widget.username,
+      more: cdocname,
     );
 
     //customer program history
@@ -506,6 +542,106 @@ class _CompletedsrcState extends State<Completedsrc> {
           _err = false;
           _upload = true;
         });
+
+        // Report session
+
+        // Update the reportdata
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection(day)
+            .doc("Tech")
+            .collection("${widget.username}")
+            .doc(cdocname)
+            .set(rpdata.toMap());
+
+        // Update the dayily report data
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection(day)
+            .doc("summary")
+            .collection("all")
+            .doc("${widget.techname} $daydoc")
+            .set(dayrpdata.toMap());
+
+        // Daily counter update
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection(day)
+            .doc("Counter")
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .collection(day)
+                  .doc("Counter")
+                  .set({'completed': 1}, SetOptions(merge: true));
+            } else {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .collection(day)
+                  .doc("Counter")
+                  .update({'completed': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("completed Counter update Error: $e"),
+        );
+
+        // Update the montly report data
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection("summary")
+            .doc("${widget.techname} $cdocname")
+            .set(monthrpdata.toMap());
+
+        // Update the monthly counter Report
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .set({'completed': 1}, SetOptions(merge: true));
+            } else {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .update({'completed': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("completed Counter update Error: $e"),
+        );
+
+        // Report session end
 
         fb
             .collection("Technician")
@@ -608,21 +744,6 @@ class _CompletedsrcState extends State<Completedsrc> {
         }).catchError(
                 (error) => print("Failed to update Monthilylist : $error"));
 
-        // history of the technician
-        fb
-            .collection("Programs")
-            .doc(widget.docname)
-            .delete()
-            .then((value) => fb
-                .collection("Technician")
-                .doc(widget.username)
-                .collection("History")
-                .doc(cdocname)
-                .set(techhis.toMap()))
-            .catchError((error) =>
-                print("Failed to delete from office list program : $error"));
-
-        fb.collection("history").doc(cdocname).set(history.toMap());
 
         fb
             .collection("Technician")
@@ -719,7 +840,6 @@ class CustomeAlertbx extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => HomeTech(
-                            username: username,
                           )),
                 );
               },

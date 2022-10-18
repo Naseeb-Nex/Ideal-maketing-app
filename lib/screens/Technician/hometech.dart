@@ -12,8 +12,9 @@ import '../loginsrc.dart';
 
 // ignore: must_be_immutable
 class HomeTech extends StatefulWidget {
-  String? username;
-  HomeTech({Key? key, this.username}) : super(key: key);
+  HomeTech({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _HomeTechState createState() => _HomeTechState();
@@ -23,18 +24,10 @@ class _HomeTechState extends State<HomeTech> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   Profile profile = Profile();
-  String? name;
 
   @override
   void initState() {
     super.initState();
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(user!.uid)
-        .get()
-        .then((value) {
-      loggedInUser = UserModel.fromMap(value.data());
-    });
 
     FirebaseFirestore.instance
         .collection("users/${user!.uid}/Profile")
@@ -106,7 +99,7 @@ class _HomeTechState extends State<HomeTech> {
                                   builder: (context) => Profilewrapper(
                                         name: profile.name,
                                         uid: loggedInUser.uid,
-                                        username: widget.username,
+                                        username: user?.photoURL,
                                       )),
                             );
                           },
@@ -146,7 +139,7 @@ class _HomeTechState extends State<HomeTech> {
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Pgmcardwrapper(
-                      username: widget.username,
+                      username: user?.photoURL,
                     ),
                   ),
                 ),
@@ -158,18 +151,6 @@ class _HomeTechState extends State<HomeTech> {
     ]);
   }
 
-  // ActionChip(
-
-  //     label: Text("Logout"),
-  //     onPressed: () {
-  //       logout(context);
-  //     }),
-
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => LoginSrc()));
-  }
 }
 
 class Profilewrapper extends StatelessWidget {

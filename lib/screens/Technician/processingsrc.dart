@@ -792,7 +792,6 @@ class CustomeAlertbx extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => HomeTech(
-                            username: username,
                           )),
                 );
               },

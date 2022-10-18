@@ -60,7 +60,7 @@ class Simplealert extends StatelessWidget {
             InkWell(
               onTap: ()=>Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeTech(username: username,)),
+                  MaterialPageRoute(builder: (context) => HomeTech()),
                 ),
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),

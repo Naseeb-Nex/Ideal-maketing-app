@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/simplealertbox.dart';
 import 'package:ideal_marketing/constants/constants.dart';
@@ -6,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:ideal_marketing/constants/profile.dart';
 
+// ignore: must_be_immutable
 class EditTechprofile extends StatefulWidget {
   String? name;
   String? uid;
@@ -381,6 +383,7 @@ class _EditTechprofileState extends State<EditTechprofile> {
 
   void uploadData() async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    final user = FirebaseAuth.instance.currentUser;
 
     if (_formKey.currentState!.validate()) {
       setState(() {
@@ -401,6 +404,10 @@ class _EditTechprofileState extends State<EditTechprofile> {
           })
           .then((value) => print("Successfully UPdated profile"))
           .catchError((error) => print("Failed to add user: $error"));
+
+      if (user != null) {
+        await user.updatePhotoURL(widget.username);
+      }
 
       await firebaseFirestore
           .collection("Technician")

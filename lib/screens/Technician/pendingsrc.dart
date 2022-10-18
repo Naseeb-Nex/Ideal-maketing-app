@@ -67,8 +67,7 @@ class _PendingsrcState extends State<Pendingsrc> {
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController reason = TextEditingController();
-  
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -640,7 +639,7 @@ class _PendingsrcState extends State<Pendingsrc> {
           print("Pending pgmlist Updated");
         }).catchError(
                 (error) => print("Failed to update Pending pgm list : $error"));
-        
+
         // Tech perfromance Counter
 
         fb
@@ -675,7 +674,7 @@ class _PendingsrcState extends State<Pendingsrc> {
           },
           onError: (e) => print("Error getting document: $e"),
         );
-        
+
         // Updating the Customer program status
         fb
             .collection("Customer")
@@ -802,10 +801,7 @@ class CustomeAlertbx extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => HomeTech(
-                            username: username,
-                          )),
+                  MaterialPageRoute(builder: (context) => HomeTech()),
                 );
               },
               color: Colors.white,

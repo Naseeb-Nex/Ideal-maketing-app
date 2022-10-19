@@ -23,7 +23,6 @@ class _PgmcardwrapperState extends State<Pgmcardwrapper> {
       setState(() {
         _hasCallSupport = result;
       });
-      print("its working or not :$_hasCallSupport");
     });
   }
 

@@ -126,7 +126,8 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Color(0Xffffe6a7),
+                        // color: Color(0Xffffe6a7),
+                        color: white,
                         boxShadow: [
                           BoxShadow(
                               spreadRadius: 2,

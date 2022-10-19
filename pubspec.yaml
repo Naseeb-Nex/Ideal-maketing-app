@@ -103,6 +103,8 @@ flutter:
     - family: Nunito
       fonts:
         - asset: assets/fonts/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito-Regular.ttf
+          weight: 300
 
     - family: Montserrat
       fonts:

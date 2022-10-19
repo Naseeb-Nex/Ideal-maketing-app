@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/screens/Technician/completedsrc.dart';
@@ -56,9 +57,17 @@ class Detailingsrc extends StatefulWidget {
 }
 
 class _DetailingsrcState extends State<Detailingsrc> {
-
+  var random = Random();
+  List<String> custimg = [
+    "assets/icons/customer1.jpg",
+    "assets/icons/customer2.jpg",
+    "assets/icons/customer3.jpg"
+  ];
   @override
   Widget build(BuildContext context) {
+    int num = random.nextInt(100);
+    int loc = num % 3;
+
     Size s = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: white,
@@ -105,15 +114,19 @@ class _DetailingsrcState extends State<Detailingsrc> {
                   ],
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 15,
+                ),
+                Divider(),
+                const SizedBox(
+                  height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(s.width * 0.02),
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Color(0Xff9381ff),
+                        color: Color(0Xffffe6a7),
                         boxShadow: [
                           BoxShadow(
                               spreadRadius: 2,
@@ -121,77 +134,60 @@ class _DetailingsrcState extends State<Detailingsrc> {
                               color: Colors.black.withOpacity(0.13),
                               offset: const Offset(0, 3))
                         ]),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 60),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: s.width * 0.01, vertical: 30),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: s.width * 0.03),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "  ${widget.name}",
-                            style: const TextStyle(
-                                fontFamily: "Nunito",
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
+                          // Circular avatar with name and address
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "Address :",
-                                style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                              SizedBox(
+                                height: s.width * 0.2,
+                                width: s.width * 0.2,
+                                child: CircleAvatar(
+                                    backgroundColor: Colors.red.shade300,
+                                    backgroundImage:
+                                        AssetImage("${custimg[loc]}")),
                               ),
-                              const SizedBox(
-                                width: 5,
+                              SizedBox(
+                                width: s.width * 0.02,
                               ),
-                              Flexible(
-                                child: Text(
-                                  "${widget.address}",
-                                  style: const TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white),
+                              Container(
+                                width: s.width * 0.66,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: s.width * 0.08,
+                                    ),
+                                    Text(
+                                      "${widget.name}",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${widget.address}",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w200,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Phone :",
-                                style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                "  ${widget.phn}",
-                                style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
+                            height: 10,
                           ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,19 +195,18 @@ class _DetailingsrcState extends State<Detailingsrc> {
                               const Text(
                                 "Location :",
                                 style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  color: Colors.white,
+                                  fontFamily: "Montserrat",
+                                  fontSize: 14,
                                 ),
                               ),
                               Flexible(
                                 child: Text(
                                   "  ${widget.loc}",
                                   style: const TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white),
+                                    fontFamily: "Montserrat",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ],
@@ -225,9 +220,8 @@ class _DetailingsrcState extends State<Detailingsrc> {
                               const Text(
                                 "Program :",
                                 style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  color: Colors.white,
+                                  fontFamily: "Montserrat",
+                                  fontSize: 14,
                                 ),
                               ),
                               const SizedBox(
@@ -237,10 +231,42 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                 child: Text(
                                   "${widget.pgm}",
                                   style: const TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
+                                    fontFamily: "Montserrat",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                "Collection Amount :",
+                                style: TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: greenbg,
+                                    borderRadius: BorderRadius.circular(10)),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 8),
+                                child: Text(
+                                  "${widget.chrg}",
+                                  style: const TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ],
@@ -254,9 +280,8 @@ class _DetailingsrcState extends State<Detailingsrc> {
                               const Text(
                                 "Product Specification :",
                                 style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  color: Colors.white,
+                                  fontFamily: "Montserrat",
+                                  fontSize: 14,
                                 ),
                               ),
                               const SizedBox(
@@ -266,10 +291,10 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                 child: Text(
                                   "${widget.prospec}",
                                   style: const TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white),
+                                    fontFamily: "Montserrat",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ],
@@ -283,119 +308,65 @@ class _DetailingsrcState extends State<Detailingsrc> {
                               const Text(
                                 "Installation Date :",
                                 style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 18,
-                                  color: Colors.white,
+                                  fontFamily: "Montserrat",
+                                  fontSize: 14,
                                 ),
                               ),
-                              Text(
-                                "  ${widget.instadate}",
-                                style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 18,
+                              Flexible(
+                                child: Text(
+                                  "  ${widget.instadate}",
+                                  style: const TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w400,
-                                    color: Colors.white),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
                           const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Type :",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    "  ${widget.type}",
-                                    style: const TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    "Date :",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    "  ${widget.assigneddate}",
-                                    style: const TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ],
+                            height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Collection Amount :",
-                                    style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 8),
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFd7e3fc),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Text(
+                                  "${widget.type}",
+                                  style: const TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
                                   ),
+                                ),
+                              ),
+                              Column(
+                                children: [
                                   Text(
-                                    "  ${widget.chrg}",
+                                    "${widget.assigneddate}",
                                     style: const TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
+                                        fontFamily: "Montserrat",
+                                        fontSize: 11,
                                         fontWeight: FontWeight.w400,
-                                        color: Colors.white),
+                                        ),
+                                  ),
+                                   Text(
+                                    "${widget.assignedtime}",
+                                    style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w400,
+                                        ),
                                   ),
                                 ],
-                              ),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Time :",
-                                    style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    "  ${widget.assignedtime}",
-                                    style: const TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
+                              )
                             ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          )
                         ],
                       ),
                     ),

@@ -154,6 +154,7 @@ class _ProcessingpgmviewState extends State<Processingpgmview> {
                                 assigneddate: _allpgm[i]['assigneddate'],
                                 priority: _allpgm[i]['priority'],
                                 ptime: _allpgm[i]['upTime'],
+                                pdate: _allpgm[i]['pdate'],
                                 remarks: _allpgm[i]['remarks'],
                               )
                             ]

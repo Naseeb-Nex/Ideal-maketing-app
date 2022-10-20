@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/Pendingpgmview.dart';
+import 'package:ideal_marketing/screens/Technician/Processingpgmview.dart';
 
 import 'package:ideal_marketing/screens/Technician/resetpassword.dart';
 
@@ -290,13 +291,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                             height: 10,
                           ),
                           InkWell(
-                            // onTap: () => Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //             builder: (BuildContext context) =>
-                            //                 Processingpgmview(
-                            //                   username: widget.username,
-                            //                 ))),
+                            onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            Processingpgmview(
+                                              username: widget.username,
+                                            ))),
                             child: Container(
                               width: s.width * 0.45,
                               height: s.height * 0.1,
@@ -343,41 +344,27 @@ class _ProfilesrcState extends State<Profilesrc> {
                           const SizedBox(
                             height: 25,
                           ),
-                          InkWell(
-                            // onTap: () => Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (BuildContext context) =>
-                            //             EditTechprofile(
-                            //                 name: widget.name,
-                            //                 uid: widget.uid,
-                            //                 username: widget.username,
-                            //                 des: profile.designation,
-                            //                 loc: profile.location,
-                            //                 phn1: profile.phn1,
-                            //                 phn2: profile.phn2))),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 25, vertical: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: white,
-                                boxShadow: [
-                                  BoxShadow(
-                                      spreadRadius: 3,
-                                      blurRadius: 5,
-                                      color: Colors.black.withOpacity(0.1),
-                                      offset: const Offset(0, 5))
-                                ],
-                              ),
-                              child: Text(
-                                "Edit profile",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.blue[400],
-                                ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: white,
+                              boxShadow: [
+                                BoxShadow(
+                                    spreadRadius: 3,
+                                    blurRadius: 5,
+                                    color: Colors.black.withOpacity(0.1),
+                                    offset: const Offset(0, 5))
+                              ],
+                            ),
+                            child: Text(
+                              "Edit profile",
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.blue[400],
                               ),
                             ),
                           ),

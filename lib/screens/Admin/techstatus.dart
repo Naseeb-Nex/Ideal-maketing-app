@@ -288,7 +288,7 @@ class _CompletepgmwrapperState extends State<Completepgmwrapper> {
             .collection('Technician')
             .doc(widget.username)
             .collection("Completedpgm")
-            .doc("Day")
+            .doc("Day") 
             .collection(cday)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

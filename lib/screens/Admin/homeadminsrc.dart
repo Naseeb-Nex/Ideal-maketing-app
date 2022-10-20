@@ -360,19 +360,49 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           padding:
                                               const EdgeInsets.only(right: 10),
                                           child: Container(
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: cm == 0
-                                                    ? Color(0xFFc1fba4)
-                                                    : cheryred),
-                                            padding: EdgeInsets.all(11),
-                                            child: Text(
-                                              "$cm",
-                                              style: TextStyle(
-                                                  color: white,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: cheryred),
+                                              padding: EdgeInsets.all(11),
+                                              child:
+                                                  StreamBuilder<QuerySnapshot>(
+                                                stream: fb
+                                                    .collection('ConfirmList')
+                                                    .snapshots(),
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot<QuerySnapshot>
+                                                        snapshot) {
+                                                  if (snapshot.hasError) {
+                                                    print(
+                                                        'Something went Wrong');
+                                                  }
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.waiting) {
+                                                    return Text(
+                                                    "0",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: white),
+                                                  );
+                                                  }
+
+                                                  String? confimsize = snapshot
+                                                      .data!.docs.length
+                                                      .toString();
+
+                                                  return Text(
+                                                    "$confimsize",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: white),
+                                                  );
+                                                },
+                                              )),
                                         )
                                       ],
                                     ),
@@ -794,6 +824,24 @@ class _HomeAdminState extends State<HomeAdmin> {
       }
     });
   }
+
+  // Future<void> fetchreport() async {
+  //   DateTime now = DateTime.now();
+
+  //   // Report
+  //   String day = DateFormat('d').format(now);
+  //   String month = DateFormat('MM').format(now);
+  //   String year = DateFormat('y').format(now);
+
+    // fb
+    //     .collection("Reports")
+    //     .doc(year)
+    //     .collection("Month")
+    //     .doc(month)
+    //     .collection(day)
+    //     .doc("Counter")
+  //       .get();
+  // }
 
   pgmsetup() async {
     DateTime now = DateTime.now();

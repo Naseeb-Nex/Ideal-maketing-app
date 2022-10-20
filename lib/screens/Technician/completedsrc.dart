@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
@@ -72,9 +74,20 @@ class _CompletedsrcState extends State<Completedsrc> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController cost = TextEditingController();
   final TextEditingController remarks = TextEditingController();
+  var random = Random();
+  List<String> custimg = [
+    "assets/icons/customer1.jpg",
+    "assets/icons/customer2.jpg",
+    "assets/icons/customer3.png"
+  ];
 
   @override
   Widget build(BuildContext context) {
+    int num = random.nextInt(100);
+    int loc = num % 3;
+
+    Size s = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: newbg,
       body: SafeArea(
@@ -122,70 +135,168 @@ class _CompletedsrcState extends State<Completedsrc> {
                       ],
                     ),
                     const SizedBox(
-                      height: 25,
+                      height: 15,
+                    ),
+                    Divider(),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(s.width * 0.02),
                       child: Container(
                         width: double.infinity,
-                        height: 130,
-                        alignment: Alignment.center,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30),
-                            color: bluebg),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "${widget.name}",
-                              style: const TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              "${widget.address}",
-                              style: const TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 16,
-                                  color: Colors.white),
-                            ),
-                            Text(
-                              "${widget.phn}",
-                              style: const TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 16,
-                                  color: Colors.white),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  "Collection amount :",
-                                  style: TextStyle(
+                            color: Color(0xFFc0d5ff),
+                            boxShadow: [
+                              BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 3,
+                                  color: Colors.black.withOpacity(0.13),
+                                  offset: const Offset(0, 3))
+                            ]),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: s.width * 0.01, vertical: 30),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: s.width * 0.03),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // Circular avatar with name and address
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: s.width * 0.2,
+                                    width: s.width * 0.2,
+                                    child: CircleAvatar(
+                                        backgroundColor: Color(0Xffffe6a7),
+                                        backgroundImage:
+                                            AssetImage("${custimg[loc]}")),
+                                  ),
+                                  SizedBox(
+                                    width: s.width * 0.02,
+                                  ),
+                                  Container(
+                                    width: s.width * 0.66,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: s.width * 0.08,
+                                        ),
+                                        Text(
+                                          "${widget.name}",
+                                          style: const TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${widget.address}",
+                                          style: const TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w200,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Location :",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "  ${widget.loc}",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Program :",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "${widget.pgm}",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Collection Amount :",
+                                    style: TextStyle(
                                       fontFamily: "Nunito",
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "${widget.chrg}",
-                                  style: const TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ],
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: greenbg,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 4, horizontal: 8),
+                                    child: Text(
+                                      "${widget.chrg}",
+                                      style: const TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -213,33 +324,35 @@ class _CompletedsrcState extends State<Completedsrc> {
                                 width: 160,
                                 height: 50,
                                 child: TextFormField(
-                                    autofocus: false,
-                                    controller: cost,
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return ("Collection Amount!!");
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (value) {
-                                      cost.text = value!;
-                                    },
-                                    textInputAction: TextInputAction.next,
-                                    decoration: InputDecoration(
-                                      prefixIcon: const Icon(
-                                        Icons.attach_money_outlined,
-                                        color: Colors.green,
-                                      ),
-                                      contentPadding: const EdgeInsets.fromLTRB(
-                                          20, 15, 20, 15),
-                                      hintText: "Collection",
-                                      focusColor: Colors.green,
-                                      hoverColor: bluebg,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(25),
-                                      ),
-                                    )),
+                                  autofocus: false,
+                                  controller: cost,
+                                  keyboardType: TextInputType.number,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return ("Collection Amount!!");
+                                    }
+                                    return null;
+                                  },
+                                  onSaved: (value) {
+                                    cost.text = value!;
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    fillColor: white,
+                                    prefixIcon: const Icon(
+                                      Icons.attach_money_outlined,
+                                      color: Colors.green,
+                                    ),
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        20, 15, 20, 15),
+                                    hintText: "Collection",
+                                    focusColor: Colors.green,
+                                    hoverColor: bluebg,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                  ),
+                                ),
                               )
                             ],
                           ),
@@ -744,7 +857,6 @@ class _CompletedsrcState extends State<Completedsrc> {
         }).catchError(
                 (error) => print("Failed to update Monthilylist : $error"));
 
-
         fb
             .collection("Technician")
             .doc(widget.username)
@@ -838,9 +950,7 @@ class CustomeAlertbx extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => HomeTech(
-                          )),
+                  MaterialPageRoute(builder: (context) => HomeTech()),
                 );
               },
               color: Colors.white,

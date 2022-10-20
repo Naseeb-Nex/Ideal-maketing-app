@@ -61,7 +61,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
   List<String> custimg = [
     "assets/icons/customer1.jpg",
     "assets/icons/customer2.jpg",
-    "assets/icons/customer3.jpg"
+    "assets/icons/customer3.png"
   ];
   @override
   Widget build(BuildContext context) {
@@ -126,8 +126,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        // color: Color(0Xffffe6a7),
-                        color: white,
+                        color: Color(0xFFc0d5ff),
                         boxShadow: [
                           BoxShadow(
                               spreadRadius: 2,
@@ -151,7 +150,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                 height: s.width * 0.2,
                                 width: s.width * 0.2,
                                 child: CircleAvatar(
-                                    backgroundColor: Colors.red.shade300,
+                                    backgroundColor: Color(0Xffffe6a7),
                                     backgroundImage:
                                         AssetImage("${custimg[loc]}")),
                               ),
@@ -206,7 +205,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                   style: const TextStyle(
                                     fontFamily: "Montserrat",
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                                    // fontWeight: FontWeight.w400,
                                   ),
                                 ),
                               ),
@@ -257,7 +256,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                    color: greenbg,
+                                    color: Color(0xFFd7e3fc),
                                     borderRadius: BorderRadius.circular(10)),
                                 padding: EdgeInsets.symmetric(
                                     vertical: 4, horizontal: 8),
@@ -266,7 +265,7 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                   style: const TextStyle(
                                     fontFamily: "Nunito",
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                                    // fontWeight: FontWeight.w400,
                                   ),
                                 ),
                               ),
@@ -351,18 +350,18 @@ class _DetailingsrcState extends State<Detailingsrc> {
                                   Text(
                                     "${widget.assigneddate}",
                                     style: const TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w400,
-                                        ),
+                                      fontFamily: "Montserrat",
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                   Text(
+                                  Text(
                                     "${widget.assignedtime}",
                                     style: const TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w400,
-                                        ),
+                                      fontFamily: "Montserrat",
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                 ],
                               )

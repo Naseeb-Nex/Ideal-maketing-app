@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ideal_marketing/services/customer_history.dart';
-import 'package:ideal_marketing/services/pgmhistory.dart';
 import 'package:ideal_marketing/services/reportdata.dart';
 import 'package:ideal_marketing/services/reportstatus.dart';
-import 'package:ideal_marketing/services/techhistory.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/constants/pendingpgmdata.dart';
@@ -671,7 +669,7 @@ class _ProcessingsrcState extends State<Processingsrc> {
       techname: widget.techname,
       docname: "${widget.techname} $daydoc",
       phn: widget.phn,
-      status: "completed",
+      status: "processing",
       upDate: prodate,
       upTime: protime,
       day: day,

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/services/reportstatus.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/components/techreportcard.dart';
@@ -28,14 +29,16 @@ class _HomeAdminState extends State<HomeAdmin> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   FirebaseFirestore fb = FirebaseFirestore.instance;
-  int p = 0, c = 0, cm = 0;
+  int p = 0, c = 0;
   int touchedIndex = 0;
+  bool rpstatus = false;
 
   @override
   void initState() {
     super.initState();
     if (mounted) {
       pgmsetup();
+      // reportinitstatus();
     }
     FirebaseFirestore.instance
         .collection("users")
@@ -49,6 +52,15 @@ class _HomeAdminState extends State<HomeAdmin> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
+
+    // Date
+    DateTime now = DateTime.now();
+
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
     return Stack(fit: StackFit.expand, children: [
       Container(
         decoration: const BoxDecoration(
@@ -380,13 +392,13 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                           .connectionState ==
                                                       ConnectionState.waiting) {
                                                     return Text(
-                                                    "0",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: white),
-                                                  );
+                                                      "0",
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: white),
+                                                    );
                                                   }
 
                                                   String? confimsize = snapshot
@@ -539,36 +551,111 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       aspectRatio: 1.3,
                                       child: AspectRatio(
                                         aspectRatio: 1,
-                                        child: PieChart(
-                                          PieChartData(
-                                              pieTouchData: PieTouchData(
-                                                  touchCallback:
-                                                      (FlTouchEvent event,
-                                                          pieTouchResponse) {
-                                                setState(() {
-                                                  if (!event
-                                                          .isInterestedForInteractions ||
-                                                      pieTouchResponse ==
-                                                          null ||
-                                                      pieTouchResponse
-                                                              .touchedSection ==
-                                                          null) {
-                                                    touchedIndex = -1;
-                                                    return;
+                                        child: rpstatus
+                                            ? StreamBuilder<
+                                                DocumentSnapshot<
+                                                    Map<String, dynamic>>>(
+                                                stream: fb
+                                                    .collection("Reports")
+                                                    .doc(year)
+                                                    .collection("Month")
+                                                    .doc(month)
+                                                    .collection(day)
+                                                    .doc("Counter")
+                                                    .snapshots(),
+                                                builder: (_, snapshot) {
+                                                  if (snapshot.hasError)
+                                                    return Text(
+                                                        'Error = ${snapshot.error}');
+
+                                                  if (snapshot.hasData) {
+                                                    // double a=0.0,c=0,p=0,pro=0;
+                                                    var output =
+                                                        snapshot.data!.data();
+                                                    var assigned =
+                                                        output!['assigned'];
+                                                    var competed =
+                                                        output['competed'];
+                                                    var pending =
+                                                        output['pending'];
+                                                    var processing =
+                                                        output['processing'];
+
+                                                    double a, c, pro, p;
+                                                    if (assigned != null) {
+                                                      a = assigned.toDouble();
+                                                    } else {
+                                                      a = 0;
+                                                    }
+
+                                                    if (pending != null) {
+                                                      p = pending.toDouble();
+                                                    } else {
+                                                      p = 0;
+                                                    }
+
+                                                    if (processing != null) {
+                                                      pro =
+                                                          processing.toDouble();
+                                                      pro = 0;
+                                                    } else {
+                                                      pro = 0;
+                                                    }
+
+                                                    if (competed != null) {
+                                                      c = competed.toDouble();
+                                                    } else {
+                                                      c = 0;
+                                                    }
+
+                                                    return PieChart(
+                                                      PieChartData(
+                                                          pieTouchData: PieTouchData(
+                                                              touchCallback:
+                                                                  (FlTouchEvent
+                                                                          event,
+                                                                      pieTouchResponse) {
+                                                            setState(() {
+                                                              if (!event
+                                                                      .isInterestedForInteractions ||
+                                                                  pieTouchResponse ==
+                                                                      null ||
+                                                                  pieTouchResponse
+                                                                          .touchedSection ==
+                                                                      null) {
+                                                                touchedIndex =
+                                                                    -1;
+                                                                return;
+                                                              }
+                                                              touchedIndex =
+                                                                  pieTouchResponse
+                                                                      .touchedSection!
+                                                                      .touchedSectionIndex;
+                                                            });
+                                                          }),
+                                                          borderData:
+                                                              FlBorderData(
+                                                            show: false,
+                                                          ),
+                                                          sectionsSpace: 0,
+                                                          centerSpaceRadius: 0,
+                                                          sections:
+                                                              showingSections(a,
+                                                                  p, c, pro)),
+                                                    );
                                                   }
-                                                  touchedIndex =
-                                                      pieTouchResponse
-                                                          .touchedSection!
-                                                          .touchedSectionIndex;
-                                                });
-                                              }),
-                                              borderData: FlBorderData(
-                                                show: false,
-                                              ),
-                                              sectionsSpace: 0,
-                                              centerSpaceRadius: 0,
-                                              sections: showingSections()),
-                                        ),
+
+                                                  return Center(
+                                                      child:
+                                                          CircularProgressIndicator());
+                                                },
+                                              )
+                                            : Container(
+                                              clipBehavior: Clip.hardEdge,
+                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                                              child: Image.asset(
+                                                  'assets/gif/emptyreport.gif', fit: BoxFit.fill,),
+                                            ),
                                       ),
                                     ),
                                     const SizedBox(
@@ -743,7 +830,8 @@ class _HomeAdminState extends State<HomeAdmin> {
     ]);
   }
 
-  List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections(
+      double a, double p, double c, double pro) {
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 20.0 : 16.0;
@@ -754,8 +842,8 @@ class _HomeAdminState extends State<HomeAdmin> {
         case 0:
           return PieChartSectionData(
             color: const Color(0xff70e000),
-            value: 40,
-            title: '40%',
+            value: c,
+            title: '${c.toInt()}',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -771,8 +859,8 @@ class _HomeAdminState extends State<HomeAdmin> {
         case 1:
           return PieChartSectionData(
             color: const Color(0xffffd500),
-            value: 30,
-            title: '30%',
+            value: a,
+            title: '${a.toInt()}',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -788,8 +876,8 @@ class _HomeAdminState extends State<HomeAdmin> {
         case 2:
           return PieChartSectionData(
             color: const Color(0xffd62839),
-            value: 16,
-            title: '16%',
+            value: p,
+            title: '${p.toInt()}',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -805,8 +893,8 @@ class _HomeAdminState extends State<HomeAdmin> {
         case 3:
           return PieChartSectionData(
             color: const Color(0xff1e96fc),
-            value: 15,
-            title: '15%',
+            value: pro,
+            title: '${pro.toInt()}',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
@@ -833,19 +921,49 @@ class _HomeAdminState extends State<HomeAdmin> {
   //   String month = DateFormat('MM').format(now);
   //   String year = DateFormat('y').format(now);
 
-    // fb
-    //     .collection("Reports")
-    //     .doc(year)
-    //     .collection("Month")
-    //     .doc(month)
-    //     .collection(day)
-    //     .doc("Counter")
+  // fb
+  //     .collection("Reports")
+  //     .doc(year)
+  //     .collection("Month")
+  //     .doc(month)
+  //     .collection(day)
+  //     .doc("Counter")
   //       .get();
   // }
 
   pgmsetup() async {
     DateTime now = DateTime.now();
     String cday = DateFormat('MM d y').format(now);
+
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
+    // Check report is initailized or not
+    fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection(day)
+        .doc("Counter")
+        .get()
+        .then(
+      (DocumentSnapshot doc) {
+        if (!doc.exists) {
+          setState(() {
+            rpstatus = false;
+          });
+        } else {
+          setState(() {
+            rpstatus = true;
+          });
+        }
+      },
+      onError: (e) => print("Error in RPStatus: $e"),
+    );
+
     try {
       await fb
           .collection('Completedpgm')
@@ -860,14 +978,6 @@ class _HomeAdminState extends State<HomeAdmin> {
       await fb.collection('Programs').get().then((snap) => {
             setState(() {
               p = snap.size;
-            })
-          });
-
-      //confirm list counter
-      await fb.collection('ConfirmList').get().then((snap) => {
-            setState(() {
-              cm = snap.size;
-              print(cm);
             })
           });
     } catch (e) {

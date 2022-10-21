@@ -651,11 +651,16 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 },
                                               )
                                             : Container(
-                                              clipBehavior: Clip.hardEdge,
-                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                                              child: Image.asset(
-                                                  'assets/gif/emptyreport.gif', fit: BoxFit.fill,),
-                                            ),
+                                                clipBehavior: Clip.hardEdge,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30)),
+                                                child: Image.asset(
+                                                  'assets/gif/emptyreport.gif',
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
                                       ),
                                     ),
                                     const SizedBox(
@@ -750,7 +755,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                     width: s.width * 0.02,
                                                   ),
                                                   Text(
-                                                    "Not Attended",
+                                                    "Assigned",
                                                     style: const TextStyle(
                                                       fontFamily: "Montserrat",
                                                       fontSize: 13,
@@ -780,22 +785,23 @@ class _HomeAdminState extends State<HomeAdmin> {
                               height: 10,
                             ),
                             Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: s.width * 0.03),
+                              child: Container(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: s.width * 0.03),
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: s.width * 0.06,
-                                      vertical: s.height * 0.03),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            spreadRadius: 2,
-                                            blurRadius: 5,
-                                            color: black.withOpacity(0.1))
-                                      ]),
-                                  child: Column(children: [
+                                    horizontal: s.width * 0.06,
+                                    vertical: s.height * 0.03),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          color: black.withOpacity(0.1))
+                                    ]),
+                                child: Column(
+                                  children: [
                                     Text(
                                       "REPORT",
                                       style: TextStyle(
@@ -810,12 +816,15 @@ class _HomeAdminState extends State<HomeAdmin> {
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                    Techreportcard(),
-                                    Techreportcard(),
-                                    Techreportcard(),
-                                    Techreportcard(),
-                                  ]),
-                                ))
+                                    Image.asset(
+                                      "assets/icons/nodata.png",
+                                      width: s.width * 0.4,
+                                      height: s.width * 0.4,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         )
                       ],

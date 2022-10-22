@@ -533,7 +533,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                             color: black.withOpacity(0.1))
                                       ]),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "OVERVIEW",
@@ -569,7 +570,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                     if (snapshot.hasError)
                                                       return Text(
                                                           'Error = ${snapshot.error}');
-                        
+
                                                     if (snapshot.hasData) {
                                                       // double a=0.0,c=0,p=0,pro=0;
                                                       var output =
@@ -582,34 +583,34 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                           output['pending'];
                                                       var processing =
                                                           output['processing'];
-                        
+
                                                       double a, c, pro, p;
                                                       if (assigned != null) {
                                                         a = assigned.toDouble();
                                                       } else {
                                                         a = 0;
                                                       }
-                        
+
                                                       if (pending != null) {
                                                         p = pending.toDouble();
                                                       } else {
                                                         p = 0;
                                                       }
-                        
+
                                                       if (processing != null) {
-                                                        pro =
-                                                            processing.toDouble();
+                                                        pro = processing
+                                                            .toDouble();
                                                         pro = 0;
                                                       } else {
                                                         pro = 0;
                                                       }
-                        
+
                                                       if (competed != null) {
                                                         c = competed.toDouble();
                                                       } else {
                                                         c = 0;
                                                       }
-                        
+
                                                       return PieChart(
                                                         PieChartData(
                                                             pieTouchData: PieTouchData(
@@ -640,13 +641,17 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                               show: false,
                                                             ),
                                                             sectionsSpace: 0,
-                                                            centerSpaceRadius: 0,
+                                                            centerSpaceRadius:
+                                                                0,
                                                             sections:
-                                                                showingSections(a,
-                                                                    p, c, pro)),
+                                                                showingSections(
+                                                                    a,
+                                                                    p,
+                                                                    c,
+                                                                    pro)),
                                                       );
                                                     }
-                        
+
                                                     return Center(
                                                         child:
                                                             CircularProgressIndicator());
@@ -669,7 +674,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                         height: 10,
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           Container(
                                             width: s.width * 0.3,
@@ -693,7 +699,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                     Text(
                                                       "Completed",
                                                       style: const TextStyle(
-                                                        fontFamily: "Montserrat",
+                                                        fontFamily:
+                                                            "Montserrat",
                                                         fontSize: 13,
                                                         // color: Color(0xff70e000),
                                                       ),
@@ -715,7 +722,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                     Text(
                                                       "Pending",
                                                       style: const TextStyle(
-                                                        fontFamily: "Montserrat",
+                                                        fontFamily:
+                                                            "Montserrat",
                                                         fontSize: 13,
                                                         // color: Color(0xffd62839),
                                                       ),
@@ -737,7 +745,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                     Text(
                                                       "Processing",
                                                       style: const TextStyle(
-                                                        fontFamily: "Montserrat",
+                                                        fontFamily:
+                                                            "Montserrat",
                                                         fontSize: 13,
                                                         // color: Color(0xffd62839),
                                                       ),
@@ -759,7 +768,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                     Text(
                                                       "Assigned",
                                                       style: const TextStyle(
-                                                        fontFamily: "Montserrat",
+                                                        fontFamily:
+                                                            "Montserrat",
                                                         fontSize: 13,
                                                         // color: Color(0xffd62839),
                                                       ),
@@ -815,14 +825,49 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       Divider(
                                         endIndent: 10,
                                       ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      Image.asset(
-                                        "assets/icons/nodata.png",
-                                        width: s.width * 0.4,
-                                        height: s.width * 0.4,
-                                      ),
+                                      StreamBuilder<QuerySnapshot>(
+                                          stream: fb
+                                              .collection("Employee")
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.hasError) {}
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: cheryred,
+                                                ),
+                                              );
+                                            }
+
+                                            final List techprofile = [];
+                                            snapshot.data!.docs.map(
+                                                (DocumentSnapshot document) {
+                                              Map a = document.data()
+                                                  as Map<String, dynamic>;
+                                              techprofile.add(a);
+                                              // a['uid'] = document.id;
+                                            }).toList();
+                                            return Column(
+                                              children: [
+                                                for (var i = 0; i < techprofile.length; i++) ...[
+                                                  Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5.0),
+                                                  child: Techreportcard(
+                                                    name: techprofile[i]
+                                                        ['name'],
+                                                    username: techprofile[i]
+                                                        ['username'],
+                                                  ),
+                                                )
+                                                ]
+                                              ],
+                                            );
+                                          }),
                                     ],
                                   ),
                                 ),

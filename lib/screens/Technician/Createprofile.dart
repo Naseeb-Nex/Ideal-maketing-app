@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/constants/profile.dart';
@@ -25,7 +27,6 @@ class _CreateProfileState extends State<CreateProfile> {
   final TextEditingController phn1Controller = TextEditingController();
   final TextEditingController phn2Controller = TextEditingController();
   final TextEditingController locationController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -350,6 +351,7 @@ class _CreateProfileState extends State<CreateProfile> {
 
   void uploadData() async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    final user = FirebaseAuth.instance.currentUser;
 
     if (_formKey.currentState!.validate()) {
       Profile profile = Profile(
@@ -361,6 +363,20 @@ class _CreateProfileState extends State<CreateProfile> {
         phn2: phn2Controller.text,
         location: locationController.text,
       );
+
+      if (user != null) {
+        // Updated username
+        await user.updatePhotoURL(usernameController.text);
+      }
+
+      // update profie on Employee list
+      await firebaseFirestore
+          .collection("Employee")
+          .doc(usernameController.text)
+          .set({
+        "name": nameController.text,
+        "username": usernameController.text
+      });
 
       await firebaseFirestore
           .collection("users")

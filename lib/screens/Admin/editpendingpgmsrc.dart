@@ -656,7 +656,7 @@ class _EditpendingpgmsrcState extends State<Editpendingpgmsrc> {
   }
 
   Future<void> upEditedData() async {
-  FirebaseFirestore fb = FirebaseFirestore.instance;
+    FirebaseFirestore fb = FirebaseFirestore.instance;
 
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('MM d y kk:mm:ss').format(now);
@@ -710,7 +710,7 @@ class _EditpendingpgmsrcState extends State<Editpendingpgmsrc> {
           .doc(formattedDate)
           .set(custhistory.toMap());
 
-      // closing Loading 
+      // closing Loading
       setState(() {
         _loading = false;
       });

@@ -11,7 +11,6 @@ class Confirmationlist extends StatefulWidget {
 }
 
 class _ConfirmationlistState extends State<Confirmationlist> {
-  
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -150,6 +149,10 @@ class _confrimationcardwrapperState extends State<confrimationcardwrapper> {
             _allpgm.add(a);
             a['uid'] = document.id;
           }).toList();
+
+          // sorting by priority
+          _allpgm.sort((a, b) => a["priority"].compareTo(b["priority"]));
+
           return Column(
             children: [
               const SizedBox(height: 10),

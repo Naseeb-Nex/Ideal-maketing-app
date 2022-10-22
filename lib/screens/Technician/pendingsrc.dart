@@ -136,257 +136,262 @@ class _PendingsrcState extends State<Pendingsrc> {
                       height: 25,
                     ),
                     Padding(
-                  padding: EdgeInsets.all(s.width * 0.02),
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Color(0xFFfff0f3),
-                        boxShadow: [
-                          BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 3,
-                              color: Colors.black.withOpacity(0.13),
-                              offset: const Offset(0, 3))
-                        ]),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: s.width * 0.01, vertical: 30),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: s.width * 0.03),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Circular avatar with name and address
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      padding: EdgeInsets.all(s.width * 0.02),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Color(0xFFfff0f3),
+                            boxShadow: [
+                              BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 3,
+                                  color: Colors.black.withOpacity(0.13),
+                                  offset: const Offset(0, 3))
+                            ]),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: s.width * 0.01, vertical: 30),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: s.width * 0.03),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                height: s.width * 0.2,
-                                width: s.width * 0.2,
-                                child: CircleAvatar(
-                                    backgroundColor: Color(0Xffffe6a7),
-                                    backgroundImage:
-                                        AssetImage("${custimg[loc]}")),
-                              ),
-                              SizedBox(
-                                width: s.width * 0.02,
-                              ),
-                              Container(
-                                width: s.width * 0.66,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: s.width * 0.08,
-                                    ),
-                                    Text(
-                                      "${widget.name}",
-                                      style: const TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Text(
-                                      "${widget.address}",
-                                      style: const TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w200,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Location :",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "  ${widget.loc}",
-                                  style: const TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 14,
-                                    // fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Program :",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "${widget.pgm}",
-                                  style: const TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              const Text(
-                                "Collection Amount :",
-                                style: TextStyle(
-                                  fontFamily: "Nunito",
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: Color(0xFFd7e3fc),
-                                    borderRadius: BorderRadius.circular(10)),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 8),
-                                child: Text(
-                                  "${widget.chrg}",
-                                  style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 14,
-                                    // fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Product Specification :",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "${widget.prospec}",
-                                  style: const TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Installation Date :",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "  ${widget.instadate}",
-                                  style: const TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 4, horizontal: 8),
-                                decoration: BoxDecoration(
-                                    color: Color(0xFFd7e3fc),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Text(
-                                  "${widget.type}",
-                                  style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              Column(
+                              // Circular avatar with name and address
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "${widget.assigneddate}",
-                                    style: const TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                  SizedBox(
+                                    height: s.width * 0.2,
+                                    width: s.width * 0.2,
+                                    child: CircleAvatar(
+                                        backgroundColor: Color(0Xffffe6a7),
+                                        backgroundImage:
+                                            AssetImage("${custimg[loc]}")),
                                   ),
-                                  Text(
-                                    "${widget.assignedtime}",
-                                    style: const TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w400,
+                                  SizedBox(
+                                    width: s.width * 0.02,
+                                  ),
+                                  Container(
+                                    width: s.width * 0.66,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: s.width * 0.08,
+                                        ),
+                                        Text(
+                                          "${widget.name}",
+                                          style: const TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        Text(
+                                          "${widget.address}",
+                                          style: const TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w200,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Location :",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "  ${widget.loc}",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 14,
+                                        // fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Program :",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "${widget.pgm}",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Collection Amount :",
+                                    style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Color(0xFFd7e3fc),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 4, horizontal: 8),
+                                    child: Text(
+                                      "${widget.chrg}",
+                                      style: const TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 14,
+                                        // fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Product Specification :",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "${widget.prospec}",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Installation Date :",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "  ${widget.instadate}",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 4, horizontal: 8),
+                                    decoration: BoxDecoration(
+                                        color: Color(0xFFd7e3fc),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Text(
+                                      "${widget.type}",
+                                      style: const TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        "${widget.assigneddate}",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      Text(
+                                        "${widget.assignedtime}",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
                               )
                             ],
-                          )
-                        ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
                     const SizedBox(height: 10),
                     SizedBox(
                       height: 60,
@@ -754,7 +759,9 @@ class _PendingsrcState extends State<Pendingsrc> {
             .doc(month)
             .collection(day)
             .doc("Tech")
-            .collection("${widget.username}")
+            .collection("Reports")
+            .doc("${widget.username}")
+            .collection("Activity")
             .doc(pdocname)
             .set(rpdata.toMap());
 
@@ -853,13 +860,9 @@ class _PendingsrcState extends State<Pendingsrc> {
             .update({'status': 'pending'});
 
         // history of the technician
-        fb
-            .collection("Programs")
-            .doc(widget.docname)
-            .delete()
-            .catchError((error) =>
+        fb.collection("Programs").doc(widget.docname).delete().catchError(
+            (error) =>
                 print("Failed to delete from office list program : $error"));
-
 
         fb
             .collection("Technician")

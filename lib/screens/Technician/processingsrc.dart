@@ -717,7 +717,9 @@ class _ProcessingsrcState extends State<Processingsrc> {
             .doc(month)
             .collection(day)
             .doc("Tech")
-            .collection("${widget.username}")
+            .collection("Reports")
+            .doc("${widget.username}")
+            .collection("Activity")
             .doc(pdocname)
             .set(rpdata.toMap());
 

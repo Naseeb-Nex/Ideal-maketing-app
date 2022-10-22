@@ -506,7 +506,9 @@ class _ConfirmationcardState extends State<Confirmationcard> {
         .doc(month)
         .collection(day)
         .doc("Tech")
-        .collection("${widget.username}")
+        .collection("Reports")
+        .doc("${widget.username}")
+        .collection("Activity")
         .doc(formattedDate)
         .set(rpdata.toMap());
 

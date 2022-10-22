@@ -666,7 +666,9 @@ class _CompletedsrcState extends State<Completedsrc> {
             .doc(month)
             .collection(day)
             .doc("Tech")
-            .collection("${widget.username}")
+            .collection("Reports")
+            .doc("${widget.username}")
+            .collection("Activity")
             .doc(cdocname)
             .set(rpdata.toMap());
 

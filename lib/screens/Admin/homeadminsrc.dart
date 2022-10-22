@@ -1,20 +1,24 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:ideal_marketing/services/reportstatus.dart';
 import 'package:intl/intl.dart';
 
-import 'package:ideal_marketing/components/techreportcard.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:fl_chart/fl_chart.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+
 import 'package:ideal_marketing/constants/constants.dart';
-import 'package:ideal_marketing/screens/Admin/competedpgmsrc.dart';
-import 'package:ideal_marketing/screens/Admin/confirmationlist.dart';
+
+import 'package:ideal_marketing/components/techreportcard.dart';
+
+import 'package:ideal_marketing/services/user_model.dart';
 
 import 'pendingsrc.dart';
+import 'package:ideal_marketing/screens/Admin/competedpgmsrc.dart';
+import 'package:ideal_marketing/screens/Admin/confirmationlist.dart';
 import 'package:ideal_marketing/screens/loginsrc.dart';
 import 'package:ideal_marketing/screens/register.dart';
-import 'package:ideal_marketing/services/user_model.dart';
 import 'package:ideal_marketing/screens/Admin/techprofile.dart';
 import 'package:ideal_marketing/screens/Admin/techstatus.dart';
 
@@ -613,29 +617,6 @@ class _HomeAdminState extends State<HomeAdmin> {
 
                                                       return PieChart(
                                                         PieChartData(
-                                                            pieTouchData: PieTouchData(
-                                                                touchCallback:
-                                                                    (FlTouchEvent
-                                                                            event,
-                                                                        pieTouchResponse) {
-                                                              setState(() {
-                                                                if (!event
-                                                                        .isInterestedForInteractions ||
-                                                                    pieTouchResponse ==
-                                                                        null ||
-                                                                    pieTouchResponse
-                                                                            .touchedSection ==
-                                                                        null) {
-                                                                  touchedIndex =
-                                                                      -1;
-                                                                  return;
-                                                                }
-                                                                touchedIndex =
-                                                                    pieTouchResponse
-                                                                        .touchedSection!
-                                                                        .touchedSectionIndex;
-                                                              });
-                                                            }),
                                                             borderData:
                                                                 FlBorderData(
                                                               show: false,
@@ -835,10 +816,15 @@ class _HomeAdminState extends State<HomeAdmin> {
                                             if (snapshot.hasError) {}
                                             if (snapshot.connectionState ==
                                                 ConnectionState.waiting) {
-                                              return const Center(
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  color: cheryred,
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: s.width * 0.25,
+                                                  height: s.width * 0.25,
+                                                  child: LoadingIndicator(
+                                                    indicatorType: Indicator
+                                                        .ballClipRotateMultiple,
+                                                    colors: const [bluebg],
+                                                  ),
                                                 ),
                                               );
                                             }
@@ -853,17 +839,20 @@ class _HomeAdminState extends State<HomeAdmin> {
                                             }).toList();
                                             return Column(
                                               children: [
-                                                for (var i = 0; i < techprofile.length; i++) ...[
+                                                for (var i = 0;
+                                                    i < techprofile.length;
+                                                    i++) ...[
                                                   Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 5.0),
-                                                  child: Techreportcard(
-                                                    name: techprofile[i]
-                                                        ['name'],
-                                                    username: techprofile[i]
-                                                        ['username'],
-                                                  ),
-                                                )
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 5.0),
+                                                    child: Techreportcard(
+                                                      name: techprofile[i]
+                                                          ['name'],
+                                                      username: techprofile[i]
+                                                          ['username'],
+                                                    ),
+                                                  )
                                                 ]
                                               ],
                                             );
@@ -899,7 +888,7 @@ class _HomeAdminState extends State<HomeAdmin> {
         case 0:
           return PieChartSectionData(
             color: const Color(0xff70e000),
-            value: c,
+            value: c == 0 ? 1 : c,
             title: '${c.toInt()}',
             radius: radius,
             titleStyle: TextStyle(
@@ -916,7 +905,7 @@ class _HomeAdminState extends State<HomeAdmin> {
         case 1:
           return PieChartSectionData(
             color: const Color(0xffffd500),
-            value: a,
+            value: a == 0 ? 1 : a,
             title: '${a.toInt()}',
             radius: radius,
             titleStyle: TextStyle(
@@ -933,7 +922,7 @@ class _HomeAdminState extends State<HomeAdmin> {
         case 2:
           return PieChartSectionData(
             color: const Color(0xffd62839),
-            value: p,
+            value: p == 0 ? 1 : p,
             title: '${p.toInt()}',
             radius: radius,
             titleStyle: TextStyle(
@@ -950,7 +939,7 @@ class _HomeAdminState extends State<HomeAdmin> {
         case 3:
           return PieChartSectionData(
             color: const Color(0xff1e96fc),
-            value: pro,
+            value: pro == 0 ? 1 : pro,
             title: '${pro.toInt()}',
             radius: radius,
             titleStyle: TextStyle(
@@ -1108,9 +1097,14 @@ class Techcardspace extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {}
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: cheryred,
+            return Center(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.3,
+                height: MediaQuery.of(context).size.width * 0.3,
+                child: LoadingIndicator(
+                  indicatorType: Indicator.ballClipRotateMultiple,
+                  colors: const [bluebg],
+                ),
               ),
             );
           }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/dailypendingcard.dart';
+import 'package:ideal_marketing/components/dailyprocessingcard.dart';
 import 'package:intl/intl.dart';
 
 import 'package:ideal_marketing/components/dailyassignedcard.dart';
@@ -630,7 +631,7 @@ class Activitywrapper extends StatelessWidget {
         ptime: ctime,
       );
     } else if (status == "processing") {
-      return Processingpgmcard(
+      return Dailyprocessingcard(
         name: name,
         address: address,
         loc: loc,

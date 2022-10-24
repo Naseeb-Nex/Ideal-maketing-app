@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 // ignore: must_be_immutable
-class Processingpgmcard extends StatefulWidget {
+class Dailyprocessingcard extends StatefulWidget {
   String? name;
   String? address;
   String? loc;
@@ -24,7 +24,7 @@ class Processingpgmcard extends StatefulWidget {
   String? pdate;
   String? remarks;
 
-  Processingpgmcard(
+  Dailyprocessingcard(
       {Key? key,
       this.name,
       this.address,
@@ -49,10 +49,10 @@ class Processingpgmcard extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<Processingpgmcard> createState() => _ProcessingpgmcardState();
+  State<Dailyprocessingcard> createState() => DailyprocessingcardState();
 }
 
-class _ProcessingpgmcardState extends State<Processingpgmcard> {
+class DailyprocessingcardState extends State<Dailyprocessingcard> {
   bool isviz = false;
 
   @override

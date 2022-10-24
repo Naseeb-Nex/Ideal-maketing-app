@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/components/dailypendingcard.dart';
 import 'package:intl/intl.dart';
 
-import 'package:ideal_marketing/components/assignedpgmcard.dart';
+import 'package:ideal_marketing/components/dailyassignedcard.dart';
+
 import 'package:ideal_marketing/components/compelepgmcard.dart';
 import 'package:ideal_marketing/components/processingpgmcard.dart';
 import 'package:ideal_marketing/components/techpendingcard.dart';
@@ -113,7 +115,6 @@ class _TechreportsrcState extends State<Techreportsrc> {
                     ),
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
                         color: newbg,
@@ -326,27 +327,28 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                   ),
                                 ],
                               ),
-                              child: Column(children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Daily Activity",
-                                      style: TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 17,
-                                        color: bluebg,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Daily Activity",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 17,
+                                          color: bluebg,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Divider(),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                // Daily Activity
-                                StreamBuilder<QuerySnapshot>(
+                                    ],
+                                  ),
+                                  Divider(),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  // Daily Activity
+                                  StreamBuilder<QuerySnapshot>(
                                     stream: fb
                                         .collection("Reports")
                                         .doc(year)
@@ -481,11 +483,18 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                               rpdocname: activityrp[i]
                                                   ['rpdocname'],
                                             ),
-                                          ]
+                                            SizedBox(height: 10,),
+                                          ],
+                                          Container(child: activityrp.length == 0 ? null : SizedBox(height: s.height * 0.5))
                                         ],
                                       );
-                                    }),
-                              ]),
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: s.height * 0.2,
                             )
                           ],
                         ),
@@ -599,7 +608,7 @@ class Activitywrapper extends StatelessWidget {
         remarks: remarks,
       );
     } else if (status == "pending") {
-      return TechpendingCard(
+      return Dailypendingcard(
         name: name,
         address: address,
         loc: loc,
@@ -643,7 +652,7 @@ class Activitywrapper extends StatelessWidget {
         remarks: remarks,
       );
     }
-    return Assignedpgmcard(
+    return Dailyassignedcard(
       name: name,
       address: address,
       loc: loc,

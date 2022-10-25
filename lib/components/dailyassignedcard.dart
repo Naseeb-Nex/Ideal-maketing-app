@@ -78,7 +78,7 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              color: Colors.white,
+              color: white,
               boxShadow: [
                 BoxShadow(
                   offset: const Offset(0, 10),
@@ -176,9 +176,12 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                Container(
+                                
+                              ],
+                            ),
+                            Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 15, vertical: 5),
+                                      horizontal: 10, vertical: 3),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: yellowbg,
@@ -193,13 +196,11 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
                                     "${widget.status}",
                                     style: const TextStyle(
                                       fontFamily: "Montserrat",
-                                      fontSize: 16,
+                                      fontSize: 15,
                                       color: yellowfg,
                                     ),
                                   ),
                                 )
-                              ],
-                            ),
                           ],
                         ),
                       ),

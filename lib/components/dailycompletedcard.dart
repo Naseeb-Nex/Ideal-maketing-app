@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
-// icons
-import 'package:iconsax/iconsax.dart';
 
 // ignore: must_be_immutable
-class Dailypendingcard extends StatefulWidget {
+class Dailycompltedcard extends StatefulWidget {
   String? uid;
   String? name;
   String? address;
@@ -22,39 +20,39 @@ class Dailypendingcard extends StatefulWidget {
   String? assignedtime;
   String? assigneddate;
   String? priority;
+  String? camount;
+  String? ctime;
   String? remarks;
-  String? pdate;
-  String? ptime;
 
-  Dailypendingcard({
-    Key? key,
-    this.uid,
-    this.name,
-    this.address,
-    this.loc,
-    this.phn,
-    this.pgm,
-    this.chrg,
-    this.type,
-    this.upDate,
-    this.upTime,
-    this.docname,
-    this.status,
-    this.username,
-    this.techname,
-    this.assignedtime,
-    this.assigneddate,
-    this.priority,
-    this.remarks,
-    this.pdate,
-    this.ptime,
-  }) : super(key: key);
+  Dailycompltedcard(
+      {Key? key,
+      this.uid,
+      this.name,
+      this.address,
+      this.loc,
+      this.phn,
+      this.pgm,
+      this.chrg,
+      this.type,
+      this.upDate,
+      this.upTime,
+      this.docname,
+      this.status,
+      this.username,
+      this.techname,
+      this.assignedtime,
+      this.assigneddate,
+      this.priority,
+      this.camount,
+      this.ctime,
+      this.remarks})
+      : super(key: key);
 
   @override
-  State<Dailypendingcard> createState() => _DailypendingcardState();
+  State<Dailycompltedcard> createState() => _DailycompltedcardState();
 }
 
-class _DailypendingcardState extends State<Dailypendingcard> {
+class _DailycompltedcardState extends State<Dailycompltedcard> {
   bool isviz = false;
 
   @override
@@ -72,7 +70,7 @@ class _DailypendingcardState extends State<Dailypendingcard> {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              color: white,
+              color: Colors.white,
               boxShadow: [
                 BoxShadow(
                   offset: const Offset(0, 10),
@@ -88,8 +86,8 @@ class _DailypendingcardState extends State<Dailypendingcard> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "${widget.name}",
@@ -154,51 +152,63 @@ class _DailypendingcardState extends State<Dailypendingcard> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Icon(
-                                  Iconsax.location4,
+                                  Icons.pin_drop_outlined,
                                   color: cheryred,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: SizedBox(
-                                    width: s.width * 0.4,
-                                    child: Text(
-                                      "${widget.loc}",
-                                      style: const TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
+                                SizedBox(
+                                  width: s.width * 0.3,
+                                  child: Text(
+                                    "${widget.loc}",
+                                    style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
                                     ),
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
                                   ),
                                 ),
                               ],
                             ),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 3),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: redbg,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        spreadRadius: 2,
-                                        blurRadius: 4,
-                                        color: black.withOpacity(0.1),
-                                        offset: const Offset(0, 5))
-                                  ]),
-                              child: Text(
-                                "${widget.status}",
-                                style: const TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 16,
-                                  color: redfg,
+                            SizedBox(
+                              width: s.width * 0.25,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: limegreen),
+                                    clipBehavior: Clip.none,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 5, vertical: 4),
+                                child: Center(
+                                  child: Text(
+                                    "${widget.chrg} / ${widget.camount}",
+                                    style: TextStyle(
+                                      color: white,
+                                      fontFamily: "Nunito",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    softWrap: true,
+                                  ),
                                 ),
                               ),
                             ),
+                            Container(
+                              width: s.width * 0.2,
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                "${widget.type}",
+                                style: const TextStyle(
+                                  fontFamily: "Nunito",
+                                  fontSize: 15,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -415,7 +425,7 @@ class _DailypendingcardState extends State<Dailypendingcard> {
                                   padding:
                                       const EdgeInsets.symmetric(horizontal: 5),
                                   child: Text(
-                                    "  ${widget.chrg}",
+                                  "  ${widget.chrg}",
                                     style: TextStyle(
                                       fontFamily: "Nunito",
                                       fontSize: 15,
@@ -462,7 +472,7 @@ class _DailypendingcardState extends State<Dailypendingcard> {
                             children: [
                               Container(
                                 child: Text(
-                                  "Updated Time :",
+                                  "Completed Time :",
                                   style: TextStyle(
                                     fontFamily: "Nunito",
                                     fontWeight: FontWeight.bold,
@@ -472,35 +482,7 @@ class _DailypendingcardState extends State<Dailypendingcard> {
                               ),
                               Flexible(
                                 child: Text(
-                                  "  ${widget.ptime}",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  "Updated Date :",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  "  ${widget.pdate}",
+                                  "  ${widget.ctime}",
                                   style: TextStyle(
                                     fontFamily: "Nunito",
                                     fontSize: 15,

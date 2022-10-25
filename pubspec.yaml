@@ -60,6 +60,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.3
   loading_indicator: ^3.1.0
   dot_navigation_bar: ^1.0.1+4
+  iconsax: ^0.0.8
 
 flutter_icons:
   android: true

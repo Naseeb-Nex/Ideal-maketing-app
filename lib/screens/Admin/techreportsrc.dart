@@ -271,7 +271,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                             // report Submission status
                             Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 15),
+                                  horizontal: s.width * 0.03, vertical: 15),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: white,
@@ -315,7 +315,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 15),
+                                  horizontal: s.width * 0.025, vertical: 15),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: white,

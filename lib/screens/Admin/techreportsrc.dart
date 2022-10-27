@@ -6,8 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:ideal_marketing/components/dailyassignedcard.dart';
 
 import 'package:ideal_marketing/components/compelepgmcard.dart';
-import 'package:ideal_marketing/components/processingpgmcard.dart';
-import 'package:ideal_marketing/components/techpendingcard.dart';
 
 import 'package:loading_indicator/loading_indicator.dart';
 

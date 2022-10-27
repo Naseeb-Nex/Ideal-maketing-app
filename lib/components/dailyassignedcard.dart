@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
+import 'package:iconsax/iconsax.dart';
+
 // ignore: must_be_immutable
 class Dailyassignedcard extends StatefulWidget {
   String? name;
@@ -63,6 +65,16 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
     "assets/icons/customer4.jpg",
   ];
 
+  int loc = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Random Image loc
+    int num = random.nextInt(100);
+    loc = num % 3;
+  }
+
   @override
   void setState(VoidCallback fn) {
     if (mounted) {
@@ -72,10 +84,6 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
 
   @override
   Widget build(BuildContext context) {
-    // Random Image loc
-    int num = random.nextInt(100);
-    int loc = num % 3;
-
     // Screen size
     Size s = MediaQuery.of(context).size;
 
@@ -191,12 +199,13 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
                               children: [
                                 Row(
                                   children: [
-                                    const Icon(
-                                      Icons.pin_drop_outlined,
+                                    Icon(
+                                      Iconsax.location,
                                       color: cheryred,
+                                      size: s.width * 0.04,
                                     ),
                                     SizedBox(
-                                      width: s.width * 0.4,
+                                      width: s.width * 0.6,
                                       child: Text(
                                         "${widget.loc}",
                                         style: const TextStyle(

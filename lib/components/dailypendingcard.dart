@@ -279,6 +279,7 @@ class _DailypendingcardState extends State<Dailypendingcard> {
                                   fontFamily: "Nunito",
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
+                                  color: redfg,
                                 ),
                               ),
                               const SizedBox(

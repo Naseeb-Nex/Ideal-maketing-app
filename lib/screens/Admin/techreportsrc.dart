@@ -646,8 +646,8 @@ class Activitywrapper extends StatelessWidget {
         assignedtime: assignedtime,
         assigneddate: assigneddate,
         priority: priority,
-        ptime: upTime,
-        pdate: upDate,
+        ptime: ctime,
+        pdate: cdate,
         remarks: remarks,
       );
     }

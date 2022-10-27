@@ -245,6 +245,7 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
                                   fontFamily: "Nunito",
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
+                                  color: yellowfg,
                                 ),
                               ),
                               const SizedBox(

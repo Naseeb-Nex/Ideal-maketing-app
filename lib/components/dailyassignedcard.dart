@@ -286,6 +286,35 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
                                 crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                 children: [
+                                  Container(
+                                    child: Text(
+                                      "Location :",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "  ${widget.loc}",
+                                      style: TextStyle(
+                                        fontFamily: "Nunito",
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                children: [
                                   const Text(
                                     "Program :",
                                     style: TextStyle(
@@ -394,35 +423,7 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      "Location :",
-                                      style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      "  ${widget.loc}",
-                                      style: TextStyle(
-                                        fontFamily: "Nunito",
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              
                               const SizedBox(height: 5),
                               Row(
                                 crossAxisAlignment:

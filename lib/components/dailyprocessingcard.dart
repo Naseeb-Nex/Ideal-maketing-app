@@ -199,6 +199,7 @@ class DailyprocessingcardState extends State<Dailyprocessingcard> {
                                       color: cheryred,
                                       size: s.width * 0.04,
                                     ),
+                                    SizedBox(width: s.width * 0.01),
                                     SizedBox(
                                       width: s.width * 0.6,
                                       child: Text(

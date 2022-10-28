@@ -582,7 +582,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                       var assigned =
                                                           output!['assigned'];
                                                       var competed =
-                                                          output['competed'];
+                                                          output['completed'];
                                                       var pending =
                                                           output['pending'];
                                                       var processing =

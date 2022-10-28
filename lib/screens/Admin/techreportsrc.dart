@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/components/dailycompletedcard.dart';
 import 'package:ideal_marketing/components/dailypendingcard.dart';
 import 'package:ideal_marketing/components/dailyprocessingcard.dart';
 import 'package:intl/intl.dart';
@@ -585,7 +586,7 @@ class Activitywrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (status == "completed") {
-      return Completedpgmcard(
+      return Dailycompltedcard(
         name: name,
         address: address,
         loc: loc,

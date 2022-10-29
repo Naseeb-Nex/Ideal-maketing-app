@@ -576,45 +576,53 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                           'Error = ${snapshot.error}');
 
                                                     if (snapshot.hasData) {
-                                                      // double a=0.0,c=0,p=0,pro=0;
                                                       var output =
                                                           snapshot.data!.data();
-                                                      var assigned =
-                                                          output!['assigned'];
-                                                      var competed =
-                                                          output['completed'];
-                                                      var pending =
-                                                          output['pending'];
-                                                      var processing =
-                                                          output['processing'];
+                                                      double a = 0,
+                                                          c = 0,
+                                                          pro = 0,
+                                                          p = 0;
 
-                                                      double a, c, pro, p;
-                                                      if (assigned != null) {
-                                                        a = assigned.toDouble();
-                                                      } else {
-                                                        a = 0;
+                                                      if (output != null) {
+                                                        var assigned =
+                                                            output['assigned'];
+                                                        var competed =
+                                                            output['completed'];
+                                                        var pending =
+                                                            output['pending'];
+                                                        var processing = output[
+                                                            'processing'];
+
+                                                        if (assigned != null) {
+                                                          a = assigned
+                                                              .toDouble();
+                                                        } else {
+                                                          a = 0;
+                                                        }
+
+                                                        if (pending != null) {
+                                                          p = pending
+                                                              .toDouble();
+                                                        } else {
+                                                          p = 0;
+                                                        }
+
+                                                        if (processing !=
+                                                            null) {
+                                                          pro = processing
+                                                              .toDouble();
+                                                          pro = 0;
+                                                        } else {
+                                                          pro = 0;
+                                                        }
+
+                                                        if (competed != null) {
+                                                          c = competed
+                                                              .toDouble();
+                                                        } else {
+                                                          c = 0;
+                                                        }
                                                       }
-
-                                                      if (pending != null) {
-                                                        p = pending.toDouble();
-                                                      } else {
-                                                        p = 0;
-                                                      }
-
-                                                      if (processing != null) {
-                                                        pro = processing
-                                                            .toDouble();
-                                                        pro = 0;
-                                                      } else {
-                                                        pro = 0;
-                                                      }
-
-                                                      if (competed != null) {
-                                                        c = competed.toDouble();
-                                                      } else {
-                                                        c = 0;
-                                                      }
-
                                                       return PieChart(
                                                         PieChartData(
                                                             borderData:

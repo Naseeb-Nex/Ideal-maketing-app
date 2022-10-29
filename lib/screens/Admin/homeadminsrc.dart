@@ -611,7 +611,6 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                             null) {
                                                           pro = processing
                                                               .toDouble();
-                                                          pro = 0;
                                                         } else {
                                                           pro = 0;
                                                         }

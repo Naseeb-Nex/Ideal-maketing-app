@@ -18,3 +18,5 @@ const yellowbg =  Color(0XFFFFF7E6);
 const yellowfg =  Color(0XFFFFC444);
 const vybg =  Color(0XFFF2F4F8);
 const limegreen2 =  Color(0XFF9ef01a);
+const nonactivebg =  Color(0xFFf9f9f9);
+const nonactivetxt = Color(0XFF989898);

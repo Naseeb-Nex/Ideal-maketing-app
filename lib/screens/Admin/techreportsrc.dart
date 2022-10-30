@@ -71,6 +71,9 @@ class _TechreportsrcState extends State<Techreportsrc> {
   String? _selectedyear;
   String? _selectedmonth;
   String? _selectedday;
+  
+  // serach controller
+  final searchController = TextEditingController();
 
   // Montly List
     List montly_filtered_rp = [];
@@ -1521,13 +1524,9 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                       .toList();
                                                 }
 
-                                                initState() {
-                                                  setState(() {
-                                                    montly_search_rs =
-                                                        montly_filtered_rp;
-                                                  });
+                                                if( searchController.text.isEmpty){
+                                                  montly_search_rs = montly_filtered_rp;
                                                 }
-
                                                 return Column(
                                                   children: [
                                                     Container(
@@ -1900,6 +1899,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
+        controller: searchController,
         onChanged: (value) => _runFilter(value),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(0),

@@ -7,7 +7,6 @@ import 'package:ideal_marketing/services/reportstatus.dart';
 import 'package:intl/intl.dart';
 
 import '../services/customer_history.dart';
-import '../services/pgmhistory.dart';
 
 // ignore: must_be_immutable
 class Confirmationcard extends StatefulWidget {

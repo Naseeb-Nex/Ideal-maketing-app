@@ -346,8 +346,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                             "Status",
                             style: TextStyle(
                               fontFamily: "Montserrat",
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                               // color: white,
                             ),
                           ),
@@ -390,8 +389,7 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                             "Edit Profile",
                             style: TextStyle(
                                 fontFamily: "Montserrat",
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 color: white),
                           ),
                         ),
@@ -419,11 +417,10 @@ class _TechprofilesrcState extends State<Techprofilesrc> {
                         ),
                         child: const Center(
                           child: Text(
-                            "Remove Technitian",
+                            "Remove Technician",
                             style: TextStyle(
                                 fontFamily: "Montserrat",
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 color: white),
                           ),
                         ),

@@ -20,6 +20,11 @@ class Techreportcard extends StatefulWidget {
 
 class _TechreportcardState extends State<Techreportcard> {
   FirebaseFirestore fb = FirebaseFirestore.instance;
+  // data
+  int a = 0;
+  int p = 0;
+  int c = 0;
+  int pro = 0;
 
   var random = Random();
   List<String> techimg = [
@@ -42,7 +47,17 @@ class _TechreportcardState extends State<Techreportcard> {
     Size s = MediaQuery.of(context).size;
     return InkWell(
       onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: ((context) => Techreportsrc(username: widget.username, name: widget.name, loc: loc,)))),
+          context,
+          MaterialPageRoute(
+              builder: ((context) => Techreportsrc(
+                    username: widget.username,
+                    name: widget.name,
+                    loc: loc,
+                    a: a,
+                    p: p,
+                    c: c,
+                    pro: pro,
+                  )))),
       child: Container(
           width: double.infinity,
           padding: EdgeInsets.all(10),
@@ -129,6 +144,15 @@ class _TechreportcardState extends State<Techreportcard> {
                         List assigned = rpactivity
                             .where((i) => i['status'] == 'assigned')
                             .toList();
+
+                        initState() {
+                          setState(() {
+                            a = assigned.length;
+                            p = pendingpgms.length;
+                            pro = processingpgm.length;
+                            c = completedpgm.length;
+                          });
+                        }
 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,15 +278,15 @@ class _TechreportcardState extends State<Techreportcard> {
                                                 child: Text(
                                                   "${processingpgm.length}",
                                                   style: TextStyle(
-                                                      fontFamily: "Montserrat",
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: white),
+                                                    fontFamily: "Montserrat",
+                                                    fontWeight: FontWeight.bold,
+                                                    color: white,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ],
-                                        )
+                                        ),
                                       ],
                                     ),
                             ),

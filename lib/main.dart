@@ -9,6 +9,9 @@ import 'package:provider/provider.dart';
 import 'screens/loginsrc.dart';
 import 'constants/constants.dart';
 
+// DatePicker
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -31,6 +34,14 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      locale: Locale('en', 'US'),
+      supportedLocales: [
+        const Locale('en', 'US'), // English
+      ],
         title: 'IMA app',
         theme: ThemeData(
           primarySwatch: Colors.blue,

@@ -127,6 +127,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  curved_navigation_bar:
+    dependency: "direct dev"
+    description:
+      name: curved_navigation_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   custom_sliding_segmented_control:
     dependency: "direct main"
     description:
@@ -251,6 +258,11 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.3"
+  flutter_localizations:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -258,6 +270,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.7"
+  flutter_rounded_date_picker:
+    dependency: "direct dev"
+    description:
+      name: flutter_rounded_date_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter

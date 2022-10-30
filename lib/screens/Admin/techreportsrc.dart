@@ -72,6 +72,10 @@ class _TechreportsrcState extends State<Techreportsrc> {
   String? _selectedmonth;
   String? _selectedday;
 
+  // Montly List
+    List montly_filtered_rp = [];
+    List montly_search_rs = [];
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -86,7 +90,6 @@ class _TechreportsrcState extends State<Techreportsrc> {
 
     return Scaffold(
       // New bottom navigation bar
-
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
         backgroundColor: bluebg,
@@ -1497,7 +1500,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                 }
 
                                                 final List activityrp = [];
-                                                List filtered_activity = [];
+
                                                 snapshot.data!.docs.map(
                                                     (DocumentSnapshot
                                                         document) {
@@ -1508,14 +1511,21 @@ class _TechreportsrcState extends State<Techreportsrc> {
 
                                                 if (daily_activity_filter ==
                                                     "all") {
-                                                  filtered_activity =
+                                                  montly_filtered_rp =
                                                       activityrp;
                                                 } else {
-                                                  filtered_activity = activityrp
+                                                  montly_filtered_rp = activityrp
                                                       .where((i) =>
                                                           i['status'] ==
                                                           daily_activity_filter)
                                                       .toList();
+                                                }
+
+                                                initState() {
+                                                  setState(() {
+                                                    montly_search_rs =
+                                                        montly_filtered_rp;
+                                                  });
                                                 }
 
                                                 return Column(
@@ -1592,7 +1602,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "all"
                                                                                           ? Text(
-                                                                                              "${filtered_activity.length}",
+                                                                                              "${montly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -1626,7 +1636,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "assigned"
                                                                                           ? Text(
-                                                                                              "${filtered_activity.length}",
+                                                                                              "${montly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -1660,7 +1670,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "pending"
                                                                                           ? Text(
-                                                                                              "${filtered_activity.length}",
+                                                                                              "${montly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -1694,7 +1704,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "completed"
                                                                                           ? Text(
-                                                                                              "${filtered_activity.length}",
+                                                                                              "${montly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -1728,7 +1738,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "processing"
                                                                                           ? Text(
-                                                                                              "${filtered_activity.length}",
+                                                                                              "${montly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -1752,7 +1762,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                               0
                                                           ? null
                                                           : Container(
-                                                              child: filtered_activity
+                                                              child: montly_search_rs
                                                                           .length ==
                                                                       0
                                                                   ? Padding(
@@ -1771,36 +1781,34 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                     ),
                                                     for (var i = 0;
                                                         i <
-                                                            filtered_activity
+                                                            montly_search_rs
                                                                 .length;
                                                         i++) ...[
                                                       Montlystatus(
                                                         name:
-                                                            filtered_activity[i]
+                                                            montly_search_rs[i]
                                                                 ['name'],
-                                                        phn:
-                                                            filtered_activity[i]
-                                                                ['phn'],
-                                                        pgm:
-                                                            filtered_activity[i]
-                                                                ['pgm'],
+                                                        phn: montly_search_rs[i]
+                                                            ['phn'],
+                                                        pgm: montly_search_rs[i]
+                                                            ['pgm'],
                                                         upDate:
-                                                            filtered_activity[i]
+                                                            montly_search_rs[i]
                                                                 ['upDate'],
                                                         upTime:
-                                                            filtered_activity[i]
+                                                            montly_search_rs[i]
                                                                 ['upTime'],
                                                         docname:
-                                                            filtered_activity[i]
+                                                            montly_search_rs[i]
                                                                 ['docname'],
                                                         status:
-                                                            filtered_activity[i]
+                                                            montly_search_rs[i]
                                                                 ['status'],
                                                         username:
-                                                            filtered_activity[i]
+                                                            montly_search_rs[i]
                                                                 ['username'],
                                                         techname:
-                                                            filtered_activity[i]
+                                                            montly_search_rs[i]
                                                                 ['techname'],
                                                       ),
                                                       SizedBox(
@@ -1813,7 +1821,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                     0
                                                                 ? null
                                                                 : Container(
-                                                                    child: filtered_activity.length ==
+                                                                    child: montly_search_rs.length ==
                                                                             0
                                                                         ? SizedBox(
                                                                             height: s.height *
@@ -1865,10 +1873,23 @@ class _TechreportsrcState extends State<Techreportsrc> {
     );
   }
 
-  // Serach Functionality
   void _runFilter(String enteredKeyword) {
-    print("Cleared");
+    setState(() {
+      montly_search_rs = montly_filtered_rp.where((pgm) {
+        final nameLower = pgm["name"]!.toLowerCase();
+        final dayLower = pgm["day"]!.toLowerCase();
+        final pgmLower = pgm["pgm"]!.toLowerCase();
+        final phnumber = pgm["phn"]!;
+        final searchquery = enteredKeyword.toLowerCase();
+
+        return nameLower.contains(searchquery) ||
+            dayLower.contains(searchquery) ||
+            pgmLower.contains(searchquery) ||
+            phnumber.contains(searchquery);
+      }).toList();
+    });
   }
+  // Serach Functionality
 
   // SearchBOx
   Widget searchBox() {

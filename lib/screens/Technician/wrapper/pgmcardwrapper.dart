@@ -14,23 +14,10 @@ class Pgmcardwrapper extends StatefulWidget {
 }
 
 class _PgmcardwrapperState extends State<Pgmcardwrapper> {
-  bool _hasCallSupport = false;
-
-  @override
-  void initState() {
-    super.initState();
-    canLaunch('tel:123').then((bool result) {
-      setState(() {
-        _hasCallSupport = result;
-      });
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        // this code is not updating
-        // we want to update this code
         stream: FirebaseFirestore.instance
             .collection('/Technician/${widget.username}/Assignedpgm')
             .snapshots(),

@@ -372,53 +372,63 @@ class _HomeAdminState extends State<HomeAdmin> {
                                             ),
                                           ],
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 10),
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: cheryred),
-                                              padding: EdgeInsets.all(11),
-                                              child:
-                                                  StreamBuilder<QuerySnapshot>(
-                                                stream: fb
-                                                    .collection('ConfirmList')
-                                                    .snapshots(),
-                                                builder: (BuildContext context,
-                                                    AsyncSnapshot<QuerySnapshot>
-                                                        snapshot) {
-                                                  if (snapshot.hasError) {
-                                                    print(
-                                                        'Something went Wrong');
-                                                  }
-                                                  if (snapshot
-                                                          .connectionState ==
-                                                      ConnectionState.waiting) {
-                                                    return Text(
-                                                      "0",
-                                                      style: TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: white),
-                                                    );
-                                                  }
-
-                                                  String? confimsize = snapshot
-                                                      .data!.docs.length
-                                                      .toString();
-
-                                                  return Text(
-                                                    "$confimsize",
+                                        StreamBuilder<QuerySnapshot>(
+                                          stream: fb
+                                              .collection('ConfirmList')
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            if (snapshot.hasError) {
+                                              print('Something went Wrong');
+                                            }
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 10),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: limegreen2),
+                                                  padding: EdgeInsets.all(11),
+                                                  child: Text(
+                                                    "0",
                                                     style: TextStyle(
                                                         fontSize: 18,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: white),
-                                                  );
-                                                },
-                                              )),
+                                                  ),
+                                                ),
+                                              );
+                                            }
+
+                                            String? confimsize = snapshot
+                                                .data!.docs.length
+                                                .toString();
+
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: confimsize == "0"
+                                                        ? limegreen2
+                                                        : cheryred),
+                                                padding: EdgeInsets.all(11),
+                                                child: Text(
+                                                  "$confimsize",
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: white),
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         )
                                       ],
                                     ),

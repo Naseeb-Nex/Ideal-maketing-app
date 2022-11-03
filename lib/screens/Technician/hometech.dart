@@ -8,6 +8,7 @@ import 'package:ideal_marketing/screens/Technician/Createprofile.dart';
 import 'package:ideal_marketing/screens/Technician/profilesrc.dart';
 
 import 'package:ideal_marketing/services/user_model.dart';
+
 import 'package:iconsax/iconsax.dart';
 
 // ignore: must_be_immutable
@@ -24,6 +25,7 @@ class _HomeTechState extends State<HomeTech> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
   Profile profile = Profile();
+  String? name;
 
   @override
   void initState() {
@@ -35,8 +37,14 @@ class _HomeTechState extends State<HomeTech> {
         .get()
         .then((value) {
       profile = Profile.fromMap(value.data());
+      setState(() {
+        name = profile.name;
+      });
     });
   }
+
+  // report visiblity
+  bool rp_viz = false;
 
   @override
   Widget build(BuildContext context) {
@@ -56,54 +64,246 @@ class _HomeTechState extends State<HomeTech> {
       ),
       Scaffold(
         backgroundColor: Colors.transparent,
+        drawer: Drawer(
+            backgroundColor: Color(0XFF403795),
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: s.height * 0.2,
+                      decoration: BoxDecoration(
+                        // borderRadius: BorderRadius.only(
+                        //   bottomLeft: Radius.circular(20),
+                        //   bottomRight: Radius.circular(20),
+                        // ),
+                        borderRadius: BorderRadius.circular(25),
+                        image: DecorationImage(
+                          image: AssetImage("assets/icons/drawyerbg.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(s.height * 0.01),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/icons/tech_avatar1.png",
+                              height: s.height * 0.12,
+                            ),
+                            Center(
+                              child: Text(
+                                "$name",
+                                style: const TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                                softWrap: true,
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    // Navigation List
+              
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: s.width * 0.04,right: s.width * 0.1, bottom: s.height * 0.03, top: s.height * 0.03),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(s.width * 0.02),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: white),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Iconsax.home,
+                                    color: white,
+                                  ),
+                                  SizedBox(
+                                    width: s.width * 0.04,
+                                  ),
+                                  Text(
+                                    "Home",
+                                    style: const TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(s.width * 0.02),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: white),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Iconsax.personalcard,
+                                    color: white,
+                                  ),
+                                  SizedBox(
+                                    width: s.width * 0.04,
+                                  ),
+                                  Text(
+                                    "Profile",
+                                    style: const TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(s.width * 0.02),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: white),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Iconsax.receipt,
+                                    color: white,
+                                  ),
+                                  SizedBox(
+                                    width: s.width * 0.04,
+                                  ),
+                                  Text(
+                                    "Report status",
+                                    style: const TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(s.width * 0.02),
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: white),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Iconsax.truck,
+                                    color: white,
+                                  ),
+                                  SizedBox(
+                                    width: s.width * 0.04,
+                                  ),
+                                  Text(
+                                    "Vehicle Status",
+                                    style: const TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )),
+        appBar: AppBar(
+          centerTitle: true,
+          leading: Builder(
+            builder: (context) => Padding(
+              padding: EdgeInsets.all(s.width * 0.03),
+              child: InkWell(
+                onTap: () => Scaffold.of(context).openDrawer(),
+                child: Image.asset(
+                  "assets/icons/menu.png",
+                  color: white,
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Profilewrapper(
+                            name: profile.name,
+                            uid: loggedInUser.uid,
+                            username: user?.photoURL,
+                          )),
+                );
+              },
+              icon: const Icon(Icons.person),
+              color: Colors.white,
+              iconSize: 30,
+            ),
+          ],
+          elevation: 0,
+          title: const Text(
+            "Home",
+            style: TextStyle(
+              fontFamily: "Nunito",
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+        ),
         body: SafeArea(
           child: Column(
             children: [
               Container(
                 width: s.width,
-                height: s.height * 0.14,
+                height: s.height * 0.09,
                 decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 50,
-                          width: 60,
-                        ),
-                        const Text(
-                          "Home",
-                          style: TextStyle(
-                            fontFamily: "Nunito",
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Profilewrapper(
-                                        name: profile.name,
-                                        uid: loggedInUser.uid,
-                                        username: user?.photoURL,
-                                      )),
-                            );
-                          },
-                          icon: const Icon(Icons.person),
-                          color: Colors.white,
-                          iconSize: 30,
-                        ),
-                      ],
-                    ),
                     Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: s.width * 0.035),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: s.width * 0.035),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -128,13 +328,15 @@ class _HomeTechState extends State<HomeTech> {
                                 child: Image.asset("assets/icons/scooter.png"),
                               ),
                               Positioned(
-                                left: s.width * 0.08,
-                                top: s.width * 0.005,
-                                child: Container(
-                                  width: s.width * 0.02,
-                                  height: s.width * 0.02,
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: limegreen),)
-                                )
+                                  left: s.width * 0.08,
+                                  top: s.width * 0.005,
+                                  child: Container(
+                                    width: s.width * 0.02,
+                                    height: s.width * 0.02,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: limegreen),
+                                  ))
                             ],
                           ),
                         ],
@@ -147,7 +349,7 @@ class _HomeTechState extends State<HomeTech> {
                 child: Container(
                   height: double.infinity,
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
@@ -185,6 +387,12 @@ class _HomeTechState extends State<HomeTech> {
                               _allpgm.add(a);
                               a['uid'] = document.id;
                             }).toList();
+
+                            // Report button visiblity
+                            if (_allpgm.isEmpty) {
+                              rp_viz = true;
+                            }
+
                             _allpgm.sort((a, b) =>
                                 a["priority"].compareTo(b["priority"]));
                             return Column(
@@ -228,14 +436,19 @@ class _HomeTechState extends State<HomeTech> {
             ],
           ),
         ),
-        floatingActionButton: Container(
-          width: s.width * 0.15,
-          height: s.width * 0.15,
-          decoration: BoxDecoration(color: bluebg, shape: BoxShape.circle),
-          child: Icon(
-            Icons.edit,
-            color: white,
-          ),
+        floatingActionButton: Center(
+          child: rp_viz
+              ? Container(
+                  width: s.width * 0.15,
+                  height: s.width * 0.15,
+                  decoration:
+                      BoxDecoration(color: bluebg, shape: BoxShape.circle),
+                  child: Icon(
+                    Iconsax.edit_2,
+                    color: white,
+                  ),
+                )
+              : null,
         ),
       )
     ]);

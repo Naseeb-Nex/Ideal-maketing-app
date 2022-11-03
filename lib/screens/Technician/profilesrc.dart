@@ -119,12 +119,9 @@ class _ProfilesrcState extends State<Profilesrc> {
                     height: 22,
                   ),
                   Container(
-                    width: 130,
-                    height: 130,
+                    width: s.width * 0.4,
+                    height: s.width * 0.4,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 4,
-                          color: Theme.of(context).scaffoldBackgroundColor),
                       boxShadow: [
                         BoxShadow(
                             spreadRadius: 2,
@@ -134,8 +131,8 @@ class _ProfilesrcState extends State<Profilesrc> {
                       ],
                       shape: BoxShape.circle,
                       image: const DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage("assets/icons/avataricon.png")),
+                          fit: BoxFit.contain,
+                          image: AssetImage("assets/icons/tech_avatar1.png")),
                     ),
                   ),
                   const SizedBox(

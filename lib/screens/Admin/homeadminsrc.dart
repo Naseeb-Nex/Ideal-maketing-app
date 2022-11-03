@@ -13,6 +13,8 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/components/techreportcard.dart';
 
 import 'package:ideal_marketing/services/user_model.dart';
+// Iconsax
+import 'package:iconsax/iconsax.dart';
 
 import 'pendingsrc.dart';
 import 'package:ideal_marketing/screens/Admin/competedpgmsrc.dart';
@@ -80,6 +82,233 @@ class _HomeAdminState extends State<HomeAdmin> {
       ),
       Scaffold(
         backgroundColor: Colors.transparent,
+        drawer: Drawer(
+            backgroundColor: Color(0XFF403795),
+            child: Builder(
+              builder: (context) => SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: s.height * 0.2,
+                        decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.only(
+                          //   bottomLeft: Radius.circular(20),
+                          //   bottomRight: Radius.circular(20),
+                          // ),
+                          borderRadius: BorderRadius.circular(25),
+                          image: DecorationImage(
+                            image: AssetImage("assets/icons/drawyerbg.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(s.height * 0.01),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/icons/admin.png",
+                                height: s.height * 0.12,
+                              ),
+                              Center(
+                                child: Text(
+                                  "Admin",
+                                  style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  softWrap: true,
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      // Navigation List
+
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: s.width * 0.04,
+                            right: s.width * 0.1,
+                            bottom: s.height * 0.03,
+                            top: s.height * 0.03),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(s.width * 0.02),
+                              child: InkWell(
+                                onTap: () => Scaffold.of(context).closeDrawer(),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: white),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Iconsax.home,
+                                        color: white,
+                                      ),
+                                      SizedBox(
+                                        width: s.width * 0.04,
+                                      ),
+                                      Text(
+                                        "Home",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(s.width * 0.02),
+                              child: InkWell(
+                                onTap: () {
+                                  Scaffold.of(context).closeDrawer();
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: white),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Iconsax.receipt_1,
+                                        color: white,
+                                      ),
+                                      SizedBox(
+                                        width: s.width * 0.04,
+                                      ),
+                                      Text(
+                                        "Monthly Report",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(s.width * 0.02),
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: white),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Iconsax.user_add,
+                                      color: white,
+                                    ),
+                                    SizedBox(
+                                      width: s.width * 0.04,
+                                    ),
+                                    Text(
+                                      "Staff Registration",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal,
+                                        color: white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(s.width * 0.02),
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: white),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Iconsax.truck,
+                                      color: white,
+                                    ),
+                                    SizedBox(
+                                      width: s.width * 0.04,
+                                    ),
+                                    Text(
+                                      "Vehicle Portal",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal,
+                                        color: white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )),
+        appBar: AppBar(
+          centerTitle: true,
+          leading: Builder(
+            builder: (context) => Padding(
+              padding: EdgeInsets.all(s.width * 0.03),
+              child: InkWell(
+                onTap: () => Scaffold.of(context).openDrawer(),
+                child: Image.asset(
+                  "assets/icons/menu.png",
+                  color: white,
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () => logout(context),
+              icon: const Icon(Iconsax.logout_1),
+              color: Colors.white,
+              iconSize: 30,
+            ),
+          ],
+          elevation: 0,
+          title: const Text(
+            "Admin Panel",
+            style: TextStyle(
+              fontFamily: "Nunito",
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Colors.transparent,
+        ),
         body: SafeArea(
           child: DefaultTabController(
             length: 2,
@@ -87,50 +316,16 @@ class _HomeAdminState extends State<HomeAdmin> {
               children: [
                 Container(
                   width: s.width,
-                  height: s.height * 1 / 7,
+                  height: s.height * 0.1,
                   decoration: const BoxDecoration(
                     color: Colors.transparent,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                              padding: const EdgeInsets.all(10),
-                              child: Center(
-                                  child: Image.asset(
-                                "assets/icons/menu.png",
-                                width: 30,
-                                height: 30,
-                                fit: BoxFit.cover,
-                                color: Colors.transparent,
-                              ))),
-                          const Text(
-                            "Admin Panel",
-                            style: TextStyle(
-                              fontFamily: "Nunito",
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () => logout(context),
-                            child: const Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Icon(
-                                Icons.logout_outlined,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
+                      
+                      SizedBox(
+                        height: s.height * 0.009
                       ),
                       TabBar(
                         tabs: [

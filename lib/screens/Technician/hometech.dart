@@ -66,181 +66,203 @@ class _HomeTechState extends State<HomeTech> {
         backgroundColor: Colors.transparent,
         drawer: Drawer(
             backgroundColor: Color(0XFF403795),
-            child: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: s.height * 0.2,
-                      decoration: BoxDecoration(
-                        // borderRadius: BorderRadius.only(
-                        //   bottomLeft: Radius.circular(20),
-                        //   bottomRight: Radius.circular(20),
-                        // ),
-                        borderRadius: BorderRadius.circular(25),
-                        image: DecorationImage(
-                          image: AssetImage("assets/icons/drawyerbg.jpg"),
-                          fit: BoxFit.cover,
+            child: Builder(
+              builder: (context) => SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: s.height * 0.2,
+                        decoration: BoxDecoration(
+                          // borderRadius: BorderRadius.only(
+                          //   bottomLeft: Radius.circular(20),
+                          //   bottomRight: Radius.circular(20),
+                          // ),
+                          borderRadius: BorderRadius.circular(25),
+                          image: DecorationImage(
+                            image: AssetImage("assets/icons/drawyerbg.jpg"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(s.height * 0.01),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/icons/tech_avatar1.png",
+                                height: s.height * 0.12,
+                              ),
+                              Center(
+                                child: Text(
+                                  "$name",
+                                  style: const TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  softWrap: true,
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(s.height * 0.01),
+                      // Navigation List
+
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: s.width * 0.04,
+                            right: s.width * 0.1,
+                            bottom: s.height * 0.03,
+                            top: s.height * 0.03),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              "assets/icons/tech_avatar1.png",
-                              height: s.height * 0.12,
-                            ),
-                            Center(
-                              child: Text(
-                                "$name",
-                                style: const TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                                softWrap: true,
-                                textAlign: TextAlign.center,
+                            Padding(
+                              padding: EdgeInsets.all(s.width * 0.02),
+                              child: InkWell(
+                                onTap: () => Scaffold.of(context).closeDrawer(),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: white),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Iconsax.home,
+                                        color: white,
+                                      ),
+                                      SizedBox(
+                                        width: s.width * 0.04,
+                                      ),
+                                      Text(
+                                        "Home",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            )
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(s.width * 0.02),
+                              child: InkWell(
+                                onTap: () {
+                                  Scaffold.of(context).closeDrawer();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Profilewrapper(
+                                              name: profile.name,
+                                              uid: loggedInUser.uid,
+                                              username: user?.photoURL,
+                                            )),
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: white),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Iconsax.personalcard,
+                                        color: white,
+                                      ),
+                                      SizedBox(
+                                        width: s.width * 0.04,
+                                      ),
+                                      Text(
+                                        "Profile",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(s.width * 0.02),
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: white),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Iconsax.receipt,
+                                      color: white,
+                                    ),
+                                    SizedBox(
+                                      width: s.width * 0.04,
+                                    ),
+                                    Text(
+                                      "Report status",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal,
+                                        color: white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(s.width * 0.02),
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: white),
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Iconsax.truck,
+                                      color: white,
+                                    ),
+                                    SizedBox(
+                                      width: s.width * 0.04,
+                                    ),
+                                    Text(
+                                      "Vehicle Status",
+                                      style: const TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal,
+                                        color: white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                    ),
-                    // Navigation List
-              
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: s.width * 0.04,right: s.width * 0.1, bottom: s.height * 0.03, top: s.height * 0.03),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(s.width * 0.02),
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: white),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Iconsax.home,
-                                    color: white,
-                                  ),
-                                  SizedBox(
-                                    width: s.width * 0.04,
-                                  ),
-                                  Text(
-                                    "Home",
-                                    style: const TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(s.width * 0.02),
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: white),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Iconsax.personalcard,
-                                    color: white,
-                                  ),
-                                  SizedBox(
-                                    width: s.width * 0.04,
-                                  ),
-                                  Text(
-                                    "Profile",
-                                    style: const TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(s.width * 0.02),
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: white),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Iconsax.receipt,
-                                    color: white,
-                                  ),
-                                  SizedBox(
-                                    width: s.width * 0.04,
-                                  ),
-                                  Text(
-                                    "Report status",
-                                    style: const TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(s.width * 0.02),
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: white),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Icon(
-                                    Iconsax.truck,
-                                    color: white,
-                                  ),
-                                  SizedBox(
-                                    width: s.width * 0.04,
-                                  ),
-                                  Text(
-                                    "Vehicle Status",
-                                    style: const TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             )),

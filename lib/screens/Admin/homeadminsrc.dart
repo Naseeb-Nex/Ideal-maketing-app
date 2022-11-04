@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/screens/Admin/vechicleportal.dart';
 import 'package:intl/intl.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -239,31 +240,34 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                             Padding(
                               padding: EdgeInsets.all(s.width * 0.02),
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: white),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Iconsax.truck,
-                                      color: white,
-                                    ),
-                                    SizedBox(
-                                      width: s.width * 0.04,
-                                    ),
-                                    Text(
-                                      "Vehicle Portal",
-                                      style: const TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal,
+                              child: InkWell(
+                                onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: ((BuildContext context)=> Vehicleportal() ))),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: white),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Iconsax.truck,
                                         color: white,
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        width: s.width * 0.04,
+                                      ),
+                                      Text(
+                                        "Vehicle Portal",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

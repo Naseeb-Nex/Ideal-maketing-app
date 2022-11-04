@@ -33,7 +33,9 @@ class _ConfirmationlistState extends State<Confirmationlist> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           centerTitle: true,
-          leading: Icon(Icons.arrow_back_rounded),
+          leading: InkWell(
+              onTap: () => Navigator.pop(context),
+              child: Icon(Icons.arrow_back_rounded)),
           elevation: 0,
           title: const Text(
             "Confirmation List",

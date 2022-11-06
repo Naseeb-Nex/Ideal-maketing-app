@@ -109,34 +109,146 @@ class _VehicleportalState extends State<Vehicleportal> {
       ),
       floatingActionButton: InkWell(
         onTap: () => {
-          //Add Dialog from starting
-
-          // showDialog(
-          //   context: context,
-          //   builder: ((context) => Container(
-          //         padding: EdgeInsets.symmetric(
-          //             horizontal: s.width * 0.03, vertical: 15),
-          //         decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(10),
-          //             color: white,
-          //             boxShadow: [
-          //               BoxShadow(
-          //                 spreadRadius: 2,
-          //                 blurRadius: 4,
-          //                 color: black.withOpacity(.1),
-          //                 offset: Offset(5, 7),
-          //               ),
-          //             ]),
-          //         child: Text(
-          //           "Add Vechicle",
-          //           style: TextStyle(
-          //             fontFamily: "Nunito",
-          //             fontSize: 20,
-          //             fontWeight: FontWeight.bold,
-          //           ),
-          //         ),
-          //       )),
-          // )
+          showDialog(
+            context: context,
+            builder: ((context) => Dialog(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: s.width * 0.02,
+                      vertical: s.width * 0.02,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: bluebg),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: s.height * 0.02),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Add Vechicle",
+                                  style: TextStyle(
+                                    fontFamily: "Nunito",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // Divider(),
+                        SizedBox(
+                          height: s.height * 0.02,
+                        ),
+                        Text(
+                          "Ideal Marketing Vehicle",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Divider(),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: s.width * 0.1,
+                                    backgroundColor: Colors.red.shade50,
+                                    backgroundImage:
+                                        AssetImage("assets/icons/scooter.jpg"),
+                                  ),
+                                  Text(
+                                    "Scooter",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: s.width * 0.1,
+                                    backgroundColor: Colors.blue.shade50,
+                                    backgroundImage:
+                                        AssetImage("assets/icons/bike.jpg"),
+                                  ),
+                                  Text(
+                                    "Bike",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: s.width * 0.1,
+                                    backgroundColor: Colors.green.shade50,
+                                    backgroundImage:
+                                        AssetImage("assets/icons/truck.png"),
+                                  ),
+                                  Text(
+                                    "Truck",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ]),
+                            SizedBox(
+                          height: s.height * 0.02,
+                        ),
+                        Text(
+                          "Selef Vechicle",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Divider(),
+                        Column(
+                                children: [
+                                  CircleAvatar(
+                                    radius: s.width * 0.1,
+                                    backgroundColor: Colors.blue.shade50,
+                                    backgroundImage:
+                                        AssetImage("assets/icons/self_vehicle.jpg"),
+                                  ),
+                                  Text(
+                                    "Self Vehicle",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      ],
+                    ),
+                  ),
+                )),
+          )
         },
         child: Container(
           width: s.width * 0.17,

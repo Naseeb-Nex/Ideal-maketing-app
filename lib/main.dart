@@ -35,16 +35,19 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      locale: Locale('en', 'US'),
-      supportedLocales: [
-        const Locale('en', 'US'), // English
-      ],
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        locale: Locale('en', 'US'),
+        supportedLocales: [
+          const Locale('en', 'US'), // English
+        ],
         title: 'IMA app',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: const Color.fromRGBO(55, 48, 255, 1),
+            secondary: white,
+          ),
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: SplashSrc(),
@@ -54,7 +57,6 @@ class MyApp extends StatelessWidget {
 }
 
 class AuthenticationWrapper extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();

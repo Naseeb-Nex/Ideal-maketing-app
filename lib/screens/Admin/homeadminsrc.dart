@@ -282,10 +282,10 @@ class _HomeAdminState extends State<HomeAdmin> {
         appBar: AppBar(
           centerTitle: true,
           leading: Builder(
-            builder: (context) => Padding(
-              padding: EdgeInsets.all(s.width * 0.03),
-              child: InkWell(
-                onTap: () => Scaffold.of(context).openDrawer(),
+            builder: (context) => InkWell(
+              onTap: () => Scaffold.of(context).openDrawer(),
+              child: Padding(
+                padding: EdgeInsets.all(s.width * 0.03),
                 child: Image.asset(
                   "assets/icons/menu.png",
                   color: white,

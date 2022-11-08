@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:intl/intl.dart';
 
 // firebase firestore
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,12 +15,6 @@ class Vehicleportal extends StatefulWidget {
 }
 
 class _VehicleportalState extends State<Vehicleportal> {
-  // Form Key
-  final form_key = GlobalKey<FormState>();
-
-  // Text editor controller
-  TextEditingController nameController = TextEditingController();
-  TextEditingController descController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -171,248 +166,10 @@ class _VehicleportalState extends State<Vehicleportal> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.pop(context);
-                                      showDialog(
+                                      showDialog( 
                                           context: context,
-                                          builder: (context) => Dialog(
-                                                insetAnimationCurve:
-                                                    Curves.easeInCubic,
-                                                insetAnimationDuration:
-                                                    Duration(milliseconds: 500),
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal: s.width * 0.03,
-                                                    vertical: s.height * 0.03,
-                                                  ),
-                                                  child: Form(
-                                                    key: form_key,
-                                                    child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Container(
-                                                            decoration: BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                                color: bluebg),
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          s.height *
-                                                                              0.02),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    "Add Name and Discription",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          "Nunito",
-                                                                      fontSize:
-                                                                          20,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color:
-                                                                          white,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                s.height * 0.02,
-                                                          ),
-                                                          Text(
-                                                            "Scooter Name",
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  "Montserrat",
-                                                              fontSize: 17,
-                                                            ),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                s.height * 0.01,
-                                                          ),
-                                                          TextFormField(
-                                                            autofocus: false,
-                                                            controller:
-                                                                nameController,
-                                                            validator: (value) {
-                                                              if (value!
-                                                                  .isEmpty) {
-                                                                return ("Please Enter Vehicle Name");
-                                                              }
-                                                              return null;
-                                                            },
-                                                            onSaved: (value) {
-                                                              nameController
-                                                                      .text =
-                                                                  value!;
-                                                            },
-                                                            textInputAction:
-                                                                TextInputAction
-                                                                    .next,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              contentPadding:
-                                                                  const EdgeInsets
-                                                                          .fromLTRB(
-                                                                      20,
-                                                                      15,
-                                                                      20,
-                                                                      15),
-                                                              hintText: "Name",
-                                                              border:
-                                                                  OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                              ),
-                                                            ),
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  "Montserrat",
-                                                              fontSize: 15,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                s.height * 0.01,
-                                                          ),
-                                                          Text(
-                                                            "Description",
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  "Montserrat",
-                                                              fontSize: 17,
-                                                            ),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                s.height * 0.01,
-                                                          ),
-                                                          TextFormField(
-                                                            autofocus: false,
-                                                            minLines: 3,
-                                                            maxLines: 4,
-                                                            controller:
-                                                                descController,
-                                                            validator: (value) {
-                                                              if (value!
-                                                                  .isEmpty) {
-                                                                return ("Please fill Description");
-                                                              }
-                                                              return null;
-                                                            },
-                                                            onSaved: (value) {
-                                                              descController
-                                                                      .text =
-                                                                  value!;
-                                                            },
-                                                            textInputAction:
-                                                                TextInputAction
-                                                                    .next,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              contentPadding:
-                                                                  const EdgeInsets
-                                                                          .fromLTRB(
-                                                                      20,
-                                                                      15,
-                                                                      20,
-                                                                      15),
-                                                              hintText:
-                                                                  "Description",
-                                                              border:
-                                                                  OutlineInputBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                              ),
-                                                            ),
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  "Montserrat",
-                                                              fontSize: 15,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                s.height * 0.02,
-                                                          ),
-                                                          Padding(
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    horizontal:
-                                                                        10),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceEvenly,
-                                                              children: [
-                                                                Flexible(
-                                                                  flex: 1,
-                                                                  child: Container(
-                                                                      padding: EdgeInsets.symmetric(vertical: s.height * 0.01),
-                                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: bluebg),
-                                                                      child: Center(
-                                                                          child: Text(
-                                                                        "Cancel",
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              "Montserrat",
-                                                                          color:
-                                                                              white,
-                                                                          fontSize:
-                                                                              15,
-                                                                        ),
-                                                                      ))),
-                                                                ),
-                                                                Spacer(),
-                                                                Flexible(
-                                                                  flex: 1,
-                                                                  child: Container(
-                                                                      padding: EdgeInsets.symmetric(vertical: s.height * 0.01),
-                                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: bluebg),
-                                                                      child: Center(
-                                                                          child: Text(
-                                                                        "Add",
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              "Montserrat",
-                                                                          color:
-                                                                              white,
-                                                                          fontSize:
-                                                                              15,
-                                                                        ),
-                                                                      ))),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          )
-                                                        ]),
-                                                  ),
-                                                ),
+                                          builder: (context) => NamedescDialog(
+                                                type: "Scooter",
                                               ));
                                     },
                                     child: CircleAvatar(
@@ -516,5 +273,212 @@ class _VehicleportalState extends State<Vehicleportal> {
         ),
       ),
     );
+  }
+}
+
+// ignore: must_be_immutable
+class NamedescDialog extends StatefulWidget {
+  String? type;
+
+  NamedescDialog({this.type});
+
+  @override
+  State<NamedescDialog> createState() => _NamedescDialogState();
+}
+
+class _NamedescDialogState extends State<NamedescDialog> {
+  // Form Key
+  final form_key = GlobalKey<FormState>();
+
+  // Text editor controller
+  TextEditingController nameController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
+    return Dialog(
+      insetAnimationCurve: Curves.easeInCubic,
+      insetAnimationDuration: Duration(milliseconds: 500),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: s.width * 0.03,
+          vertical: s.height * 0.03,
+        ),
+        child: Form(
+          key: form_key,
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10), color: bluebg),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: s.height * 0.02),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Add Name and Discription",
+                          style: TextStyle(
+                            fontFamily: "Nunito",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: s.height * 0.02,
+                ),
+                Text(
+                  "${widget.type} Name",
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 17,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                SizedBox(
+                  height: s.height * 0.01,
+                ),
+                TextFormField(
+                  autofocus: false,
+                  controller: nameController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return ("Please Enter Vehicle Name");
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    nameController.text = value!;
+                  },
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    hintText: "Name",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(
+                  height: s.height * 0.01,
+                ),
+                Text(
+                  "Description",
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 17,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                SizedBox(
+                  height: s.height * 0.01,
+                ),
+                TextFormField(
+                  autofocus: false,
+                  minLines: 3,
+                  maxLines: 4,
+                  controller: descController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return ("Please fill Description");
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    descController.text = value!;
+                  },
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    hintText: "Description",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(
+                  height: s.height * 0.02,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: ()=> Navigator.pop(context),
+                          child: Container(
+                              padding:
+                                  EdgeInsets.symmetric(vertical: s.height * 0.01),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: bluebg),
+                              child: Center(
+                                  child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  color: white,
+                                  fontSize: 15,
+                                ),
+                              ))),
+                        ),
+                      ),
+                      Spacer(),
+                      Flexible(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: () => regvechicle(),
+                          child: Container(
+                              padding:
+                                  EdgeInsets.symmetric(vertical: s.height * 0.01),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: bluebg),
+                              child: Center(
+                                  child: Text(
+                                "Add",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  color: white,
+                                  fontSize: 15,
+                                ),
+                              ))),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ]),
+        ),
+      ),
+    );
+  }
+
+  // update reg values
+  Future<void> regvechicle() async {
+    DateTime now = DateTime.now();
+    String update = DateFormat('d MM y').format(now);
+    String uptime = DateFormat('h:mma').format(now);
+
+    if( form_key.currentState!.validate()) {
+      // Add the fuction
+    }
   }
 }

@@ -6,6 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // iconsax
 import 'package:iconsax/iconsax.dart';
+// loading_indicator
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:motion_toast/motion_toast.dart';
 
 class Vehicleportal extends StatefulWidget {
   const Vehicleportal({Key? key}) : super(key: key);
@@ -166,7 +169,7 @@ class _VehicleportalState extends State<Vehicleportal> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.pop(context);
-                                      showDialog( 
+                                      showDialog(
                                           context: context,
                                           builder: (context) => NamedescDialog(
                                                 type: "Scooter",
@@ -191,11 +194,21 @@ class _VehicleportalState extends State<Vehicleportal> {
                               ),
                               Column(
                                 children: [
-                                  CircleAvatar(
-                                    radius: s.width * 0.1,
-                                    backgroundColor: Colors.blue.shade50,
-                                    backgroundImage:
-                                        AssetImage("assets/icons/bike.jpg"),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => NamedescDialog(
+                                                type: "Bike",
+                                              ));
+                                    },
+                                    child: CircleAvatar(
+                                      radius: s.width * 0.1,
+                                      backgroundColor: Colors.blue.shade50,
+                                      backgroundImage:
+                                          AssetImage("assets/icons/bike.jpg"),
+                                    ),
                                   ),
                                   Text(
                                     "Bike",
@@ -209,11 +222,21 @@ class _VehicleportalState extends State<Vehicleportal> {
                               ),
                               Column(
                                 children: [
-                                  CircleAvatar(
-                                    radius: s.width * 0.1,
-                                    backgroundColor: Colors.green.shade50,
-                                    backgroundImage:
-                                        AssetImage("assets/icons/truck.png"),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => NamedescDialog(
+                                                type: "Truck",
+                                              ));
+                                    },
+                                    child: CircleAvatar(
+                                      radius: s.width * 0.1,
+                                      backgroundColor: Colors.green.shade50,
+                                      backgroundImage:
+                                          AssetImage("assets/icons/truck.png"),
+                                    ),
                                   ),
                                   Text(
                                     "Truck",
@@ -240,11 +263,21 @@ class _VehicleportalState extends State<Vehicleportal> {
                         Divider(),
                         Column(
                           children: [
-                            CircleAvatar(
-                              radius: s.width * 0.1,
-                              backgroundColor: Colors.blue.shade50,
-                              backgroundImage:
-                                  AssetImage("assets/icons/self_vehicle.jpg"),
+                            InkWell(
+                              onTap: () {
+                                      Navigator.pop(context);
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => NamedescDialog(
+                                                type: "Self Vehicle",
+                                              ));
+                                    },
+                              child: CircleAvatar(
+                                radius: s.width * 0.1,
+                                backgroundColor: Colors.blue.shade50,
+                                backgroundImage:
+                                    AssetImage("assets/icons/self_vehicle.jpg"),
+                              ),
                             ),
                             Text(
                               "Self Vehicle",
@@ -289,6 +322,7 @@ class NamedescDialog extends StatefulWidget {
 class _NamedescDialogState extends State<NamedescDialog> {
   // Form Key
   final form_key = GlobalKey<FormState>();
+  FirebaseFirestore fb = FirebaseFirestore.instance;
 
   // Text editor controller
   TextEditingController nameController = TextEditingController();
@@ -422,10 +456,10 @@ class _NamedescDialogState extends State<NamedescDialog> {
                       Flexible(
                         flex: 1,
                         child: InkWell(
-                          onTap: ()=> Navigator.pop(context),
+                          onTap: () => Navigator.pop(context),
                           child: Container(
-                              padding:
-                                  EdgeInsets.symmetric(vertical: s.height * 0.01),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: s.height * 0.01),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: bluebg),
@@ -444,10 +478,10 @@ class _NamedescDialogState extends State<NamedescDialog> {
                       Flexible(
                         flex: 1,
                         child: InkWell(
-                          onTap: () => regvechicle(),
+                          onTap: () => regvechicle(context),
                           child: Container(
-                              padding:
-                                  EdgeInsets.symmetric(vertical: s.height * 0.01),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: s.height * 0.01),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: bluebg),
@@ -472,13 +506,60 @@ class _NamedescDialogState extends State<NamedescDialog> {
   }
 
   // update reg values
-  Future<void> regvechicle() async {
+  Future<void> regvechicle(BuildContext context) async {
     DateTime now = DateTime.now();
+    String vehicleinit = DateFormat('MM d y kk:mm:ss').format(now);
     String update = DateFormat('d MM y').format(now);
     String uptime = DateFormat('h:mma').format(now);
 
-    if( form_key.currentState!.validate()) {
-      // Add the fuction
+    if (form_key.currentState!.validate()) {
+      // LoadingIndicator
+      showDialog(
+          context: context,
+          builder: ((context) => Dialog(
+                backgroundColor: trans,
+                elevation: 0,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: white,
+                      ),
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.ballClipRotateMultiple,
+                        colors: const [bluebg],
+                      ),
+                    ),
+                  ],
+                ),
+              )));
+
+      await fb.collection("Garage").doc(vehicleinit).set({
+        "name": nameController.text,
+        "description": descController.text,
+        "type" : widget.type,
+        "update": update,
+        "uptime": uptime,
+      }).then((value) {
+        // loading close
+        Navigator.pop(context);
+        // close Dialog
+        Navigator.pop(context);
+
+        MotionToast.success(
+          title: Text("New vehicle Registrated"),
+          description: Text("Successfully added vehicle"),
+        ).show(context);
+      }).onError((error, stackTrace) {
+        MotionToast.error(
+          title: Text("Error"),
+          description: Text("Something went wrong :( try again"),
+        ).show(context);
+      });
     }
   }
 }

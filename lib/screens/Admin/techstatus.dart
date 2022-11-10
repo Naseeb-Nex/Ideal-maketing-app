@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,10 +24,25 @@ class Techstatus extends StatefulWidget {
   _TechstatusState createState() => _TechstatusState();
 }
 
-class _TechstatusState extends State<Techstatus> {
+class _TechstatusState extends State<Techstatus>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> _animation;
+  late AnimationController _animationController;
+
+  @override
   void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 260),
+    );
+
+    final curvedAnimation =
+        CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
+    _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
+
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -45,6 +61,59 @@ class _TechstatusState extends State<Techstatus> {
       ),
       Scaffold(
         backgroundColor: Colors.transparent,
+        floatingActionButton: FloatingActionBubble(
+          // Menu items
+          items: <Bubble>[
+            //Floating action menu item
+            Bubble(
+              title: "Remove Vehicle",
+              iconColor: Colors.white,
+              bubbleColor: bluebg,
+              icon: Icons.remove_circle_outline,
+              titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+              onPress: () {
+                _animationController.reverse();
+              },
+            ),
+            // Floating action menu item
+            Bubble(
+              title: "Vehicle Status",
+              iconColor: Colors.white,
+              bubbleColor: bluebg,
+              icon: Icons.pedal_bike_rounded,
+              titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+              onPress: () {
+                _animationController.reverse();
+              },
+            ),
+            // Floating action menu item
+            Bubble(
+              title: "Add Vehicle",
+              iconColor: Colors.white,
+              bubbleColor: bluebg,
+              icon: Icons.add_circle_outline_rounded,
+              titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+              onPress: () {
+                _animationController.reverse();
+              },
+            ),
+          ],
+
+          // animation controller
+          animation: _animation,
+
+          // On pressed change animation state
+          onPress: () => _animationController.isCompleted
+              ? _animationController.reverse()
+              : _animationController.forward(),
+
+          // Floating Action button Icon color
+          iconColor: bluebg,
+
+          // Flaoting Action button Icon
+          iconData: Icons.directions_bike_rounded,
+          backGroundColor: Colors.white,
+        ),
         body: SafeArea(
           child: DefaultTabController(
             length: 4,
@@ -271,7 +340,6 @@ class Completepgmwrapper extends StatefulWidget {
 }
 
 class _CompletepgmwrapperState extends State<Completepgmwrapper> {
-
   @override
   void initState() {
     super.initState();
@@ -288,7 +356,7 @@ class _CompletepgmwrapperState extends State<Completepgmwrapper> {
             .collection('Technician')
             .doc(widget.username)
             .collection("Completedpgm")
-            .doc("Day") 
+            .doc("Day")
             .collection(cday)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -380,7 +448,6 @@ class Pendingpgmwrapper extends StatefulWidget {
 }
 
 class _PendingpgmwrapperState extends State<Pendingpgmwrapper> {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(

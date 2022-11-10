@@ -53,6 +53,7 @@ dependencies:
   fl_chart: ^0.55.2
   in_app_update: ^3.0.0
   motion_toast: ^2.5.3
+  floating_action_bubble: ^1.1.4
   
   flutter_localizations:
     sdk: flutter

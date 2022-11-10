@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/components/vehicleinfocard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:intl/intl.dart';
 
@@ -18,6 +19,8 @@ class Vehicleportal extends StatefulWidget {
 }
 
 class _VehicleportalState extends State<Vehicleportal> {
+  FirebaseFirestore fb = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -30,6 +33,7 @@ class _VehicleportalState extends State<Vehicleportal> {
           onTap: () => Navigator.pop(context),
           child: Icon(Icons.arrow_back_rounded),
         ),
+        actions: [IconButton(onPressed: ()=>{}, icon: Icon(Iconsax.trash, color: white,))],
         elevation: 0,
         title: const Text(
           "Vehicle Portal",
@@ -75,7 +79,7 @@ class _VehicleportalState extends State<Vehicleportal> {
                               BoxShadow(
                                 spreadRadius: 2,
                                 blurRadius: 4,
-                                color: black.withOpacity(.1),
+                                color: secondbg.withOpacity(0.23),
                                 offset: Offset(5, 7),
                               ),
                             ]),
@@ -97,11 +101,66 @@ class _VehicleportalState extends State<Vehicleportal> {
                           SizedBox(
                             height: 10,
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: s.width * 0.01),
-                            child: Image.asset("assets/icons/no_vehicles.jpg"),
-                          ),
+                          StreamBuilder<QuerySnapshot>(
+                              stream: fb.collection("Garage").snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.hasError) {}
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: s.width * 0.25,
+                                      height: s.width * 0.25,
+                                      child: LoadingIndicator(
+                                        indicatorType:
+                                            Indicator.ballClipRotateMultiple,
+                                        colors: const [bluebg],
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                final List vehicle = [];
+                                snapshot.data!.docs
+                                    .map((DocumentSnapshot document) {
+                                  Map a =
+                                      document.data() as Map<String, dynamic>;
+                                  vehicle.add(a);
+                                  // a['uid'] = document.id;
+                                }).toList();
+                                return Column(
+                                  children: [
+                                    Container(
+                                        child: vehicle.length == 0
+                                            ? Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: s.width * 0.01),
+                                                child: Image.asset(
+                                                    "assets/icons/no_vehicles.jpg"),
+                                              )
+                                            : null),
+                                    for (var i = 0;
+                                        i < vehicle.length;
+                                        i++) ...[
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 5.0),
+                                        child: VechicleInfoCard(
+                                          name: vehicle[i]['name'],
+                                          desc: vehicle[i]['description'],
+                                          type: vehicle[i]['type'],
+                                          status: vehicle[i]['status'],
+                                          techname: vehicle[i]['techname'],
+                                          statusdesc: vehicle[i]['statusdesc'],
+                                          update: vehicle[i]['update'],
+                                          uptime: vehicle[i]['uptime'],
+                                        ),
+                                      )
+                                    ]
+                                  ],
+                                );
+                              }),
                         ]),
                       ),
                     ],
@@ -253,7 +312,7 @@ class _VehicleportalState extends State<Vehicleportal> {
                           height: s.height * 0.02,
                         ),
                         Text(
-                          "Selef Vechicle",
+                          "Self Vehicle",
                           style: TextStyle(
                             fontFamily: "Nunito",
                             fontSize: 15,
@@ -265,13 +324,13 @@ class _VehicleportalState extends State<Vehicleportal> {
                           children: [
                             InkWell(
                               onTap: () {
-                                      Navigator.pop(context);
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => NamedescDialog(
-                                                type: "Self Vehicle",
-                                              ));
-                                    },
+                                Navigator.pop(context);
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => NamedescDialog(
+                                          type: "Self Vehicle",
+                                        ));
+                              },
                               child: CircleAvatar(
                                 radius: s.width * 0.1,
                                 backgroundColor: Colors.blue.shade50,
@@ -541,7 +600,10 @@ class _NamedescDialogState extends State<NamedescDialog> {
       await fb.collection("Garage").doc(vehicleinit).set({
         "name": nameController.text,
         "description": descController.text,
-        "type" : widget.type,
+        "type": widget.type,
+        "status": "Available",
+        "statusdesc": "All clear",
+        "techname": "none",
         "update": update,
         "uptime": uptime,
       }).then((value) {
@@ -551,8 +613,8 @@ class _NamedescDialogState extends State<NamedescDialog> {
         Navigator.pop(context);
 
         MotionToast.success(
-          title: Text("New vehicle Registrated"),
-          description: Text("Successfully added vehicle"),
+          title: Text("New vehicle Registrated", style: TextStyle(fontFamily: "Montserrat", fontSize: 16, fontWeight: FontWeight.w500,),),
+          description: Text("Successfully added vehicle", style: TextStyle(fontFamily: "Montserrat", fontSize: 12, fontWeight: FontWeight.w300,),),
         ).show(context);
       }).onError((error, stackTrace) {
         MotionToast.error(

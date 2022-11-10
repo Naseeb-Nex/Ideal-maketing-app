@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/components/assignvehiclecard.dart';
+import 'package:ideal_marketing/components/vehicleinfocard.dart';
 import 'package:intl/intl.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
+// loading_indicator
+import 'package:loading_indicator/loading_indicator.dart';
 
 import 'package:ideal_marketing/constants/constants.dart';
 
@@ -84,6 +89,42 @@ class _TechstatusState extends State<Techstatus>
               titleStyle: TextStyle(fontSize: 16, color: Colors.white),
               onPress: () {
                 _animationController.reverse();
+                showDialog(
+                    context: context,
+                    builder: (context) => Dialog(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: s.height * 0.03,
+                                horizontal: s.width * 0.02),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  "Vehicle Status",
+                                  style: TextStyle(
+                                      fontFamily: "Nunito",
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: bluebg),
+                                ),
+                                SizedBox(height: 10),
+                                Container(
+                                  // width: s.width * 0.5,
+                                  height: s.width * 0.5,
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    color: redbg,
+                                  ),
+                                  child: Image.asset(
+                                    'assets/gif/delivery.gif',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ));
               },
             ),
             // Floating action menu item
@@ -95,6 +136,8 @@ class _TechstatusState extends State<Techstatus>
               titleStyle: TextStyle(fontSize: 16, color: Colors.white),
               onPress: () {
                 _animationController.reverse();
+                showDialog(
+                    context: context, builder: (context) => AddvehicleDialog());
               },
             ),
           ],
@@ -610,5 +653,163 @@ class _ProcessingpgmwrapperState extends State<Processingpgmwrapper> {
             ],
           );
         });
+  }
+}
+
+// ignore: must_be_immutable
+class AddvehicleDialog extends StatefulWidget {
+  String? type;
+
+  AddvehicleDialog({this.type});
+
+  @override
+  State<AddvehicleDialog> createState() => _AddvehicleDialogState();
+}
+
+class _AddvehicleDialogState extends State<AddvehicleDialog> {
+  FirebaseFirestore fb = FirebaseFirestore.instance;
+  @override
+  Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
+    return Dialog(
+      insetAnimationCurve: Curves.easeInCubic,
+      insetAnimationDuration: Duration(milliseconds: 500),
+      child: Padding(
+        padding: EdgeInsets.all(
+          s.width * 0.03,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), color: bluebg),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: s.height * 0.02),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Assign Vehicle",
+                      style: TextStyle(
+                        fontFamily: "Nunito",
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: s.height * 0.02,
+            ),
+            Center(
+              child: Text(
+                "Avaliable Vehicle List",
+                style: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontSize: 17,
+                ),
+              ),
+            ),
+            Divider(),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: s.width * 0.02),
+              child: Container(
+                height: s.height * 0.5,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(0, 4),
+            blurRadius: 5,
+            color: secondbg.withOpacity(0.23),
+          ),
+        ],),
+                child: Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: StreamBuilder<QuerySnapshot>(
+                      stream: fb.collection("Garage").snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.hasError) {}
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(
+                            child: SizedBox(
+                              width: s.width * 0.25,
+                              height: s.width * 0.25,
+                              child: LoadingIndicator(
+                                indicatorType: Indicator.ballClipRotateMultiple,
+                                colors: const [bluebg],
+                              ),
+                            ),
+                          );
+                        }
+
+                        final List vehicle = [];
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                          Map a = document.data() as Map<String, dynamic>;
+                          vehicle.add(a);
+                        }).toList();
+
+                        List avaliable_vehicles = vehicle
+                            .where((i) => i['status'] == 'Available')
+                            .toList();
+                        return Column(
+                          children: [
+                            Container(
+                                child: avaliable_vehicles.length == 0
+                                    ? Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: s.width * 0.01),
+                                        child: Column(
+                                          children: [
+                                            Image.asset(
+                                                "assets/icons/not_asigned.jpg"),
+                                                Text("No Vehicle Available", style: TextStyle(fontFamily: "Montserrat", fontSize: 15, color: Colors.blueGrey),)
+                                          ],
+                                        ),
+                                      )
+                                    : null),
+                            for (var i = 0;
+                                i < avaliable_vehicles.length;
+                                i++) ...[
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 5.0),
+                                child: Assignvehiclecard(
+                                  name: avaliable_vehicles[i]['name'],
+                                  desc: avaliable_vehicles[i]['description'],
+                                  type: avaliable_vehicles[i]['type'],
+                                  status: avaliable_vehicles[i]['status'],
+                                  techname: avaliable_vehicles[i]['techname'],
+                                  statusdesc: avaliable_vehicles[i]['statusdesc'],
+                                  update: avaliable_vehicles[i]['update'],
+                                  uptime: avaliable_vehicles[i]['uptime'],
+                                ),
+                              )
+                            ]
+                          ],
+                        );
+                      }),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // update reg values
+  Future<void> regvechicle(BuildContext context) async {
+    DateTime now = DateTime.now();
+    String vehicleinit = DateFormat('MM d y kk:mm:ss').format(now);
+    String update = DateFormat('d MM y').format(now);
+    String uptime = DateFormat('h:mma').format(now);
   }
 }

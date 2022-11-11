@@ -606,6 +606,7 @@ class _NamedescDialogState extends State<NamedescDialog> {
         "techname": "none",
         "update": update,
         "uptime": uptime,
+        "docname": vehicleinit,
       }).then((value) {
         // loading close
         Navigator.pop(context);

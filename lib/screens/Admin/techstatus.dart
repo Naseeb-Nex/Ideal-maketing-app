@@ -137,7 +137,9 @@ class _TechstatusState extends State<Techstatus>
               onPress: () {
                 _animationController.reverse();
                 showDialog(
-                    context: context, builder: (context) => AddvehicleDialog());
+                    context: context,
+                    builder: (context) => AddvehicleDialog(
+                        techname: widget.name, username: widget.username));
               },
             ),
           ],
@@ -658,9 +660,10 @@ class _ProcessingpgmwrapperState extends State<Processingpgmwrapper> {
 
 // ignore: must_be_immutable
 class AddvehicleDialog extends StatefulWidget {
-  String? type;
+  String? techname;
+  String? username;
 
-  AddvehicleDialog({this.type});
+  AddvehicleDialog({this.techname, this.username});
 
   @override
   State<AddvehicleDialog> createState() => _AddvehicleDialogState();
@@ -684,7 +687,7 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10), color: bluebg),
+                  borderRadius: BorderRadius.circular(8), color: bluebg),
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: s.height * 0.02),
                 child: Row(
@@ -722,15 +725,16 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
               child: Container(
                 height: s.height * 0.5,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 4),
-            blurRadius: 5,
-            color: secondbg.withOpacity(0.23),
-          ),
-        ],),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 4),
+                      blurRadius: 5,
+                      color: secondbg.withOpacity(0.23),
+                    ),
+                  ],
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(5),
                   child: StreamBuilder<QuerySnapshot>(
@@ -738,7 +742,8 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (snapshot.hasError) {}
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Center(
                             child: SizedBox(
                               width: s.width * 0.25,
@@ -771,7 +776,13 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
                                           children: [
                                             Image.asset(
                                                 "assets/icons/not_asigned.jpg"),
-                                                Text("No Vehicle Available", style: TextStyle(fontFamily: "Montserrat", fontSize: 15, color: Colors.blueGrey),)
+                                            Text(
+                                              "No Vehicle Available",
+                                              style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 15,
+                                                  color: Colors.blueGrey),
+                                            )
                                           ],
                                         ),
                                       )
@@ -786,8 +797,10 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
                                   desc: avaliable_vehicles[i]['description'],
                                   type: avaliable_vehicles[i]['type'],
                                   status: avaliable_vehicles[i]['status'],
-                                  techname: avaliable_vehicles[i]['techname'],
-                                  statusdesc: avaliable_vehicles[i]['statusdesc'],
+                                  techname: widget.techname,
+                                  username: widget.username,
+                                  statusdesc: avaliable_vehicles[i]
+                                      ['statusdesc'],
                                   update: avaliable_vehicles[i]['update'],
                                   uptime: avaliable_vehicles[i]['uptime'],
                                 ),
@@ -803,13 +816,5 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
         ),
       ),
     );
-  }
-
-  // update reg values
-  Future<void> regvechicle(BuildContext context) async {
-    DateTime now = DateTime.now();
-    String vehicleinit = DateFormat('MM d y kk:mm:ss').format(now);
-    String update = DateFormat('d MM y').format(now);
-    String uptime = DateFormat('h:mma').format(now);
   }
 }

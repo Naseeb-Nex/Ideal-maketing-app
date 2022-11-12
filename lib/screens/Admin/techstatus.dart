@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/assignvehiclecard.dart';
-import 'package:ideal_marketing/components/vehicleinfocard.dart';
 import 'package:intl/intl.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
 // loading_indicator
 import 'package:loading_indicator/loading_indicator.dart';
+// Iconsax
+import 'package:iconsax/iconsax.dart';
 
 import 'package:ideal_marketing/constants/constants.dart';
 
@@ -31,6 +32,7 @@ class Techstatus extends StatefulWidget {
 
 class _TechstatusState extends State<Techstatus>
     with SingleTickerProviderStateMixin {
+  FirebaseFirestore fb = FirebaseFirestore.instance;
   late Animation<double> _animation;
   late AnimationController _animationController;
 
@@ -71,13 +73,17 @@ class _TechstatusState extends State<Techstatus>
           items: <Bubble>[
             //Floating action menu item
             Bubble(
-              title: "Remove Vehicle",
+              title: "Impound Vehicle",
               iconColor: Colors.white,
               bubbleColor: bluebg,
-              icon: Icons.remove_circle_outline,
+              icon: Iconsax.tag_cross,
               titleStyle: TextStyle(fontSize: 16, color: Colors.white),
               onPress: () {
                 _animationController.reverse();
+                showDialog(
+                    context: context,
+                    builder: (context) => RemoveVehicleDialog(
+                        techname: widget.name, username: widget.username));
               },
             ),
             // Floating action menu item
@@ -85,7 +91,7 @@ class _TechstatusState extends State<Techstatus>
               title: "Vehicle Status",
               iconColor: Colors.white,
               bubbleColor: bluebg,
-              icon: Icons.pedal_bike_rounded,
+              icon: Icons.directions_bike_rounded,
               titleStyle: TextStyle(fontSize: 16, color: Colors.white),
               onPress: () {
                 _animationController.reverse();
@@ -96,32 +102,172 @@ class _TechstatusState extends State<Techstatus>
                             padding: EdgeInsets.symmetric(
                                 vertical: s.height * 0.03,
                                 horizontal: s.width * 0.02),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  "Vehicle Status",
-                                  style: TextStyle(
-                                      fontFamily: "Nunito",
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: bluebg),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  // width: s.width * 0.5,
-                                  height: s.width * 0.5,
-                                  clipBehavior: Clip.hardEdge,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: redbg,
-                                  ),
-                                  child: Image.asset(
-                                    'assets/gif/delivery.gif',
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ],
+                            child: FutureBuilder<DocumentSnapshot>(
+                              future: fb
+                                  .collection("Technician")
+                                  .doc(widget.username)
+                                  .collection("Vehicle")
+                                  .doc("vehicle")
+                                  .get(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text("Something went wrong");
+                                }
+
+                                if (snapshot.hasData &&
+                                    !snapshot.data!.exists) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          color: white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              offset: const Offset(2, 4),
+                                              blurRadius: 20,
+                                              color: secondbg.withOpacity(0.23),
+                                            ),
+                                          ],
+                                        ),
+                                        clipBehavior: Clip.hardEdge,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: s.width * 0.02,
+                                              vertical: s.width * 0.02),
+                                          child: Column(
+                                            children: [
+                                              Image.asset(
+                                                  "assets/icons/not_asigned.jpg"),
+                                              Text(
+                                                "No Vehicle Assigned",
+                                                style: TextStyle(
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.blueGrey),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  Map<String, dynamic> data = snapshot.data!
+                                      .data() as Map<String, dynamic>;
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Vehicle Status",
+                                        style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w600,
+                                            color: bluebg),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Container(
+                                        height: s.width * 0.5,
+                                        clipBehavior: Clip.hardEdge,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: redbg,
+                                        ),
+                                        child: Image.asset(
+                                          'assets/gif/delivery.gif',
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        "${data["name"]}",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                "${data["upTime"]}",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrt",
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                              ),
+                                              Text(
+                                                "${data["upDate"]}",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrt",
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                }
+
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: const Offset(0, 10),
+                                            blurRadius: 20,
+                                            color: secondbg.withOpacity(0.23),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: s.width * 0.1),
+                                        child: Center(
+                                          child: SizedBox(
+                                            width: s.width * 0.15,
+                                            height: s.width * 0.15,
+                                            child: LoadingIndicator(
+                                              indicatorType: Indicator
+                                                  .ballClipRotateMultiple,
+                                              colors: const [bluebg],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             ),
                           ),
                         ));
@@ -132,14 +278,17 @@ class _TechstatusState extends State<Techstatus>
               title: "Add Vehicle",
               iconColor: Colors.white,
               bubbleColor: bluebg,
-              icon: Icons.add_circle_outline_rounded,
+              icon: Iconsax.add_circle,
               titleStyle: TextStyle(fontSize: 16, color: Colors.white),
               onPress: () {
                 _animationController.reverse();
                 showDialog(
-                    context: context,
-                    builder: (context) => AddvehicleDialog(
-                        techname: widget.name, username: widget.username));
+                  context: context,
+                  builder: (context) => AddvehicleDialog(
+                    techname: widget.name,
+                    username: widget.username,
+                  ),
+                );
               },
             ),
           ],
@@ -710,111 +859,507 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
             SizedBox(
               height: s.height * 0.02,
             ),
-            Center(
-              child: Text(
-                "Avaliable Vehicle List",
-                style: TextStyle(
-                  fontFamily: "Montserrat",
-                  fontSize: 17,
-                ),
-              ),
-            ),
-            Divider(),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: s.width * 0.02),
-              child: Container(
-                height: s.height * 0.5,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(0, 4),
-                      blurRadius: 5,
-                      color: secondbg.withOpacity(0.23),
+            FutureBuilder<DocumentSnapshot>(
+              future: fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Vehicle")
+                  .doc("vehicle")
+                  .get(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text("Something went wrong");
+                }
+
+                if (snapshot.hasData && !snapshot.data!.exists) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Center(
+                        child: Text(
+                          "Avaliable Vehicle List",
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Divider(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: s.width * 0.02),
+                        child: Container(
+                          height: s.height * 0.5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                offset: const Offset(0, 4),
+                                blurRadius: 5,
+                                color: secondbg.withOpacity(0.23),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: StreamBuilder<QuerySnapshot>(
+                                stream: fb.collection("Garage").snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (snapshot.hasError) {}
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: s.width * 0.25,
+                                        height: s.width * 0.25,
+                                        child: LoadingIndicator(
+                                          indicatorType:
+                                              Indicator.ballClipRotateMultiple,
+                                          colors: const [bluebg],
+                                        ),
+                                      ),
+                                    );
+                                  }
+
+                                  final List vehicle = [];
+                                  snapshot.data!.docs
+                                      .map((DocumentSnapshot document) {
+                                    Map a =
+                                        document.data() as Map<String, dynamic>;
+                                    vehicle.add(a);
+                                  }).toList();
+
+                                  List avaliable_vehicles = vehicle
+                                      .where((i) => i['status'] == 'Available')
+                                      .toList();
+                                  return Column(
+                                    children: [
+                                      Container(
+                                          child: avaliable_vehicles.length == 0
+                                              ? Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal:
+                                                          s.width * 0.01),
+                                                  child: Column(
+                                                    children: [
+                                                      Image.asset(
+                                                          "assets/icons/not_asigned.jpg"),
+                                                      Text(
+                                                        "No Vehicle Available",
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            fontSize: 15,
+                                                            color: Colors
+                                                                .blueGrey),
+                                                      )
+                                                    ],
+                                                  ),
+                                                )
+                                              : null),
+                                      for (var i = 0;
+                                          i < avaliable_vehicles.length;
+                                          i++) ...[
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 5.0),
+                                          child: Assignvehiclecard(
+                                            name: avaliable_vehicles[i]['name'],
+                                            desc: avaliable_vehicles[i]
+                                                ['description'],
+                                            type: avaliable_vehicles[i]['type'],
+                                            status: avaliable_vehicles[i]
+                                                ['status'],
+                                            docname: avaliable_vehicles[i]
+                                                ['docname'],
+                                            techname: widget.techname,
+                                            username: widget.username,
+                                            statusdesc: avaliable_vehicles[i]
+                                                ['statusdesc'],
+                                            update: avaliable_vehicles[i]
+                                                ['update'],
+                                            uptime: avaliable_vehicles[i]
+                                                ['uptime'],
+                                          ),
+                                        )
+                                      ]
+                                    ],
+                                  );
+                                }),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Map<String, dynamic> data =
+                      snapshot.data!.data() as Map<String, dynamic>;
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/icons/warning.png",
+                        fit: BoxFit.fitHeight,
+                        width: s.width * 0.3,
+                        height: s.width * 0.3,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom: s.height * 0.02),
+                        child: Text(
+                          "${data["name"]} Already assigned to ${widget.techname}",
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "${data["upTime"]}",
+                                style: TextStyle(
+                                  fontFamily: "Montserrt",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              Text(
+                                "${data["upDate"]}",
+                                style: TextStyle(
+                                  fontFamily: "Montserrt",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  );
+                }
+
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                        color: white,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(0, 10),
+                            blurRadius: 20,
+                            color: secondbg.withOpacity(0.23),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: s.width * 0.1),
+                        child: Center(
+                          child: SizedBox(
+                            width: s.width * 0.15,
+                            height: s.width * 0.15,
+                            child: LoadingIndicator(
+                              indicatorType: Indicator.ballClipRotateMultiple,
+                              colors: const [bluebg],
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: StreamBuilder<QuerySnapshot>(
-                      stream: fb.collection("Garage").snapshots(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasError) {}
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(
-                            child: SizedBox(
-                              width: s.width * 0.25,
-                              height: s.width * 0.25,
-                              child: LoadingIndicator(
-                                indicatorType: Indicator.ballClipRotateMultiple,
-                                colors: const [bluebg],
-                              ),
-                            ),
-                          );
-                        }
-
-                        final List vehicle = [];
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                          Map a = document.data() as Map<String, dynamic>;
-                          vehicle.add(a);
-                        }).toList();
-
-                        List avaliable_vehicles = vehicle
-                            .where((i) => i['status'] == 'Available')
-                            .toList();
-                        return Column(
-                          children: [
-                            Container(
-                                child: avaliable_vehicles.length == 0
-                                    ? Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: s.width * 0.01),
-                                        child: Column(
-                                          children: [
-                                            Image.asset(
-                                                "assets/icons/not_asigned.jpg"),
-                                            Text(
-                                              "No Vehicle Available",
-                                              style: TextStyle(
-                                                  fontFamily: "Montserrat",
-                                                  fontSize: 15,
-                                                  color: Colors.blueGrey),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    : null),
-                            for (var i = 0;
-                                i < avaliable_vehicles.length;
-                                i++) ...[
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 5.0),
-                                child: Assignvehiclecard(
-                                  name: avaliable_vehicles[i]['name'],
-                                  desc: avaliable_vehicles[i]['description'],
-                                  type: avaliable_vehicles[i]['type'],
-                                  status: avaliable_vehicles[i]['status'],
-                                  techname: widget.techname,
-                                  username: widget.username,
-                                  statusdesc: avaliable_vehicles[i]
-                                      ['statusdesc'],
-                                  update: avaliable_vehicles[i]['update'],
-                                  uptime: avaliable_vehicles[i]['uptime'],
-                                ),
-                              )
-                            ]
-                          ],
-                        );
-                      }),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+// ignore: must_be_immutable
+class RemoveVehicleDialog extends StatefulWidget {
+  String? techname;
+  String? username;
+  RemoveVehicleDialog({this.techname, this.username});
+
+  @override
+  State<RemoveVehicleDialog> createState() => _RemoveVehicleDialogState();
+}
+
+class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
+  FirebaseFirestore fb = FirebaseFirestore.instance;
+  @override
+  Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
+    return Dialog(
+      child: Container(
+        child: FutureBuilder<DocumentSnapshot>(
+          future: fb
+              .collection("Technician")
+              .doc(widget.username)
+              .collection("Vehicle")
+              .doc("vehicle")
+              .get(),
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Text("Something went wrong");
+            }
+
+            if (snapshot.hasData && !snapshot.data!.exists) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: white,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: const Offset(2, 4),
+                          blurRadius: 20,
+                          color: secondbg.withOpacity(0.23),
+                        ),
+                      ],
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: s.width * 0.02, vertical: s.width * 0.02),
+                      child: Column(
+                        children: [
+                          Image.asset("assets/icons/not_asigned.jpg"),
+                          Text(
+                            "No Assigned Vehicle To Remove",
+                            style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.blueGrey),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            if (snapshot.connectionState == ConnectionState.done) {
+              Map<String, dynamic> data =
+                  snapshot.data!.data() as Map<String, dynamic>;
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: s.height * 0.03, horizontal: s.width * 0.02),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/icons/warning_2.png",
+                      fit: BoxFit.fitHeight,
+                      width: s.width * 0.3,
+                      height: s.width * 0.3,
+                    ),
+                    Text(
+                      "Are you sure ?",
+                      style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600,
+                          color: bluebg),
+                    ),
+                    SizedBox(height: 10),
+                    RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          text: 'Do you really want to Impound ',
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 15,
+                            color: black,
+                            // fontWeight: FontWeight.bold,
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: '${data["name"]}',
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            TextSpan(
+                              text: ' From ',
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 15,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '${widget.techname} ?',
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ]),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.tight,
+                          child: InkWell(
+                            onTap: () => Navigator.pop(context),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: bluebg,
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: Center(
+                                child: Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 16,
+                                      color: white,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.tight,
+                          child: InkWell(
+                            onTap: () => removeV(context, data["vdocname"]),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: bluebg,
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: Center(
+                                child: Text(
+                                  "Ok",
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 16,
+                                      color: white,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              );
+            }
+
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: white,
+                    boxShadow: [
+                      BoxShadow(
+                        offset: const Offset(0, 10),
+                        blurRadius: 20,
+                        color: secondbg.withOpacity(0.23),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: s.width * 0.1),
+                    child: Center(
+                      child: SizedBox(
+                        width: s.width * 0.15,
+                        height: s.width * 0.15,
+                        child: LoadingIndicator(
+                          indicatorType: Indicator.ballClipRotateMultiple,
+                          colors: const [bluebg],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Future<void> removeV(BuildContext context, String? docname) async {
+
+    await fb
+        .collection("Technician")
+        .doc(widget.username)
+        .collection("Vehicle")
+        .doc("vehicle")
+        .delete()
+        .then((value) => (print("data deleted suscessfully")));
+
+        // status change
+    await fb.collection("Garage").doc(docname).set({
+      "status": "Available",
+      "techname": "none",
+      "username": "none"
+    }, SetOptions(merge: true));
+
+    Navigator.pop(context);
+    MotionToast.success(
+      title: Text(
+        "Vehicle impounded from ${widget.techname}",
+        style: TextStyle(
+          fontFamily: "Montserrat",
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      description: Text(
+        "Successfully vehicle Impounded",
+        style: TextStyle(
+          fontFamily: "Montserrat",
+          fontSize: 12,
+          fontWeight: FontWeight.w300,
+        ),
+      ),
+    ).show(context);
+
+
   }
 }

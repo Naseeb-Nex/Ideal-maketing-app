@@ -21,7 +21,7 @@ class Techreportsrc extends StatefulWidget {
   String? username;
   String? name;
   int loc;
-  // Program staus count
+  // Program status count
   int a, p, c, pro;
   Techreportsrc({
     Key? key,

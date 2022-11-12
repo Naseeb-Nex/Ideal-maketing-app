@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/services/techvehicle.dart';
 // date
 import 'package:intl/intl.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:motion_toast/motion_toast.dart';
 
 // ignore: must_be_immutable
 class Assignvehiclecard extends StatefulWidget {
@@ -12,6 +15,7 @@ class Assignvehiclecard extends StatefulWidget {
   String? status;
   String? statusdesc;
   String? techname;
+  String? docname;
   String? username;
   String? update;
   String? uptime;
@@ -24,6 +28,7 @@ class Assignvehiclecard extends StatefulWidget {
     this.status,
     this.statusdesc,
     this.techname,
+    this.docname,
     this.username,
     this.update,
     this.uptime,
@@ -34,6 +39,7 @@ class Assignvehiclecard extends StatefulWidget {
 }
 
 class _AssignvehiclecardState extends State<Assignvehiclecard> {
+  FirebaseFirestore fb = FirebaseFirestore.instance;
   bool isviz = false;
 
   @override
@@ -79,7 +85,6 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
                         ),
                         RichText(
                           textAlign: TextAlign.center,
-                          
                           text: TextSpan(
                               text: 'Do you really want to ',
                               style: TextStyle(
@@ -135,9 +140,7 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
                               ),
                             ),
                             ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
+                              onPressed: () => assignvehicle(context),
                               child: Text(
                                 "Okay",
                                 style: TextStyle(
@@ -218,14 +221,73 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
     );
   }
 
-  // update reg values
+  // upload asssigned details
   Future<void> assignvehicle(BuildContext context) async {
     DateTime now = DateTime.now();
-    String vehicleinit = DateFormat('MM d y kk:mm:ss').format(now);
     String update = DateFormat('d MM y').format(now);
     String uptime = DateFormat('h:mma').format(now);
 
-    print(vehicleinit);
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
+    Techvehicle techv = Techvehicle(
+      name: widget.name,
+      upDate: update,
+      upTime: uptime,
+      username: widget.username,
+      vdocname: widget.docname,
+    );
+
+    // Profile vehicle updated
+    await fb
+        .collection("Technician")
+        .doc(widget.username)
+        .collection("Vehicle")
+        .doc("vehicle")
+        .set(techv.toMap())
+        .then((v) => print("profile updated"));
+
+    // report added
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection(day)
+        .doc("Tech")
+        .collection("Reports")
+        .doc("${widget.username}")
+        .collection("vehicle")
+        .add(techv.toMap());
+
+    // status change
+    await fb.collection("Garage").doc(widget.docname).set({
+      "status": "Ongoing",
+      "techname": widget.techname,
+      "username": widget.username
+    }, SetOptions(merge: true));
+
+    Navigator.of(context).pop();
+    MotionToast.success(
+      title: Text(
+        "Vehicle assigned to ${widget.techname}",
+        style: TextStyle(
+          fontFamily: "Montserrat",
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      description: Text(
+        "Successfully vehicle assigned",
+        style: TextStyle(
+          fontFamily: "Montserrat",
+          fontSize: 12,
+          fontWeight: FontWeight.w300,
+        ),
+      ),
+    ).show(context);
   }
 }
 

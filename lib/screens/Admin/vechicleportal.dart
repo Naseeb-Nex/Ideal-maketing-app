@@ -33,7 +33,14 @@ class _VehicleportalState extends State<Vehicleportal> {
           onTap: () => Navigator.pop(context),
           child: Icon(Icons.arrow_back_rounded),
         ),
-        actions: [IconButton(onPressed: ()=>{}, icon: Icon(Iconsax.trash, color: white,))],
+        actions: [
+          IconButton(
+              onPressed: () => {},
+              icon: Icon(
+                Iconsax.trash,
+                color: white,
+              ))
+        ],
         elevation: 0,
         title: const Text(
           "Vehicle Portal",
@@ -604,6 +611,7 @@ class _NamedescDialogState extends State<NamedescDialog> {
         "status": "Available",
         "statusdesc": "All clear",
         "techname": "none",
+        "username": "none",
         "update": update,
         "uptime": uptime,
         "docname": vehicleinit,
@@ -614,8 +622,22 @@ class _NamedescDialogState extends State<NamedescDialog> {
         Navigator.pop(context);
 
         MotionToast.success(
-          title: Text("New vehicle Registrated", style: TextStyle(fontFamily: "Montserrat", fontSize: 16, fontWeight: FontWeight.w500,),),
-          description: Text("Successfully added vehicle", style: TextStyle(fontFamily: "Montserrat", fontSize: 12, fontWeight: FontWeight.w300,),),
+          title: Text(
+            "New vehicle Registrated",
+            style: TextStyle(
+              fontFamily: "Montserrat",
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          description: Text(
+            "Successfully added vehicle",
+            style: TextStyle(
+              fontFamily: "Montserrat",
+              fontSize: 12,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
         ).show(context);
       }).onError((error, stackTrace) {
         MotionToast.error(

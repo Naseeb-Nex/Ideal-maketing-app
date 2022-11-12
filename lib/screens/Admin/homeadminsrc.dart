@@ -241,7 +241,9 @@ class _HomeAdminState extends State<HomeAdmin> {
                             Padding(
                               padding: EdgeInsets.all(s.width * 0.02),
                               child: InkWell(
-                                onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: ((BuildContext context)=> Vehicleportal() ))),
+                                onTap: (){
+                                  Scaffold.of(context).closeDrawer();
+                                  Navigator.push(context, MaterialPageRoute(builder: ((BuildContext context)=> Vehicleportal() )));},
                                 child: Container(
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(

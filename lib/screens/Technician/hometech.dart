@@ -293,6 +293,68 @@ class _HomeTechState extends State<HomeTech> {
                                   }
                                   if (pgm_size > 0) {
                                     print("complete all pgm assigned");
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => Dialog(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                s.width * 0.02,
+                                                            vertical:
+                                                                s.width * 0.02),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          "You have more work to do",
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            fontSize: 17,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color: Color(
+                                                                0XFF9bdffe),
+                                                          ),
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        25),
+                                                            color: white,
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                offset:
+                                                                    const Offset(
+                                                                        2, 4),
+                                                                blurRadius: 20,
+                                                                color: secondbg
+                                                                    .withOpacity(
+                                                                        0.23),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          clipBehavior:
+                                                              Clip.hardEdge,
+                                                          child: Image.asset(
+                                                              "assets/icons/not_completed.jpg"),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ));
                                   }
                                 },
                                 child: Container(

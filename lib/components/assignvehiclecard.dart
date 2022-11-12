@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/components/loadingDialog.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/services/techvehicle.dart';
 // date
@@ -240,6 +241,8 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
       vdocname: widget.docname,
     );
 
+    showDialog(context: context, builder: (context)=> LoadingDialog());
+
     // Profile vehicle updated
     await fb
         .collection("Technician")
@@ -270,6 +273,7 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
     }, SetOptions(merge: true));
 
     Navigator.of(context).pop();
+    Navigator.pop(context);
     MotionToast.success(
       title: Text(
         "Vehicle assigned to ${widget.techname}",

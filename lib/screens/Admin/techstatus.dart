@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/assignvehiclecard.dart';
+import 'package:ideal_marketing/components/loadingDialog.dart';
 import 'package:intl/intl.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -1147,7 +1148,7 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
                         children: [
                           Image.asset("assets/icons/not_asigned.jpg"),
                           Text(
-                            "No Assigned Vehicle To Remove",
+                            "No Assigned Vehicle To Impound",
                             style: TextStyle(
                                 fontFamily: "Montserrat",
                                 fontSize: 15,
@@ -1324,7 +1325,7 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
   }
 
   Future<void> removeV(BuildContext context, String? docname) async {
-
+    showDialog(context: context, builder: ((context) => LoadingDialog()));
     await fb
         .collection("Technician")
         .doc(widget.username)
@@ -1333,13 +1334,12 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
         .delete()
         .then((value) => (print("data deleted suscessfully")));
 
-        // status change
-    await fb.collection("Garage").doc(docname).set({
-      "status": "Available",
-      "techname": "none",
-      "username": "none"
-    }, SetOptions(merge: true));
+    // status change
+    await fb.collection("Garage").doc(docname).set(
+        {"status": "Available", "techname": "none", "username": "none"},
+        SetOptions(merge: true));
 
+    Navigator.of(context).pop();
     Navigator.pop(context);
     MotionToast.success(
       title: Text(
@@ -1359,7 +1359,5 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
         ),
       ),
     ).show(context);
-
-
   }
 }

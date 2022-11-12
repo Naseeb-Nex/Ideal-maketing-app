@@ -31,6 +31,7 @@ class _HomeTechState extends State<HomeTech> {
   Profile profile = Profile();
   String? name;
   String? username;
+  int pgm_size = -1;
 
   @override
   void initState() {
@@ -206,61 +207,404 @@ class _HomeTechState extends State<HomeTech> {
                             ),
                             Padding(
                               padding: EdgeInsets.all(s.width * 0.02),
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: white),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Iconsax.receipt,
-                                      color: white,
-                                    ),
-                                    SizedBox(
-                                      width: s.width * 0.04,
-                                    ),
-                                    Text(
-                                      "Report status",
-                                      style: const TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal,
+                              child: InkWell(
+                                onTap: () {
+                                  Scaffold.of(context).closeDrawer();
+                                  if (pgm_size == -1) {
+                                    // something is wrong
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => Dialog(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                s.width * 0.02,
+                                                            vertical:
+                                                                s.width * 0.02),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          "Something went wrong :(",
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            fontSize: 17,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color: Color(
+                                                                0XFF607cf2),
+                                                          ),
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                        Text(
+                                                          "try again later?",
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            fontSize: 17,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color: Color(
+                                                                0XFF607cf2),
+                                                          ),
+                                                          textAlign: TextAlign.center,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        25),
+                                                            color: white,
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                offset:
+                                                                    const Offset(
+                                                                        2, 4),
+                                                                blurRadius: 20,
+                                                                color: secondbg
+                                                                    .withOpacity(
+                                                                        0.23),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          clipBehavior:
+                                                              Clip.hardEdge,
+                                                          child: Image.asset(
+                                                              "assets/icons/something_w.jpg"),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ));
+                                  }
+                                  if (pgm_size == 0) {
+                                    print("report screen");
+                                  }
+                                  if (pgm_size > 0) {
+                                    print("complete all pgm assigned");
+                                  }
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: white),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Iconsax.receipt,
                                         color: white,
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        width: s.width * 0.04,
+                                      ),
+                                      Text(
+                                        "Report status",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                             Padding(
                               padding: EdgeInsets.all(s.width * 0.02),
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: white),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Iconsax.truck,
-                                      color: white,
-                                    ),
-                                    SizedBox(
-                                      width: s.width * 0.04,
-                                    ),
-                                    Text(
-                                      "Vehicle Status",
-                                      style: const TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal,
+                              child: InkWell(
+                                onTap: () {
+                                  Scaffold.of(context).closeDrawer();
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => Dialog(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: s.height * 0.03,
+                                                  horizontal: s.width * 0.02),
+                                              child: FutureBuilder<
+                                                  DocumentSnapshot>(
+                                                future: fb
+                                                    .collection("Technician")
+                                                    .doc(username)
+                                                    .collection("Vehicle")
+                                                    .doc("vehicle")
+                                                    .get(),
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot<
+                                                            DocumentSnapshot>
+                                                        snapshot) {
+                                                  if (snapshot.hasError) {
+                                                    return Text(
+                                                        "Something went wrong");
+                                                  }
+
+                                                  if (snapshot.hasData &&
+                                                      !snapshot.data!.exists) {
+                                                    return Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      s.width *
+                                                                          0.02,
+                                                                  vertical:
+                                                                      s.width *
+                                                                          0.02),
+                                                          child: Column(
+                                                            children: [
+                                                              Text(
+                                                                "No Vehicle Assigned",
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "Montserrat",
+                                                                    fontSize:
+                                                                        17,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Colors
+                                                                        .blueGrey),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              25),
+                                                                  color: white,
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                      offset:
+                                                                          const Offset(
+                                                                              2,
+                                                                              4),
+                                                                      blurRadius:
+                                                                          20,
+                                                                      color: secondbg
+                                                                          .withOpacity(
+                                                                              0.23),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                clipBehavior:
+                                                                    Clip.hardEdge,
+                                                                child: Image.asset(
+                                                                    "assets/icons/empty_garage.jpg"),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  }
+
+                                                  if (snapshot
+                                                          .connectionState ==
+                                                      ConnectionState.done) {
+                                                    Map<String, dynamic> data =
+                                                        snapshot.data!.data()
+                                                            as Map<String,
+                                                                dynamic>;
+                                                    return Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "Vehicle Status",
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  "Montserrat",
+                                                              fontSize: 17,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: bluebg),
+                                                        ),
+                                                        SizedBox(height: 10),
+                                                        Container(
+                                                          height: s.width * 0.5,
+                                                          clipBehavior:
+                                                              Clip.hardEdge,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            color: redbg,
+                                                          ),
+                                                          child: Image.asset(
+                                                            'assets/gif/delivery.gif',
+                                                            fit: BoxFit.fill,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Text(
+                                                          "${data["name"]}",
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                Text(
+                                                                  "${data["upTime"]}",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        "Montserrt",
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  "${data["upDate"]}",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        "Montserrt",
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            )
+                                                          ],
+                                                        )
+                                                      ],
+                                                    );
+                                                  }
+
+                                                  return Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Container(
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(25),
+                                                          color: white,
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              offset:
+                                                                  const Offset(
+                                                                      0, 10),
+                                                              blurRadius: 20,
+                                                              color: secondbg
+                                                                  .withOpacity(
+                                                                      0.23),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        child: Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  vertical:
+                                                                      s.width *
+                                                                          0.1),
+                                                          child: Center(
+                                                            child: SizedBox(
+                                                              width: s.width *
+                                                                  0.15,
+                                                              height: s.width *
+                                                                  0.15,
+                                                              child:
+                                                                  LoadingIndicator(
+                                                                indicatorType:
+                                                                    Indicator
+                                                                        .ballClipRotateMultiple,
+                                                                colors: const [
+                                                                  bluebg
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: white),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Iconsax.truck,
                                         color: white,
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        width: s.width * 0.04,
+                                      ),
+                                      Text(
+                                        "Vehicle Status",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -404,7 +748,9 @@ class _HomeTechState extends State<HomeTech> {
                                                                   color: Colors
                                                                       .blueGrey),
                                                             ),
-                                                            SizedBox(height: 10,),
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
                                                             Container(
                                                               decoration:
                                                                   BoxDecoration(
@@ -529,7 +875,42 @@ class _HomeTechState extends State<HomeTech> {
                                                             ],
                                                           )
                                                         ],
-                                                      )
+                                                      ),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Flexible(
+                                                          child: InkWell(
+                                                        onTap: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                        child: Container(
+                                                          height: 40,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5),
+                                                            color: white,
+                                                            border: Border.all(
+                                                                color: bluebg),
+                                                          ),
+                                                          child: Center(
+                                                              child: Text(
+                                                            "Got it!",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Montserrat",
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: bluebg,
+                                                            ),
+                                                          )),
+                                                        ),
+                                                      ))
                                                     ],
                                                   );
                                                 }
@@ -629,103 +1010,94 @@ class _HomeTechState extends State<HomeTech> {
                   ),
                   clipBehavior: Clip.hardEdge,
                   child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: StreamBuilder<QuerySnapshot>(
-                          stream: FirebaseFirestore.instance
-                              .collection(
-                                  '/Technician/${user?.photoURL}/Assignedpgm')
-                              .snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              print('Something went Wrong');
-                            }
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Container(
-                                child: Center(
-                                  child: CircularProgressIndicator(
-                                    color: bluebg,
-                                  ),
+                    physics: const BouncingScrollPhysics(),
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection(
+                                '/Technician/${user?.photoURL}/Assignedpgm')
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            pgm_size = -1;
+                            print('Something went Wrong');
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            pgm_size = -1;
+                            return Container(
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: bluebg,
                                 ),
-                              );
-                            }
-
-                            List _allpgm = [];
-                            snapshot.data!.docs
-                                .map((DocumentSnapshot document) {
-                              Map a = document.data() as Map<String, dynamic>;
-                              _allpgm.add(a);
-                              a['uid'] = document.id;
-                            }).toList();
-
-                            // Report button visiblity
-                            if (_allpgm.isEmpty) {
-                              rp_viz = true;
-                            }
-
-                            _allpgm.sort((a, b) =>
-                                a["priority"].compareTo(b["priority"]));
-                            return Column(
-                              children: [
-                                SizedBox(height: 10),
-                                for (var i = 0; i < _allpgm.length; i++) ...[
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Programcard(
-                                    uid: _allpgm[i]['uid'],
-                                    name: _allpgm[i]['name'],
-                                    address: _allpgm[i]['address'],
-                                    loc: _allpgm[i]['loc'],
-                                    phn: _allpgm[i]['phn'],
-                                    pgm: _allpgm[i]['pgm'],
-                                    chrg: _allpgm[i]['chrg'],
-                                    type: _allpgm[i]['type'],
-                                    upDate: _allpgm[i]['upDate'],
-                                    upTime: _allpgm[i]['upTime'],
-                                    docname: _allpgm[i]['docname'],
-                                    status: _allpgm[i]['status'],
-                                    username: _allpgm[i]['username'],
-                                    techname: _allpgm[i]['techname'],
-                                    assignedtime: _allpgm[i]['assignedtime'],
-                                    prospec: _allpgm[i]['prospec'],
-                                    instadate: _allpgm[i]['instadate'],
-                                    assigneddate: _allpgm[i]['assigneddate'],
-                                    priority: _allpgm[i]['priority'],
-                                    custdocname: _allpgm[i]['custdocname'],
-                                  ),
-                                ],
-                                const SizedBox(
-                                  height: 30,
-                                )
-                              ],
+                              ),
                             );
-                          })),
+                          }
+
+                          List _allpgm = [];
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                            Map a = document.data() as Map<String, dynamic>;
+                            _allpgm.add(a);
+                            a['uid'] = document.id;
+                          }).toList();
+
+                          pgm_size = _allpgm.length;
+
+                          // Report button visiblity
+                          if (_allpgm.isEmpty) {
+                            rp_viz = true;
+                          }
+
+                          _allpgm.sort(
+                              (a, b) => a["priority"].compareTo(b["priority"]));
+                          return Column(
+                            children: [
+                              SizedBox(height: 10),
+                              for (var i = 0; i < _allpgm.length; i++) ...[
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Programcard(
+                                  uid: _allpgm[i]['uid'],
+                                  name: _allpgm[i]['name'],
+                                  address: _allpgm[i]['address'],
+                                  loc: _allpgm[i]['loc'],
+                                  phn: _allpgm[i]['phn'],
+                                  pgm: _allpgm[i]['pgm'],
+                                  chrg: _allpgm[i]['chrg'],
+                                  type: _allpgm[i]['type'],
+                                  upDate: _allpgm[i]['upDate'],
+                                  upTime: _allpgm[i]['upTime'],
+                                  docname: _allpgm[i]['docname'],
+                                  status: _allpgm[i]['status'],
+                                  username: _allpgm[i]['username'],
+                                  techname: _allpgm[i]['techname'],
+                                  assignedtime: _allpgm[i]['assignedtime'],
+                                  prospec: _allpgm[i]['prospec'],
+                                  instadate: _allpgm[i]['instadate'],
+                                  assigneddate: _allpgm[i]['assigneddate'],
+                                  priority: _allpgm[i]['priority'],
+                                  custdocname: _allpgm[i]['custdocname'],
+                                ),
+                              ],
+                              const SizedBox(
+                                height: 30,
+                              ),
+                            ],
+                          );
+                        }),
+                  ),
                 ),
               ),
             ],
           ),
-        ),
-        floatingActionButton: Center(
-          child: rp_viz
-              ? Container(
-                  width: s.width * 0.15,
-                  height: s.width * 0.15,
-                  decoration:
-                      BoxDecoration(color: bluebg, shape: BoxShape.circle),
-                  child: Icon(
-                    Iconsax.edit_2,
-                    color: white,
-                  ),
-                )
-              : null,
         ),
       )
     ]);
   }
 }
 
+// ignore: must_be_immutable
 class Profilewrapper extends StatelessWidget {
   String? uid;
   String? name;

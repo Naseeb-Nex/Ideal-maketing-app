@@ -6,16 +6,13 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/Createprofile.dart';
 import 'package:ideal_marketing/screens/Technician/profilesrc.dart';
+import 'package:ideal_marketing/screens/Technician/reportsubmissionsrc.dart';
 // Loading indicator
 import "package:loading_indicator/loading_indicator.dart";
 
 import 'package:ideal_marketing/services/user_model.dart';
 
 import 'package:iconsax/iconsax.dart';
-import 'package:material_dialogs/material_dialogs.dart';
-import 'package:material_dialogs/widgets/buttons/icon_button.dart';
-import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
-import 'package:panara_dialogs/panara_dialogs.dart';
 
 // ignore: must_be_immutable
 class HomeTech extends StatefulWidget {
@@ -298,7 +295,7 @@ class _HomeTechState extends State<HomeTech> {
                                             ));
                                   }
                                   if (pgm_size == 0) {
-                                    // All done
+                                    // Dialog box for confirmation
                                     showDialog(
                                         context: context,
                                         builder: (context) => Dialog(
@@ -391,7 +388,12 @@ class _HomeTechState extends State<HomeTech> {
                                                           flex: 1,
                                                           fit: FlexFit.tight,
                                                           child: InkWell(
-                                                            onTap: () => {},
+                                                            onTap: () => Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            ReportSubmissionSrc())),
                                                             child: Container(
                                                               decoration:
                                                                   BoxDecoration(

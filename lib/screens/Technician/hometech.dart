@@ -12,6 +12,10 @@ import "package:loading_indicator/loading_indicator.dart";
 import 'package:ideal_marketing/services/user_model.dart';
 
 import 'package:iconsax/iconsax.dart';
+import 'package:material_dialogs/material_dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:panara_dialogs/panara_dialogs.dart';
 
 // ignore: must_be_immutable
 class HomeTech extends StatefulWidget {
@@ -32,6 +36,8 @@ class _HomeTechState extends State<HomeTech> {
   String? name;
   String? username;
   int pgm_size = -1;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -70,6 +76,7 @@ class _HomeTechState extends State<HomeTech> {
         ),
       ),
       Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Colors.transparent,
         drawer: Drawer(
             backgroundColor: Color(0XFF403795),
@@ -238,7 +245,8 @@ class _HomeTechState extends State<HomeTech> {
                                                             color: Color(
                                                                 0XFF607cf2),
                                                           ),
-                                                          textAlign: TextAlign.center,
+                                                          textAlign:
+                                                              TextAlign.center,
                                                         ),
                                                         Text(
                                                           "try again later?",
@@ -251,7 +259,8 @@ class _HomeTechState extends State<HomeTech> {
                                                             color: Color(
                                                                 0XFF607cf2),
                                                           ),
-                                                          textAlign: TextAlign.center,
+                                                          textAlign:
+                                                              TextAlign.center,
                                                         ),
                                                         SizedBox(
                                                           height: 10,
@@ -289,10 +298,144 @@ class _HomeTechState extends State<HomeTech> {
                                             ));
                                   }
                                   if (pgm_size == 0) {
-                                    print("report screen");
+                                    // All done
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => Dialog(
+                                              child: Padding(
+                                                padding: EdgeInsets.all(
+                                                    s.width * 0.03),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Container(
+                                                      width: s.width * 0.25,
+                                                      height: s.width * 0.25,
+                                                      child: Image.asset(
+                                                        "assets/icons/q_mark.png",
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "Are you sure?",
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              "Montserrat",
+                                                          fontSize: 17,
+                                                          fontWeight:
+                                                              FontWeight.w700),
+                                                    ),
+                                                    SizedBox(height: 10),
+                                                    Text(
+                                                      "Would you like to submit your daily report?",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        Flexible(
+                                                          flex: 1,
+                                                          fit: FlexFit.tight,
+                                                          child: InkWell(
+                                                            onTap: () =>
+                                                                Navigator.pop(
+                                                                    context),
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            15),
+                                                                color: Color(
+                                                                    0XFF5963d5),
+                                                              ),
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          10),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Cancel",
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          "Montserrat",
+                                                                      fontSize:
+                                                                          16,
+                                                                      color:
+                                                                          white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: 10),
+                                                        Flexible(
+                                                          flex: 1,
+                                                          fit: FlexFit.tight,
+                                                          child: InkWell(
+                                                            onTap: () => {},
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            15),
+                                                                color: Color(
+                                                                    0XFF5963d5),
+                                                              ),
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      vertical:
+                                                                          10),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  "Ok",
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          "Montserrat",
+                                                                      fontSize:
+                                                                          16,
+                                                                      color:
+                                                                          white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: s.width * 0.035,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ));
                                   }
                                   if (pgm_size > 0) {
-                                    print("complete all pgm assigned");
+                                    // You have more work to do
                                     showDialog(
                                         context: context,
                                         builder: (context) => Dialog(
@@ -319,7 +462,8 @@ class _HomeTechState extends State<HomeTech> {
                                                             color: Color(
                                                                 0XFF9bdffe),
                                                           ),
-                                                          textAlign: TextAlign.center,
+                                                          textAlign:
+                                                              TextAlign.center,
                                                         ),
                                                         SizedBox(
                                                           height: 10,
@@ -681,10 +825,10 @@ class _HomeTechState extends State<HomeTech> {
         appBar: AppBar(
           centerTitle: true,
           leading: Builder(
-            builder: (context) => Padding(
-              padding: EdgeInsets.all(s.width * 0.03),
-              child: InkWell(
-                onTap: () => Scaffold.of(context).openDrawer(),
+            builder: (context) => InkWell(
+              onTap: () => Scaffold.of(context).openDrawer(),
+              child: Padding(
+                padding: EdgeInsets.all(s.width * 0.03),
                 child: Image.asset(
                   "assets/icons/menu.png",
                   color: white,

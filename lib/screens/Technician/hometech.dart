@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:ideal_marketing/constants/constants.dart';
+
+import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/programcard.dart';
-import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
 import 'package:ideal_marketing/screens/Technician/Createprofile.dart';
 import 'package:ideal_marketing/screens/Technician/profilesrc.dart';
@@ -59,6 +61,10 @@ class _HomeTechState extends State<HomeTech> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
+
+    // Tech vihicle docname
+    DateTime now = DateTime.now();
+    String techvdoc = DateFormat('MM d').format(now);
     return Stack(fit: StackFit.expand, children: [
       Container(
         decoration: const BoxDecoration(
@@ -388,12 +394,24 @@ class _HomeTechState extends State<HomeTech> {
                                                           flex: 1,
                                                           fit: FlexFit.tight,
                                                           child: InkWell(
-                                                            onTap: () => Navigator.push(
+                                                            onTap: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              Navigator.push(
                                                                 context,
                                                                 MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            ReportSubmissionSrc())),
+                                                                  builder:
+                                                                      (context) =>
+                                                                          ReportSubmissionSrc(
+                                                                    username:
+                                                                        username,
+                                                                    techname:
+                                                                        name,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
                                                             child: Container(
                                                               decoration:
                                                                   BoxDecoration(
@@ -550,7 +568,7 @@ class _HomeTechState extends State<HomeTech> {
                                                     .collection("Technician")
                                                     .doc(username)
                                                     .collection("Vehicle")
-                                                    .doc("vehicle")
+                                                    .doc(techvdoc)
                                                     .get(),
                                                 builder: (BuildContext context,
                                                     AsyncSnapshot<
@@ -916,7 +934,7 @@ class _HomeTechState extends State<HomeTech> {
                                                   .collection("Technician")
                                                   .doc(username)
                                                   .collection("Vehicle")
-                                                  .doc("vehicle")
+                                                  .doc(techvdoc)
                                                   .get(),
                                               builder: (BuildContext context,
                                                   AsyncSnapshot<

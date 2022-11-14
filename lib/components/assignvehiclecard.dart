@@ -232,6 +232,8 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
     String day = DateFormat('d').format(now);
     String month = DateFormat('MM').format(now);
     String year = DateFormat('y').format(now);
+    String techvdoc = DateFormat('MM d').format(now);
+
 
     Techvehicle techv = Techvehicle(
       name: widget.name,
@@ -248,7 +250,7 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
         .collection("Technician")
         .doc(widget.username)
         .collection("Vehicle")
-        .doc("vehicle")
+        .doc(techvdoc)
         .set(techv.toMap())
         .then((v) => print("profile updated"));
 

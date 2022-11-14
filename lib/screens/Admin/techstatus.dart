@@ -54,6 +54,9 @@ class _TechstatusState extends State<Techstatus>
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
+
+    DateTime now = DateTime.now();
+    String techvdoc = DateFormat('MM d').format(now);
     return Stack(fit: StackFit.expand, children: [
       Container(
         decoration: const BoxDecoration(
@@ -108,7 +111,7 @@ class _TechstatusState extends State<Techstatus>
                                   .collection("Technician")
                                   .doc(widget.username)
                                   .collection("Vehicle")
-                                  .doc("vehicle")
+                                  .doc(techvdoc)
                                   .get(),
                               builder: (BuildContext context,
                                   AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -824,6 +827,10 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
+
+    // Tech vehicle docname
+    DateTime now = DateTime.now();
+    String techvdoc = DateFormat('MM d').format(now);
     return Dialog(
       insetAnimationCurve: Curves.easeInCubic,
       insetAnimationDuration: Duration(milliseconds: 500),
@@ -865,7 +872,7 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
                   .collection("Technician")
                   .doc(widget.username)
                   .collection("Vehicle")
-                  .doc("vehicle")
+                  .doc(techvdoc)
                   .get(),
               builder: (BuildContext context,
                   AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -1108,6 +1115,8 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
+    DateTime now = DateTime.now();
+    String techvdoc = DateFormat('MM d').format(now);
     return Dialog(
       child: Container(
         child: FutureBuilder<DocumentSnapshot>(
@@ -1115,7 +1124,7 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
               .collection("Technician")
               .doc(widget.username)
               .collection("Vehicle")
-              .doc("vehicle")
+              .doc(techvdoc)
               .get(),
           builder:
               (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -1325,12 +1334,15 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
   }
 
   Future<void> removeV(BuildContext context, String? docname) async {
+    DateTime now = DateTime.now();
+    String techvdoc = DateFormat('MM d').format(now);
+    
     showDialog(context: context, builder: ((context) => LoadingDialog()));
     await fb
         .collection("Technician")
         .doc(widget.username)
         .collection("Vehicle")
-        .doc("vehicle")
+        .doc(techvdoc)
         .delete()
         .then((value) => (print("data deleted suscessfully")));
 

@@ -48,10 +48,8 @@ class _HomeTechState extends State<HomeTech> {
         .get()
         .then((value) {
       profile = Profile.fromMap(value.data());
-      setState(() {
         name = profile.name;
         username = profile.username;
-      });
     });
   }
 

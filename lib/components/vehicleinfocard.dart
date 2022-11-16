@@ -9,6 +9,7 @@ class VechicleInfoCard extends StatefulWidget {
   String? status;
   String? statusdesc;
   String? techname;
+  String? username;
   String? update;
   String? uptime;
 
@@ -20,6 +21,7 @@ class VechicleInfoCard extends StatefulWidget {
     this.status,
     this.statusdesc,
     this.techname,
+    this.username,
     this.update,
     this.uptime,
   }) : super(key: key);
@@ -85,28 +87,78 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                           ),
                         ),
                         Container(
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: greenbg,
+                            boxShadow: [
+                                    BoxShadow(
+                                      spreadRadius: 1,
+                                      blurRadius: 1,
+                                      color: black.withOpacity(.05),
+                                      offset: Offset(1, 1),
+                                    ),
+                                  ],
+                          ),
+                          child: Text(
+                            "${widget.status}",
+                            style: const TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.green,
                             ),
-                        child: Text(
-                          "${widget.status}",
-                          style: const TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 14,
-                            color: Colors.green,
                           ),
                         ),
-                      ),
                       ],
                     ),
-                    SizedBox(height: 5,),
-                    Text(
-                      "${widget.desc}",
-                      style: TextStyle(
-                        fontFamily: "Montserrat",
-                        fontSize: 12,),),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.tight,
+                          child: Text(
+                            "${widget.desc}",
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: widget.status == "Ongoing" ?  Container(
+                            padding:
+                                EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: white,
+                              boxShadow: [
+                                BoxShadow(
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  color: black.withOpacity(.05),
+                                  offset: Offset(1, 1),
+                                ),
+                              ],
+                            ),
+                            child: Text(
+                              "Recall",
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 14,
+                                color: cheryred,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ) : null,
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),

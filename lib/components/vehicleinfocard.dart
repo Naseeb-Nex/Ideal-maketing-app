@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 // ignore: must_be_immutable
@@ -51,89 +52,136 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
       ),
       child: Padding(
         padding: EdgeInsets.all(s.width * 0.03),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: Stack(
           children: [
-            Container(
-              width: s.width * 0.2,
-              height: s.width * 0.2,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15), color: vybg),
-              clipBehavior: Clip.hardEdge,
-              child: Vehicleimagewrapper(widget.type),
-            ),
-            Flexible(
-              flex: 1,
-              fit: FlexFit.tight,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: s.width * 0.02),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  width: s.width * 0.2,
+                  height: s.width * 0.2,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15), color: vybg),
+                  clipBehavior: Clip.hardEdge,
+                  child: Vehicleimagewrapper(widget.type),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: s.width * 0.02),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.tight,
-                          child: Text(
-                            "${widget.name}",
-                            style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 16,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.tight,
+                              child: Text(
+                                "${widget.name}",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 16,
+                                ),
+                              ),
                             ),
-                          ),
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: greenbg,
+                                boxShadow: [
+                                  BoxShadow(
+                                    spreadRadius: 1,
+                                    blurRadius: 1,
+                                    color: black.withOpacity(.05),
+                                    offset: Offset(1, 1),
+                                  ),
+                                ],
+                              ),
+                              child: Text(
+                                "${widget.status}",
+                                style: const TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.green,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: greenbg,
-                            boxShadow: [
-                                    BoxShadow(
-                                      spreadRadius: 1,
-                                      blurRadius: 1,
-                                      color: black.withOpacity(.05),
-                                      offset: Offset(1, 1),
-                                    ),
-                                  ],
-                          ),
-                          child: Text(
-                            "${widget.status}",
-                            style: const TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.green,
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Flexible(
+                              flex: 1,
+                              fit: FlexFit.tight,
+                              child: Text(
+                                "${widget.desc}",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 12,
+                                ),
+                              ),
                             ),
-                          ),
+
+                            // Center(
+                            //   child: widget.status == "Ongoing"
+                            //       ? Container(
+                            //           padding: EdgeInsets.symmetric(
+                            //               vertical: 5, horizontal: 8),
+                            //           decoration: BoxDecoration(
+                            //             borderRadius: BorderRadius.circular(10),
+                            //             color: white,
+                            //             boxShadow: [
+                            //               BoxShadow(
+                            //                 spreadRadius: 1,
+                            //                 blurRadius: 1,
+                            //                 color: black.withOpacity(.05),
+                            //                 offset: Offset(1, 1),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //           child: Text(
+                            //             "Recall",
+                            //             style: TextStyle(
+                            //               fontFamily: "Montserrat",
+                            //               fontSize: 14,
+                            //               color: cheryred,
+                            //               fontWeight: FontWeight.w600,
+                            //             ),
+                            //           ),
+                            //         )
+                            //       : null,
+                            // )
+                          ],
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.tight,
-                          child: Text(
-                            "${widget.desc}",
-                            style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: widget.status == "Ongoing" ?  Container(
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: s.width * 0.2,
+              alignment: Alignment.bottomRight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                Padding(
+                          padding: const EdgeInsets.only(top : 5),
+                          child: Container(
                             padding:
-                                EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                                EdgeInsets.symmetric(vertical: 2, horizontal: 4),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: white,
@@ -146,22 +194,10 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                                 ),
                               ],
                             ),
-                            child: Text(
-                              "Recall",
-                              style: TextStyle(
-                                fontFamily: "Montserrat",
-                                fontSize: 14,
-                                color: cheryred,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ) : null,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                            child: Icon(Iconsax.arrow_down_1, color: Colors.blueGrey),
+                          ),
+                        ),
+              ]),
             ),
           ],
         ),

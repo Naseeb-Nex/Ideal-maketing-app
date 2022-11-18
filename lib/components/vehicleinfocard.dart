@@ -32,7 +32,7 @@ class VechicleInfoCard extends StatefulWidget {
 }
 
 class _VechicleInfoCardState extends State<VechicleInfoCard> {
-  bool isviz = false;
+  bool _isviz = false;
 
   @override
   Widget build(BuildContext context) {
@@ -54,149 +54,200 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
         padding: EdgeInsets.all(s.width * 0.03),
         child: Stack(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
+            Column(
               children: [
-                Container(
-                  width: s.width * 0.2,
-                  height: s.width * 0.2,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15), color: vybg),
-                  clipBehavior: Clip.hardEdge,
-                  child: Vehicleimagewrapper(widget.type),
-                ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: s.width * 0.02),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: s.width * 0.2,
+                      height: s.width * 0.2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15), color: vybg),
+                      clipBehavior: Clip.hardEdge,
+                      child: Vehicleimagewrapper(widget.type),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: s.width * 0.02),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Flexible(
-                              flex: 1,
-                              fit: FlexFit.tight,
-                              child: Text(
-                                "${widget.name}",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: greenbg,
-                                boxShadow: [
-                                  BoxShadow(
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                    color: black.withOpacity(.05),
-                                    offset: Offset(1, 1),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Flexible(
+                                  flex: 1,
+                                  fit: FlexFit.tight,
+                                  child: Text(
+                                    "${widget.name}",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 16,
+                                    ),
                                   ),
-                                ],
-                              ),
-                              child: Text(
-                                "${widget.status}",
-                                style: const TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.green,
                                 ),
-                              ),
+                                Container(
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: greenbg,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        color: black.withOpacity(.05),
+                                        offset: Offset(1, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(
+                                    "${widget.status}",
+                                    style: const TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Flexible(
+                                  flex: 1,
+                                  fit: FlexFit.tight,
+                                  child: Text(
+                                    "${widget.desc}",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 5,
+                      ),
+                    ),
+                  ],
+                ),
+                Visibility(
+                  visible: _isviz,
+                  child: Container(
+                    padding: EdgeInsets.all(s.width * 0.03),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: white,
+                      boxShadow: [
+                        BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                          color: black.withOpacity(.05),
+                          offset: Offset(1, 1),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding:  const EdgeInsets.only(bottom : 5),
+                          child: Text(
+                            "More Option",
+                            style: TextStyle(
+                              color: Color(0xff6c757d),
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: s.width * 0.15,
+                          height: 2,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xff6c757d),),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Flexible(
-                              flex: 1,
-                              fit: FlexFit.tight,
-                              child: Text(
-                                "${widget.desc}",
-                                style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-
-                            // Center(
-                            //   child: widget.status == "Ongoing"
-                            //       ? Container(
-                            //           padding: EdgeInsets.symmetric(
-                            //               vertical: 5, horizontal: 8),
-                            //           decoration: BoxDecoration(
-                            //             borderRadius: BorderRadius.circular(10),
-                            //             color: white,
-                            //             boxShadow: [
-                            //               BoxShadow(
-                            //                 spreadRadius: 1,
-                            //                 blurRadius: 1,
-                            //                 color: black.withOpacity(.05),
-                            //                 offset: Offset(1, 1),
-                            //               ),
-                            //             ],
-                            //           ),
-                            //           child: Text(
-                            //             "Recall",
-                            //             style: TextStyle(
-                            //               fontFamily: "Montserrat",
-                            //               fontSize: 14,
-                            //               color: cheryred,
-                            //               fontWeight: FontWeight.w600,
-                            //             ),
-                            //           ),
-                            //         )
-                            //       : null,
-                            // )
+                            Center(
+                              child: widget.status == "Ongoing"
+                                  ? Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 8),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            spreadRadius: 1,
+                                            blurRadius: 1,
+                                            color: black.withOpacity(.05),
+                                            offset: Offset(1, 1),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Text(
+                                        "Recall",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 14,
+                                          color: cheryred,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    )
+                                  : null,
+                            )
                           ],
                         ),
                       ],
                     ),
                   ),
-                ),
+                )
               ],
             ),
             Container(
               height: s.width * 0.2,
               alignment: Alignment.bottomRight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Padding(
-                          padding: const EdgeInsets.only(top : 5),
-                          child: Container(
-                            padding:
-                                EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: white,
-                              boxShadow: [
-                                BoxShadow(
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                  color: black.withOpacity(.05),
-                                  offset: Offset(1, 1),
-                                ),
-                              ],
-                            ),
-                            child: Icon(Iconsax.arrow_down_1, color: Colors.blueGrey),
+                  padding: const EdgeInsets.only(top: 5),
+                  child: InkWell(
+                    onTap: () => setState(() {
+                      _isviz = !_isviz;
+                    }),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: white,
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 1,
+                            blurRadius: 1,
+                            color: black.withOpacity(.05),
+                            offset: Offset(1, 1),
                           ),
-                        ),
+                        ],
+                      ),
+                      child: Icon(Iconsax.arrow_down_1, color: Colors.blueGrey),
+                    ),
+                  ),
+                ),
               ]),
             ),
           ],

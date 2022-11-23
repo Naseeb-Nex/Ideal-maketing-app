@@ -160,6 +160,7 @@ class _VehicleportalState extends State<Vehicleportal> {
                                           status: vehicle[i]['status'],
                                           techname: vehicle[i]['techname'],
                                           username: vehicle[i]['username'],
+                                          vdocname: vehicle[i]['docname'],
                                           statusdesc: vehicle[i]['statusdesc'],
                                           update: vehicle[i]['update'],
                                           uptime: vehicle[i]['uptime'],

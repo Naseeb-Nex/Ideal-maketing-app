@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:intl/intl.dart';
+import 'package:iconsax/iconsax.dart';
+// package
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:motion_toast/motion_toast.dart';
+// components
+import 'package:ideal_marketing/components/loadingDialog.dart';
 
 // ignore: must_be_immutable
 class VechicleInfoCard extends StatefulWidget {
@@ -11,6 +17,7 @@ class VechicleInfoCard extends StatefulWidget {
   String? statusdesc;
   String? techname;
   String? username;
+  String? vdocname;
   String? update;
   String? uptime;
 
@@ -23,6 +30,7 @@ class VechicleInfoCard extends StatefulWidget {
     this.statusdesc,
     this.techname,
     this.username,
+    this.vdocname,
     this.update,
     this.uptime,
   }) : super(key: key);
@@ -146,114 +154,194 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                 ),
                 Visibility(
                   visible: _isviz,
-                  child: Container(
-                    padding: EdgeInsets.all(s.width * 0.03),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: white,
-                      boxShadow: [
-                        BoxShadow(
-                          spreadRadius: 2,
-                          blurRadius: 3,
-                          color: black.withOpacity(.05),
-                          offset: Offset(1, 1),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding:  const EdgeInsets.only(bottom : 5),
-                          child: Text(
-                            "More Option",
-                            style: TextStyle(
-                              color: Color(0xff6c757d),
-                              fontFamily: "Montserrat",
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: s.width * 0.15,
-                          height: 2,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color(0xff6c757d),),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Center(
-                              child: widget.status == "Ongoing"
-                                  ? Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 5, horizontal: 8),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            spreadRadius: 1,
-                                            blurRadius: 1,
-                                            color: black.withOpacity(.05),
-                                            offset: Offset(1, 1),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Text(
-                                        "Recall",
-                                        style: TextStyle(
-                                          fontFamily: "Montserrat",
-                                          fontSize: 14,
-                                          color: cheryred,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    )
-                                  : null,
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Container(
-              height: s.width * 0.2,
-              alignment: Alignment.bottomRight,
-              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: InkWell(
-                    onTap: () => setState(() {
-                      _isviz = !_isviz;
-                    }),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                      padding: EdgeInsets.all(s.width * 0.03),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: white,
                         boxShadow: [
                           BoxShadow(
-                            spreadRadius: 1,
-                            blurRadius: 1,
+                            spreadRadius: 2,
+                            blurRadius: 3,
                             color: black.withOpacity(.05),
                             offset: Offset(1, 1),
                           ),
                         ],
                       ),
-                      child: Icon(Iconsax.arrow_down_1, color: Colors.blueGrey),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5),
+                            child: Text(
+                              "More Option",
+                              style: TextStyle(
+                                color: Color(0xff6c757d),
+                                fontFamily: "Montserrat",
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: s.width * 0.15,
+                            height: 2,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xff6c757d),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 8, vertical: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color(0XFFd8f5de),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.person_outline_rounded,
+                                      color: Color(0XFF24903b),
+                                      size: 25,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "${widget.techname}",
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 13,
+                                        color: Color(0XFF24903b),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () => recall(context, widget.vdocname),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        color: black.withOpacity(.05),
+                                        offset: Offset(1, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Text(
+                                    "Recall",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 14,
+                                      color: cheryred,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ]),
+                )
+              ],
+            ),
+            Center(
+              child: widget.status == "Ongoing" ? Container(
+                height: s.width * 0.2,
+                alignment: Alignment.bottomRight,
+                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: InkWell(
+                      onTap: () => setState(() {
+                        _isviz = !_isviz;
+                      }),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: white,
+                          boxShadow: [
+                            BoxShadow(
+                              spreadRadius: 1,
+                              blurRadius: 1,
+                              color: black.withOpacity(.05),
+                              offset: Offset(1, 1),
+                            ),
+                          ],
+                        ),
+                        child: Icon(Iconsax.arrow_down_1, color: Colors.blueGrey),
+                      ),
+                    ),
+                  ),
+                ]),
+              ) : null,
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> recall(BuildContext context, String? docname) async {
+    FirebaseFirestore fb = FirebaseFirestore.instance;
+    DateTime now = DateTime.now();
+    String techvdoc = DateFormat('MM d').format(now);
+
+    showDialog(context: context, builder: ((context) => LoadingDialog()));
+    await fb
+        .collection("Technician")
+        .doc(widget.username)
+        .collection("Vehicle")
+        .doc(techvdoc)
+        .delete();
+
+    // status change
+    await fb.collection("Garage").doc(docname).set(
+        {"status": "Available", "techname": "none", "username": "none"},
+        SetOptions(merge: true));
+
+    Navigator.of(context).pop();
+    Navigator.pop(context);
+    MotionToast.success(
+      title: Text(
+        "Vehicle Recalled from ${widget.techname}",
+        style: TextStyle(
+          fontFamily: "Montserrat",
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      description: Text(
+        "Successfully vehicle Impounded",
+        style: TextStyle(
+          fontFamily: "Montserrat",
+          fontSize: 12,
+          fontWeight: FontWeight.w300,
+        ),
+      ),
+    ).show(context);
   }
 }
 

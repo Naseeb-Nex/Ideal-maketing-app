@@ -100,30 +100,7 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: greenbg,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        spreadRadius: 1,
-                                        blurRadius: 1,
-                                        color: black.withOpacity(.05),
-                                        offset: Offset(1, 1),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Text(
-                                    "${widget.status}",
-                                    style: const TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ),
+                                VStatuswrapper(status: widget.status),
                               ],
                             ),
                             SizedBox(
@@ -177,7 +154,7 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                             child: Text(
                               "More Option",
                               style: TextStyle(
-                                color: Color(0xff6c757d),
+                                color: Color(0xff828a96),
                                 fontFamily: "Montserrat",
                                 fontWeight: FontWeight.w600,
                               ),
@@ -188,7 +165,7 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                             height: 2,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: Color(0xff6c757d),
+                              color: Color(0xff828a96),
                             ),
                           ),
                           SizedBox(height: 10),
@@ -200,13 +177,13 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                                     horizontal: 8, vertical: 5),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
-                                  color: Color(0XFFd8f5de),
+                                  color: Color(0XFFf2f4f8),
                                 ),
                                 child: Row(
                                   children: [
                                     Icon(
                                       Icons.person_outline_rounded,
-                                      color: Color(0XFF24903b),
+                                      color: Color(0XFF224c84),
                                       size: 25,
                                     ),
                                     SizedBox(
@@ -218,7 +195,7 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                                         fontFamily: "Montserrat",
                                         fontWeight: FontWeight.w600,
                                         fontSize: 13,
-                                        color: Color(0XFF24903b),
+                                        color: Color(0XFF224c84),
                                       ),
                                     ),
                                   ],
@@ -267,36 +244,42 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
               ],
             ),
             Center(
-              child: widget.status == "Ongoing" ? Container(
-                height: s.width * 0.2,
-                alignment: Alignment.bottomRight,
-                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: InkWell(
-                      onTap: () => setState(() {
-                        _isviz = !_isviz;
-                      }),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: white,
-                          boxShadow: [
-                            BoxShadow(
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              color: black.withOpacity(.05),
-                              offset: Offset(1, 1),
+              child: widget.status == "Ongoing"
+                  ? Container(
+                      height: s.width * 0.2,
+                      alignment: Alignment.bottomRight,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: InkWell(
+                                onTap: () => setState(() {
+                                  _isviz = !_isviz;
+                                }),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 2, horizontal: 4),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        spreadRadius: 1,
+                                        blurRadius: 1,
+                                        color: black.withOpacity(.05),
+                                        offset: Offset(1, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Icon(Iconsax.arrow_down_1,
+                                      color: Colors.blueGrey),
+                                ),
+                              ),
                             ),
-                          ],
-                        ),
-                        child: Icon(Iconsax.arrow_down_1, color: Colors.blueGrey),
-                      ),
-                    ),
-                  ),
-                ]),
-              ) : null,
+                          ]),
+                    )
+                  : null,
             ),
           ],
         ),
@@ -371,6 +354,66 @@ class Vehicleimagewrapper extends StatelessWidget {
     return Image.asset(
       "assets/icons/bike.jpg",
       fit: BoxFit.cover,
+    );
+  }
+}
+
+// ignore: must_be_immutable
+class VStatuswrapper extends StatelessWidget {
+  String? status;
+  VStatuswrapper({this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    if (status == "Ongoing") {
+      return Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: yellowbg,
+          boxShadow: [
+            BoxShadow(
+              spreadRadius: 1,
+              blurRadius: 1,
+              color: black.withOpacity(.05),
+              offset: Offset(1, 1),
+            ),
+          ],
+        ),
+        child: Text(
+          "${status}",
+          style: const TextStyle(
+            fontFamily: "Montserrat",
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: yellowfg,
+          ),
+        ),
+      );
+    }
+    return Container(
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: greenbg,
+        boxShadow: [
+          BoxShadow(
+            spreadRadius: 1,
+            blurRadius: 1,
+            color: black.withOpacity(.05),
+            offset: Offset(1, 1),
+          ),
+        ],
+      ),
+      child: Text(
+        "${status}",
+        style: const TextStyle(
+          fontFamily: "Montserrat",
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          color: Colors.green,
+        ),
+      ),
     );
   }
 }

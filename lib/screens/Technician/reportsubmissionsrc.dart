@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/assignvehiclecard.dart';
 import 'package:ideal_marketing/components/vehicleinfocard.dart';
+import 'package:ideal_marketing/components/vreportsubcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
 import 'package:intl/intl.dart';
@@ -24,16 +25,22 @@ class ReportSubmissionSrc extends StatefulWidget {
 class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
   FirebaseFirestore fb = FirebaseFirestore.instance;
 
+  late CollectionReference streamreport;
+
+  @override
+  void initState() {
+    super.initState();
+    buildStream();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
 
     DateTime now = DateTime.now();
     // Report
-    String day = DateFormat('d').format(now);
-    String month = DateFormat('MM').format(now);
     String techvdoc = DateFormat('MM d').format(now);
-    String year = DateFormat('y').format(now);
+
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -658,17 +665,7 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                     height: 5,
                                   ),
                                   StreamBuilder<QuerySnapshot>(
-                                      stream: fb
-                                          .collection("Reports")
-                                          .doc(year)
-                                          .collection("Month")
-                                          .doc(month)
-                                          .collection(day)
-                                          .doc("Tech")
-                                          .collection("Reports")
-                                          .doc("${widget.username}")
-                                          .collection("vehicle")
-                                          .snapshots(),
+                                      stream: streamreport.snapshots(),
                                       builder: (BuildContext context,
                                           AsyncSnapshot<QuerySnapshot>
                                               snapshot) {
@@ -734,18 +731,14 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                               Padding(
                                                 padding: EdgeInsets.symmetric(
                                                     vertical: 5.0),
-                                                child: VechicleInfoCard(
+                                                child: Vreportsubcard(
                                                   name: vehicle[i]['name'],
-                                                  desc: vehicle[i]
-                                                      ['description'],
-                                                  type: vehicle[i]['type'],
-                                                  status: vehicle[i]['status'],
-                                                  techname: vehicle[i]
-                                                      ['techname'],
-                                                  statusdesc: vehicle[i]
-                                                      ['statusdesc'],
-                                                  update: vehicle[i]['update'],
-                                                  uptime: vehicle[i]['uptime'],
+                                                  vdocname: vehicle[i]
+                                                      ['vdocname'],
+                                                  username: vehicle[i]
+                                                      ['username'],
+                                                  update: vehicle[i]['upDate'],
+                                                  uptime: vehicle[i]['upTime'],
                                                 ),
                                               )
                                             ]
@@ -765,5 +758,28 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
         )
       ],
     );
+  }
+
+  void buildStream() {
+    FirebaseFirestore fb = FirebaseFirestore.instance;
+
+    DateTime now = DateTime.now();
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
+    setState(() {
+      streamreport = fb
+          .collection("Reports")
+          .doc(year)
+          .collection("Month")
+          .doc(month)
+          .collection(day)
+          .doc("Tech")
+          .collection("Reports")
+          .doc("${widget.username}")
+          .collection("vehicle");
+    });
   }
 }

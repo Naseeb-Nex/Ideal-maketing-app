@@ -210,31 +210,41 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                             Padding(
                               padding: EdgeInsets.all(s.width * 0.02),
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: white),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      Iconsax.user_add,
-                                      color: white,
-                                    ),
-                                    SizedBox(
-                                      width: s.width * 0.04,
-                                    ),
-                                    Text(
-                                      "Staff Registration",
-                                      style: const TextStyle(
-                                        fontFamily: "Montserrat",
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal,
+                              child: InkWell(
+                                onTap: () {
+                                  Scaffold.of(context).closeDrawer();
+                                  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RegistrationScreen()));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: white),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Iconsax.user_add,
                                         color: white,
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        width: s.width * 0.04,
+                                      ),
+                                      Text(
+                                        "Staff Registration",
+                                        style: const TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.normal,
+                                          color: white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -659,66 +669,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 child: Center(child: Techcardspace()),
                               ),
                               const SizedBox(
-                                height: 20,
-                              ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(left: 20),
-                              //   child: Text(
-                              //     "Staff Registration",
-                              //     style: TextStyle(
-                              //       fontFamily: "Nunito",
-                              //       fontSize: 22,
-                              //       fontWeight: FontWeight.bold,
-                              //       color: Colors.black,
-                              //     ),
-                              //   ),
-                              // ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: s.width * 0.2),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const RegistrationScreen()));
-                                  },
-                                  child: Container(
-                                    height: s.height * 0.1,
-                                    width: s.width * 0.4,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        color: bluebg,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            spreadRadius: 5,
-                                            blurRadius: 10,
-                                            color: bluebg.withOpacity(0.2),
-                                            offset: const Offset(0, 5),
-                                          )
-                                        ]),
-                                    child: const Center(
-                                      child: Text(
-                                        "Staff Registration",
-                                        style: TextStyle(
-                                          fontFamily: "Nunito",
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 30,
+                                height: 80,
                               ),
                             ],
                           ),

@@ -214,10 +214,10 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 onTap: () {
                                   Scaffold.of(context).closeDrawer();
                                   Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const RegistrationScreen()));
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const RegistrationScreen()));
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(10),
@@ -251,9 +251,14 @@ class _HomeAdminState extends State<HomeAdmin> {
                             Padding(
                               padding: EdgeInsets.all(s.width * 0.02),
                               child: InkWell(
-                                onTap: (){
+                                onTap: () {
                                   Scaffold.of(context).closeDrawer();
-                                  Navigator.push(context, MaterialPageRoute(builder: ((BuildContext context)=> Vehicleportal() )));},
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((BuildContext context) =>
+                                              Vehicleportal())));
+                                },
                                 child: Container(
                                   padding: EdgeInsets.all(10),
                                   decoration: BoxDecoration(
@@ -339,10 +344,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      
-                      SizedBox(
-                        height: s.height * 0.009
-                      ),
+                      SizedBox(height: s.height * 0.009),
                       TabBar(
                         tabs: [
                           Tab(
@@ -396,137 +398,418 @@ class _HomeAdminState extends State<HomeAdmin> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
-                                child: Text(
-                                  "Program Status",
-                                  style: TextStyle(
-                                    fontFamily: "Nunito",
-                                    fontSize: 22,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    InkWell(
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Pendingsrc())),
-                                      child: Container(
-                                        width: s.width * 0.4,
-                                        height: s.height * 0.14,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            color: const Color(0XFFFED4D6),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  spreadRadius: 2,
-                                                  blurRadius: 4,
-                                                  color: Colors.black
-                                                      .withOpacity(0.1),
-                                                  offset: const Offset(0, 5))
-                                            ]),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            const Text(
-                                              "Pending Program",
-                                              style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 19,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0XFFff5c8a),
-                                              ),
-                                              textAlign: TextAlign.center,
-                                              maxLines: 2,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10),
-                                              child: Text(
-                                                "$p",
-                                                style: const TextStyle(
-                                                  fontFamily: "Nunito",
-                                                  fontSize: 19,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color(0XFFff5c8a),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 20,
+                                    horizontal: 10,
+                                  ),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          spreadRadius: 1,
+                                          blurRadius: 3,
+                                          color: black.withOpacity(.1),
+                                          offset: Offset(-1, 2),
+                                        ),
+                                      ]),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Program Status",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 22,
+                                          color: Colors.black,
                                         ),
                                       ),
-                                    ),
-                                    InkWell(
-                                      onTap: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Completedpgmsrc())),
-                                      child: Container(
-                                        width: s.width * 0.4,
-                                        height: s.height * 0.14,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            color: const Color(0XFFDBF4F1),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  spreadRadius: 2,
-                                                  blurRadius: 4,
-                                                  color: Colors.black
-                                                      .withOpacity(0.1),
-                                                  offset: const Offset(0, 5))
-                                            ]),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Completed Program",
-                                              style: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 19,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0XFF52b788),
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10),
-                                              child: Text(
-                                                "$c",
-                                                style: const TextStyle(
-                                                  fontFamily: "Nunito",
-                                                  fontSize: 19,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color(0XFF52b788),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                      const SizedBox(
+                                        height: 15,
                                       ),
-                                    )
-                                  ],
+                                      // Row(
+                                      //   children: [
+                                      //     InkWell(
+                                      //       onTap: () => Navigator.push(
+                                      //           context,
+                                      //           MaterialPageRoute(
+                                      //               builder: (context) =>
+                                      //                   const Pendingsrc())),
+                                      //       child: Container(
+                                      //         padding: EdgeInsets.all(10),
+                                      //         decoration: BoxDecoration(
+                                      //             borderRadius:
+                                      //                 BorderRadius.circular(
+                                      //                     20),
+                                      //             color: white,
+                                      //             boxShadow: [
+                                      //               BoxShadow(
+                                      //                 spreadRadius: 1,
+                                      //                 blurRadius: 3,
+                                      //                 color: black
+                                      //                     .withOpacity(.1),
+                                      //                 offset: Offset(-1, 2),
+                                      //               ),
+                                      //             ]),
+                                      //         child: Flexible(
+                                      //           flex: 1,
+                                      //           fit: FlexFit.loose,
+                                      //           child: Column(
+                                      //             children: [
+                                      //               Container(
+                                      //                 decoration: BoxDecoration(
+                                      //                     borderRadius:
+                                      //                         BorderRadius
+                                      //                             .circular(25),
+                                      //                     color: const Color(
+                                      //                         0XFFFED4D6),
+                                      //                     boxShadow: [
+                                      //                       BoxShadow(
+                                      //                         spreadRadius: 1,
+                                      //                         blurRadius: 3,
+                                      //                         color: Colors
+                                      //                             .black
+                                      //                             .withOpacity(
+                                      //                                 0.2),
+                                      //                         offset:
+                                      //                             const Offset(
+                                      //                                 0, 5),
+                                      //                       ),
+                                      //                     ]),
+                                      //                 child: Column(
+                                      //                   mainAxisAlignment:
+                                      //                       MainAxisAlignment
+                                      //                           .center,
+                                      //                   crossAxisAlignment:
+                                      //                       CrossAxisAlignment
+                                      //                           .center,
+                                      //                   children: [
+                                      //                     const Text(
+                                      //                       "Pending",
+                                      //                       style: TextStyle(
+                                      //                         fontFamily:
+                                      //                             "Nunito",
+                                      //                         fontSize: 19,
+                                      //                         fontWeight:
+                                      //                             FontWeight
+                                      //                                 .bold,
+                                      //                         color: Color(
+                                      //                             0XFFff5c8a),
+                                      //                       ),
+                                      //                       textAlign: TextAlign
+                                      //                           .center,
+                                      //                       maxLines: 2,
+                                      //                     ),
+                                      //                     Padding(
+                                      //                       padding:
+                                      //                           const EdgeInsets
+                                      //                                   .only(
+                                      //                               top: 10),
+                                      //                       child: Text(
+                                      //                         "$p",
+                                      //                         style:
+                                      //                             const TextStyle(
+                                      //                           fontFamily:
+                                      //                               "Nunito",
+                                      //                           fontSize: 19,
+                                      //                           fontWeight:
+                                      //                               FontWeight
+                                      //                                   .bold,
+                                      //                           color: Color(
+                                      //                               0XFFff5c8a),
+                                      //                         ),
+                                      //                       ),
+                                      //                     ),
+                                      //                   ],
+                                      //                 ),
+                                      //               ),
+                                      //             ],
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //     InkWell(
+                                      //       onTap: () => Navigator.push(
+                                      //           context,
+                                      //           MaterialPageRoute(
+                                      //               builder: (context) =>
+                                      //                   const Completedpgmsrc())),
+                                      //       child: Flexible(
+                                      //         fit: FlexFit.tight,
+                                      //         child: Container(
+                                      //           padding: EdgeInsets.all(10),
+                                      //           decoration: BoxDecoration(
+                                      //               borderRadius:
+                                      //                   BorderRadius.circular(
+                                      //                       20),
+                                      //               color: white,
+                                      //               boxShadow: [
+                                      //                 BoxShadow(
+                                      //                   spreadRadius: 1,
+                                      //                   blurRadius: 3,
+                                      //                   color: black
+                                      //                       .withOpacity(.1),
+                                      //                   offset: Offset(-1, 2),
+                                      //                 ),
+                                      //               ]),
+                                      //           child: Column(
+                                      //             children: [
+                                      //               Container(
+                                      //                 decoration: BoxDecoration(
+                                      //                     borderRadius:
+                                      //                         BorderRadius
+                                      //                             .circular(25),
+                                      //                     color: const Color(
+                                      //                         0XFFDBF4F1),
+                                      //                     boxShadow: [
+                                      //                       BoxShadow(
+                                      //                         spreadRadius: 1,
+                                      //                         blurRadius: 3,
+                                      //                         color: Colors
+                                      //                             .black
+                                      //                             .withOpacity(
+                                      //                                 0.2),
+                                      //                         offset:
+                                      //                             const Offset(
+                                      //                                 0, 5),
+                                      //                       ),
+                                      //                     ]),
+                                      //                 child: Column(
+                                      //                   mainAxisAlignment:
+                                      //                       MainAxisAlignment
+                                      //                           .center,
+                                      //                   crossAxisAlignment:
+                                      //                       CrossAxisAlignment
+                                      //                           .center,
+                                      //                   children: [
+                                      //                     const Text(
+                                      //                       "Completed",
+                                      //                       style: TextStyle(
+                                      //                         fontFamily:
+                                      //                             "Nunito",
+                                      //                         fontSize: 19,
+                                      //                         fontWeight:
+                                      //                             FontWeight
+                                      //                                 .bold,
+                                      //                         color: Color(
+                                      //                             0XFF52b788),
+                                      //                       ),
+                                      //                       textAlign: TextAlign
+                                      //                           .center,
+                                      //                       maxLines: 2,
+                                      //                     ),
+                                      //                     Padding(
+                                      //                       padding:
+                                      //                           const EdgeInsets
+                                      //                                   .only(
+                                      //                               top: 10),
+                                      //                       child: Text(
+                                      //                         "$p",
+                                      //                         style:
+                                      //                             const TextStyle(
+                                      //                           fontFamily:
+                                      //                               "Nunito",
+                                      //                           fontSize: 19,
+                                      //                           fontWeight:
+                                      //                               FontWeight
+                                      //                                   .bold,
+                                      //                           color: Color(
+                                      //                               0XFFff5c8a),
+                                      //                         ),
+                                      //                       ),
+                                      //                     ),
+                                      //                   ],
+                                      //                 ),
+                                      //               ),
+                                      //             ],
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                      Row(
+                                        children: [
+                                          Flexible(
+                                            flex: 1,
+                                            fit: FlexFit.tight,
+                                            child: InkWell(
+                                              onTap: () => Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const Pendingsrc())),
+                                              child: Container(
+                                                  padding: EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      color: white,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          spreadRadius: 1,
+                                                          blurRadius: 3,
+                                                          color: black
+                                                              .withOpacity(.1),
+                                                          offset: Offset(-1, 2),
+                                                        ),
+                                                      ]),
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        width: double.infinity,
+                                                        height: s.height * 0.08,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                            color: const Color(
+                                                                0XFFFED4D6),
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                spreadRadius: 1,
+                                                                blurRadius: 3,
+                                                                color: black
+                                                                    .withOpacity(
+                                                                        .1),
+                                                                offset: Offset(
+                                                                    -1, 2),
+                                                              ),
+                                                            ]),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Pending",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Montserrat",
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Color(
+                                                                  0XFFff5c8a),
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            maxLines: 2,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 15),
+                                                      Text(
+                                                        "$p",
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              "Montserrat",
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color:
+                                                              Color(0XFFff5c8a),
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Flexible(
+                                            flex: 1,
+                                            fit: FlexFit.tight,
+                                            child: InkWell(
+                                              onTap: () => Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const Completedpgmsrc())),
+                                              child: Container(
+                                                  padding: EdgeInsets.all(10),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      color: white,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          spreadRadius: 1,
+                                                          blurRadius: 3,
+                                                          color: black
+                                                              .withOpacity(.1),
+                                                          offset: Offset(-1, 2),
+                                                        ),
+                                                      ]),
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        width: double.infinity,
+                                                        height: s.height * 0.08,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20),
+                                                            color: const Color(
+                                                                0XFFDBF4F1),
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                spreadRadius: 1,
+                                                                blurRadius: 3,
+                                                                color: black
+                                                                    .withOpacity(
+                                                                        .1),
+                                                                offset: Offset(
+                                                                    -1, 2),
+                                                              ),
+                                                            ]),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Completed",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Montserrat",
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Color(
+                                                                  0XFF52b788),
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            maxLines: 2,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 15),
+                                                      Text(
+                                                        "$c",
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              "Montserrat",
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color:
+                                                              Color(0XFF52b788),
+                                                          fontSize: 18,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(
@@ -654,9 +937,9 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 child: Text(
                                   "Technician Status",
                                   style: TextStyle(
-                                    fontFamily: "Nunito",
+                                    fontFamily: "Montserrat",
+                                    fontWeight: FontWeight.w500,
                                     fontSize: 22,
-                                    // fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),

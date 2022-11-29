@@ -233,6 +233,8 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
     String month = DateFormat('MM').format(now);
     String year = DateFormat('y').format(now);
     String techvdoc = DateFormat('MM d').format(now);
+    String doc_name = DateFormat('kk:mm:ss').format(now);
+
 
 
     Techvehicle techv = Techvehicle(
@@ -241,6 +243,7 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
       upTime: uptime,
       username: widget.username,
       vdocname: widget.docname,
+      docname: doc_name,
     );
 
     showDialog(context: context, builder: (context)=> LoadingDialog());
@@ -265,7 +268,8 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
         .collection("Reports")
         .doc("${widget.username}")
         .collection("vehicle")
-        .add(techv.toMap());
+        .doc(doc_name)
+        .set(techv.toMap());
 
     // status change
     await fb.collection("Garage").doc(widget.docname).set({

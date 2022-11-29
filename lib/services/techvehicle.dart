@@ -4,6 +4,7 @@ class Techvehicle {
   String? end;
   String? username;
   String? vdocname;
+  String? docname;
   String? upDate;
   String? upTime;
   String? desc;
@@ -14,6 +15,7 @@ class Techvehicle {
     this.end,
     this.username,
     this.vdocname,
+    this.docname,
     this.upDate,
     this.upTime,
     this.desc,
@@ -26,6 +28,7 @@ class Techvehicle {
       start: map['start'],
       end: map['end'],
       vdocname: map['vdocname'],
+      docname: map['docname'],
       upDate: map['upDate'],
       upTime: map['upTime'],
       username: map['username'],
@@ -42,6 +45,7 @@ class Techvehicle {
       'upDate': upDate,
       'upTime': upTime,
       'vdocname': vdocname,
+      'docname': docname,
       'username': username,
       'desc': desc,
     };

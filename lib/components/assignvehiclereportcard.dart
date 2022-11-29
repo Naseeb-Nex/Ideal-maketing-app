@@ -250,6 +250,7 @@ class _AssignVehiclereportcardState extends State<AssignVehiclereportcard> {
     DateTime now = DateTime.now();
     String update = DateFormat('d MM y').format(now);
     String uptime = DateFormat('h:mma').format(now);
+    String doc_name = DateFormat('kk:mm:ss').format(now);
 
     // Report
     String day = DateFormat('d').format(now);
@@ -262,6 +263,7 @@ class _AssignVehiclereportcardState extends State<AssignVehiclereportcard> {
       upTime: uptime,
       username: widget.username,
       vdocname: widget.docname,
+      docname: doc_name,
     );
 
     showDialog(context: context, builder: (context) => LoadingDialog());
@@ -277,7 +279,8 @@ class _AssignVehiclereportcardState extends State<AssignVehiclereportcard> {
         .collection("Reports")
         .doc("${widget.username}")
         .collection("vehicle")
-        .add(techv.toMap());
+        .doc(doc_name)
+        .set(techv.toMap());
 
     Navigator.of(context).pop();
     Navigator.pop(context);

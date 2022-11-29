@@ -566,6 +566,8 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                                   name: vehicle[i]['name'],
                                                   vdocname: vehicle[i]
                                                       ['vdocname'],
+                                                  docname: vehicle[i]
+                                                      ['docname'],
                                                   username: vehicle[i]
                                                       ['username'],
                                                   update: vehicle[i]['upDate'],

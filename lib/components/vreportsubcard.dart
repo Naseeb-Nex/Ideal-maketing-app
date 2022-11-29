@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/components/loadingDialog.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:iconsax/iconsax.dart';
 // package
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+import 'package:motion_toast/motion_toast.dart';
 
 // ignore: must_be_immutable
 class Vreportsubcard extends StatefulWidget {
   String? name;
   String? username;
   String? vdocname;
+  String? docname;
   String? update;
   String? uptime;
 
@@ -17,6 +21,7 @@ class Vreportsubcard extends StatefulWidget {
     this.name,
     this.username,
     this.vdocname,
+    this.docname,
     this.update,
     this.uptime,
   }) : super(key: key);
@@ -26,7 +31,6 @@ class Vreportsubcard extends StatefulWidget {
 }
 
 class _VreportsubcardState extends State<Vreportsubcard> {
-
   @override
   Widget build(context) {
     Size s = MediaQuery.of(context).size;
@@ -115,7 +119,10 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                       InkWell(
                         onTap: () => showDialog(
                             context: context,
-                            builder: (context) => VehicleinfoDialog()),
+                            builder: (context) => VehicleinfoDialog(
+                                  docname: widget.docname,
+                                  username: widget.username,
+                                )),
                         child: Container(
                           padding: EdgeInsets.all(s.width * 0.03),
                           decoration: BoxDecoration(
@@ -170,18 +177,12 @@ class _VreportsubcardState extends State<Vreportsubcard> {
 
 // ignore: must_be_immutable
 class VehicleinfoDialog extends StatefulWidget {
-  String? name;
   String? username;
-  String? vdocname;
-  String? update;
-  String? uptime;
+  String? docname;
 
   VehicleinfoDialog({
-    this.name,
     this.username,
-    this.vdocname,
-    this.update,
-    this.uptime,
+    this.docname,
   });
 
   @override
@@ -191,18 +192,18 @@ class VehicleinfoDialog extends StatefulWidget {
 class _NamedescDialogState extends State<VehicleinfoDialog> {
   // Form Key
   final form_key = GlobalKey<FormState>();
-  FirebaseFirestore fb = FirebaseFirestore.instance;
 
   // Text editor controller
   final TextEditingController startController = TextEditingController();
   final TextEditingController endController = TextEditingController();
-  TextEditingController descController = TextEditingController();
+  final TextEditingController descController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return Dialog(
       insetAnimationCurve: Curves.easeInCubic,
-      insetAnimationDuration: Duration(milliseconds: 500),
+      insetAnimationDuration: Duration(milliseconds: 300),
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: s.width * 0.03,
@@ -385,6 +386,7 @@ class _NamedescDialogState extends State<VehicleinfoDialog> {
                       Flexible(
                         flex: 1,
                         child: InkWell(
+                          onTap: () => vehicle_usage(context),
                           child: Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: s.height * 0.01),
@@ -409,5 +411,57 @@ class _NamedescDialogState extends State<VehicleinfoDialog> {
         ),
       ),
     );
+  }
+
+  Future<void> vehicle_usage(BuildContext context) async {
+  FirebaseFirestore fb = FirebaseFirestore.instance;
+
+    DateTime now = DateTime.now();
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+    if (form_key.currentState!.validate()) {
+      showDialog(context: context, builder: (context) => LoadingDialog());
+
+      // report added
+      await fb
+          .collection("Reports")
+          .doc(year)
+          .collection("Month")
+          .doc(month)
+          .collection(day)
+          .doc("Tech")
+          .collection("Reports")
+          .doc("${widget.username}")
+          .collection("vehicle")
+          .doc(widget.docname)
+          .update({
+        'start': startController.text,
+        'end': endController.text,
+        'desc': descController.text,
+      },).then((value) {
+        Navigator.of(context).pop();
+        Navigator.pop(context);
+        MotionToast.success(
+          title: Text(
+            "Vehicle Usage Updated",
+            style: TextStyle(
+              fontFamily: "Montserrat",
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          description: Text(
+            "Updated successfully",
+            style: TextStyle(
+              fontFamily: "Montserrat",
+              fontSize: 13,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ).show(context);
+      });
+    }
   }
 }

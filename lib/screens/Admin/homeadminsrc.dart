@@ -645,78 +645,86 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                       builder: (context) =>
                                                           const Pendingsrc())),
                                               child: Container(
-                                                  padding: EdgeInsets.all(10),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                      color: white,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          spreadRadius: 1,
-                                                          blurRadius: 3,
-                                                          color: black
-                                                              .withOpacity(.1),
-                                                          offset: Offset(-1, 2),
-                                                        ),
-                                                      ]),
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        width: double.infinity,
-                                                        height: s.height * 0.08,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20),
-                                                            color: const Color(
-                                                                0XFFFED4D6),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                spreadRadius: 1,
-                                                                blurRadius: 3,
-                                                                color: black
-                                                                    .withOpacity(
-                                                                        .1),
-                                                                offset: Offset(
-                                                                    -1, 2),
-                                                              ),
-                                                            ]),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Pending",
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  "Montserrat",
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: Color(
-                                                                  0XFFff5c8a),
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            maxLines: 2,
-                                                          ),
-                                                        ),
+                                                padding: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    color: white,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        spreadRadius: 1,
+                                                        blurRadius: 3,
+                                                        color: black
+                                                            .withOpacity(.1),
+                                                        offset: Offset(-1, 2),
                                                       ),
-                                                      SizedBox(height: 15),
-                                                      Text(
-                                                        "$p",
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              "Montserrat",
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0XFFff5c8a),
-                                                          fontSize: 18,
-                                                        ),
+                                                    ]),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: Colors
+                                                              .blue.shade50),
+                                                      padding:
+                                                          EdgeInsets.all(10),
+                                                      child: Image.asset(
+                                                        "assets/icons/pending.png",
+                                                        width: 20,
+                                                        height: 20,
                                                       ),
-                                                    ],
-                                                  )),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    Text(
+                                                      "Pending",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0XFFff5c8a),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    Text(
+                                                      "Programs",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0XFFff5c8a),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    SizedBox(height: 15),
+                                                    Text(
+                                                      "$p",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0XFFff5c8a),
+                                                        fontSize: 27,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ),
                                           ),
                                           SizedBox(
@@ -732,78 +740,86 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                       builder: (context) =>
                                                           const Completedpgmsrc())),
                                               child: Container(
-                                                  padding: EdgeInsets.all(10),
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                      color: white,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          spreadRadius: 1,
-                                                          blurRadius: 3,
-                                                          color: black
-                                                              .withOpacity(.1),
-                                                          offset: Offset(-1, 2),
-                                                        ),
-                                                      ]),
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        width: double.infinity,
-                                                        height: s.height * 0.08,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20),
-                                                            color: const Color(
-                                                                0XFFDBF4F1),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                spreadRadius: 1,
-                                                                blurRadius: 3,
-                                                                color: black
-                                                                    .withOpacity(
-                                                                        .1),
-                                                                offset: Offset(
-                                                                    -1, 2),
-                                                              ),
-                                                            ]),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Completed",
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  "Montserrat",
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              color: Color(
-                                                                  0XFF52b788),
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            maxLines: 2,
-                                                          ),
-                                                        ),
+                                                padding: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    color: white,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        spreadRadius: 1,
+                                                        blurRadius: 3,
+                                                        color: black
+                                                            .withOpacity(.1),
+                                                        offset: Offset(-1, 2),
                                                       ),
-                                                      SizedBox(height: 15),
-                                                      Text(
-                                                        "$c",
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              "Montserrat",
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color:
-                                                              Color(0XFF52b788),
-                                                          fontSize: 18,
-                                                        ),
+                                                    ]),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: Colors
+                                                              .blue.shade50),
+                                                      padding:
+                                                          EdgeInsets.all(10),
+                                                      child: Image.asset(
+                                                        "assets/icons/completed.png",
+                                                        width: 22,
+                                                        height: 22,
                                                       ),
-                                                    ],
-                                                  )),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    Text(
+                                                      "Completed",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0XFF52b788),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    Text(
+                                                      "Programs",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0XFF52b788),
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    SizedBox(height: 15),
+                                                    Text(
+                                                      "$c",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0XFF52b788),
+                                                        fontSize: 27,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ],

@@ -12,6 +12,9 @@ class Vreportsubcard extends StatefulWidget {
   String? name;
   String? username;
   String? vdocname;
+  String? start;
+  String? end;
+  String? desc;
   String? docname;
   String? update;
   String? uptime;
@@ -22,6 +25,9 @@ class Vreportsubcard extends StatefulWidget {
     this.username,
     this.vdocname,
     this.docname,
+    this.start,
+    this.end,
+    this.desc,
     this.update,
     this.uptime,
   }) : super(key: key);
@@ -111,61 +117,97 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                 SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        onTap: () => showDialog(
-                            context: context,
-                            builder: (context) => VehicleinfoDialog(
-                                  docname: widget.docname,
-                                  username: widget.username,
-                                )),
-                        child: Container(
-                          padding: EdgeInsets.all(s.width * 0.03),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: bluebg,
-                            boxShadow: [
-                              BoxShadow(
-                                spreadRadius: 2,
-                                blurRadius: 3,
-                                color: black.withOpacity(.05),
-                                offset: Offset(1, 1),
+                Center(
+                  child: widget.end == null
+                      ? Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () => showDialog(
+                                    context: context,
+                                    builder: (context) => VehicleinfoDialog(
+                                          docname: widget.docname,
+                                          username: widget.username,
+                                        )),
+                                child: Container(
+                                  padding: EdgeInsets.all(s.width * 0.03),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: bluebg,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        spreadRadius: 2,
+                                        blurRadius: 3,
+                                        color: black.withOpacity(.05),
+                                        offset: Offset(1, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 5),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Iconsax.add,
+                                          color: white,
+                                          size: 20,
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          "Add Usage",
+                                          style: TextStyle(
+                                            color: Colors.blueGrey.shade50,
+                                            fontFamily: "Montserrat",
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 5),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Iconsax.add,
-                                  color: white,
-                                  size: 20,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "Add Usage",
-                                  style: TextStyle(
-                                    color: Colors.blueGrey.shade50,
-                                    fontFamily: "Montserrat",
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        )
+                      : null,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: white,
+                      boxShadow: [
+                        BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 4,
+                          color: black.withOpacity(.1),
+                          offset: Offset(1, 2),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
+                    child: Column(children: [
+                      Text(
+                        "Usage Details",
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
-                    ],
+                      Divider()
+                    ]),
                   ),
-                ),
+                )
               ],
             ),
           ],
@@ -414,7 +456,7 @@ class _NamedescDialogState extends State<VehicleinfoDialog> {
   }
 
   Future<void> vehicle_usage(BuildContext context) async {
-  FirebaseFirestore fb = FirebaseFirestore.instance;
+    FirebaseFirestore fb = FirebaseFirestore.instance;
 
     DateTime now = DateTime.now();
     // Report
@@ -436,11 +478,13 @@ class _NamedescDialogState extends State<VehicleinfoDialog> {
           .doc("${widget.username}")
           .collection("vehicle")
           .doc(widget.docname)
-          .update({
-        'start': startController.text,
-        'end': endController.text,
-        'desc': descController.text,
-      },).then((value) {
+          .update(
+        {
+          'start': startController.text,
+          'end': endController.text,
+          'desc': descController.text,
+        },
+      ).then((value) {
         Navigator.of(context).pop();
         Navigator.pop(context);
         MotionToast.success(

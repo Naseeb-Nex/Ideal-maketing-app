@@ -1250,6 +1250,7 @@ class _HomeTechState extends State<HomeTech> {
                               ConnectionState.waiting) {
                             pgm_size = -1;
                             return Container(
+                              height: s.height * 0.7,
                               child: Center(
                                 child: CircularProgressIndicator(
                                   color: bluebg,

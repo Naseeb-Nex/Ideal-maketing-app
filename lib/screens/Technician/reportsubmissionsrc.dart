@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ideal_marketing/components/assignvehiclecard.dart';
 import 'package:ideal_marketing/components/assignvehiclereportcard.dart';
-import 'package:ideal_marketing/components/vehicleinfocard.dart';
 import 'package:ideal_marketing/components/vreportsubcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
@@ -27,6 +25,10 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
   FirebaseFirestore fb = FirebaseFirestore.instance;
 
   late CollectionReference streamreport;
+
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController expenseController = TextEditingController();
 
   @override
   void initState() {
@@ -584,6 +586,116 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                 ],
                               ),
                             ),
+                            SizedBox(
+                              height: s.height * 0.03,
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: s.width * 0.03, vertical: 15),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      spreadRadius: 2,
+                                      blurRadius: 4,
+                                      color: black.withOpacity(.1),
+                                      offset: Offset(1, 2),
+                                    ),
+                                  ]),
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Expense",
+                                            style: TextStyle(
+                                              fontFamily: "Montserrat",
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 17,
+                                              color: bluebg,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Divider(),
+                                      Text(
+                                        "Today's Expense Details",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      SizedBox(height: s.height * 0.02),
+                                      TextFormField(
+                                        autofocus: false,
+                                        minLines: 6,
+                                        maxLines: 8,
+                                        controller: expenseController,
+                                        keyboardType: TextInputType.multiline,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return ("Please fill Expense Details");
+                                          }
+                                          return null;
+                                        },
+                                        onSaved: (value) {
+                                          expenseController.text = value!;
+                                        },
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.fromLTRB(
+                                                  20, 15, 20, 15),
+                                          hintText: "Expense Details",
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: s.height * 0.02,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            width: s.width * 0.3,
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: bluebg),
+                                            child: Center(
+                                              child: Text(
+                                                "Submit",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 17,
+                                                  color: white,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ]),
+                              ),
+                            ),
+                            SizedBox(height: s.height * 0.25),
                           ]),
                     ),
                   ),

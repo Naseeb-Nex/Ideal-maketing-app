@@ -41,7 +41,10 @@ class _VreportsubcardState extends State<Vreportsubcard> {
   @override
   void initState() {
     super.initState();
-    dis = int.parse("${widget.end}") - int.parse("${widget.start}");
+
+    if (widget.start != null && widget.end != null) {
+      dis = int.parse("${widget.end}") - int.parse("${widget.start}");
+    }
   }
 
   @override
@@ -222,7 +225,16 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                         ),
                                       ),
                                       InkWell(
-                                        onTap: () => {},
+                                        onTap: () => showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                EditVehicleusage(
+                                                  username: widget.username,
+                                                  start: widget.start,
+                                                  end: widget.end,
+                                                  desc: widget.desc,
+                                                  docname: widget.docname,
+                                                )),
                                         child: Container(
                                           width: 30,
                                           height: 30,
@@ -287,7 +299,7 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
-                                                color: vybg),
+                                                color: greenbg),
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 5),
                                             child: Text(
@@ -295,6 +307,7 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                               style: TextStyle(
                                                 fontFamily: "Montserrat",
                                                 fontWeight: FontWeight.w500,
+                                                color: Colors.green,
                                               ),
                                             ),
                                           ),
@@ -308,7 +321,11 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(2),
-                                              color: black),
+                                              gradient: LinearGradient(colors: [
+                                                Colors.green,
+                                                Colors.orangeAccent,
+                                                Colors.redAccent
+                                              ])),
                                         ),
                                       ),
                                       Column(
@@ -324,7 +341,7 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
-                                                color: vybg),
+                                                color: redbg),
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 10, vertical: 5),
                                             child: Text(
@@ -332,6 +349,7 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                               style: TextStyle(
                                                 fontFamily: "Montserrat",
                                                 fontWeight: FontWeight.w500,
+                                                color: redfg,
                                               ),
                                             ),
                                           ),
@@ -364,10 +382,10 @@ class VehicleinfoDialog extends StatefulWidget {
   });
 
   @override
-  State<VehicleinfoDialog> createState() => _NamedescDialogState();
+  State<VehicleinfoDialog> createState() => _VehicleinfoDialogState();
 }
 
-class _NamedescDialogState extends State<VehicleinfoDialog> {
+class _VehicleinfoDialogState extends State<VehicleinfoDialog> {
   // Form Key
   final form_key = GlobalKey<FormState>();
 
@@ -645,6 +663,7 @@ class _NamedescDialogState extends State<VehicleinfoDialog> {
     }
   }
 }
+
 // ignore: must_be_immutable
 class EditVehicleusage extends StatefulWidget {
   String? username;
@@ -673,13 +692,14 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
   final TextEditingController startController = TextEditingController();
   final TextEditingController endController = TextEditingController();
   final TextEditingController descController = TextEditingController();
-  
+
   @override
   void initState() {
     super.initState();
     startController.text = "${widget.start}";
     endController.text = "${widget.end}";
-    startController.text = "${widget.start}";
+    
+    descController.text = "${widget.desc}";
   }
 
   @override
@@ -703,7 +723,7 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Vehicle Usage Info",
+                      "Edit Vehicle Usage Info",
                       style: TextStyle(
                         fontFamily: "Montserrat",
                         fontWeight: FontWeight.w700,
@@ -879,7 +899,7 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
                                   color: bluebg),
                               child: Center(
                                   child: Text(
-                                "Add",
+                                "Update",
                                 style: TextStyle(
                                   fontFamily: "Montserrat",
                                   color: white,
@@ -908,7 +928,7 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
     if (form_key.currentState!.validate()) {
       showDialog(context: context, builder: (context) => LoadingDialog());
 
-      // report added
+      // report Update
       await fb
           .collection("Reports")
           .doc(year)

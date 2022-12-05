@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/assignvehiclereportcard.dart';
+import 'package:ideal_marketing/components/loadingDialog.dart';
 import 'package:ideal_marketing/components/vreportsubcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 
@@ -670,22 +671,26 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: [
-                                          Container(
-                                            width: s.width * 0.3,
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: bluebg),
-                                            child: Center(
-                                              child: Text(
-                                                "Submit",
-                                                style: TextStyle(
-                                                  fontFamily: "Montserrat",
-                                                  fontSize: 17,
-                                                  color: white,
-                                                  fontWeight: FontWeight.w600,
+                                          InkWell(
+                                            onTap: () => up_expense,
+                                            child: Container(
+                                              width: s.width * 0.3,
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: bluebg,
+                                                  ),
+                                              child: Center(
+                                                child: Text(
+                                                  "Submit",
+                                                  style: TextStyle(
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: 17,
+                                                    color: white,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -730,4 +735,31 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
           .collection("vehicle");
     });
   }
+
+  Future<void> up_expense() async {
+    FirebaseFirestore fb = FirebaseFirestore.instance;
+
+    DateTime now = DateTime.now();
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
+    if(_formKey.currentState!.validate()){
+      showDialog(context: context, builder: (context) => LoadingDialog());
+
+      // fb
+      //     .collection("Reports")
+      //     .doc(year)
+      //     .collection("Month")
+      //     .doc(month)
+      //     .collection(day)
+      //     .doc("Tech")
+      //     .collection("Reports")
+      //     .doc("${widget.username}")
+      //     .
+    }
+  }
+
+
 }

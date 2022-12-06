@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/components/assignvehiclereportcard.dart';
 import 'package:ideal_marketing/components/loadingDialog.dart';
 import 'package:ideal_marketing/components/vreportsubcard.dart';
@@ -10,6 +11,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 import 'package:iconsax/iconsax.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:panara_dialogs/panara_dialogs.dart';
 
 // ignore: must_be_immutable
 class ReportSubmissionSrc extends StatefulWidget {
@@ -672,16 +675,36 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                             MainAxisAlignment.end,
                                         children: [
                                           InkWell(
-                                            onTap: () => up_expense,
+                                            onTap: () {
+                                              FocusManager.instance.primaryFocus
+                                                  ?.unfocus();
+                                              PanaraConfirmDialog.show(
+                                                context,
+                                                title: "Are you sure?",
+                                                message:
+                                                    "Do you really want to submit Expense details?",
+                                                confirmButtonText: "Confirm",
+                                                cancelButtonText: "Cancel",
+                                                onTapCancel: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                onTapConfirm: () =>
+                                                    up_expense(context),
+                                                panaraDialogType:
+                                                    PanaraDialogType.success,
+                                                barrierDismissible: false,
+                                                textColor: Color(0XFF727272),
+                                              );
+                                            },
                                             child: Container(
                                               width: s.width * 0.3,
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 10),
                                               decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  color: bluebg,
-                                                  ),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: bluebg,
+                                              ),
                                               child: Center(
                                                 child: Text(
                                                   "Submit",
@@ -736,7 +759,7 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
     });
   }
 
-  Future<void> up_expense() async {
+  Future<void> up_expense(BuildContext context) async {
     FirebaseFirestore fb = FirebaseFirestore.instance;
 
     DateTime now = DateTime.now();
@@ -745,21 +768,38 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
     String month = DateFormat('MM').format(now);
     String year = DateFormat('y').format(now);
 
-    if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
+      Navigator.of(context).pop();
       showDialog(context: context, builder: (context) => LoadingDialog());
 
-      // fb
-      //     .collection("Reports")
-      //     .doc(year)
-      //     .collection("Month")
-      //     .doc(month)
-      //     .collection(day)
-      //     .doc("Tech")
-      //     .collection("Reports")
-      //     .doc("${widget.username}")
-      //     .
+      fb
+          .collection("Reports")
+          .doc(year)
+          .collection("Month")
+          .doc(month)
+          .collection(day)
+          .doc("Tech")
+          .collection("Reports")
+          .doc("${widget.username}")
+          .set({'expense': expenseController.text}).then((value) {
+        Fluttertoast.showToast(
+          msg: 'Expense Details Updated Successfully',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: bluebg,
+          textColor: white,
+        );
+      }).onError((error, stackTrace) {
+        Fluttertoast.showToast(
+          msg: 'Something went wrong :(',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: bluebg,
+          textColor: white,
+        );
+      });
+
+      Navigator.of(context).pop();
     }
   }
-
-
 }

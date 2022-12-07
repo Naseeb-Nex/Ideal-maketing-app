@@ -636,90 +636,92 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                           fontSize: 15,
                                         ),
                                       ),
-                                      SizedBox(height: s.height * 0.02),
-                                      TextFormField(
-                                        autofocus: false,
-                                        minLines: 6,
-                                        maxLines: 8,
-                                        controller: expenseController,
-                                        keyboardType: TextInputType.multiline,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return ("Please fill Expense Details");
-                                          }
-                                          return null;
-                                        },
-                                        onSaved: (value) {
-                                          expenseController.text = value!;
-                                        },
-                                        decoration: InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.fromLTRB(
-                                                  20, 15, 20, 15),
-                                          hintText: "Expense Details",
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        style: TextStyle(
-                                          fontFamily: "Montserrat",
-                                          fontSize: 15,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: s.height * 0.02,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              FocusManager.instance.primaryFocus
-                                                  ?.unfocus();
-                                              PanaraConfirmDialog.show(
-                                                context,
-                                                title: "Are you sure?",
-                                                message:
-                                                    "Do you really want to submit Expense details?",
-                                                confirmButtonText: "Confirm",
-                                                cancelButtonText: "Cancel",
-                                                onTapCancel: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                onTapConfirm: () =>
-                                                    up_expense(context),
-                                                panaraDialogType:
-                                                    PanaraDialogType.success,
-                                                barrierDismissible: false,
-                                                textColor: Color(0XFF727272),
-                                              );
-                                            },
-                                            child: Container(
-                                              width: s.width * 0.3,
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 10),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: bluebg,
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  "Submit",
-                                                  style: TextStyle(
-                                                    fontFamily: "Montserrat",
-                                                    fontSize: 17,
-                                                    color: white,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      // when the data is already updated then show the data
+
+                                      // SizedBox(height: s.height * 0.02),
+                                      // TextFormField(
+                                      //   autofocus: false,
+                                      //   minLines: 6,
+                                      //   maxLines: 8,
+                                      //   controller: expenseController,
+                                      //   keyboardType: TextInputType.multiline,
+                                      //   validator: (value) {
+                                      //     if (value!.isEmpty) {
+                                      //       return ("Please fill Expense Details");
+                                      //     }
+                                      //     return null;
+                                      //   },
+                                      //   onSaved: (value) {
+                                      //     expenseController.text = value!;
+                                      //   },
+                                      //   decoration: InputDecoration(
+                                      //     contentPadding:
+                                      //         const EdgeInsets.fromLTRB(
+                                      //             20, 15, 20, 15),
+                                      //     hintText: "Expense Details",
+                                      //     border: OutlineInputBorder(
+                                      //       borderRadius:
+                                      //           BorderRadius.circular(10),
+                                      //     ),
+                                      //   ),
+                                      //   style: TextStyle(
+                                      //     fontFamily: "Montserrat",
+                                      //     fontSize: 15,
+                                      //   ),
+                                      // ),
+                                      // SizedBox(
+                                      //   height: s.height * 0.02,
+                                      // ),
+                                      // Row(
+                                      //   mainAxisAlignment:
+                                      //       MainAxisAlignment.end,
+                                      //   children: [
+                                      //     InkWell(
+                                      //       onTap: () {
+                                      //         FocusManager.instance.primaryFocus
+                                      //             ?.unfocus();
+                                      //         PanaraConfirmDialog.show(
+                                      //           context,
+                                      //           title: "Are you sure?",
+                                      //           message:
+                                      //               "Do you really want to submit Expense details?",
+                                      //           confirmButtonText: "Confirm",
+                                      //           cancelButtonText: "Cancel",
+                                      //           onTapCancel: () {
+                                      //             Navigator.pop(context);
+                                      //           },
+                                      //           onTapConfirm: () =>
+                                      //               up_expense(context),
+                                      //           panaraDialogType:
+                                      //               PanaraDialogType.success,
+                                      //           barrierDismissible: false,
+                                      //           textColor: Color(0XFF727272),
+                                      //         );
+                                      //       },
+                                      //       child: Container(
+                                      //         width: s.width * 0.3,
+                                      //         padding: EdgeInsets.symmetric(
+                                      //             vertical: 10),
+                                      //         decoration: BoxDecoration(
+                                      //           borderRadius:
+                                      //               BorderRadius.circular(10),
+                                      //           color: bluebg,
+                                      //         ),
+                                      //         child: Center(
+                                      //           child: Text(
+                                      //             "Submit",
+                                      //             style: TextStyle(
+                                      //               fontFamily: "Montserrat",
+                                      //               fontSize: 17,
+                                      //               color: white,
+                                      //               fontWeight: FontWeight.w600,
+                                      //             ),
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ]),
                               ),
                             ),

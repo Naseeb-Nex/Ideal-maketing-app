@@ -46,8 +46,9 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
 
     DateTime now = DateTime.now();
     // Report
-    String techvdoc = DateFormat('MM d').format(now);
-
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -350,148 +351,6 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                                         ),
                                                       ),
                                                     ))
-
-                                            // Confimation Dialog box
-
-                                            // showDialog(
-                                            //     context: context,
-                                            //     builder: (context) => Dialog(
-                                            //           child: Padding(
-                                            //             padding: EdgeInsets.all(
-                                            //                 s.width * 0.03),
-                                            //             child: Column(
-                                            //               mainAxisSize:
-                                            //                   MainAxisSize.min,
-                                            //               children: [
-                                            //                 Container(
-                                            //                   width: s.width *
-                                            //                       0.25,
-                                            //                   height: s.width *
-                                            //                       0.25,
-                                            //                   child:
-                                            //                       Image.asset(
-                                            //                     "assets/icons/q_mark.png",
-                                            //                     fit: BoxFit
-                                            //                         .contain,
-                                            //                   ),
-                                            //                 ),
-                                            //                 Text(
-                                            //                   "Are you sure?",
-                                            //                   style: TextStyle(
-                                            //                       fontFamily:
-                                            //                           "Montserrat",
-                                            //                       fontSize: 17,
-                                            //                       fontWeight:
-                                            //                           FontWeight
-                                            //                               .w700),
-                                            //                 ),
-                                            //                 SizedBox(
-                                            //                     height: 10),
-                                            //                 Text(
-                                            //                   "Would you like to add the vehicle you used today?",
-                                            //                   style: TextStyle(
-                                            //                     fontFamily:
-                                            //                         "Montserrat",
-                                            //                     fontSize: 15,
-                                            //                     fontWeight:
-                                            //                         FontWeight
-                                            //                             .w500,
-                                            //                   ),
-                                            //                   textAlign:
-                                            //                       TextAlign
-                                            //                           .center,
-                                            //                 ),
-                                            //                 SizedBox(
-                                            //                   height: 10,
-                                            //                 ),
-                                            //                 Row(
-                                            //                   mainAxisAlignment:
-                                            //                       MainAxisAlignment
-                                            //                           .spaceAround,
-                                            //                   children: [
-                                            //                     Flexible(
-                                            //                       flex: 1,
-                                            //                       fit: FlexFit
-                                            //                           .tight,
-                                            //                       child:
-                                            //                           InkWell(
-                                            //                         onTap: () =>
-                                            //                             Navigator.pop(
-                                            //                                 context),
-                                            //                         child:
-                                            //                             Container(
-                                            //                           decoration:
-                                            //                               BoxDecoration(
-                                            //                             borderRadius:
-                                            //                                 BorderRadius.circular(15),
-                                            //                             color: Color(
-                                            //                                 0XFF5963d5),
-                                            //                           ),
-                                            //                           padding: EdgeInsets.symmetric(
-                                            //                               vertical:
-                                            //                                   10),
-                                            //                           child:
-                                            //                               Center(
-                                            //                             child:
-                                            //                                 Text(
-                                            //                               "Cancel",
-                                            //                               style: TextStyle(
-                                            //                                   fontFamily: "Montserrat",
-                                            //                                   fontSize: 16,
-                                            //                                   color: white,
-                                            //                                   fontWeight: FontWeight.w600),
-                                            //                             ),
-                                            //                           ),
-                                            //                         ),
-                                            //                       ),
-                                            //                     ),
-                                            //                     SizedBox(
-                                            //                         width: 10),
-                                            //                     Flexible(
-                                            //                       flex: 1,
-                                            //                       fit: FlexFit
-                                            //                           .tight,
-                                            //                       child:
-                                            //                           InkWell(
-                                            //                         onTap:
-                                            //                             () {},
-                                            //                         child:
-                                            //                             Container(
-                                            //                           decoration:
-                                            //                               BoxDecoration(
-                                            //                             borderRadius:
-                                            //                                 BorderRadius.circular(15),
-                                            //                             color: Color(
-                                            //                                 0XFF5963d5),
-                                            //                           ),
-                                            //                           padding: EdgeInsets.symmetric(
-                                            //                               vertical:
-                                            //                                   10),
-                                            //                           child:
-                                            //                               Center(
-                                            //                             child:
-                                            //                                 Text(
-                                            //                               "Ok",
-                                            //                               style: TextStyle(
-                                            //                                   fontFamily: "Montserrat",
-                                            //                                   fontSize: 16,
-                                            //                                   color: white,
-                                            //                                   fontWeight: FontWeight.w600),
-                                            //                             ),
-                                            //                           ),
-                                            //                         ),
-                                            //                       ),
-                                            //                     ),
-                                            //                   ],
-                                            //                 ),
-                                            //                 SizedBox(
-                                            //                   height: s.width *
-                                            //                       0.035,
-                                            //                 ),
-                                            //               ],
-                                            //             ),
-                                            //           ),
-                                            //         ))
                                           },
                                         ),
                                       ),
@@ -637,91 +496,285 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                         ),
                                       ),
                                       // when the data is already updated then show the data
+                                      FutureBuilder<DocumentSnapshot>(
+                                        future: fb
+                                            .collection("Reports")
+                                            .doc(year)
+                                            .collection("Month")
+                                            .doc(month)
+                                            .collection(day)
+                                            .doc("Tech")
+                                            .collection("Reports")
+                                            .doc("${widget.username}")
+                                            .get(),
+                                        builder: (BuildContext context,
+                                            AsyncSnapshot<DocumentSnapshot>
+                                                snapshot) {
+                                          if (snapshot.hasError) {
+                                            return Text("Something went wrong");
+                                          }
 
-                                      // SizedBox(height: s.height * 0.02),
-                                      // TextFormField(
-                                      //   autofocus: false,
-                                      //   minLines: 6,
-                                      //   maxLines: 8,
-                                      //   controller: expenseController,
-                                      //   keyboardType: TextInputType.multiline,
-                                      //   validator: (value) {
-                                      //     if (value!.isEmpty) {
-                                      //       return ("Please fill Expense Details");
-                                      //     }
-                                      //     return null;
-                                      //   },
-                                      //   onSaved: (value) {
-                                      //     expenseController.text = value!;
-                                      //   },
-                                      //   decoration: InputDecoration(
-                                      //     contentPadding:
-                                      //         const EdgeInsets.fromLTRB(
-                                      //             20, 15, 20, 15),
-                                      //     hintText: "Expense Details",
-                                      //     border: OutlineInputBorder(
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(10),
-                                      //     ),
-                                      //   ),
-                                      //   style: TextStyle(
-                                      //     fontFamily: "Montserrat",
-                                      //     fontSize: 15,
-                                      //   ),
-                                      // ),
-                                      // SizedBox(
-                                      //   height: s.height * 0.02,
-                                      // ),
-                                      // Row(
-                                      //   mainAxisAlignment:
-                                      //       MainAxisAlignment.end,
-                                      //   children: [
-                                      //     InkWell(
-                                      //       onTap: () {
-                                      //         FocusManager.instance.primaryFocus
-                                      //             ?.unfocus();
-                                      //         PanaraConfirmDialog.show(
-                                      //           context,
-                                      //           title: "Are you sure?",
-                                      //           message:
-                                      //               "Do you really want to submit Expense details?",
-                                      //           confirmButtonText: "Confirm",
-                                      //           cancelButtonText: "Cancel",
-                                      //           onTapCancel: () {
-                                      //             Navigator.pop(context);
-                                      //           },
-                                      //           onTapConfirm: () =>
-                                      //               up_expense(context),
-                                      //           panaraDialogType:
-                                      //               PanaraDialogType.success,
-                                      //           barrierDismissible: false,
-                                      //           textColor: Color(0XFF727272),
-                                      //         );
-                                      //       },
-                                      //       child: Container(
-                                      //         width: s.width * 0.3,
-                                      //         padding: EdgeInsets.symmetric(
-                                      //             vertical: 10),
-                                      //         decoration: BoxDecoration(
-                                      //           borderRadius:
-                                      //               BorderRadius.circular(10),
-                                      //           color: bluebg,
-                                      //         ),
-                                      //         child: Center(
-                                      //           child: Text(
-                                      //             "Submit",
-                                      //             style: TextStyle(
-                                      //               fontFamily: "Montserrat",
-                                      //               fontSize: 17,
-                                      //               color: white,
-                                      //               fontWeight: FontWeight.w600,
-                                      //             ),
-                                      //           ),
-                                      //         ),
-                                      //       ),
-                                      //     ),
-                                      //   ],
-                                      // ),
+                                          if (snapshot.hasData &&
+                                              !snapshot.data!.exists) {
+                                            return Column(
+                                              children: [
+                                                SizedBox(
+                                                    height: s.height * 0.02),
+                                                TextFormField(
+                                                  autofocus: false,
+                                                  minLines: 6,
+                                                  maxLines: 8,
+                                                  controller: expenseController,
+                                                  keyboardType:
+                                                      TextInputType.multiline,
+                                                  validator: (value) {
+                                                    if (value!.isEmpty) {
+                                                      return ("Please fill Expense Details");
+                                                    }
+                                                    return null;
+                                                  },
+                                                  onSaved: (value) {
+                                                    expenseController.text =
+                                                        value!;
+                                                  },
+                                                  decoration: InputDecoration(
+                                                    contentPadding:
+                                                        const EdgeInsets
+                                                                .fromLTRB(
+                                                            20, 15, 20, 15),
+                                                    hintText: "Expense Details",
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                  ),
+                                                  style: TextStyle(
+                                                    fontFamily: "Montserrat",
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: s.height * 0.02,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        FocusManager.instance
+                                                            .primaryFocus
+                                                            ?.unfocus();
+                                                        PanaraConfirmDialog
+                                                            .show(
+                                                          context,
+                                                          title:
+                                                              "Are you sure?",
+                                                          message:
+                                                              "Do you really want to submit Expense details?",
+                                                          confirmButtonText:
+                                                              "Confirm",
+                                                          cancelButtonText:
+                                                              "Cancel",
+                                                          onTapCancel: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          onTapConfirm: () =>
+                                                              up_expense(
+                                                                  context),
+                                                          panaraDialogType:
+                                                              PanaraDialogType
+                                                                  .success,
+                                                          barrierDismissible:
+                                                              false,
+                                                          textColor:
+                                                              Color(0XFF727272),
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        width: s.width * 0.3,
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                                vertical: 10),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          color: bluebg,
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "Submit",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Montserrat",
+                                                              fontSize: 17,
+                                                              color: white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            );
+                                          }
+
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.done) {
+                                            Map<String, dynamic> data =
+                                                snapshot.data!.data()
+                                                    as Map<String, dynamic>;
+                                            return Column(
+                                              children: [
+                                                SizedBox(
+                                                    height: s.height * 0.02),
+                                                Stack(
+                                                  children: [
+                                                    Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal:
+                                                                  s.width *
+                                                                      0.03,
+                                                              vertical: 25),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                          border: Border.all(
+                                                              color: white),
+                                                          boxShadow: [
+                                                            const BoxShadow(
+                                                              color: white,
+                                                            ),
+                                                            const BoxShadow(
+                                                              color: bluebg,
+                                                              spreadRadius:
+                                                                  -1.0,
+                                                              blurRadius: 5.0,
+                                                            ),
+                                                            BoxShadow(
+                                                              spreadRadius: 2,
+                                                              blurRadius: 4,
+                                                              color: white
+                                                                  .withOpacity(
+                                                                      .1),
+                                                              offset: Offset(
+                                                                  -1, -2),
+                                                            ),
+                                                          ]),
+                                                      child: Row(
+                                                        children: [
+                                                          Text(
+                                                            "${data['expense']}",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Montserrat",
+                                                              fontSize: 15,
+                                                              color: white,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 5,
+                                                                  right: 5),
+                                                          child: InkWell(
+                                                            onTap: () =>
+                                                                showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) =>
+                                                                            EditexpenseDetailsDialog(
+                                                                              username: widget.username,
+                                                                              expense: data['expense'],
+                                                                            )),
+                                                            child: Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text("EDIT",
+                                                                    style: TextStyle(
+                                                                        fontFamily:
+                                                                            "Montserrat",
+                                                                        fontSize:
+                                                                            14,
+                                                                        color:
+                                                                            white)),
+                                                                SizedBox(
+                                                                  width: 5,
+                                                                ),
+                                                                Icon(
+                                                                  Icons
+                                                                      .edit_outlined,
+                                                                  color: white,
+                                                                  size: 18,
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            );
+                                          }
+
+                                          return Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                              color: white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  offset: const Offset(0, 10),
+                                                  blurRadius: 20,
+                                                  color: secondbg
+                                                      .withOpacity(0.23),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: s.width * 0.1),
+                                              child: Center(
+                                                child: SizedBox(
+                                                  width: s.width * 0.15,
+                                                  height: s.width * 0.15,
+                                                  child: LoadingIndicator(
+                                                    indicatorType: Indicator
+                                                        .ballClipRotateMultiple,
+                                                    colors: const [bluebg],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ]),
                               ),
                             ),
@@ -796,12 +849,219 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
           msg: 'Something went wrong :(',
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          backgroundColor: bluebg,
+          backgroundColor: cheryred,
           textColor: white,
         );
       });
 
       Navigator.of(context).pop();
     }
+  }
+}
+
+// ignore: must_be_immutable
+class EditexpenseDetailsDialog extends StatefulWidget {
+  String? username;
+  String? expense;
+
+  EditexpenseDetailsDialog({
+    this.username,
+    this.expense,
+  });
+
+  @override
+  State<EditexpenseDetailsDialog> createState() =>
+      _EditexpenseDetailsDialogState();
+}
+
+class _EditexpenseDetailsDialogState extends State<EditexpenseDetailsDialog> {
+  // Form Key
+  final form_key = GlobalKey<FormState>();
+
+  // Text editor controller
+  final TextEditingController expenseController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    expenseController.text = "${widget.expense}";
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
+    return Dialog(
+      insetAnimationCurve: Curves.easeInCubic,
+      insetAnimationDuration: Duration(milliseconds: 300),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: s.width * 0.03,
+          vertical: s.height * 0.03,
+        ),
+        child: Form(
+          key: form_key,
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Edit Expense Details",
+                      style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: s.height * 0.02,
+                ),
+                Text(
+                  "Expense Details",
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 17,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                SizedBox(
+                  height: s.height * 0.01,
+                ),
+                TextFormField(
+                  autofocus: false,
+                  minLines: 3,
+                  maxLines: 4,
+                  controller: expenseController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return ("Please enter the Expense Details");
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    expenseController.text = value!;
+                  },
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    hintText: "Expense Details",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(
+                  height: s.height * 0.02,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: s.height * 0.01),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color(0XFFeef1f7)),
+                              child: Center(
+                                  child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  color: Color(0XFFa4a6aa),
+                                  fontSize: 15,
+                                ),
+                              ))),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: InkWell(
+                          onTap: () => up_editedexpense(context),
+                          child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: s.height * 0.01),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: bluebg),
+                              child: Center(
+                                  child: Text(
+                                "Update",
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  color: white,
+                                  fontSize: 15,
+                                ),
+                              ))),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ]),
+        ),
+      ),
+    );
+  }
+
+  void up_editedexpense(BuildContext context) {
+    FirebaseFirestore fb = FirebaseFirestore.instance;
+    DateTime now = DateTime.now();
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
+    if (form_key.currentState!.validate()){
+      Navigator.of(context).pop();
+
+      showDialog(context: context, builder: (context) => LoadingDialog());
+      fb
+          .collection("Reports")
+          .doc(year)
+          .collection("Month")
+          .doc(month)
+          .collection(day)
+          .doc("Tech")
+          .collection("Reports")
+          .doc("${widget.username}")
+          .update({'expense': expenseController.text}).then((value) {
+        Fluttertoast.showToast(
+          msg: 'Expense Details Updated Successfully',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: bluebg,
+          textColor: white,
+        );
+      }).onError((error, stackTrace) {
+        Fluttertoast.showToast(
+          msg: 'Something went wrong :(',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: cheryred,
+          textColor: white,
+        );
+      });
+
+      Navigator.of(context).pop();
+    }
+
   }
 }

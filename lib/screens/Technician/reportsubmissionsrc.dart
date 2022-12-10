@@ -29,6 +29,7 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
   FirebaseFirestore fb = FirebaseFirestore.instance;
 
   late CollectionReference streamreport;
+  bool expnse_sub = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -74,13 +75,154 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                 child: Icon(Iconsax.arrow_left),
               ),
             ),
-            actions: [],
+            actions: [
+              IconButton(
+                icon: Icon(Icons.done_rounded),
+                onPressed: () {
+                  if (expnse_sub) {
+                    showDialog(
+            context: context,
+            builder: (context) => Dialog(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: s.height * 0.01, vertical: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Iconsax.chart_success,
+                              color: limegreen,
+                              size: 30,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Are you sure?",
+                              style: const TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text("Do you really want to sumbit Today's Expense Details?",style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 16,
+                                color: black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              textAlign: TextAlign.center,),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Text(
+                            "* Please ensure that you added vehicle usage details before continues",
+                            style: const TextStyle(
+                              fontFamily: "Montserrat",
+                              color: Color(0XFF949494),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                child: InkWell(
+                                  onTap: () => Navigator.pop(context),
+                                  child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: s.height * 0.01),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Color(0XFFeef1f7)),
+                                      child: Center(
+                                          child: Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          color: Color(0XFFa4a6aa),
+                                          fontSize: 15,
+                                        ),
+                                      ))),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Flexible(
+                                flex: 1,
+                                child: InkWell(
+                                  onTap: () => {print("Submitted")},
+                                  child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: s.height * 0.01),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: bluebg),
+                                      child: Center(
+                                          child: Text(
+                                        "Submit",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          color: white,
+                                          fontSize: 15,
+                                        ),
+                                      ))),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ));
+                  } else {
+                    MotionToast.error(
+                      title: Text(
+                        "Update the Expense Details",
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      description: Text(
+                        "Expense field is empty",
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ).show(context);
+                  }
+                },
+              )
+            ],
             elevation: 0,
             title: const Text(
               "Report Submission Screen",
               style: TextStyle(
                 fontFamily: "Nunito",
-                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -632,6 +774,11 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                             Map<String, dynamic> data =
                                                 snapshot.data!.data()
                                                     as Map<String, dynamic>;
+
+                                            // Data expense data checker
+                                            if (data['expense'] != null) {
+                                              expnse_sub = true;
+                                            }
                                             return Column(
                                               children: [
                                                 SizedBox(
@@ -1029,7 +1176,7 @@ class _EditexpenseDetailsDialogState extends State<EditexpenseDetailsDialog> {
     String month = DateFormat('MM').format(now);
     String year = DateFormat('y').format(now);
 
-    if (form_key.currentState!.validate()){
+    if (form_key.currentState!.validate()) {
       Navigator.of(context).pop();
 
       showDialog(context: context, builder: (context) => LoadingDialog());
@@ -1062,6 +1209,5 @@ class _EditexpenseDetailsDialogState extends State<EditexpenseDetailsDialog> {
 
       Navigator.of(context).pop();
     }
-
   }
 }

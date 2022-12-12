@@ -281,12 +281,14 @@ class _TodaysreportsrcState extends State<Todaysreportsrc> {
                                 ]
                               ],
                             );
-                          })
+                          }),
+                          SizedBox(height: 15,)
                     ],
                   ),
                 ),
               ),
               SizedBox(height: 25),
+              
             ],
           ),
         ));

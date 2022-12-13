@@ -263,26 +263,30 @@ class _TodaysreportsrcState extends State<Todaysreportsrc> {
                                             ],
                                           )
                                         ]),
-                                    // child: Vreportsubcard(
-                                    //   name: vehicle[i]['name'],
-                                    //   vdocname: vehicle[i]
-                                    //       ['vdocname'],
-                                    //   docname: vehicle[i]
-                                    //       ['docname'],
-                                    //   username: vehicle[i]
-                                    //       ['username'],
-                                    //   update: vehicle[i]['upDate'],
-                                    //   start: vehicle[i]['start'],
-                                    //   end: vehicle[i]['end'],
-                                    //   desc: vehicle[i]['desc'],
-                                    //   uptime: vehicle[i]['upTime'],
-                                    // ),
                                   )
                                 ]
                               ],
                             );
                           }),
-                          SizedBox(height: 15,)
+                          SizedBox(height: 15,),
+                          Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Expense Details",
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
+                          ),
+                          SizedBox(
+                            width: s.width * 0.2,
+                            child: Divider(),
+                          ),
+                        ],
+                      ),
+                      
                     ],
                   ),
                 ),

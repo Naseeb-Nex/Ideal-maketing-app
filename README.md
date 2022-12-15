@@ -1,4 +1,4 @@
-![Logo]()
+<img src="readme_res\ideal-banner.png" >
 
 # Ideal Marketing App
 
@@ -6,11 +6,16 @@ Ideal Marketing App is a technician management app.
 
 The goal of the Technician Service Management App is to help organizations effectively schedule and manage their technicians' tasks and assignments. By using this app, organizations can ensure that their technicians are properly utilized and that service assignments are completed efficiently and on time. This helps to improve overall productivity and customer satisfaction.
 
-### 📝 Importent
+<img src="readme_res\image1.png" >
+
+## 📝 Important
 > This version of the Technician Service Management App is tailored specifically for use by a single organization. It is not intended for use by multiple organizations or for general public 
 >
 >The application only accepts some specific requirements of an organization later it will be open to all 😉.
-> [Stay Connected](https://github.com/Naseeb-Nex)
+>
+> [Stay tuned](https://github.com/Naseeb-Nex)
+
+<img src="readme_res\googleplay.png" width="500" height="200" >
 
 ## ✨Features
 _"The application contains two different views based on the user's login."_
@@ -37,3 +42,4 @@ _"The application contains two different views based on the user's login."_
 - Admin can manage their vehicles.
 - Admin can assign the vehicle to technicians.
  
+<img src="readme_res\image2.png" >

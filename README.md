@@ -15,7 +15,7 @@ The goal of the Technician Service Management App is to help organizations effec
 >
 > [Stay tuned](https://github.com/Naseeb-Nex)
 
-<img src="readme_res\googleplay.png" width="500" height="200" >
+<img src="readme_res\googleplay.png" >
 
 ## ✨Features
 _"The application contains two different views based on the user's login."_

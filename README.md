@@ -13,9 +13,9 @@ The goal of the Technician Service Management App is to help organizations effec
 >
 >The application only accepts some specific requirements of an organization later it will be open to all 😉.
 >
-> [Stay tuned](https://github.com/Naseeb-Nex)
+> [<Img src="https://i.ibb.co/NySvWks/email.png" width=50 height=50>](mailto:muhammednaseeb02@gmail.com)
 
-<img src="readme_res\googleplay.png" >
+[<img src="readme_res\googleplay.png" width=300 height=100>](https://play.google.com/store/apps/details?id=com.idealassociate.ideal_marketing)
 
 ## ✨Features
 _"The application contains two different views based on the user's login."_

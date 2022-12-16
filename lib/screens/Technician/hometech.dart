@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/screens/Technician/todaysreportsrc.dart';
 
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -48,8 +51,8 @@ class _HomeTechState extends State<HomeTech> {
         .get()
         .then((value) {
       profile = Profile.fromMap(value.data());
-        name = profile.name;
-        username = profile.username;
+      name = profile.name;
+      username = profile.username;
     });
   }
 
@@ -63,6 +66,11 @@ class _HomeTechState extends State<HomeTech> {
     // Tech vihicle docname
     DateTime now = DateTime.now();
     String techvdoc = DateFormat('MM d').format(now);
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
     return Stack(fit: StackFit.expand, children: [
       Container(
         decoration: const BoxDecoration(
@@ -300,157 +308,363 @@ class _HomeTechState extends State<HomeTech> {
                                   }
                                   if (pgm_size == 0) {
                                     // Dialog box for confirmation
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => Dialog(
-                                              child: Padding(
-                                                padding: EdgeInsets.all(
-                                                    s.width * 0.03),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Container(
-                                                      width: s.width * 0.25,
-                                                      height: s.width * 0.25,
-                                                      child: Image.asset(
-                                                        "assets/icons/q_mark.png",
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "Are you sure?",
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              "Montserrat",
-                                                          fontSize: 17,
-                                                          fontWeight:
-                                                              FontWeight.w700),
-                                                    ),
-                                                    SizedBox(height: 10),
-                                                    Text(
-                                                      "Would you like to submit your daily report?",
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            "Montserrat",
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      children: [
-                                                        Flexible(
-                                                          flex: 1,
-                                                          fit: FlexFit.tight,
-                                                          child: InkWell(
-                                                            onTap: () =>
-                                                                Navigator.pop(
-                                                                    context),
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15),
-                                                                color: Color(
-                                                                    0XFF5963d5),
-                                                              ),
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          10),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  "Cancel",
-                                                                  style: TextStyle(
-                                                                      fontFamily:
-                                                                          "Montserrat",
-                                                                      fontSize:
-                                                                          16,
-                                                                      color:
-                                                                          white,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                              ),
+                                    fb
+                                        .collection("Reports")
+                                        .doc(year)
+                                        .collection("Month")
+                                        .doc(month)
+                                        .collection(day)
+                                        .doc("Tech")
+                                        .collection("Reports")
+                                        .doc(username)
+                                        .get()
+                                        .then(
+                                      (DocumentSnapshot doc) {
+                                        if (!doc.exists) {
+                                          // Report submit screen wrappping when there is no data exists
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => Dialog(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.all(
+                                                          s.width * 0.03),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Container(
+                                                            width:
+                                                                s.width * 0.25,
+                                                            height:
+                                                                s.width * 0.25,
+                                                            child: Image.asset(
+                                                              "assets/icons/q_mark.png",
+                                                              fit: BoxFit
+                                                                  .contain,
                                                             ),
                                                           ),
-                                                        ),
-                                                        SizedBox(width: 10),
-                                                        Flexible(
-                                                          flex: 1,
-                                                          fit: FlexFit.tight,
-                                                          child: InkWell(
-                                                            onTap: () {
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                              Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          ReportSubmissionSrc(
-                                                                    username:
-                                                                        username,
-                                                                    techname:
-                                                                        name,
+                                                          Text(
+                                                            "Are you sure?",
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    "Montserrat",
+                                                                fontSize: 17,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700),
+                                                          ),
+                                                          SizedBox(height: 10),
+                                                          Text(
+                                                            "Would you like to submit your daily report?",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Montserrat",
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            children: [
+                                                              Flexible(
+                                                                flex: 1,
+                                                                fit: FlexFit
+                                                                    .tight,
+                                                                child: InkWell(
+                                                                  onTap: () =>
+                                                                      Navigator.pop(
+                                                                          context),
+                                                                  child:
+                                                                      Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              15),
+                                                                      color: Color(
+                                                                          0XFF5963d5),
+                                                                    ),
+                                                                    padding: EdgeInsets.symmetric(
+                                                                        vertical:
+                                                                            10),
+                                                                    child:
+                                                                        Center(
+                                                                      child:
+                                                                          Text(
+                                                                        "Cancel",
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                "Montserrat",
+                                                                            fontSize:
+                                                                                16,
+                                                                            color:
+                                                                                white,
+                                                                            fontWeight:
+                                                                                FontWeight.w600),
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              );
-                                                            },
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15),
-                                                                color: Color(
-                                                                    0XFF5963d5),
                                                               ),
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          10),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  "Ok",
-                                                                  style: TextStyle(
-                                                                      fontFamily:
-                                                                          "Montserrat",
-                                                                      fontSize:
-                                                                          16,
-                                                                      color:
-                                                                          white,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
+                                                              SizedBox(
+                                                                  width: 10),
+                                                              Flexible(
+                                                                flex: 1,
+                                                                fit: FlexFit
+                                                                    .tight,
+                                                                child: InkWell(
+                                                                  onTap: () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                    Navigator
+                                                                        .push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                ReportSubmissionSrc(
+                                                                          username:
+                                                                              username,
+                                                                          techname:
+                                                                              name,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              15),
+                                                                      color: Color(
+                                                                          0XFF5963d5),
+                                                                    ),
+                                                                    padding: EdgeInsets.symmetric(
+                                                                        vertical:
+                                                                            10),
+                                                                    child:
+                                                                        Center(
+                                                                      child:
+                                                                          Text(
+                                                                        "Ok",
+                                                                        style: TextStyle(
+                                                                            fontFamily:
+                                                                                "Montserrat",
+                                                                            fontSize:
+                                                                                16,
+                                                                            color:
+                                                                                white,
+                                                                            fontWeight:
+                                                                                FontWeight.w600),
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
+                                                            ],
+                                                          ),
+                                                          SizedBox(
+                                                            height:
+                                                                s.width * 0.035,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ));
+                                        } else {
+                                          try {
+                                            bool nested =
+                                                doc.get(FieldPath(['submit']));
+                                            if (nested) {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Todaysreportsrc(
+                                                            username: username,
+                                                          )));
+                                            } else {
+                                              // Update when the submit is flase
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) => Dialog(
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  s.width *
+                                                                      0.03),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Container(
+                                                                width: s.width *
+                                                                    0.25,
+                                                                height:
+                                                                    s.width *
+                                                                        0.25,
+                                                                child:
+                                                                    Image.asset(
+                                                                  "assets/icons/q_mark.png",
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                "Are you sure?",
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "Montserrat",
+                                                                    fontSize:
+                                                                        17,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700),
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 10),
+                                                              Text(
+                                                                "Would you like to submit your daily report?",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      "Montserrat",
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              ),
+                                                              SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: [
+                                                                  Flexible(
+                                                                    flex: 1,
+                                                                    fit: FlexFit
+                                                                        .tight,
+                                                                    child:
+                                                                        InkWell(
+                                                                      onTap: () =>
+                                                                          Navigator.pop(
+                                                                              context),
+                                                                      child:
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(15),
+                                                                          color:
+                                                                              Color(0XFF5963d5),
+                                                                        ),
+                                                                        padding:
+                                                                            EdgeInsets.symmetric(vertical: 10),
+                                                                        child:
+                                                                            Center(
+                                                                          child:
+                                                                              Text(
+                                                                            "Cancel",
+                                                                            style: TextStyle(
+                                                                                fontFamily: "Montserrat",
+                                                                                fontSize: 16,
+                                                                                color: white,
+                                                                                fontWeight: FontWeight.w600),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                      width:
+                                                                          10),
+                                                                  Flexible(
+                                                                    flex: 1,
+                                                                    fit: FlexFit
+                                                                        .tight,
+                                                                    child:
+                                                                        InkWell(
+                                                                      onTap:
+                                                                          () {
+                                                                        Navigator.of(context)
+                                                                            .pop();
+                                                                        Navigator
+                                                                            .push(
+                                                                          context,
+                                                                          MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                ReportSubmissionSrc(
+                                                                              username: username,
+                                                                              techname: name,
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(15),
+                                                                          color:
+                                                                              Color(0XFF5963d5),
+                                                                        ),
+                                                                        padding:
+                                                                            EdgeInsets.symmetric(vertical: 10),
+                                                                        child:
+                                                                            Center(
+                                                                          child:
+                                                                              Text(
+                                                                            "Ok",
+                                                                            style: TextStyle(
+                                                                                fontFamily: "Montserrat",
+                                                                                fontSize: 16,
+                                                                                color: white,
+                                                                                fontWeight: FontWeight.w600),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height:
+                                                                    s.width *
+                                                                        0.035,
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: s.width * 0.035,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ));
+                                                      ));
+                                            }
+                                          } on StateError catch (e) {
+                                            print('Feild is not exist error!');
+                                          }
+                                        }
+                                      },
+                                      onError: (e) => print(
+                                          "Assigned Counter update Error: $e"),
+                                    );
                                   }
                                   if (pgm_size > 0) {
                                     // You have more work to do

@@ -4,6 +4,7 @@ const primarybg = Color(0xFFFFFFFF);
 const secondbg = Color(0xFF3D3DE9);
 const cheryred = Color(0XFFef233c);
 const secondtechbg = Color(0xFF6200ED);
+const cardbg = Color(0xFFf4f7f6);
 const bluebg = Color.fromRGBO(55, 48, 255, 1);
 // const bluebg = Color(0XFF1A95B0);
 const newbg = Color(0xFFF1F2F6);

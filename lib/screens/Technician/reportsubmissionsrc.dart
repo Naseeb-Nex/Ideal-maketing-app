@@ -4,6 +4,7 @@ import 'package:ideal_marketing/components/assignvehiclereportcard.dart';
 import 'package:ideal_marketing/components/loadingDialog.dart';
 import 'package:ideal_marketing/components/vreportsubcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/screens/Technician/hometech.dart';
 import 'package:ideal_marketing/screens/Technician/todaysreportsrc.dart';
 
 import 'package:intl/intl.dart';
@@ -179,11 +180,53 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                           Flexible(
                                             flex: 1,
                                             child: InkWell(
-                                              onTap: () => Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Todaysreportsrc(username: widget.username,))),
+                                              onTap: () {
+                                                // loading_indicator
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        LoadingDialog());
+
+                                                fb
+                                                    .collection("Reports")
+                                                    .doc(year)
+                                                    .collection("Month")
+                                                    .doc(month)
+                                                    .collection(day)
+                                                    .doc("Tech")
+                                                    .collection("Reports")
+                                                    .doc("${widget.username}")
+                                                    .update({
+                                                  'submit': true
+                                                }).then((value) {
+                                                  Navigator.pop(context);
+
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Todaysreportsrc(
+                                                                username: widget
+                                                                    .username,
+                                                              )));
+                                                }).onError((error,
+                                                            stackTrace) =>
+                                                        PanaraInfoDialog.show(
+                                                          context,
+                                                          title: "Oops",
+                                                          message:
+                                                              "Something gone Wrong :(, Try again later",
+                                                          buttonText: "Okay",
+                                                          onTapDismiss: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeTech())),
+                                                          panaraDialogType:
+                                                              PanaraDialogType
+                                                                  .error,
+                                                          barrierDismissible:
+                                                              false,
+                                                          textColor:
+                                                              Color(0XFF727272),
+                                                        ));
+                                              },
                                               child: Container(
                                                   padding: EdgeInsets.symmetric(
                                                       vertical:
@@ -999,7 +1042,8 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
           .doc("Tech")
           .collection("Reports")
           .doc("${widget.username}")
-          .set({'expense': expenseController.text}).then((value) {
+          .set({'expense': expenseController.text, 'submit': false}).then(
+              (value) {
         Fluttertoast.showToast(
           msg: 'Expense Details Updated Successfully',
           toastLength: Toast.LENGTH_SHORT,

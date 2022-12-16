@@ -98,14 +98,15 @@ class _TodaysreportsrcState extends State<Todaysreportsrc> {
                           Text(
                             "Today's Report",
                             style: TextStyle(
-                                fontFamily: "Montserrat",
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
+                              fontFamily: "Montserrat",
+                              fontSize: 19,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ],
                       ),
                       Divider(),
-                      SizedBox(height: 15),
+                      SizedBox(height: 5),
                       Container(
                         padding: EdgeInsets.symmetric(
                             horizontal: s.width * 0.02, vertical: 5),
@@ -159,8 +160,8 @@ class _TodaysreportsrcState extends State<Todaysreportsrc> {
                                       ConnectionState.waiting) {
                                     return Center(
                                       child: SizedBox(
-                                        width: s.width * 0.2,
-                                        height: s.width * 0.2,
+                                        width: s.width * 0.15,
+                                        height: s.width * 0.15,
                                         child: LoadingIndicator(
                                           indicatorType:
                                               Indicator.ballClipRotateMultiple,
@@ -419,7 +420,7 @@ class _TodaysreportsrcState extends State<Todaysreportsrc> {
                                         child: LoadingIndicator(
                                           indicatorType:
                                               Indicator.ballClipRotateMultiple,
-                                          colors: const [bluebg],
+                                          colors: const [black],
                                         ),
                                       ),
                                     ),

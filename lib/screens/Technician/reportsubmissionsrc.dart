@@ -879,13 +879,15 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                                           ]),
                                                       child: Row(
                                                         children: [
-                                                          Text(
-                                                            "${data['expense']}",
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  "Montserrat",
-                                                              fontSize: 15,
-                                                              color: white,
+                                                          Expanded(
+                                                            child: Text(
+                                                              "${data['expense']}",
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    "Montserrat",
+                                                                fontSize: 15,
+                                                                color: white,
+                                                              ),
                                                             ),
                                                           ),
                                                         ],

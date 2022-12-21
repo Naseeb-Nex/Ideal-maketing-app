@@ -311,12 +311,17 @@ class _HomeAdminState extends State<HomeAdmin> {
             ),
           ),
           actions: [
-            IconButton(
-              onPressed: () => logout(context),
-              icon: const Icon(Iconsax.logout_1),
-              color: Colors.white,
-              iconSize: 30,
-            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: InkWell(
+                onTap: () => logout(context),
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  child: Image.asset("assets/icons/logout.png"),
+                ),
+              ),
+            )
           ],
           elevation: 0,
           title: const Text(

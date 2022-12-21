@@ -574,20 +574,20 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                 horizontal:
                                                                     s.width *
                                                                         0.02,
-                                                                vertical: 5),
+                                                                vertical: s.width * 0.05),
                                                         decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
                                                                         10),
-                                                            color: cardbg,
+                                                            color: white,
                                                             boxShadow: [
                                                               BoxShadow(
-                                                                spreadRadius: 1,
-                                                                blurRadius: 1,
+                                                                spreadRadius: 2,
+                                                                blurRadius: 4,
                                                                 color: black
                                                                     .withOpacity(
-                                                                        .05),
+                                                                        .1),
                                                                 offset: Offset(
                                                                     1, 2),
                                                               ),
@@ -616,6 +616,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                 fontSize: 15,
                                                               ),
                                                             ),
+                                                            Divider(),
                                                             SizedBox(height: 5),
                                                             FutureBuilder<
                                                                 DocumentSnapshot>(

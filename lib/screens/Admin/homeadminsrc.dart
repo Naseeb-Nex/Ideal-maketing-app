@@ -1756,15 +1756,41 @@ class _TechcardState extends State<Techcard> {
                         ),
                       ],
                     ),
-                    Text(
-                      "$a",
-                      style: const TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff273746),
-                      ),
-                    ),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: fb
+                            .collection('Technician')
+                            .doc(widget.username)
+                            .collection("Assignedpgm")
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {}
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Text(
+                              "0",
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontWeight: FontWeight.w600,
+                              ),
+                            );
+                          }
+                          // assigned list
+                          final List assignedpgms = [];
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                            Map assigned =
+                                document.data() as Map<String, dynamic>;
+                            assignedpgms.add(assigned);
+                          }).toList();
+
+                          return Text(
+                            "${assignedpgms.length}",
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w600,
+                            ),
+                          );
+                        })
                   ],
                 ),
                 const SizedBox(

@@ -1620,40 +1620,6 @@ class Techcard extends StatefulWidget {
 
 class _TechcardState extends State<Techcard> {
   FirebaseFirestore fb = FirebaseFirestore.instance;
-  int a = 0;
-  int c = 0;
-  int p = 0;
-  int pro = 0;
-
-  @override
-  void initState() {
-    if (mounted) {
-      startup();
-    }
-    super.initState();
-  }
-
-  @override
-  void setState(VoidCallback fn) {
-    if (mounted) {
-      super.setState(fn);
-    }
-  }
-
-  @override
-  void dispose() {
-    a = 0;
-    c = 0;
-    p = 0;
-    pro = 0;
-    super.dispose();
-  }
-
-  @override
-  void activate() {
-    startup();
-    super.activate();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -1661,7 +1627,7 @@ class _TechcardState extends State<Techcard> {
     String cday = DateFormat('MM d y').format(now);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
       child: InkWell(
         onTap: () => Navigator.push(
             context,
@@ -1673,7 +1639,6 @@ class _TechcardState extends State<Techcard> {
                 uid: widget.uid,
               ),
             )),
-        onDoubleTap: () => startup(),
         child: Container(
           width: 160,
           decoration: BoxDecoration(
@@ -1956,15 +1921,41 @@ class _TechcardState extends State<Techcard> {
                         ),
                       ],
                     ),
-                    Text(
-                      "$pro",
-                      style: const TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff273746),
-                      ),
-                    ),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: fb
+                            .collection('Technician')
+                            .doc(widget.username)
+                            .collection("Processingpgm")
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {}
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Text(
+                              "0",
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontWeight: FontWeight.w600,
+                              ),
+                            );
+                          }
+                          // processing list
+                          final List processingpgms = [];
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                            Map processing =
+                                document.data() as Map<String, dynamic>;
+                            processingpgms.add(processing);
+                          }).toList();
+
+                          return Text(
+                            "${processingpgms.length}",
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w600,
+                            ),
+                          );
+                        })
                   ],
                 ),
               ],
@@ -1973,54 +1964,5 @@ class _TechcardState extends State<Techcard> {
         ),
       ),
     );
-  }
-
-  startup() async {
-    DateTime now = DateTime.now();
-    String cday = DateFormat('MM d y').format(now);
-    await fb
-        .collection('Technician')
-        .doc(widget.username)
-        .collection("Assignedpgm")
-        .get()
-        .then((snap) => {
-              setState(() {
-                a = snap.size;
-              })
-            });
-
-    await fb
-        .collection('Technician')
-        .doc(widget.username)
-        .collection("Completedpgm")
-        .doc("Day")
-        .collection(cday)
-        .get()
-        .then((snap) => {
-              setState(() {
-                c = snap.size;
-              })
-            });
-    await fb
-        .collection('Technician')
-        .doc(widget.username)
-        .collection("Pendingpgm")
-        .get()
-        .then((snap) => {
-              setState(() {
-                p = snap.size;
-              })
-            });
-
-    await fb
-        .collection('Technician')
-        .doc(widget.username)
-        .collection("Processingpgm")
-        .get()
-        .then((snap) => {
-              setState(() {
-                pro = snap.size;
-              })
-            });
   }
 }

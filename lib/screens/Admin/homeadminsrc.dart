@@ -364,7 +364,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                         indicatorSize: TabBarIndicatorSize.tab,
                         // indicatorWeight: ,
                         padding: EdgeInsets.only(left: 30, right: 30),
-                        unselectedLabelColor: Color(0xFFb8dbd9),
+                        unselectedLabelColor: Color(0xFF636bff),
 
                         // Rectangular Indicator
 

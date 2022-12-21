@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ideal_marketing/components/vreportsubcard.dart';
+import 'package:ideal_marketing/components/vreportoverviewcard.dart';
 import 'package:intl/intl.dart';
 // activity wrapper
 import 'package:ideal_marketing/screens/Admin/wrapper/activity_wrapper.dart';
@@ -403,11 +403,11 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         10),
-                                                            color: cardbg,
+                                                            color: white,
                                                             boxShadow: [
                                                               BoxShadow(
-                                                                spreadRadius: 1,
-                                                                blurRadius: 1,
+                                                                spreadRadius: 2,
+                                                                blurRadius: 4,
                                                                 color: black
                                                                     .withOpacity(
                                                                         .05),
@@ -537,7 +537,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                           padding:
                                                                               EdgeInsets.symmetric(vertical: 5.0),
                                                                           child:
-                                                                              Vreportsubcard(
+                                                                              Vreportoverviewcard(
                                                                             name:
                                                                                 vehicle[i]['name'],
                                                                             vdocname:

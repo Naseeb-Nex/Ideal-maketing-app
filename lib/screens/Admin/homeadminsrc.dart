@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/screens/Admin/vechicleportal.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -1621,10 +1622,23 @@ class Techcard extends StatefulWidget {
 class _TechcardState extends State<Techcard> {
   FirebaseFirestore fb = FirebaseFirestore.instance;
 
+  var random = Random();
+  List<String> techimg = [
+    "assets/icons/tech_avatar1.png",
+    "assets/icons/tech_avatar2.png",
+    "assets/icons/tech_avatar3.png",
+  ];
+
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
     String cday = DateFormat('MM d y').format(now);
+
+    // Image selection task
+    int num = random.nextInt(100);
+    int loc = num % 3;
+    
+    Size s = MediaQuery.of(context).size;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
@@ -1669,15 +1683,14 @@ class _TechcardState extends State<Techcard> {
                         ),
                       ),
                     ),
-                    child: const SizedBox(
-                      height: 80,
-                      width: 80,
-                      child: CircleAvatar(
-                        backgroundColor: bluebg,
-                        backgroundImage:
-                            AssetImage("assets/icons/avataricon.png"),
+                    child: Container(
+                        width: s.width * 0.2,
+                        height: s.width * 0.2,
+                        child: Image.asset(
+                          "${techimg[loc]}",
+                          fit: BoxFit.contain,
+                        ),
                       ),
-                    ),
                   ),
                 ),
                 const SizedBox(

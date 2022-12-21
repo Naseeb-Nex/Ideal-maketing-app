@@ -1657,6 +1657,9 @@ class _TechcardState extends State<Techcard> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String cday = DateFormat('MM d y').format(now);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: InkWell(
@@ -1821,15 +1824,43 @@ class _TechcardState extends State<Techcard> {
                         ),
                       ],
                     ),
-                    Text(
-                      "$c",
-                      style: const TextStyle(
-                        fontFamily: "Nunito",
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff273746),
-                      ),
-                    ),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: fb
+                            .collection('Technician')
+                            .doc(widget.username)
+                            .collection("Completedpgm")
+                            .doc("Day")
+                            .collection(cday)
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {}
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Text(
+                              "0",
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontWeight: FontWeight.w600,
+                              ),
+                            );
+                          }
+                          // completed list
+                          final List completedpgms = [];
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                            Map completed =
+                                document.data() as Map<String, dynamic>;
+                            completedpgms.add(completed);
+                          }).toList();
+
+                          return Text(
+                            "${completedpgms.length}",
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w600,
+                            ),
+                          );
+                        })
                   ],
                 ),
                 const SizedBox(

@@ -43,3 +43,5 @@ _"The application contains two different views based on the user's login."_
 - Admin can assign the vehicle to technicians.
  
 <img src="readme_res\image2.png" >
+
+#### Licence will be published soon.

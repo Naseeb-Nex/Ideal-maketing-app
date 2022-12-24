@@ -44,4 +44,4 @@ _"The application contains two different views based on the user's login."_
  
 <img src="readme_res\image2.png" >
 
-#### Licence will be published soon.
+#### Licence

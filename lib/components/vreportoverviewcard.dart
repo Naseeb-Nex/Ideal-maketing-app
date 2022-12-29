@@ -212,45 +212,15 @@ class _VreportoverviewcardState extends State<Vreportoverviewcard> {
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(width: 30, height: 30),
-                                      Text(
-                                        "Usage Details",
-                                        style: TextStyle(
-                                          fontFamily: "Montserrat",
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                  Center(
+                                    child: Text(
+                                      "Usage Details",
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
                                       ),
-                                      InkWell(
-                                        onTap: () => showDialog(
-                                            context: context,
-                                            builder: (context) =>
-                                                EditVehicleusage(
-                                                  username: widget.username,
-                                                  start: widget.start,
-                                                  end: widget.end,
-                                                  desc: widget.desc,
-                                                  docname: widget.docname,
-                                                )),
-                                        child: Container(
-                                          width: 30,
-                                          height: 30,
-                                          // padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: vybg),
-                                          child: Center(
-                                              child: Icon(
-                                            Iconsax.card_edit,
-                                            size: 15,
-                                          )),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                   Divider(),
                                   Row(

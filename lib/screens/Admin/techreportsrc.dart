@@ -43,6 +43,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
   FirebaseFirestore fb = FirebaseFirestore.instance;
 
   bool is_sub = false;
+  bool is_datesub = false;
   // Bottom Naigation bar
   var _selectedTab = _SelectedTab.day;
 
@@ -574,7 +575,9 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                 horizontal:
                                                                     s.width *
                                                                         0.02,
-                                                                vertical: s.width * 0.05),
+                                                                vertical:
+                                                                    s.width *
+                                                                        0.05),
                                                         decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
@@ -766,7 +769,8 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                       fit: BoxFit.contain,
                                                     ),
                                                   ),
-                                          )
+                                          ),
+
                                         ]),
                                       ),
                                       SizedBox(
@@ -1274,6 +1278,34 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                     _selectedday =
                                                         "${dateTime.day}";
                                                   });
+                                                  fb
+                                                      .collection("Reports")
+                                                      .doc(_selectedyear)
+                                                      .collection("Month")
+                                                      .doc(_selectedmonth)
+                                                      .collection(_selectedday!)
+                                                      .doc("Tech")
+                                                      .collection("Reports")
+                                                      .doc(widget.username)
+                                                      .get()
+                                                      .then((DocumentSnapshot
+                                                          doc) {
+                                                    if (doc.exists) {
+                                                      try {
+                                                        bool nested = doc.get(
+                                                            FieldPath(
+                                                                ['submit']));
+                                                        if (nested) {
+                                                          setState(() {
+                                                            is_datesub = true;
+                                                          });
+                                                        }
+                                                      } on StateError catch (e) {
+                                                        print(
+                                                            'Feild is not exist error!');
+                                                      }
+                                                    }
+                                                  });
                                                 }
                                               },
                                               child: Container(
@@ -1374,7 +1406,349 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                     SizedBox(
                                                       height: 8,
                                                     ),
+
+                                                    // Expense details
+                                                    Center(
+                                                      child: is_datesub
+                                                          ? Column(
+                                                              children: [
+                                                                Container(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      horizontal:
+                                                                          s.width *
+                                                                              0.02,
+                                                                      vertical:
+                                                                          5),
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10),
+                                                                      color:
+                                                                          white,
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                          spreadRadius:
+                                                                              2,
+                                                                          blurRadius:
+                                                                              4,
+                                                                          color:
+                                                                              black.withOpacity(.05),
+                                                                          offset: Offset(
+                                                                              1,
+                                                                              2),
+                                                                        ),
+                                                                      ]),
+                                                                  child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Image
+                                                                          .asset(
+                                                                        "assets/icons/scooter.png",
+                                                                        width:
+                                                                            40,
+                                                                        height:
+                                                                            40,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            5,
+                                                                      ),
+                                                                      Text(
+                                                                        "Vehicle Details",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontFamily:
+                                                                              "Montserrat",
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                          fontSize:
+                                                                              15,
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              5),
+                                                                      StreamBuilder<
+                                                                              QuerySnapshot>(
+                                                                          stream: fb
+                                                                              .collection("Reports")
+                                                                              .doc(_selectedyear)
+                                                                              .collection("Month")
+                                                                              .doc(_selectedmonth)
+                                                                              .collection(_selectedday!)
+                                                                              .doc("Tech")
+                                                                              .collection("Reports")
+                                                                              .doc("${widget.username}")
+                                                                              .collection("vehicle")
+                                                                              .snapshots(),
+                                                                          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                                                                            if (snapshot.hasError) {}
+                                                                            if (snapshot.connectionState ==
+                                                                                ConnectionState.waiting) {
+                                                                              return Center(
+                                                                                child: SizedBox(
+                                                                                  width: s.width * 0.25,
+                                                                                  height: s.width * 0.25,
+                                                                                  child: LoadingIndicator(
+                                                                                    indicatorType: Indicator.ballClipRotateMultiple,
+                                                                                    colors: const [
+                                                                                      bluebg
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              );
+                                                                            }
+
+                                                                            final List
+                                                                                vehicle =
+                                                                                [];
+                                                                            snapshot.data!.docs.map((DocumentSnapshot
+                                                                                document) {
+                                                                              Map a = document.data() as Map<String, dynamic>;
+                                                                              vehicle.add(a);
+                                                                              // a['uid'] = document.id;
+                                                                            }).toList();
+                                                                            return Column(
+                                                                              children: [
+                                                                                Container(
+                                                                                    child: vehicle.length == 0
+                                                                                        ? Padding(
+                                                                                            padding: EdgeInsets.symmetric(horizontal: s.width * 0.01),
+                                                                                            child: Column(
+                                                                                              children: [
+                                                                                                Image.asset(
+                                                                                                  "assets/icons/warning.png",
+                                                                                                  height: s.height * 0.12,
+                                                                                                ),
+                                                                                                Text(
+                                                                                                  "No Vehicle Used !",
+                                                                                                  style: TextStyle(
+                                                                                                    fontFamily: "Montserrat",
+                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                    fontSize: 17,
+                                                                                                  ),
+                                                                                                ),
+                                                                                              ],
+                                                                                            ),
+                                                                                          )
+                                                                                        : null),
+                                                                                for (var i = 0; i < vehicle.length; i++) ...[
+                                                                                  Padding(
+                                                                                    padding: EdgeInsets.symmetric(vertical: 5.0),
+                                                                                    child: Vreportoverviewcard(
+                                                                                      name: vehicle[i]['name'],
+                                                                                      vdocname: vehicle[i]['vdocname'],
+                                                                                      docname: vehicle[i]['docname'],
+                                                                                      username: vehicle[i]['username'],
+                                                                                      update: vehicle[i]['upDate'],
+                                                                                      start: vehicle[i]['start'],
+                                                                                      end: vehicle[i]['end'],
+                                                                                      desc: vehicle[i]['desc'],
+                                                                                      uptime: vehicle[i]['upTime'],
+                                                                                    ),
+                                                                                  )
+                                                                                ]
+                                                                              ],
+                                                                            );
+                                                                          }),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 15,
+                                                                ),
+                                                                Container(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      horizontal:
+                                                                          s.width *
+                                                                              0.02,
+                                                                      vertical:
+                                                                          s.width *
+                                                                              0.05),
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10),
+                                                                      color:
+                                                                          white,
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                          spreadRadius:
+                                                                              2,
+                                                                          blurRadius:
+                                                                              4,
+                                                                          color:
+                                                                              black.withOpacity(.1),
+                                                                          offset: Offset(
+                                                                              1,
+                                                                              2),
+                                                                        ),
+                                                                      ]),
+                                                                  child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Image
+                                                                          .asset(
+                                                                        "assets/icons/expenses.png",
+                                                                        width:
+                                                                            40,
+                                                                        height:
+                                                                            40,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height:
+                                                                            5,
+                                                                      ),
+                                                                      Text(
+                                                                        "Expense Details",
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontFamily:
+                                                                              "Montserrat",
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                          fontSize:
+                                                                              15,
+                                                                        ),
+                                                                      ),
+                                                                      Divider(),
+                                                                      SizedBox(
+                                                                          height:
+                                                                              5),
+                                                                      FutureBuilder<
+                                                                          DocumentSnapshot>(
+                                                                        future: fb
+                                                                            .collection("Reports")
+                                                                            .doc(_selectedyear)
+                                                                            .collection("Month")
+                                                                            .doc(_selectedmonth)
+                                                                            .collection(_selectedday!)
+                                                                            .doc("Tech")
+                                                                            .collection("Reports")
+                                                                            .doc("${widget.username}")
+                                                                            .get(),
+                                                                        builder: (BuildContext
+                                                                                context,
+                                                                            AsyncSnapshot<DocumentSnapshot>
+                                                                                snapshot) {
+                                                                          if (snapshot
+                                                                              .hasError) {
+                                                                            return Text("Something went wrong");
+                                                                          }
+
+                                                                          if (snapshot.hasData &&
+                                                                              !snapshot.data!.exists) {
+                                                                            return Padding(
+                                                                              padding: EdgeInsets.symmetric(vertical: 40),
+                                                                              child: Text(
+                                                                                "No data Found!",
+                                                                                style: TextStyle(fontFamily: "Montserrat", fontSize: 16, fontWeight: FontWeight.w400),
+                                                                              ),
+                                                                            );
+                                                                          }
+
+                                                                          if (snapshot.connectionState ==
+                                                                              ConnectionState.done) {
+                                                                            Map<String, dynamic>
+                                                                                data =
+                                                                                snapshot.data!.data() as Map<String, dynamic>;
+
+                                                                            return Column(
+                                                                              children: [
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Expanded(
+                                                                                      child: Text(
+                                                                                        "${data['expense']}",
+                                                                                        style: TextStyle(
+                                                                                          fontFamily: "Montserrat",
+                                                                                          fontSize: 15,
+                                                                                          fontWeight: FontWeight.w300,
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                )
+                                                                              ],
+                                                                            );
+                                                                          }
+
+                                                                          return Container(
+                                                                            width:
+                                                                                MediaQuery.of(context).size.width,
+                                                                            decoration:
+                                                                                BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(25),
+                                                                              color: white,
+                                                                              boxShadow: [
+                                                                                BoxShadow(
+                                                                                  offset: const Offset(0, 10),
+                                                                                  blurRadius: 20,
+                                                                                  color: secondbg.withOpacity(0.23),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsets.symmetric(vertical: s.width * 0.1),
+                                                                              child: Center(
+                                                                                child: SizedBox(
+                                                                                  width: s.width * 0.15,
+                                                                                  height: s.width * 0.15,
+                                                                                  child: LoadingIndicator(
+                                                                                    indicatorType: Indicator.ballClipRotateMultiple,
+                                                                                    colors: const [
+                                                                                      black
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(height: 15),
+                                                              ],
+                                                            )
+                                                          : Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              height: s.height *
+                                                                  0.27,
+                                                              child:
+                                                                  Image.asset(
+                                                                "assets/icons/notsub.jpg",
+                                                                fit: BoxFit
+                                                                    .contain,
+                                                              ),
+                                                            ),
+                                                    ),
+                                                    SizedBox(height: 15,),
+
                                                     // Daily Activity
+                                                    Image.asset(
+                                                              "assets/icons/test.png",
+                                                              width: 40,
+                                                              height: 40,
+                                                            ),
+                                                    Text(
+                                                  "Daily Activity",
+                                                  style: TextStyle(
+                                                    fontFamily: "Montserrat",
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 17,
+                                                    color: bluebg,
+                                                  ),
+                                                ),
+                                                Divider(),
+                                                SizedBox(height: 15),
                                                     StreamBuilder<
                                                         QuerySnapshot>(
                                                       stream: fb

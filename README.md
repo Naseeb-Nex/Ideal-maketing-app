@@ -1,50 +1,44 @@
+
 <img src="readme_res\ideal-banner.png" >
 
 # Ideal Marketing App
 
-Ideal Marketing App is a technician management app.
-
-The goal of the Technician Service Management App is to help organizations effectively schedule and manage their technicians' tasks and assignments. By using this app, organizations can ensure that their technicians are properly utilized and that service assignments are completed efficiently and on time. This helps to improve overall productivity and customer satisfaction.
+Welcome to the Ideal Marketing App repository! Ideal Marketing App is a technician management app designed to help organizations effectively schedule and manage their technicians' tasks and assignments. By using this app, organizations can ensure that their technicians are properly utilized and that service assignments are completed efficiently and on time, improving overall productivity and customer satisfaction.
 
 <img src="readme_res\image1.png" >
 
-## 📝 Important
-> This version of the Technician Service Management App is tailored specifically for use by a single organization. It is not intended for use by multiple organizations or for general public 
->
->The application only accepts some specific requirements of an organization later it will be open to all 😉.
->
-> [<Img src="https://i.ibb.co/NySvWks/email.png" width=50 height=50>](mailto:muhammednaseeb02@gmail.com)
+Please note that this version of the Technician Service Management App is tailored specifically for use by a single organization and is not intended for use by multiple organizations or for the general public. However, in the future it is intended to be open to all.
+
+If you have any questions or feedback, please don't hesitate to contact us at [muhammednaseeb02@gmail.com](mailto:muhammednaseeb02@gmail.com).
+
+[<Img src="https://i.ibb.co/NySvWks/email.png" width=40 height=40>](mailto:muhammednaseeb02@gmail.com)
+
+You can download the app on Google Play [here](https://play.google.com/store/apps/details?id=com.idealassociate.ideal_marketing).
 
 [<img src="readme_res\googleplay.png" width=300 height=100>](https://play.google.com/store/apps/details?id=com.idealassociate.ideal_marketing)
 
-## ✨Features
-_"The application contains two different views based on the user's login."_
+## Features
 
-### 🤵Technician View
-- Task management: Schedule tasks by the admin and office workers and track their status
-- Technician profiles: create and manage profiles for each technician
-- Technician can update their task status as pending, completed, or processing states.
-- Technician can call the clients directly from the app
-- Technician can view their assigned vehicle.
-- Technician to view their daily work status.
-- Technician can set their daily expense details and additional information.
-- Technician can also validate their monthly performance status.
+The Ideal Marketing App has two different views based on the user's login: Technician View and Admin View.
 
+### Technician View
+- Task management: Schedule tasks assigned by the admin and office workers, and track their status
+- Technician profiles: Create and manage profiles for each technician
+- Task status updates: Mark tasks as pending, completed, or processing
+- Direct client communication: Call clients directly from the app
+- Assigned vehicle information: View assigned vehicle details
+- Daily work status: View a summary of daily work
+- Daily expenses: Record and track daily expenses and additional information
+- Monthly performance evaluation: Validate monthly performance status
 
-### 🛡️ Admin View
-- Only the admin can create technician accounts.
-- Admin can view the pending tasks in the order of their created date.
-- Admin can monitor the status of each technician.
-- The admin is the only one who can confirm tasks that have been scheduled by office workers for the technicians.
-- Admin can view their daily report.
-- Admin can monitor their monthly performance.
-- Admin can delete technicians.
-- Admin can manage their vehicles.
-- Admin can assign the vehicle to technicians.
- 
+### Admin View
+- Technician account creation: Only the admin can create technician accounts
+- Pending task overview: View a list of pending tasks ordered by creation date
+- Technician status monitoring: Monitor the status of each technician
+- Task confirmation: Confirm tasks that have been scheduled by office workers for technicians
+- Daily report: View a summary of daily activity
+- Monthly performance monitoring: Monitor monthly performance for the organization
+- Technician deletion: Delete technician accounts
+- Vehicle management: Manage and assign vehicles to technicians
+
 <img src="readme_res\image2.png" >
-
-#### Licence
- 
- MIT
- 

@@ -68,13 +68,19 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
-                      width: s.width * 0.2,
-                      height: s.width * 0.2,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15), color: vybg),
-                      clipBehavior: Clip.hardEdge,
-                      child: Vehicleimagewrapper(widget.type),
+                    InkWell(
+                      onTap: () => showDialog(
+                          context: context,
+                          builder: ((context) => VehiclelogDialog(type: widget.type, name: widget.name))),
+                      child: Container(
+                        width: s.width * 0.2,
+                        height: s.width * 0.2,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: vybg),
+                        clipBehavior: Clip.hardEdge,
+                        child: Vehicleimagewrapper(widget.type),
+                      ),
                     ),
                     Flexible(
                       flex: 1,
@@ -325,6 +331,84 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
         ),
       ),
     ).show(context);
+  }
+}
+
+class VehiclelogDialog extends StatefulWidget {
+  String? type;
+  String? name;
+
+   VehiclelogDialog({this.type,this.name});
+
+  @override
+  State<VehiclelogDialog> createState() => _VehiclelogDialogState();
+}
+
+class _VehiclelogDialogState extends State<VehiclelogDialog> {
+  @override
+  Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: white,
+              boxShadow: [
+                BoxShadow(
+                  spreadRadius: 1,
+                  blurRadius: 1,
+                  color: black.withOpacity(.05),
+                  offset: Offset(1, 1),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Container(
+                        width: s.width * 0.2,
+                        height: s.width * 0.2,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: vybg),
+                        clipBehavior: Clip.hardEdge,
+                        child: Vehicleimagewrapper(widget.type),
+                      ),
+
+                Text(
+                  "${widget.name}",
+                  style: TextStyle(
+                    fontFamily: "Montserrat",
+                    fontWeight: FontWeight.w600,
+                    fontSize: 17,
+                  ),
+                ),
+                Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Vehicle Log",
+                      style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: s.height * 0.02,
+          ),
+        ]),
+      ),
+    );
   }
 }
 

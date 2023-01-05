@@ -4,18 +4,28 @@
 # Ideal Marketing App
 
 Welcome to the Ideal Marketing App repository! Ideal Marketing App is a technician management app designed to help organizations effectively schedule and manage their technicians' tasks and assignments. By using this app, organizations can ensure that their technicians are properly utilized and that service assignments are completed efficiently and on time, improving overall productivity and customer satisfaction.
+<br><br>
 
 <img src="readme_res\image1.png" >
 
-Please note that this version of the Technician Service Management App is tailored specifically for use by a single organization and is not intended for use by multiple organizations or for the general public. However, in the future it is intended to be open to all.
-
-If you have any questions or feedback, please don't hesitate to contact us at [muhammednaseeb02@gmail.com](mailto:muhammednaseeb02@gmail.com).
-
-[<Img src="https://i.ibb.co/NySvWks/email.png" width=40 height=40>](mailto:muhammednaseeb02@gmail.com)
+>Please note that this version of the Technician Service Management App is tailored specifically for use by a single organization and is not intended for use by multiple organizations or for the general public. However, in the future it is intended to be open to all.
+  
+  ## Installation
 
 You can download the app on Google Play [here](https://play.google.com/store/apps/details?id=com.idealassociate.ideal_marketing).
 
 [<img src="readme_res\googleplay.png" width=300 height=100>](https://play.google.com/store/apps/details?id=com.idealassociate.ideal_marketing)
+
+## Tech Stack
+
+ - Flutter
+ - Dart
+ - Firebase
+ - Various third-party libraries
+
+## Acknowledgments
+
+- This project makes use of the [Firebase](https://firebase.google.com/) platform for authentication, data storage, and other features.
 
 ## Features
 
@@ -40,5 +50,13 @@ The Ideal Marketing App has two different views based on the user's login: Techn
 - Monthly performance monitoring: Monitor monthly performance for the organization
 - Technician deletion: Delete technician accounts
 - Vehicle management: Manage and assign vehicles to technicians
+<br><br>
+
+## Screenshots
 
 <img src="readme_res\image2.png" >
+<br>
+  
+## Support
+
+If you have any issues or questions, please don't hesitate to reach out at [muhammednaseeb02@gmail.com](mailto:muhammednaseeb02@gmail.com). You can also find additional resources and support for using Firebase in our [Firebase documentation](https://firebase.google.com/docs/).

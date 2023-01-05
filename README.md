@@ -1,5 +1,5 @@
 
-![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)![Watches](https://img.shields.io/github/watchers/Naseeb-Nex/Ideal-maketing-app?color=blue&logoColor=%23009688&style=for-the-badge)
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)![Watches](https://img.shields.io/github/watchers/Naseeb-Nex/Ideal-maketing-app?color=blue&logoColor=%23009688&style=for-the-badge)![Lines](https://img.shields.io/tokei/lines/github/Naseeb-Nex/Ideal-maketing-app?logo=Dart&logoColor=%230175C2&style=for-the-badge)
 
 <img src="readme_res\ideal-banner.png" >
 

@@ -6,11 +6,13 @@
 # Ideal Marketing App
 
 Welcome to the Ideal Marketing App repository! Ideal Marketing App is a technician management app designed to help organizations effectively schedule and manage their technicians' tasks and assignments. By using this app, organizations can ensure that their technicians are properly utilized and that service assignments are completed efficiently and on time, improving overall productivity and customer satisfaction.
-<br><br>
+<br>
+ 
+> ### ℹ️ **Note:** The application solution was developed for [Ideal Marketing Associates](https://idealassociate.com/), a private company. It is used to manage their technicians and was custom-built to meet their specific requirements. Currently, the company is using the product.
 
 <img src="readme_res\image1.png" >
 
->Please note that this version of the Technician Service Management App is tailored specifically for use by a single organization and is not intended for use by multiple organizations or for the general public. However, in the future it is intended to be open to all.
+> Please note that this version of the Technician Service Management App is tailored specifically for use by a single organization and is not intended for use by multiple organizations or for the general public. However, in the future it is intended to be open to all.
   
   ## Installation
 

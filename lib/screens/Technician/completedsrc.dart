@@ -948,14 +948,16 @@ class CustomeAlertbx extends StatelessWidget {
             const SizedBox(
               height: 28,
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => HomeTech()),
                 );
               },
-              color: Colors.white,
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(white),
+              ),
               child: Text(
                 "Okay",
                 style: TextStyle(

@@ -72,7 +72,9 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
                       onTap: () => showDialog(
                           context: context,
                           builder: ((context) => VehiclelogDialog(
-                              type: widget.type, name: widget.name, docname: widget.vdocname))),
+                              type: widget.type,
+                              name: widget.name,
+                              docname: widget.vdocname))),
                       child: Container(
                         width: s.width * 0.2,
                         height: s.width * 0.2,
@@ -399,42 +401,44 @@ class _VehiclelogDialogState extends State<VehiclelogDialog> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 15,),
+                SizedBox(
+                  height: 15,
+                ),
                 Container(
-              height: s.height * 0.5,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18),
-                color: white,
-                border: Border.all(
-                color: bluebg,
-                width: 2,
-              ),
-               
-              ),
-              child: Column(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: bluebg,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15))),
-                    child: Center(
-                      child: Text(
-                        "Vehicle Log",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500,
-                            color: white),
-                      ),
+                  height: s.height * 0.5,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    color: white,
+                    border: Border.all(
+                      color: bluebg,
+                      width: 2,
                     ),
                   ),
-                ],
-              )),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: bluebg,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15))),
+                        child: Center(
+                          child: Text(
+                            "Vehicle Log",
+                            style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500,
+                                color: white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

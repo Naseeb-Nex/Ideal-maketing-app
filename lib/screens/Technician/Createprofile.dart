@@ -297,15 +297,17 @@ class _CreateProfileState extends State<CreateProfile> {
                             letterSpacing: 2.2,
                             color: Colors.black)),
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     onPressed: () {
                       uploadData();
                     },
-                    color: Colors.green,
-                    padding: EdgeInsets.symmetric(horizontal: 50),
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
                     child: const Text(
                       "SAVE",
                       style: TextStyle(
@@ -402,7 +404,6 @@ class _CreateProfileState extends State<CreateProfile> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomeTech()));
       // assign all data
-
     }
   }
 }

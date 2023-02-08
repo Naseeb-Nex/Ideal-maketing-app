@@ -3,6 +3,7 @@ import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/assignvehiclecard.dart';
 import 'package:ideal_marketing/components/loadingDialog.dart';
+import 'package:ideal_marketing/services/vehicleusagehistory.dart';
 import 'package:intl/intl.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -87,7 +88,7 @@ class _TechstatusState extends State<Techstatus>
                 showDialog(
                     context: context,
                     builder: (context) => RemoveVehicleDialog(
-                        techname: widget.name, username: widget.username));
+                        techname: widget.name, username: widget.username, name: widget.name,));
               },
             ),
             // Floating action menu item
@@ -1104,7 +1105,9 @@ class _AddvehicleDialogState extends State<AddvehicleDialog> {
 class RemoveVehicleDialog extends StatefulWidget {
   String? techname;
   String? username;
-  RemoveVehicleDialog({this.techname, this.username});
+  String? name;
+
+  RemoveVehicleDialog({this.techname, this.username, this.name});
 
   @override
   State<RemoveVehicleDialog> createState() => _RemoveVehicleDialogState();
@@ -1268,7 +1271,7 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
                           flex: 1,
                           fit: FlexFit.tight,
                           child: InkWell(
-                            onTap: () => removeV(context, data["vdocname"]),
+                            onTap: () => removeV(context, data["vdocname"],data["type"] ),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
@@ -1333,9 +1336,26 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
     );
   }
 
-  Future<void> removeV(BuildContext context, String? docname) async {
+  Future<void> removeV(BuildContext context, String? docname, String? type) async {
     DateTime now = DateTime.now();
     String techvdoc = DateFormat('MM d').format(now);
+    String usagedocname = DateFormat('MM d y kk:mm:ss').format(now);
+
+    // Vehicle usage history
+    String update = DateFormat('d MM y').format(now);
+    String uptime = DateFormat('h:mma').format(now);
+
+    // Vehicle history class is added
+    VehicleUsageHistory vusage = VehicleUsageHistory(
+      name: widget.name,
+      upDate: update,
+      upTime: uptime,
+      username: widget.username,
+      docname: usagedocname,
+      techname: widget.techname,
+      type: type,
+      status: "Impounded"
+    );
     
     showDialog(context: context, builder: ((context) => LoadingDialog()));
     await fb
@@ -1350,6 +1370,13 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
     await fb.collection("Garage").doc(docname).set(
         {"status": "Available", "techname": "none", "username": "none"},
         SetOptions(merge: true));
+
+    // history added
+    await fb
+        .collection("GarageUsage")
+        .doc(usagedocname)
+        .set(vusage.toMap())
+        .then((v) => print("Vehicle assigned history added"));
 
     Navigator.of(context).pop();
     Navigator.pop(context);

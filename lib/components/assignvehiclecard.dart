@@ -245,9 +245,10 @@ class _AssignvehiclecardState extends State<Assignvehiclecard> {
       vdocname: widget.docname,
       docname: doc_name,
       type: widget.type,
+      techname: widget.techname,
     );
 
-    // Vehicle history class is added
+    // Vehicle Usage history detials 
     VehicleUsageHistory vusage = VehicleUsageHistory(
       name: widget.name,
       upDate: update,

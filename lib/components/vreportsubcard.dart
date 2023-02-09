@@ -4,6 +4,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:iconsax/iconsax.dart';
 // package
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/services/vehicleusagehistory.dart';
 import 'package:intl/intl.dart';
 import 'package:motion_toast/motion_toast.dart';
 
@@ -18,6 +19,8 @@ class Vreportsubcard extends StatefulWidget {
   String? docname;
   String? update;
   String? uptime;
+  String? type;
+  String? techname;
 
   Vreportsubcard({
     Key? key,
@@ -30,6 +33,8 @@ class Vreportsubcard extends StatefulWidget {
     this.desc,
     this.update,
     this.uptime,
+    this.techname,
+    this.type,
   }) : super(key: key);
 
   @override
@@ -140,6 +145,9 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                     builder: (context) => VehicleinfoDialog(
                                           docname: widget.docname,
                                           username: widget.username,
+                                          name: widget.name,
+                                          type: widget.type,
+                                          techname: widget.techname,
                                         )),
                                 child: Container(
                                   padding: EdgeInsets.all(s.width * 0.03),
@@ -234,6 +242,9 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                                   end: widget.end,
                                                   desc: widget.desc,
                                                   docname: widget.docname,
+                                                  name: widget.name,
+                                                  type: widget.type,
+                                                  techname: widget.techname,
                                                 )),
                                         child: Container(
                                           width: 30,
@@ -375,10 +386,16 @@ class _VreportsubcardState extends State<Vreportsubcard> {
 class VehicleinfoDialog extends StatefulWidget {
   String? username;
   String? docname;
+  String? name;
+  String? techname;
+  String? type;
 
   VehicleinfoDialog({
     this.username,
     this.docname,
+    this.name,
+    this.techname,
+    this.type,
   });
 
   @override
@@ -617,8 +634,36 @@ class _VehicleinfoDialogState extends State<VehicleinfoDialog> {
     String day = DateFormat('d').format(now);
     String month = DateFormat('MM').format(now);
     String year = DateFormat('y').format(now);
+
+    // Vechicle usage history
+    String update = DateFormat('d MM y').format(now);
+    String uptime = DateFormat('h:mma').format(now);
+    String usagedocname = DateFormat('MM d y kk:mm:ss').format(now);
+
+    // Vehicle Usage history detials 
+    VehicleUsageHistory vusage = VehicleUsageHistory(
+      name: widget.name,
+      upDate: update,
+      upTime: uptime,
+      username: widget.username,
+      docname: usagedocname,
+      techname: widget.techname,
+      type: widget.type,
+      status: "Usage Report",
+      start: startController.text,
+      end: endController.text,
+      desc: descController.text,
+    );
+
     if (form_key.currentState!.validate()) {
       showDialog(context: context, builder: (context) => LoadingDialog());
+
+      // history added
+    await fb
+        .collection("GarageUsage")
+        .doc(usagedocname)
+        .set(vusage.toMap())
+        .then((v) => print("Vehicle assigned history added"));
 
       // report added
       await fb
@@ -671,6 +716,9 @@ class EditVehicleusage extends StatefulWidget {
   String? start;
   String? end;
   String? desc;
+  String? name;
+  String? type;
+  String? techname;
 
   EditVehicleusage({
     this.username,
@@ -678,6 +726,9 @@ class EditVehicleusage extends StatefulWidget {
     this.start,
     this.end,
     this.desc,
+    this.name,
+    this.type,
+    this.techname,
   });
 
   @override
@@ -890,7 +941,7 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
                       Flexible(
                         flex: 1,
                         child: InkWell(
-                          onTap: () => vehicle_usage(context),
+                          onTap: () => editvehicle_usage(context),
                           child: Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: s.height * 0.01),
@@ -917,7 +968,7 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
     );
   }
 
-  Future<void> vehicle_usage(BuildContext context) async {
+  Future<void> editvehicle_usage(BuildContext context) async {
     FirebaseFirestore fb = FirebaseFirestore.instance;
 
     DateTime now = DateTime.now();
@@ -925,8 +976,37 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
     String day = DateFormat('d').format(now);
     String month = DateFormat('MM').format(now);
     String year = DateFormat('y').format(now);
+
+    
+    // Vechicle usage history
+    String update = DateFormat('d MM y').format(now);
+    String uptime = DateFormat('h:mma').format(now);
+    String usagedocname = DateFormat('MM d y kk:mm:ss').format(now);
+
+    // Vehicle Usage history detials 
+    VehicleUsageHistory vusage = VehicleUsageHistory(
+      name: widget.name,
+      upDate: update,
+      upTime: uptime,
+      username: widget.username,
+      docname: usagedocname,
+      techname: widget.techname,
+      type: widget.type,
+      status: "Usage Report (Edited)",
+      start: startController.text,
+      end: endController.text,
+      desc: descController.text,
+    );
+
     if (form_key.currentState!.validate()) {
       showDialog(context: context, builder: (context) => LoadingDialog());
+
+      // history added
+    await fb
+        .collection("GarageUsage")
+        .doc(usagedocname)
+        .set(vusage.toMap())
+        .then((v) => print("Vehicle assigned history added"));
 
       // report Update
       await fb

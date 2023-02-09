@@ -641,6 +641,8 @@ class _ReportSubmissionSrcState extends State<ReportSubmissionSrc> {
                                                   end: vehicle[i]['end'],
                                                   desc: vehicle[i]['desc'],
                                                   uptime: vehicle[i]['upTime'],
+                                                  techname: vehicle[i]['techname'],
+                                                  type: vehicle[i]['type'],
                                                 ),
                                               )
                                             ]

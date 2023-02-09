@@ -9,6 +9,7 @@ class Techvehicle {
   String? upTime;
   String? desc;
   String? type;
+  String? techname;
 
   Techvehicle({
     this.name,
@@ -21,6 +22,7 @@ class Techvehicle {
     this.upTime,
     this.desc,
     this.type,
+    this.techname,
   });
 
   // receiving data from server
@@ -36,6 +38,7 @@ class Techvehicle {
       username: map['username'],
       desc: map['desc'],
       type: map['type'],
+      techname: map['techname'],
     );
   }
 
@@ -52,6 +55,7 @@ class Techvehicle {
       'username': username,
       'desc': desc,
       'type': type,
+      'techname': techname,
     };
   }
 }

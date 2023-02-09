@@ -279,6 +279,8 @@ class _AssignVehiclereportcardState extends State<AssignVehiclereportcard> {
       username: widget.username,
       vdocname: widget.docname,
       docname: doc_name,
+      techname: widget.techname,
+      type: widget.type,
     );
 
     showDialog(context: context, builder: (context) => LoadingDialog());

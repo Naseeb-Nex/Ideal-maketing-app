@@ -1271,7 +1271,7 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
                           flex: 1,
                           fit: FlexFit.tight,
                           child: InkWell(
-                            onTap: () => removeV(context, data["vdocname"],data["type"] ),
+                            onTap: () => removeV(context, data["vdocname"],data["type"], data["name"] ),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
@@ -1336,7 +1336,7 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
     );
   }
 
-  Future<void> removeV(BuildContext context, String? docname, String? type) async {
+  Future<void> removeV(BuildContext context, String? docname, String? type, String? name) async {
     DateTime now = DateTime.now();
     String techvdoc = DateFormat('MM d').format(now);
     String usagedocname = DateFormat('MM d y kk:mm:ss').format(now);
@@ -1347,7 +1347,7 @@ class _RemoveVehicleDialogState extends State<RemoveVehicleDialog> {
 
     // Vehicle history class is added
     VehicleUsageHistory vusage = VehicleUsageHistory(
-      name: widget.name,
+      name: name,
       upDate: update,
       upTime: uptime,
       username: widget.username,

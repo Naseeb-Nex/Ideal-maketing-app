@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
+import 'package:ideal_marketing/services/vehicleusagehistory.dart';
 import 'package:intl/intl.dart';
 import 'package:iconsax/iconsax.dart';
 // package
@@ -300,6 +301,22 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
     FirebaseFirestore fb = FirebaseFirestore.instance;
     DateTime now = DateTime.now();
     String techvdoc = DateFormat('MM d').format(now);
+    // Vehicle Usage history
+    String update = DateFormat('d MM y').format(now);
+    String uptime = DateFormat('h:mma').format(now);
+    String usagedocname = DateFormat('MM d y kk:mm:ss').format(now);
+
+    // Vehicle Usage history
+    VehicleUsageHistory vusage = VehicleUsageHistory(
+      name: widget.name,
+      upDate: update,
+      upTime: uptime,
+      username: widget.username,
+      docname: usagedocname,
+      techname: widget.techname,
+      type: widget.type,
+      status: "Recall"
+    );
 
     showDialog(context: context, builder: ((context) => LoadingDialog()));
     await fb
@@ -308,6 +325,13 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
         .collection("Vehicle")
         .doc(techvdoc)
         .delete();
+    
+    // history added
+    await fb
+        .collection("GarageUsage")
+        .doc(usagedocname)
+        .set(vusage.toMap())
+        .then((v) => print("Vehicle assigned history added"));
 
     // status change
     await fb.collection("Garage").doc(docname).set(

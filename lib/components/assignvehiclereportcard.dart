@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/loadingDialog.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/services/techvehicle.dart';
+import 'package:ideal_marketing/services/vehicleusagehistory.dart';
 // date
 import 'package:intl/intl.dart';
 import 'package:iconsax/iconsax.dart';
@@ -256,6 +257,20 @@ class _AssignVehiclereportcardState extends State<AssignVehiclereportcard> {
     String day = DateFormat('d').format(now);
     String month = DateFormat('MM').format(now);
     String year = DateFormat('y').format(now);
+    // history
+    String usagedocname = DateFormat('MM d y kk:mm:ss').format(now);
+
+    // Vehicle Usage history
+    VehicleUsageHistory vusage = VehicleUsageHistory(
+      name: widget.name,
+      upDate: update,
+      upTime: uptime,
+      username: widget.username,
+      docname: usagedocname,
+      techname: widget.techname,
+      type: widget.type,
+      status: "Assigned (Self)"
+    );
 
     Techvehicle techv = Techvehicle(
       name: widget.name,
@@ -281,6 +296,13 @@ class _AssignVehiclereportcardState extends State<AssignVehiclereportcard> {
         .collection("vehicle")
         .doc(doc_name)
         .set(techv.toMap());
+
+    // history added
+    await fb
+        .collection("GarageUsage")
+        .doc(usagedocname)
+        .set(vusage.toMap())
+        .then((v) => print("Vehicle assigned history added"));
 
     Navigator.of(context).pop();
     Navigator.pop(context);

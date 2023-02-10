@@ -6,7 +6,7 @@ class VehicleLog {
   String? upDate;
   String? upTime;
   String? techname;
-  bool? edited;
+  String? edited;
 
 
   VehicleLog({

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/components/vehicleinfocard.dart';
+import 'package:ideal_marketing/components/vusagehistorycard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:intl/intl.dart';
 
@@ -98,7 +99,7 @@ class _VehicleportalState extends State<Vehicleportal> {
                                 style: TextStyle(
                                   fontFamily: "Montserrat",
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 17,
+                                  fontSize: 18,
                                   color: bluebg,
                                 ),
                               ),
@@ -164,6 +165,139 @@ class _VehicleportalState extends State<Vehicleportal> {
                                           statusdesc: vehicle[i]['statusdesc'],
                                           update: vehicle[i]['update'],
                                           uptime: vehicle[i]['uptime'],
+                                        ),
+                                      )
+                                    ]
+                                  ],
+                                );
+                              }),
+                        ]),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: s.width * 0.03, vertical: 15),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: white,
+                            boxShadow: [
+                              BoxShadow(
+                                spreadRadius: 2,
+                                blurRadius: 4,
+                                color: secondbg.withOpacity(0.23),
+                                offset: Offset(5, 7),
+                              ),
+                            ]),
+                        child: Column(children: [
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Image.asset(
+                                "assets/icons/history.png",
+                                height: s.width * 0.1,
+                                width: s.width * 0.1,
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Recent Activity",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18,
+                                      color: Color(0xFF3763D2),
+                                    ),
+                                  ),
+                                  Text(
+                                    "Manage vehicle usage activities",
+                                    style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 14,
+                                      color: Colors.blueGrey.shade300,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Divider(),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          StreamBuilder<QuerySnapshot>(
+                              stream: fb
+                                  .collection("GarageUsage")
+                                  .orderBy('docname', descending: true)
+                                  .limit(15)
+                                  .snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.hasError) {}
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: s.width * 0.25,
+                                      height: s.width * 0.25,
+                                      child: LoadingIndicator(
+                                        indicatorType:
+                                            Indicator.ballClipRotateMultiple,
+                                        colors: const [bluebg],
+                                      ),
+                                    ),
+                                  );
+                                }
+
+                                final List vehicle = [];
+                                snapshot.data!.docs
+                                    .map((DocumentSnapshot document) {
+                                  Map a =
+                                      document.data() as Map<String, dynamic>;
+                                  vehicle.add(a);
+                                  // a['uid'] = document.id;
+                                }).toList();
+                                return Column(
+                                  children: [
+                                    Container(
+                                        child: vehicle.length == 0
+                                            ? Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: s.width * 0.01),
+                                                child: Image.asset(
+                                                    "assets/icons/no_result.png"),
+                                              )
+                                            : null),
+                                    for (var i = 0;
+                                        i < vehicle.length;
+                                        i++) ...[
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 5.0),
+                                        child: Vusagehistorycard(
+                                          name: vehicle[i]['name'],
+                                          desc: vehicle[i]['description'],
+                                          type: vehicle[i]['type'],
+                                          status: vehicle[i]['status'],
+                                          techname: vehicle[i]['techname'],
+                                          username: vehicle[i]['username'],
+                                          docname: vehicle[i]['docname'],
+                                          upDate: vehicle[i]['upDate'],
+                                          upTime: vehicle[i]['upTime'],
+                                          start: vehicle[i]['start'],
+                                          end: vehicle[i]['end'],
                                         ),
                                       )
                                     ]

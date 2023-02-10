@@ -4,6 +4,7 @@ import 'package:ideal_marketing/constants/constants.dart';
 import 'package:iconsax/iconsax.dart';
 // package
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ideal_marketing/services/vehiclelog.dart';
 import 'package:ideal_marketing/services/vehicleusagehistory.dart';
 import 'package:intl/intl.dart';
 import 'package:motion_toast/motion_toast.dart';
@@ -148,6 +149,7 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                           name: widget.name,
                                           type: widget.type,
                                           techname: widget.techname,
+                                          vdocname: widget.vdocname,
                                         )),
                                 child: Container(
                                   padding: EdgeInsets.all(s.width * 0.03),
@@ -245,6 +247,7 @@ class _VreportsubcardState extends State<Vreportsubcard> {
                                                   name: widget.name,
                                                   type: widget.type,
                                                   techname: widget.techname,
+                                                  vdocname: widget.vdocname,
                                                 )),
                                         child: Container(
                                           width: 30,
@@ -389,6 +392,7 @@ class VehicleinfoDialog extends StatefulWidget {
   String? name;
   String? techname;
   String? type;
+  String? vdocname;
 
   VehicleinfoDialog({
     this.username,
@@ -396,6 +400,7 @@ class VehicleinfoDialog extends StatefulWidget {
     this.name,
     this.techname,
     this.type,
+    this.vdocname,
   });
 
   @override
@@ -640,7 +645,18 @@ class _VehicleinfoDialogState extends State<VehicleinfoDialog> {
     String uptime = DateFormat('h:mma').format(now);
     String usagedocname = DateFormat('MM d y kk:mm:ss').format(now);
 
-    // Vehicle Usage history detials 
+    // Vehicle log
+    VehicleLog vlog = VehicleLog(
+      start: startController.text,
+      end: endController.text,
+      techname: widget.techname,
+      upDate: update,
+      upTime: uptime,
+      docname: usagedocname,
+      edited: false,
+    );
+
+    // Vehicle Usage history detials
     VehicleUsageHistory vusage = VehicleUsageHistory(
       name: widget.name,
       upDate: update,
@@ -659,11 +675,20 @@ class _VehicleinfoDialogState extends State<VehicleinfoDialog> {
       showDialog(context: context, builder: (context) => LoadingDialog());
 
       // history added
-    await fb
-        .collection("GarageUsage")
-        .doc(usagedocname)
-        .set(vusage.toMap())
-        .then((v) => print("Vehicle assigned history added"));
+      await fb
+          .collection("GarageUsage")
+          .doc(usagedocname)
+          .set(vusage.toMap())
+          .then((v) => print("Vehicle assigned history added"));
+
+      // Vehicle log
+      await fb
+          .collection("Garage")
+          .doc(widget.vdocname)
+          .collection("VehicleLog")
+          .doc(usagedocname)
+          .set(vlog.toMap())
+          .then((v) => print("Vehicle log updated"));
 
       // report added
       await fb
@@ -719,6 +744,7 @@ class EditVehicleusage extends StatefulWidget {
   String? name;
   String? type;
   String? techname;
+  String? vdocname;
 
   EditVehicleusage({
     this.username,
@@ -729,6 +755,7 @@ class EditVehicleusage extends StatefulWidget {
     this.name,
     this.type,
     this.techname,
+    this.vdocname,
   });
 
   @override
@@ -749,7 +776,6 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
     super.initState();
     startController.text = "${widget.start}";
     endController.text = "${widget.end}";
-    
     descController.text = "${widget.desc}";
   }
 
@@ -977,13 +1003,23 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
     String month = DateFormat('MM').format(now);
     String year = DateFormat('y').format(now);
 
-    
     // Vechicle usage history
     String update = DateFormat('d MM y').format(now);
     String uptime = DateFormat('h:mma').format(now);
     String usagedocname = DateFormat('MM d y kk:mm:ss').format(now);
 
-    // Vehicle Usage history detials 
+    // Vehicle log
+    VehicleLog vlog = VehicleLog(
+      start: startController.text,
+      end: endController.text,
+      techname: widget.techname,
+      upDate: update,
+      upTime: uptime,
+      docname: usagedocname,
+      edited: true,
+    );
+
+    // Vehicle Usage history detials
     VehicleUsageHistory vusage = VehicleUsageHistory(
       name: widget.name,
       upDate: update,
@@ -1002,11 +1038,20 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
       showDialog(context: context, builder: (context) => LoadingDialog());
 
       // history added
-    await fb
-        .collection("GarageUsage")
-        .doc(usagedocname)
-        .set(vusage.toMap())
-        .then((v) => print("Vehicle assigned history added"));
+      await fb
+          .collection("GarageUsage")
+          .doc(usagedocname)
+          .set(vusage.toMap())
+          .then((v) => print("Vehicle assigned history added"));
+
+      // Vehicle log
+      await fb
+          .collection("Garage")
+          .doc(widget.vdocname)
+          .collection("VehicleLog")
+          .doc(usagedocname)
+          .set(vlog.toMap())
+          .then((v) => print("Vehicle log updated"));
 
       // report Update
       await fb

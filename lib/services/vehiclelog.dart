@@ -6,6 +6,7 @@ class VehicleLog {
   String? upDate;
   String? upTime;
   String? techname;
+  bool? edited;
 
 
   VehicleLog({
@@ -15,6 +16,7 @@ class VehicleLog {
     this.upDate,
     this.upTime,
     this.techname,
+    this.edited
   });
 
   // receiving data from server
@@ -26,6 +28,7 @@ class VehicleLog {
       upDate: map['upDate'],
       upTime: map['upTime'],
       techname: map['techname'],
+      edited: map['edited'],
     );
   }
 
@@ -38,6 +41,7 @@ class VehicleLog {
       'upTime': upTime,
       'docname': docname,
       'techname': techname,
+      'edited': edited,
     };
   }
 }

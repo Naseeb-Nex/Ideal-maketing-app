@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/components/vehiclelogcard.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/services/vehicleusagehistory.dart';
 import 'package:intl/intl.dart';
 import 'package:iconsax/iconsax.dart';
 // package
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:motion_toast/motion_toast.dart';
 // components
 import 'package:ideal_marketing/components/loadingDialog.dart';
@@ -308,15 +310,14 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
 
     // Vehicle Usage history
     VehicleUsageHistory vusage = VehicleUsageHistory(
-      name: widget.name,
-      upDate: update,
-      upTime: uptime,
-      username: widget.username,
-      docname: usagedocname,
-      techname: widget.techname,
-      type: widget.type,
-      status: "Recall"
-    );
+        name: widget.name,
+        upDate: update,
+        upTime: uptime,
+        username: widget.username,
+        docname: usagedocname,
+        techname: widget.techname,
+        type: widget.type,
+        status: "Recall");
 
     showDialog(context: context, builder: ((context) => LoadingDialog()));
     await fb
@@ -325,7 +326,7 @@ class _VechicleInfoCardState extends State<VechicleInfoCard> {
         .collection("Vehicle")
         .doc(techvdoc)
         .delete();
-    
+
     // history added
     await fb
         .collection("GarageUsage")
@@ -374,6 +375,7 @@ class VehiclelogDialog extends StatefulWidget {
 }
 
 class _VehiclelogDialogState extends State<VehiclelogDialog> {
+  FirebaseFirestore fb = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
@@ -460,6 +462,75 @@ class _VehiclelogDialogState extends State<VehiclelogDialog> {
                           ),
                         ),
                       ),
+                      SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          child: Column(
+                            children: [
+                              StreamBuilder<QuerySnapshot>(
+                                  stream: fb
+                                      .collection("Garage")
+                                      .doc(widget.docname)
+                                      .collection("VehicleLog")
+                                      .orderBy('docname', descending: true)
+                                      .limit(20)
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    if (snapshot.hasError) {}
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: s.width * 0.25,
+                                          height: s.width * 0.25,
+                                          child: LoadingIndicator(
+                                            indicatorType: Indicator
+                                                .ballClipRotateMultiple,
+                                            colors: const [bluebg],
+                                          ),
+                                        ),
+                                      );
+                                    }
+
+                                    final List vehicle = [];
+                                    snapshot.data!.docs
+                                        .map((DocumentSnapshot document) {
+                                      Map a = document.data()
+                                          as Map<String, dynamic>;
+                                      vehicle.add(a);
+                                      // a['uid'] = document.id;
+                                    }).toList();
+                                    return Column(
+                                      children: [
+                                        Container(
+                                            child: vehicle.length == 0
+                                                ? Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                s.width * 0.01),
+                                                    child: Image.asset(
+                                                        "assets/icons/no_result.png"),
+                                                  )
+                                                : null),
+                                        for (var i = 0;
+                                            i < vehicle.length;
+                                            i++) ...[
+                                          Vehiclelogcard(
+                                            techname: vehicle[i]['techname'],
+                                            docname: vehicle[i]['docname'],
+                                            upDate: vehicle[i]['upDate'],
+                                            upTime: vehicle[i]['upTime'],
+                                            start: vehicle[i]['start'],
+                                            end: vehicle[i]['end'],
+                                            edited: vehicle[i]['edited'],
+                                          )
+                                        ]
+                                      ],
+                                    );
+                                  }),
+                            ],
+                          ))
                     ],
                   ),
                 ),

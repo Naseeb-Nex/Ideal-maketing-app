@@ -653,7 +653,7 @@ class _VehicleinfoDialogState extends State<VehicleinfoDialog> {
       upDate: update,
       upTime: uptime,
       docname: usagedocname,
-      edited: false,
+      edited: "false",
     );
 
     // Vehicle Usage history detials
@@ -1016,7 +1016,7 @@ class _EditVehicleusageState extends State<EditVehicleusage> {
       upDate: update,
       upTime: uptime,
       docname: usagedocname,
-      edited: true,
+      edited: "true",
     );
 
     // Vehicle Usage history detials

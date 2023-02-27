@@ -273,7 +273,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                               SizedBox(height: s.height * 0.07),
                               Text(
                                 "${widget.name}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: "Montserrat",
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
@@ -304,7 +304,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                               child: Center(
                                                   child: Column(
                                                 children: [
-                                                  Text(
+                                                  const Text(
                                                     "Assigned",
                                                     style: TextStyle(
                                                         fontFamily:
@@ -313,7 +313,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                             FontWeight.w500,
                                                         color: white),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 4,
                                                   ),
                                                   Text(
@@ -338,7 +338,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                               child: Center(
                                                   child: Column(
                                                 children: [
-                                                  Text(
+                                                  const Text(
                                                     "Completed",
                                                     style: TextStyle(
                                                         fontFamily:
@@ -347,12 +347,12 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                             FontWeight.w500,
                                                         color: white),
                                                   ),
-                                                  SizedBox(
+                                                  const  SizedBox(
                                                     height: 4,
                                                   ),
                                                   Text(
                                                     "${widget.c}",
-                                                    style: TextStyle(
+                                                    style:  const TextStyle(
                                                         fontFamily:
                                                             "Montserrat",
                                                         fontWeight:
@@ -372,7 +372,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                               child: Center(
                                                   child: Column(
                                                 children: [
-                                                  Text(
+                                                   const Text(
                                                     "Pending",
                                                     style: TextStyle(
                                                         fontFamily:
@@ -381,12 +381,12 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                             FontWeight.w500,
                                                         color: white),
                                                   ),
-                                                  SizedBox(
+                                                  const  SizedBox(
                                                     height: 4,
                                                   ),
                                                   Text(
                                                     "${widget.p}",
-                                                    style: TextStyle(
+                                                    style:  const TextStyle(
                                                         fontFamily:
                                                             "Montserrat",
                                                         fontWeight:
@@ -1362,7 +1362,6 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                     _selectedday =
                                                         "${dateTime.day}";
                                                   });
-                                                  // TODO : Add month validation
 
                                                   if (_selectedmonth?.length ==
                                                       1) {

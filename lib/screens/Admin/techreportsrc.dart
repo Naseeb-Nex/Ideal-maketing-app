@@ -19,11 +19,6 @@ import 'package:ideal_marketing/constants/constants.dart';
 
 // ignore: must_be_immutable
 class Techreportsrc extends StatefulWidget {
-  String? username;
-  String? name;
-  int loc;
-  // Program status count
-  int a, p, c, pro;
   Techreportsrc({
     Key? key,
     this.username,
@@ -35,23 +30,35 @@ class Techreportsrc extends StatefulWidget {
     required this.c,
   }) : super(key: key);
 
+  int loc;
+  String? name;
+  // Program status count
+  int a, p, c, pro;
+
+  String? username;
+
   @override
   _TechreportsrcState createState() => _TechreportsrcState();
 }
 
 class _TechreportsrcState extends State<Techreportsrc> {
+  // Daily activity filter
+  String daily_activity_filter = "all";
+
+  // Date Picker
+  late DateTime dateTime;
+
+  bool date_selected = false;
   FirebaseFirestore fb = FirebaseFirestore.instance;
-
-  bool is_sub = false;
+  String formated_month = "";
   bool is_datesub = false;
-  // Bottom Naigation bar
-  var _selectedTab = _SelectedTab.day;
+  bool is_sub = false;
+  // Montly List
+  List montly_filtered_rp = [];
 
-  void _handleIndexChanged(int i) {
-    setState(() {
-      _selectedTab = _SelectedTab.values[i];
-    });
-  }
+  List montly_search_rs = [];
+  // serach controller
+  final searchController = TextEditingController();
 
   // Images
   List<String> techimg = [
@@ -60,31 +67,108 @@ class _TechreportsrcState extends State<Techreportsrc> {
     "assets/icons/tech_avatar3.png",
   ];
 
-  // Daily activity filter
-  String daily_activity_filter = "all";
-
   // Bottome navigation key
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
-  // Date Picker
-  late DateTime dateTime;
-  bool date_selected = false;
+  // Bottom Naigation bar
+  var _selectedTab = _SelectedTab.day;
 
-  String? _selectedyear;
-  String? _selectedmonth;
   String? _selectedday;
-
-  // serach controller
-  final searchController = TextEditingController();
-
-  // Montly List
-  List montly_filtered_rp = [];
-  List montly_search_rs = [];
+  String? _selectedmonth;
+  String? _selectedyear;
 
   @override
   void initState() {
     super.initState();
     submit_validator();
+  }
+
+  Future<void> submit_validator() async {
+    // Report side
+    DateTime now = DateTime.now();
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection(day)
+        .doc("Tech")
+        .collection("Reports")
+        .doc(widget.username)
+        .get()
+        .then((DocumentSnapshot doc) {
+      if (doc.exists) {
+        try {
+          bool nested = doc.get(FieldPath(['submit']));
+          if (nested) {
+            setState(() {
+              is_sub = true;
+            });
+          }
+        } on StateError catch (e) {
+          print('Feild is not exist error!');
+        }
+      }
+    });
+  }
+
+  // Serach Functionality
+
+  // SearchBOx
+  Widget searchBox() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 15),
+      decoration: BoxDecoration(
+        color: Color(0xffE2EAFC),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: TextField(
+        controller: searchController,
+        onChanged: (value) => _runFilter(value),
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(0),
+          prefixIcon: Icon(
+            Icons.search,
+            color: black,
+            size: 20,
+          ),
+          prefixIconConstraints: BoxConstraints(
+            maxHeight: 20,
+            minWidth: 25,
+          ),
+          border: InputBorder.none,
+          hintText: 'Search',
+          hintStyle: TextStyle(color: Colors.blueGrey),
+        ),
+      ),
+    );
+  }
+
+  void _handleIndexChanged(int i) {
+    setState(() {
+      _selectedTab = _SelectedTab.values[i];
+    });
+  }
+
+  void _runFilter(String enteredKeyword) {
+    setState(() {
+      montly_search_rs = montly_filtered_rp.where((pgm) {
+        final nameLower = pgm["name"]!.toLowerCase();
+        final dayLower = pgm["day"]!.toLowerCase();
+        final pgmLower = pgm["pgm"]!.toLowerCase();
+        final phnumber = pgm["phn"]!;
+        final searchquery = enteredKeyword.toLowerCase();
+
+        return nameLower.contains(searchquery) ||
+            dayLower.contains(searchquery) ||
+            pgmLower.contains(searchquery) ||
+            phnumber.contains(searchquery);
+      }).toList();
+    });
   }
 
   @override
@@ -770,7 +854,6 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                     ),
                                                   ),
                                           ),
-
                                         ]),
                                       ),
                                       SizedBox(
@@ -1269,6 +1352,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                 );
                                                 if (newDateTime != null) {
                                                   setState(() {
+                                                    is_datesub = false;
                                                     dateTime = newDateTime;
                                                     date_selected = true;
                                                     _selectedyear =
@@ -1278,11 +1362,23 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                     _selectedday =
                                                         "${dateTime.day}";
                                                   });
+                                                  // TODO : Add month validation
+
+                                                  if (_selectedmonth?.length ==
+                                                      1) {
+                                                    setState(() {
+                                                      formated_month =
+                                                          "0$_selectedmonth";
+                                                    });
+                                                    print(formated_month);
+                                                  }else {
+                                                    formated_month = "$_selectedmonth";
+                                                  }
                                                   fb
                                                       .collection("Reports")
                                                       .doc(_selectedyear)
                                                       .collection("Month")
-                                                      .doc(_selectedmonth)
+                                                      .doc(formated_month)
                                                       .collection(_selectedday!)
                                                       .doc("Tech")
                                                       .collection("Reports")
@@ -1455,17 +1551,22 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                         height:
                                                                             5,
                                                                       ),
-                                                                      Text(
-                                                                        "Vehicle Details",
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              "Montserrat",
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          fontSize:
-                                                                              15,
-                                                                        ),
+                                                                      Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(
+                                                                            "Vehicle Details",
+                                                                            style:
+                                                                                TextStyle(
+                                                                              fontFamily:
+                                                                                  "Montserrat",
+                                                                              fontWeight:
+                                                                                  FontWeight.w600,
+                                                                              fontSize:
+                                                                                  15,
+                                                                            ),
+                                                                          ),
+                                                                        ],
                                                                       ),
                                                                       SizedBox(
                                                                           height:
@@ -1476,7 +1577,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                               .collection("Reports")
                                                                               .doc(_selectedyear)
                                                                               .collection("Month")
-                                                                              .doc(_selectedmonth)
+                                                                              .doc(formated_month)
                                                                               .collection(_selectedday!)
                                                                               .doc("Tech")
                                                                               .collection("Reports")
@@ -1516,19 +1617,24 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                     child: vehicle.length == 0
                                                                                         ? Padding(
                                                                                             padding: EdgeInsets.symmetric(horizontal: s.width * 0.01),
-                                                                                            child: Column(
+                                                                                            child: Row(
+                                                                                              mainAxisAlignment: MainAxisAlignment.center,
                                                                                               children: [
-                                                                                                Image.asset(
-                                                                                                  "assets/icons/warning.png",
-                                                                                                  height: s.height * 0.12,
-                                                                                                ),
-                                                                                                Text(
-                                                                                                  "No Vehicle Used !",
-                                                                                                  style: TextStyle(
-                                                                                                    fontFamily: "Montserrat",
-                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                    fontSize: 17,
-                                                                                                  ),
+                                                                                                Column(
+                                                                                                  children: [
+                                                                                                    Image.asset(
+                                                                                                      "assets/icons/warning.png",
+                                                                                                      height: s.height * 0.12,
+                                                                                                    ),
+                                                                                                    Text(
+                                                                                                      "No Vehicle Used !",
+                                                                                                      style: TextStyle(
+                                                                                                        fontFamily: "Montserrat",
+                                                                                                        fontWeight: FontWeight.w500,
+                                                                                                        fontSize: 17,
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ],
                                                                                                 ),
                                                                                               ],
                                                                                             ),
@@ -1625,7 +1731,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                             .collection("Reports")
                                                                             .doc(_selectedyear)
                                                                             .collection("Month")
-                                                                            .doc(_selectedmonth)
+                                                                            .doc(formated_month)
                                                                             .collection(_selectedday!)
                                                                             .doc("Tech")
                                                                             .collection("Reports")
@@ -1714,7 +1820,8 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                     ],
                                                                   ),
                                                                 ),
-                                                                SizedBox(height: 15),
+                                                                SizedBox(
+                                                                    height: 15),
                                                               ],
                                                             )
                                                           : Container(
@@ -1730,32 +1837,36 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                               ),
                                                             ),
                                                     ),
-                                                    SizedBox(height: 15,),
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
 
                                                     // Daily Activity
                                                     Image.asset(
-                                                              "assets/icons/test.png",
-                                                              width: 40,
-                                                              height: 40,
-                                                            ),
+                                                      "assets/icons/test.png",
+                                                      width: 40,
+                                                      height: 40,
+                                                    ),
                                                     Text(
-                                                  "Daily Activity",
-                                                  style: TextStyle(
-                                                    fontFamily: "Montserrat",
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 17,
-                                                    color: bluebg,
-                                                  ),
-                                                ),
-                                                Divider(),
-                                                SizedBox(height: 15),
+                                                      "Daily Activity",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 17,
+                                                        color: bluebg,
+                                                      ),
+                                                    ),
+                                                    Divider(),
+                                                    SizedBox(height: 15),
                                                     StreamBuilder<
                                                         QuerySnapshot>(
                                                       stream: fb
                                                           .collection("Reports")
                                                           .doc(_selectedyear)
                                                           .collection("Month")
-                                                          .doc(_selectedmonth)
+                                                          .doc(formated_month)
                                                           .collection(
                                                               _selectedday!)
                                                           .doc("Tech")
@@ -2633,87 +2744,6 @@ class _TechreportsrcState extends State<Techreportsrc> {
           ),
         )
       ]),
-    );
-  }
-
-  Future<void> submit_validator() async {
-    // Report side
-    DateTime now = DateTime.now();
-    String day = DateFormat('d').format(now);
-    String month = DateFormat('MM').format(now);
-    String year = DateFormat('y').format(now);
-
-    await fb
-        .collection("Reports")
-        .doc(year)
-        .collection("Month")
-        .doc(month)
-        .collection(day)
-        .doc("Tech")
-        .collection("Reports")
-        .doc(widget.username)
-        .get()
-        .then((DocumentSnapshot doc) {
-      if (doc.exists) {
-        try {
-          bool nested = doc.get(FieldPath(['submit']));
-          if (nested) {
-            setState(() {
-              is_sub = true;
-            });
-          }
-        } on StateError catch (e) {
-          print('Feild is not exist error!');
-        }
-      }
-    });
-  }
-
-  void _runFilter(String enteredKeyword) {
-    setState(() {
-      montly_search_rs = montly_filtered_rp.where((pgm) {
-        final nameLower = pgm["name"]!.toLowerCase();
-        final dayLower = pgm["day"]!.toLowerCase();
-        final pgmLower = pgm["pgm"]!.toLowerCase();
-        final phnumber = pgm["phn"]!;
-        final searchquery = enteredKeyword.toLowerCase();
-
-        return nameLower.contains(searchquery) ||
-            dayLower.contains(searchquery) ||
-            pgmLower.contains(searchquery) ||
-            phnumber.contains(searchquery);
-      }).toList();
-    });
-  }
-  // Serach Functionality
-
-  // SearchBOx
-  Widget searchBox() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        color: Color(0xffE2EAFC),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: TextField(
-        controller: searchController,
-        onChanged: (value) => _runFilter(value),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(0),
-          prefixIcon: Icon(
-            Icons.search,
-            color: black,
-            size: 20,
-          ),
-          prefixIconConstraints: BoxConstraints(
-            maxHeight: 20,
-            minWidth: 25,
-          ),
-          border: InputBorder.none,
-          hintText: 'Search',
-          hintStyle: TextStyle(color: Colors.blueGrey),
-        ),
-      ),
     );
   }
 }

@@ -180,31 +180,35 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 onTap: () {
                                   Scaffold.of(context).closeDrawer();
                                 },
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: white),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Iconsax.receipt_1,
-                                        color: white,
-                                      ),
-                                      SizedBox(
-                                        width: s.width * 0.04,
-                                      ),
-                                      Text(
-                                        "Monthly Report",
-                                        style: const TextStyle(
-                                          fontFamily: "Montserrat",
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.normal,
+                                child: InkWell(
+                                  // TODO: Create Monthly Report screen
+                                  // TODO: https://dribbble.com/shots/20780383-Fitness-App follow this link to design
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: white),
+                                        borderRadius: BorderRadius.circular(10)),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Iconsax.receipt_1,
                                           color: white,
                                         ),
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          width: s.width * 0.04,
+                                        ),
+                                        Text(
+                                          "Monthly Report",
+                                          style: const TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.normal,
+                                            color: white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

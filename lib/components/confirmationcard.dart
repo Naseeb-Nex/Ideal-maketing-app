@@ -10,27 +10,6 @@ import '../services/customer_history.dart';
 
 // ignore: must_be_immutable
 class Confirmationcard extends StatefulWidget {
-  String? uid;
-  String? name;
-  String? address;
-  String? loc;
-  String? phn;
-  String? pgm;
-  String? chrg;
-  String? type;
-  String? upDate;
-  String? upTime;
-  String? docname;
-  String? status;
-  String? username;
-  String? custdocname;
-  String? techname;
-  String? assignedtime;
-  String? assigneddate;
-  String? priority;
-  String? prospec;
-  String? instadate;
-
   Confirmationcard({
     Key? key,
     this.uid,
@@ -55,12 +34,292 @@ class Confirmationcard extends StatefulWidget {
     this.instadate,
   }) : super(key: key);
 
+  String? address;
+  String? assigneddate;
+  String? assignedtime;
+  String? chrg;
+  String? custdocname;
+  String? docname;
+  String? instadate;
+  String? loc;
+  String? name;
+  String? pgm;
+  String? phn;
+  String? priority;
+  String? prospec;
+  String? status;
+  String? techname;
+  String? type;
+  String? uid;
+  String? upDate;
+  String? upTime;
+  String? username;
+
   @override
   State<Confirmationcard> createState() => _ConfirmationcardState();
 }
 
 class _ConfirmationcardState extends State<Confirmationcard> {
   bool loading = false;
+
+  Future<void> Assigntechup() async {
+    FirebaseFirestore fb = FirebaseFirestore.instance;
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('MM d y kk:mm:ss').format(now);
+    String assigneddate = DateFormat('d MM y').format(now);
+    String assignedtime = DateFormat('h:mma').format(now);
+
+    // Daily report docname
+    String daydoc = DateFormat('kk:mm:ss').format(now);
+
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
+    Assignpgmdata apgm = Assignpgmdata(
+      uid: widget.uid,
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      prospec: widget.prospec,
+      instadate: widget.instadate,
+      status: "assigned",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: assigneddate,
+      assignedtime: assignedtime,
+      custdocname: widget.custdocname,
+    );
+
+    // report data
+    Reportdata rpdata = Reportdata(
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      status: "assigned",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: assigneddate,
+      assignedtime: assignedtime,
+      custdocname: widget.custdocname,
+      rpdocname: formattedDate,
+    );
+
+    // Daily report status
+    Reportstatus dayrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
+      status: "assigned",
+      upDate: assigneddate,
+      upTime: assignedtime,
+      day: day,
+      month: month,
+      username: widget.username,
+      more: formattedDate,
+    );
+
+    // Monthly reports status
+    Reportstatus monthrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
+      status: "assigned",
+      upDate: assigneddate,
+      upTime: assignedtime,
+      day: day,
+      month: month,
+      username: widget.username,
+      more: formattedDate,
+    );
+
+    CustomerPgmHistory custhistory = CustomerPgmHistory(
+      upDate: assigneddate,
+      upTime: assignedtime,
+      msg: "Program Assigned to ${widget.techname}",
+      techname: widget.techname,
+      status: "assigned",
+      docname: formattedDate,
+      custdocname: widget.custdocname,
+    );
+
+    setState(() {
+      loading = true;
+    });
+
+    // Report session
+
+    // Update the reportdata
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection(day)
+        .doc("Tech")
+        .collection("Reports")
+        .doc("${widget.username}")
+        .collection("Activity")
+        .doc(formattedDate)
+        .set(rpdata.toMap());
+
+    // Update the dayily report data
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection(day)
+        .doc("summary")
+        .collection("all")
+        .doc("${widget.techname} $daydoc")
+        .set(dayrpdata.toMap());
+
+    // Daily counter update
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection(day)
+        .doc("Counter")
+        .get()
+        .then(
+      (DocumentSnapshot doc) {
+        if (!doc.exists) {
+          fb
+              .collection("Reports")
+              .doc(year)
+              .collection("Month")
+              .doc(month)
+              .collection(day)
+              .doc("Counter")
+              .set({'assigned': 1, 'month': month});
+        } else {
+          fb
+              .collection("Reports")
+              .doc(year)
+              .collection("Month")
+              .doc(month)
+              .collection(day)
+              .doc("Counter")
+              .update({'assigned': FieldValue.increment(1)});
+        }
+      },
+      onError: (e) => print("Assigned Counter update Error: $e"),
+    );
+
+    // Update the Monthly report data
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .collection("summary")
+        .doc("${widget.techname} $formattedDate")
+        .set(monthrpdata.toMap());
+
+    // Update the monthly counter Report
+    await fb
+        .collection("Reports")
+        .doc(year)
+        .collection("Month")
+        .doc(month)
+        .get()
+        .then(
+      (DocumentSnapshot doc) {
+        if (!doc.exists) {
+          fb
+              .collection("Reports")
+              .doc(year)
+              .collection("Month")
+              .doc(month)
+              .set({'assigned': 1, 'year': year});
+        } else {
+          fb
+              .collection("Reports")
+              .doc(year)
+              .collection("Month")
+              .doc(month)
+              .update({'assigned': FieldValue.increment(1)});
+        }
+      },
+      onError: (e) => print("Assigned Counter update Error: $e"),
+    );
+
+    // Report session end
+
+    // Update the Program status
+    fb.collection("Programs").doc(widget.docname).update({
+      'status': 'assigned',
+      'techname': '${widget.techname}',
+      'techuname': '${widget.username}'
+    });
+
+    // Updating the Customer program status
+    fb
+        .collection("Customer")
+        .doc(widget.custdocname)
+        .collection("Programs")
+        .doc(widget.docname)
+        .update({'status': 'assigned'});
+
+    //  Updated Pgm to tech assign list
+    fb
+       .collection("Technician")
+        .doc(widget.username)
+        .collection("Assignedpgm")
+        .doc(widget.docname)
+        .set(apgm.toMap());
+
+    // customer program history updated
+    fb
+        .collection("Customer")
+        .doc(widget.custdocname)
+        .collection("Programs")
+        .doc(widget.docname)
+        .collection("History")
+        .doc(formattedDate)
+        .set(custhistory.toMap());
+
+    fb.collection("ConfirmList").doc(widget.docname).delete();
+
+    setState(() {
+      loading = false;
+    });
+  }
+
+  void Cancelassinged() {
+    FirebaseFirestore fb = FirebaseFirestore.instance;
+    setState(() {
+      loading = true;
+    });
+    fb.collection("ConfirmList").doc(widget.docname).delete();
+    setState(() {
+      loading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -387,264 +646,5 @@ class _ConfirmationcardState extends State<Confirmationcard> {
         ),
       ],
     );
-  }
-
-  Future<void> Assigntechup() async {
-    FirebaseFirestore fb = FirebaseFirestore.instance;
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('MM d y kk:mm:ss').format(now);
-    String assigneddate = DateFormat('d MM y').format(now);
-    String assignedtime = DateFormat('h:mma').format(now);
-
-    // Daily report docname
-    String daydoc = DateFormat('kk:mm:ss').format(now);
-
-    // Report
-    String day = DateFormat('d').format(now);
-    String month = DateFormat('MM').format(now);
-    String year = DateFormat('y').format(now);
-
-    Assignpgmdata apgm = Assignpgmdata(
-      uid: widget.uid,
-      name: widget.name,
-      address: widget.address,
-      loc: widget.loc,
-      phn: widget.phn,
-      pgm: widget.pgm,
-      chrg: widget.chrg,
-      type: widget.type,
-      upDate: widget.upDate,
-      upTime: widget.upTime,
-      docname: widget.docname,
-      prospec: widget.prospec,
-      instadate: widget.instadate,
-      status: "assigned",
-      username: widget.username,
-      techname: widget.techname,
-      priority: widget.priority,
-      assigneddate: assigneddate,
-      assignedtime: assignedtime,
-      custdocname: widget.custdocname,
-    );
-
-    // report data
-    Reportdata rpdata = Reportdata(
-      name: widget.name,
-      address: widget.address,
-      loc: widget.loc,
-      phn: widget.phn,
-      pgm: widget.pgm,
-      chrg: widget.chrg,
-      type: widget.type,
-      upDate: widget.upDate,
-      upTime: widget.upTime,
-      docname: widget.docname,
-      status: "assigned",
-      username: widget.username,
-      techname: widget.techname,
-      priority: widget.priority,
-      assigneddate: assigneddate,
-      assignedtime: assignedtime,
-      custdocname: widget.custdocname,
-      rpdocname: formattedDate,
-    );
-
-    // Daily report status
-    Reportstatus dayrpdata = Reportstatus(
-      name: widget.name,
-      pgm: widget.pgm,
-      techname: widget.techname,
-      docname: "${widget.techname} $daydoc",
-      phn: widget.phn,
-      status: "assigned",
-      upDate: assigneddate,
-      upTime: assignedtime,
-      day: day,
-      month: month,
-      username: widget.username,
-      more: formattedDate,
-    );
-
-    // Montly reports status
-    Reportstatus monthrpdata = Reportstatus(
-      name: widget.name,
-      pgm: widget.pgm,
-      techname: widget.techname,
-      docname: "${widget.techname} $daydoc",
-      phn: widget.phn,
-      status: "assigned",
-      upDate: assigneddate,
-      upTime: assignedtime,
-      day: day,
-      month: month,
-      username: widget.username,
-      more: formattedDate,
-    );
-
-    CustomerPgmHistory custhistory = CustomerPgmHistory(
-      upDate: assigneddate,
-      upTime: assignedtime,
-      msg: "Program Assigned to ${widget.techname}",
-      techname: widget.techname,
-      status: "assigned",
-      docname: formattedDate,
-      custdocname: widget.custdocname,
-    );
-
-    setState(() {
-      loading = true;
-    });
-
-    // Report session
-
-    // Update the reportdata
-    await fb
-        .collection("Reports")
-        .doc(year)
-        .collection("Month")
-        .doc(month)
-        .collection(day)
-        .doc("Tech")
-        .collection("Reports")
-        .doc("${widget.username}")
-        .collection("Activity")
-        .doc(formattedDate)
-        .set(rpdata.toMap());
-
-    // Update the dayily report data
-    await fb
-        .collection("Reports")
-        .doc(year)
-        .collection("Month")
-        .doc(month)
-        .collection(day)
-        .doc("summary")
-        .collection("all")
-        .doc("${widget.techname} $daydoc")
-        .set(dayrpdata.toMap());
-
-    // Daily counter update
-    await fb
-        .collection("Reports")
-        .doc(year)
-        .collection("Month")
-        .doc(month)
-        .collection(day)
-        .doc("Counter")
-        .get()
-        .then(
-      (DocumentSnapshot doc) {
-        if (!doc.exists) {
-          fb
-              .collection("Reports")
-              .doc(year)
-              .collection("Month")
-              .doc(month)
-              .collection(day)
-              .doc("Counter")
-              .set({'assigned': 1, 'month': month});
-        } else {
-          fb
-              .collection("Reports")
-              .doc(year)
-              .collection("Month")
-              .doc(month)
-              .collection(day)
-              .doc("Counter")
-              .update({'assigned': FieldValue.increment(1)});
-        }
-      },
-      onError: (e) => print("Assigned Counter update Error: $e"),
-    );
-
-    // Update the montly report data
-    await fb
-        .collection("Reports")
-        .doc(year)
-        .collection("Month")
-        .doc(month)
-        .collection("summary")
-        .doc("${widget.techname} $formattedDate")
-        .set(monthrpdata.toMap());
-
-    // Update the monthly counter Report
-    await fb
-        .collection("Reports")
-        .doc(year)
-        .collection("Month")
-        .doc(month)
-        .get()
-        .then(
-      (DocumentSnapshot doc) {
-        if (!doc.exists) {
-          fb
-              .collection("Reports")
-              .doc(year)
-              .collection("Month")
-              .doc(month)
-              .set({'assigned': 1, 'year': year});
-        } else {
-          fb
-              .collection("Reports")
-              .doc(year)
-              .collection("Month")
-              .doc(month)
-              .update({'assigned': FieldValue.increment(1)});
-        }
-      },
-      onError: (e) => print("Assigned Counter update Error: $e"),
-    );
-
-    // Report session end
-
-    // Update the Program status
-    fb.collection("Programs").doc(widget.docname).update({
-      'status': 'assigned',
-      'techname': '${widget.techname}',
-      'techuname': '${widget.username}'
-    });
-
-    // Updating the Customer program status
-    fb
-        .collection("Customer")
-        .doc(widget.custdocname)
-        .collection("Programs")
-        .doc(widget.docname)
-        .update({'status': 'assigned'});
-
-    //  Updated Pgm to tech assign list
-    fb
-       .collection("Technician")
-        .doc(widget.username)
-        .collection("Assignedpgm")
-        .doc(widget.docname)
-        .set(apgm.toMap());
-
-    // customer program history updated
-    fb
-        .collection("Customer")
-        .doc(widget.custdocname)
-        .collection("Programs")
-        .doc(widget.docname)
-        .collection("History")
-        .doc(formattedDate)
-        .set(custhistory.toMap());
-
-    fb.collection("ConfirmList").doc(widget.docname).delete();
-
-    setState(() {
-      loading = false;
-    });
-  }
-
-  void Cancelassinged() {
-    FirebaseFirestore fb = FirebaseFirestore.instance;
-    setState(() {
-      loading = true;
-    });
-    fb.collection("ConfirmList").doc(widget.docname).delete();
-    setState(() {
-      loading = false;
-    });
   }
 }

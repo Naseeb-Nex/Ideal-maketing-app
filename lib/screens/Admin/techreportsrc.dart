@@ -42,6 +42,10 @@ class Techreportsrc extends StatefulWidget {
 }
 
 class _TechreportsrcState extends State<Techreportsrc> {
+  // Monthly List
+  List Monthly_filtered_rp = [];
+
+  List Monthly_search_rs = [];
   // Daily activity filter
   String daily_activity_filter = "all";
 
@@ -53,10 +57,6 @@ class _TechreportsrcState extends State<Techreportsrc> {
   String formated_month = "";
   bool is_datesub = false;
   bool is_sub = false;
-  // Montly List
-  List montly_filtered_rp = [];
-
-  List montly_search_rs = [];
   // serach controller
   final searchController = TextEditingController();
 
@@ -156,7 +156,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
 
   void _runFilter(String enteredKeyword) {
     setState(() {
-      montly_search_rs = montly_filtered_rp.where((pgm) {
+      Monthly_search_rs = Monthly_filtered_rp.where((pgm) {
         final nameLower = pgm["name"]!.toLowerCase();
         final dayLower = pgm["day"]!.toLowerCase();
         final pgmLower = pgm["pgm"]!.toLowerCase();
@@ -2290,7 +2290,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "Montly Report",
+                                                  "Monthly Report",
                                                   style: TextStyle(
                                                     fontFamily: "Montserrat",
                                                     fontWeight: FontWeight.w600,
@@ -2378,10 +2378,10 @@ class _TechreportsrcState extends State<Techreportsrc> {
 
                                                 if (daily_activity_filter ==
                                                     "all") {
-                                                  montly_filtered_rp =
+                                                  Monthly_filtered_rp =
                                                       activityrp;
                                                 } else {
-                                                  montly_filtered_rp = activityrp
+                                                  Monthly_filtered_rp = activityrp
                                                       .where((i) =>
                                                           i['status'] ==
                                                           daily_activity_filter)
@@ -2390,8 +2390,8 @@ class _TechreportsrcState extends State<Techreportsrc> {
 
                                                 if (searchController
                                                     .text.isEmpty) {
-                                                  montly_search_rs =
-                                                      montly_filtered_rp;
+                                                  Monthly_search_rs =
+                                                      Monthly_filtered_rp;
                                                 }
                                                 return Column(
                                                   children: [
@@ -2467,7 +2467,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "all"
                                                                                           ? Text(
-                                                                                              "${montly_search_rs.length}",
+                                                                                              "${Monthly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -2501,7 +2501,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "assigned"
                                                                                           ? Text(
-                                                                                              "${montly_search_rs.length}",
+                                                                                              "${Monthly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -2535,7 +2535,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "pending"
                                                                                           ? Text(
-                                                                                              "${montly_search_rs.length}",
+                                                                                              "${Monthly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -2569,7 +2569,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "completed"
                                                                                           ? Text(
-                                                                                              "${montly_search_rs.length}",
+                                                                                              "${Monthly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -2603,7 +2603,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                                   Container(
                                                                                       child: daily_activity_filter == "processing"
                                                                                           ? Text(
-                                                                                              "${montly_search_rs.length}",
+                                                                                              "${Monthly_search_rs.length}",
                                                                                               style: TextStyle(fontFamily: "Montserrat", color: white),
                                                                                             )
                                                                                           : null),
@@ -2627,7 +2627,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                               0
                                                           ? null
                                                           : Container(
-                                                              child: montly_search_rs
+                                                              child: Monthly_search_rs
                                                                           .length ==
                                                                       0
                                                                   ? Padding(
@@ -2646,42 +2646,42 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                     ),
                                                     for (var i = 0;
                                                         i <
-                                                            montly_search_rs
+                                                            Monthly_search_rs
                                                                 .length;
                                                         i++) ...[
                                                       Montlystatus(
                                                         name:
-                                                            montly_search_rs[i]
+                                                            Monthly_search_rs[i]
                                                                 ['name'],
-                                                        phn: montly_search_rs[i]
+                                                        phn: Monthly_search_rs[i]
                                                             ['phn'],
-                                                        pgm: montly_search_rs[i]
+                                                        pgm: Monthly_search_rs[i]
                                                             ['pgm'],
                                                         upDate:
-                                                            montly_search_rs[i]
+                                                            Monthly_search_rs[i]
                                                                 ['upDate'],
                                                         upTime:
-                                                            montly_search_rs[i]
+                                                            Monthly_search_rs[i]
                                                                 ['upTime'],
                                                         docname:
-                                                            montly_search_rs[i]
+                                                            Monthly_search_rs[i]
                                                                 ['docname'],
                                                         status:
-                                                            montly_search_rs[i]
+                                                            Monthly_search_rs[i]
                                                                 ['status'],
                                                         username:
-                                                            montly_search_rs[i]
+                                                            Monthly_search_rs[i]
                                                                 ['username'],
                                                         techname:
-                                                            montly_search_rs[i]
+                                                            Monthly_search_rs[i]
                                                                 ['techname'],
                                                         more:
-                                                            montly_search_rs[i]
+                                                            Monthly_search_rs[i]
                                                                 ['more'],
                                                         month:
-                                                            montly_search_rs[i]
+                                                            Monthly_search_rs[i]
                                                                 ['month'],
-                                                        day: montly_search_rs[i]
+                                                        day: Monthly_search_rs[i]
                                                             ['day'],
                                                       ),
                                                       SizedBox(
@@ -2694,7 +2694,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                                     0
                                                                 ? null
                                                                 : Container(
-                                                                    child: montly_search_rs.length ==
+                                                                    child: Monthly_search_rs.length ==
                                                                             0
                                                                         ? SizedBox(
                                                                             height: s.height *

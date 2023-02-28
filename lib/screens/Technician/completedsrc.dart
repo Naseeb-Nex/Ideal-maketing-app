@@ -17,27 +17,6 @@ import 'hometech.dart';
 
 // ignore: must_be_immutable
 class Completedsrc extends StatefulWidget {
-  String? uid;
-  String? name;
-  String? address;
-  String? loc;
-  String? phn;
-  String? pgm;
-  String? chrg;
-  String? type;
-  String? upDate;
-  String? upTime;
-  String? docname;
-  String? status;
-  String? username;
-  String? techname;
-  String? assignedtime;
-  String? assigneddate;
-  String? priority;
-  String? prospec;
-  String? instadate;
-  String? custdocname;
-
   Completedsrc({
     Key? key,
     this.uid,
@@ -62,24 +41,407 @@ class Completedsrc extends StatefulWidget {
     this.custdocname,
   }) : super(key: key);
 
+  String? address;
+  String? assigneddate;
+  String? assignedtime;
+  String? chrg;
+  String? custdocname;
+  String? docname;
+  String? instadate;
+  String? loc;
+  String? name;
+  String? pgm;
+  String? phn;
+  String? priority;
+  String? prospec;
+  String? status;
+  String? techname;
+  String? type;
+  String? uid;
+  String? upDate;
+  String? upTime;
+  String? username;
+
   @override
   _CompletedsrcState createState() => _CompletedsrcState();
 }
 
 class _CompletedsrcState extends State<Completedsrc> {
-  bool _value = false;
-  bool _err = false;
-  bool _upload = false;
-
-  final _formKey = GlobalKey<FormState>();
   final TextEditingController cost = TextEditingController();
-  final TextEditingController remarks = TextEditingController();
-  var random = Random();
   List<String> custimg = [
     "assets/icons/customer1.jpg",
     "assets/icons/customer2.jpg",
     "assets/icons/customer3.png"
   ];
+
+  var random = Random();
+  final TextEditingController remarks = TextEditingController();
+
+  bool _err = false;
+  final _formKey = GlobalKey<FormState>();
+  bool _upload = false;
+  bool _value = false;
+
+  void detailsup() async {
+    FirebaseFirestore fb = FirebaseFirestore.instance;
+    DateTime now = DateTime.now();
+    String completeddate = DateFormat('d MMM y').format(now);
+    String completedtime = DateFormat('h:mma').format(now);
+    String ccollname = DateFormat('MM d y').format(now);
+    String cdocname = DateFormat('MM d y kk:mm:ss').format(now);
+    String mcollname = DateFormat('MM y').format(now);
+    String ycollname = DateFormat('y').format(now);
+
+    // Daily report docname
+    String daydoc = DateFormat('kk:mm:ss').format(now);
+
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
+    Completepgmdata cpgm = Completepgmdata(
+      uid: widget.uid,
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      status: "completed",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: widget.assigneddate,
+      assignedtime: widget.assignedtime,
+      camount: cost.text,
+      remarks: remarks.text,
+      cdate: completeddate,
+      ctime: completedtime,
+      ccollname: ccollname,
+      cdocname: cdocname,
+      mcollname: mcollname,
+      ycollname: ycollname,
+    );
+
+    // report data
+    Reportdata rpdata = Reportdata(
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      status: "completed",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: widget.assigneddate,
+      assignedtime: widget.assignedtime,
+      camount: cost.text,
+      remarks: remarks.text,
+      cdate: completeddate,
+      ctime: completedtime,
+      ccollname: ccollname,
+      cdocname: cdocname,
+      custdocname: widget.custdocname,
+      rpdocname: cdocname,
+    );
+
+    // Daily report status
+    Reportstatus dayrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
+      status: "completed",
+      upDate: completeddate,
+      upTime: completedtime,
+      day: day,
+      month: month,
+      username: widget.username,
+      more: cdocname,
+    );
+
+    // Monthly reports status
+    Reportstatus monthrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
+      status: "completed",
+      upDate: completeddate,
+      upTime: completedtime,
+      day: day,
+      month: month,
+      username: widget.username,
+      more: cdocname,
+    );
+
+    //customer program history
+    CustomerPgmHistory custhistory = CustomerPgmHistory(
+        upDate: completeddate,
+        upTime: completedtime,
+        msg: "${widget.techname} completed the Program",
+        remarks: remarks.text,
+        techname: widget.techname,
+        status: "completed",
+        camount: cost.text,
+        docname: cdocname,
+        custdocname: widget.custdocname);
+
+    if (_formKey.currentState!.validate()) {
+      if (_value == true) {
+        setState(() {
+          _err = false;
+          _upload = true;
+        });
+
+        // Report session
+
+        // Update the reportdata
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection(day)
+            .doc("Tech")
+            .collection("Reports")
+            .doc("${widget.username}")
+            .collection("Activity")
+            .doc(cdocname)
+            .set(rpdata.toMap());
+
+        // Update the dayily report data
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection(day)
+            .doc("summary")
+            .collection("all")
+            .doc("${widget.techname} $daydoc")
+            .set(dayrpdata.toMap());
+
+        // Daily counter update
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection(day)
+            .doc("Counter")
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .collection(day)
+                  .doc("Counter")
+                  .set({'completed': 1}, SetOptions(merge: true));
+            } else {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .collection(day)
+                  .doc("Counter")
+                  .update({'completed': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("completed Counter update Error: $e"),
+        );
+
+        // Update the Monthly report data
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection("summary")
+            .doc("${widget.techname} $cdocname")
+            .set(monthrpdata.toMap());
+
+        // Update the monthly counter Report
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .set({'completed': 1}, SetOptions(merge: true));
+            } else {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .update({'completed': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("completed Counter update Error: $e"),
+        );
+
+        // Report session end
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Completedpgm")
+            .doc("Day")
+            .collection(ccollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Daylist Updated");
+        }).catchError((error) => print("Failed to update Daily list : $error"));
+
+        // Updating the Customer program status
+        fb
+            .collection("Customer")
+            .doc(widget.custdocname)
+            .collection("Programs")
+            .doc(widget.docname)
+            .set({'status': 'completed', 'camount': cost.text},
+                SetOptions(merge: true));
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Completedpgm")
+            .doc("Month")
+            .collection(mcollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Monthly list Updated");
+        }).catchError((error) {
+          print("Failed to update Monthilylist : $error");
+        });
+
+        // Tech perfromance Counter
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Performance")
+            .doc("Completed")
+            .collection("Month")
+            .doc(mcollname)
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Completed")
+                  .collection("Month")
+                  .doc(mcollname)
+                  .set({'count': 1});
+            } else {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Completed")
+                  .collection("Month")
+                  .doc(mcollname)
+                  .update({'count': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("Counter update Error: $e"),
+        );
+
+        fb
+            .collection("Completedpgm")
+            .doc("Day")
+            .collection(ccollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Daylist Updated");
+        }).catchError((error) => print("Failed to update Daily list : $error"));
+
+        // customer program history updated
+        fb
+            .collection("Customer")
+            .doc(widget.custdocname)
+            .collection("Programs")
+            .doc(widget.docname)
+            .collection("History")
+            .doc(cdocname)
+            .set(custhistory.toMap());
+
+        fb
+            .collection("Completedpgm")
+            .doc("Month")
+            .collection(mcollname)
+            .doc(cdocname)
+            .set(cpgm.toMap())
+            .then((value) {
+          print("Monthly list Updated");
+        }).catchError(
+                (error) => print("Failed to update Monthilylist : $error"));
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Assignedpgm")
+            .doc(widget.docname)
+            .delete()
+            .then((value) {
+          setState(() {
+            _upload = false;
+          });
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomeAlertbx("Program Registration Completed!",
+                    Colors.greenAccent, "Sucessfull", widget.username);
+              });
+        }).catchError((error) {
+          print("Failed to delete from technician list program : $error");
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomeAlertbx("Something went Wrong, Try again!",
+                    Colors.redAccent, "Error", widget.username);
+              });
+        });
+      } else {
+        setState(() {
+          _err = true;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -530,376 +892,17 @@ class _CompletedsrcState extends State<Completedsrc> {
       ),
     );
   }
-
-  void detailsup() async {
-    FirebaseFirestore fb = FirebaseFirestore.instance;
-    DateTime now = DateTime.now();
-    String completeddate = DateFormat('d MMM y').format(now);
-    String completedtime = DateFormat('h:mma').format(now);
-    String ccollname = DateFormat('MM d y').format(now);
-    String cdocname = DateFormat('MM d y kk:mm:ss').format(now);
-    String mcollname = DateFormat('MM y').format(now);
-    String ycollname = DateFormat('y').format(now);
-
-    // Daily report docname
-    String daydoc = DateFormat('kk:mm:ss').format(now);
-
-    // Report
-    String day = DateFormat('d').format(now);
-    String month = DateFormat('MM').format(now);
-    String year = DateFormat('y').format(now);
-
-    Completepgmdata cpgm = Completepgmdata(
-      uid: widget.uid,
-      name: widget.name,
-      address: widget.address,
-      loc: widget.loc,
-      phn: widget.phn,
-      pgm: widget.pgm,
-      chrg: widget.chrg,
-      type: widget.type,
-      upDate: widget.upDate,
-      upTime: widget.upTime,
-      docname: widget.docname,
-      status: "completed",
-      username: widget.username,
-      techname: widget.techname,
-      priority: widget.priority,
-      assigneddate: widget.assigneddate,
-      assignedtime: widget.assignedtime,
-      camount: cost.text,
-      remarks: remarks.text,
-      cdate: completeddate,
-      ctime: completedtime,
-      ccollname: ccollname,
-      cdocname: cdocname,
-      mcollname: mcollname,
-      ycollname: ycollname,
-    );
-
-    // report data
-    Reportdata rpdata = Reportdata(
-      name: widget.name,
-      address: widget.address,
-      loc: widget.loc,
-      phn: widget.phn,
-      pgm: widget.pgm,
-      chrg: widget.chrg,
-      type: widget.type,
-      upDate: widget.upDate,
-      upTime: widget.upTime,
-      docname: widget.docname,
-      status: "completed",
-      username: widget.username,
-      techname: widget.techname,
-      priority: widget.priority,
-      assigneddate: widget.assigneddate,
-      assignedtime: widget.assignedtime,
-      camount: cost.text,
-      remarks: remarks.text,
-      cdate: completeddate,
-      ctime: completedtime,
-      ccollname: ccollname,
-      cdocname: cdocname,
-      custdocname: widget.custdocname,
-      rpdocname: cdocname,
-    );
-
-    // Daily report status
-    Reportstatus dayrpdata = Reportstatus(
-      name: widget.name,
-      pgm: widget.pgm,
-      techname: widget.techname,
-      docname: "${widget.techname} $daydoc",
-      phn: widget.phn,
-      status: "completed",
-      upDate: completeddate,
-      upTime: completedtime,
-      day: day,
-      month: month,
-      username: widget.username,
-      more: cdocname,
-    );
-
-    // Montly reports status
-    Reportstatus monthrpdata = Reportstatus(
-      name: widget.name,
-      pgm: widget.pgm,
-      techname: widget.techname,
-      docname: "${widget.techname} $daydoc",
-      phn: widget.phn,
-      status: "completed",
-      upDate: completeddate,
-      upTime: completedtime,
-      day: day,
-      month: month,
-      username: widget.username,
-      more: cdocname,
-    );
-
-    //customer program history
-    CustomerPgmHistory custhistory = CustomerPgmHistory(
-        upDate: completeddate,
-        upTime: completedtime,
-        msg: "${widget.techname} completed the Program",
-        remarks: remarks.text,
-        techname: widget.techname,
-        status: "completed",
-        camount: cost.text,
-        docname: cdocname,
-        custdocname: widget.custdocname);
-
-    if (_formKey.currentState!.validate()) {
-      if (_value == true) {
-        setState(() {
-          _err = false;
-          _upload = true;
-        });
-
-        // Report session
-
-        // Update the reportdata
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .collection(day)
-            .doc("Tech")
-            .collection("Reports")
-            .doc("${widget.username}")
-            .collection("Activity")
-            .doc(cdocname)
-            .set(rpdata.toMap());
-
-        // Update the dayily report data
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .collection(day)
-            .doc("summary")
-            .collection("all")
-            .doc("${widget.techname} $daydoc")
-            .set(dayrpdata.toMap());
-
-        // Daily counter update
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .collection(day)
-            .doc("Counter")
-            .get()
-            .then(
-          (DocumentSnapshot doc) {
-            if (!doc.exists) {
-              fb
-                  .collection("Reports")
-                  .doc(year)
-                  .collection("Month")
-                  .doc(month)
-                  .collection(day)
-                  .doc("Counter")
-                  .set({'completed': 1}, SetOptions(merge: true));
-            } else {
-              fb
-                  .collection("Reports")
-                  .doc(year)
-                  .collection("Month")
-                  .doc(month)
-                  .collection(day)
-                  .doc("Counter")
-                  .update({'completed': FieldValue.increment(1)});
-            }
-          },
-          onError: (e) => print("completed Counter update Error: $e"),
-        );
-
-        // Update the montly report data
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .collection("summary")
-            .doc("${widget.techname} $cdocname")
-            .set(monthrpdata.toMap());
-
-        // Update the monthly counter Report
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .get()
-            .then(
-          (DocumentSnapshot doc) {
-            if (!doc.exists) {
-              fb
-                  .collection("Reports")
-                  .doc(year)
-                  .collection("Month")
-                  .doc(month)
-                  .set({'completed': 1}, SetOptions(merge: true));
-            } else {
-              fb
-                  .collection("Reports")
-                  .doc(year)
-                  .collection("Month")
-                  .doc(month)
-                  .update({'completed': FieldValue.increment(1)});
-            }
-          },
-          onError: (e) => print("completed Counter update Error: $e"),
-        );
-
-        // Report session end
-
-        fb
-            .collection("Technician")
-            .doc(widget.username)
-            .collection("Completedpgm")
-            .doc("Day")
-            .collection(ccollname)
-            .doc(cdocname)
-            .set(cpgm.toMap())
-            .then((value) {
-          print("Daylist Updated");
-        }).catchError((error) => print("Failed to update Daily list : $error"));
-
-        // Updating the Customer program status
-        fb
-            .collection("Customer")
-            .doc(widget.custdocname)
-            .collection("Programs")
-            .doc(widget.docname)
-            .set({'status': 'completed', 'camount': cost.text},
-                SetOptions(merge: true));
-
-        fb
-            .collection("Technician")
-            .doc(widget.username)
-            .collection("Completedpgm")
-            .doc("Month")
-            .collection(mcollname)
-            .doc(cdocname)
-            .set(cpgm.toMap())
-            .then((value) {
-          print("Monthly list Updated");
-        }).catchError((error) {
-          print("Failed to update Monthilylist : $error");
-        });
-
-        // Tech perfromance Counter
-
-        fb
-            .collection("Technician")
-            .doc(widget.username)
-            .collection("Performance")
-            .doc("Completed")
-            .collection("Month")
-            .doc(mcollname)
-            .get()
-            .then(
-          (DocumentSnapshot doc) {
-            if (!doc.exists) {
-              fb
-                  .collection("Technician")
-                  .doc(widget.username)
-                  .collection("Performance")
-                  .doc("Completed")
-                  .collection("Month")
-                  .doc(mcollname)
-                  .set({'count': 1});
-            } else {
-              fb
-                  .collection("Technician")
-                  .doc(widget.username)
-                  .collection("Performance")
-                  .doc("Completed")
-                  .collection("Month")
-                  .doc(mcollname)
-                  .update({'count': FieldValue.increment(1)});
-            }
-          },
-          onError: (e) => print("Counter update Error: $e"),
-        );
-
-        fb
-            .collection("Completedpgm")
-            .doc("Day")
-            .collection(ccollname)
-            .doc(cdocname)
-            .set(cpgm.toMap())
-            .then((value) {
-          print("Daylist Updated");
-        }).catchError((error) => print("Failed to update Daily list : $error"));
-
-        // customer program history updated
-        fb
-            .collection("Customer")
-            .doc(widget.custdocname)
-            .collection("Programs")
-            .doc(widget.docname)
-            .collection("History")
-            .doc(cdocname)
-            .set(custhistory.toMap());
-
-        fb
-            .collection("Completedpgm")
-            .doc("Month")
-            .collection(mcollname)
-            .doc(cdocname)
-            .set(cpgm.toMap())
-            .then((value) {
-          print("Monthly list Updated");
-        }).catchError(
-                (error) => print("Failed to update Monthilylist : $error"));
-
-        fb
-            .collection("Technician")
-            .doc(widget.username)
-            .collection("Assignedpgm")
-            .doc(widget.docname)
-            .delete()
-            .then((value) {
-          setState(() {
-            _upload = false;
-          });
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomeAlertbx("Program Registration Completed!",
-                    Colors.greenAccent, "Sucessfull", widget.username);
-              });
-        }).catchError((error) {
-          print("Failed to delete from technician list program : $error");
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomeAlertbx("Something went Wrong, Try again!",
-                    Colors.redAccent, "Error", widget.username);
-              });
-        });
-      } else {
-        setState(() {
-          _err = true;
-        });
-      }
-    }
-  }
 }
 
 // ignore: must_be_immutable
 class CustomeAlertbx extends StatelessWidget {
-  String? username;
-  final String? titles;
+  CustomeAlertbx(this.titles, this.colorr, this.done, this.username);
+
   final Color colorr;
   final String? done;
-  CustomeAlertbx(this.titles, this.colorr, this.done, this.username);
+  final String? titles;
+  String? username;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(

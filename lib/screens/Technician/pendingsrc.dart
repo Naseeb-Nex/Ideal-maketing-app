@@ -15,27 +15,6 @@ import 'hometech.dart';
 
 // ignore: must_be_immutable
 class Pendingsrc extends StatefulWidget {
-  String? uid;
-  String? name;
-  String? address;
-  String? loc;
-  String? phn;
-  String? pgm;
-  String? chrg;
-  String? type;
-  String? upDate;
-  String? upTime;
-  String? docname;
-  String? status;
-  String? username;
-  String? techname;
-  String? assignedtime;
-  String? assigneddate;
-  String? priority;
-  String? prospec;
-  String? instadate;
-  String? custdocname;
-
   Pendingsrc({
     Key? key,
     this.uid,
@@ -60,25 +39,371 @@ class Pendingsrc extends StatefulWidget {
     this.custdocname,
   }) : super(key: key);
 
+  String? address;
+  String? assigneddate;
+  String? assignedtime;
+  String? chrg;
+  String? custdocname;
+  String? docname;
+  String? instadate;
+  String? loc;
+  String? name;
+  String? pgm;
+  String? phn;
+  String? priority;
+  String? prospec;
+  String? status;
+  String? techname;
+  String? type;
+  String? uid;
+  String? upDate;
+  String? upTime;
+  String? username;
+
   @override
   _PendingsrcState createState() => _PendingsrcState();
 }
 
 class _PendingsrcState extends State<Pendingsrc> {
-  bool _value = false;
-  bool _err = false;
-  bool _upload = false;
-
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController reason = TextEditingController();
-
-  // Random image setup
-  var random = Random();
   List<String> custimg = [
     "assets/icons/customer1.jpg",
     "assets/icons/customer2.jpg",
     "assets/icons/customer3.png"
   ];
+
+  // Random image setup
+  var random = Random();
+
+  final TextEditingController reason = TextEditingController();
+
+  bool _err = false;
+  final _formKey = GlobalKey<FormState>();
+  bool _upload = false;
+  bool _value = false;
+
+  void pendingupdate() async {
+    FirebaseFirestore fb = FirebaseFirestore.instance;
+    DateTime now = DateTime.now();
+    String pendingdate = DateFormat('d MMM y').format(now);
+    String pendingtime = DateFormat('h:mma').format(now);
+    String pcollname = DateFormat('MM d y').format(now);
+    String pdocname = DateFormat('MM d y kk:mm:ss').format(now);
+    String monthdoc = DateFormat('MM y').format(now);
+
+    // Daily report docname
+    String daydoc = DateFormat('kk:mm:ss').format(now);
+
+    // Report
+    String day = DateFormat('d').format(now);
+    String month = DateFormat('MM').format(now);
+    String year = DateFormat('y').format(now);
+
+    Pendingpgmdata ppgm = Pendingpgmdata(
+      uid: widget.uid,
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      status: "pending",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: widget.assigneddate,
+      assignedtime: widget.assignedtime,
+      remarks: reason.text,
+      pdate: pendingdate,
+      ptime: pendingtime,
+      pcollname: pcollname,
+      pdocname: pdocname,
+      custdocname: widget.custdocname,
+      prospec: widget.prospec,
+      instadate: widget.instadate,
+    );
+
+    // report data
+    Reportdata rpdata = Reportdata(
+      name: widget.name,
+      address: widget.address,
+      loc: widget.loc,
+      phn: widget.phn,
+      pgm: widget.pgm,
+      chrg: widget.chrg,
+      type: widget.type,
+      upDate: widget.upDate,
+      upTime: widget.upTime,
+      docname: widget.docname,
+      status: "pending",
+      username: widget.username,
+      techname: widget.techname,
+      priority: widget.priority,
+      assigneddate: widget.assigneddate,
+      assignedtime: widget.assignedtime,
+      remarks: reason.text,
+      cdate: pendingdate,
+      ctime: pendingtime,
+      custdocname: widget.custdocname,
+      rpdocname: pdocname,
+    );
+
+    // Daily report status
+    Reportstatus dayrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
+      status: "pending",
+      upDate: pendingdate,
+      upTime: pendingtime,
+      day: day,
+      month: month,
+      username: widget.username,
+      more: pdocname,
+    );
+
+    // Monthly reports status
+    Reportstatus monthrpdata = Reportstatus(
+      name: widget.name,
+      pgm: widget.pgm,
+      techname: widget.techname,
+      docname: "${widget.techname} $daydoc",
+      phn: widget.phn,
+      status: "pending",
+      upDate: pendingdate,
+      upTime: pendingtime,
+      day: day,
+      month: month,
+      username: widget.username,
+      more: pdocname,
+    );
+
+    //customer program history
+    CustomerPgmHistory custhistory = CustomerPgmHistory(
+        upDate: pendingdate,
+        upTime: pendingtime,
+        msg: "${widget.techname} Changed to the Pending list",
+        remarks: reason.text,
+        techname: widget.techname,
+        status: "pending",
+        docname: pdocname,
+        custdocname: widget.custdocname);
+
+    if (_formKey.currentState!.validate()) {
+      if (_value == true) {
+        setState(() {
+          _err = false;
+          _upload = true;
+        });
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Pendingpgm")
+            .doc(pdocname)
+            .set(ppgm.toMap())
+            .then((value) {
+          print("Pending pgmlist Updated");
+        }).catchError(
+                (error) => print("Failed to update Pending pgm list : $error"));
+
+        // Tech perfromance Counter
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Performance")
+            .doc("Pending")
+            .collection("Month")
+            .doc(monthdoc)
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Pending")
+                  .collection("Month")
+                  .doc(monthdoc)
+                  .set({'count': 1});
+            } else {
+              fb
+                  .collection("Technician")
+                  .doc(widget.username)
+                  .collection("Performance")
+                  .doc("Pending")
+                  .collection("Month")
+                  .doc(monthdoc)
+                  .update({'count': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("Error getting document: $e"),
+        );
+
+        // Report session
+
+        // Update the reportdata
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection(day)
+            .doc("Tech")
+            .collection("Reports")
+            .doc("${widget.username}")
+            .collection("Activity")
+            .doc(pdocname)
+            .set(rpdata.toMap());
+
+        // Update the dayily report data
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection(day)
+            .doc("summary")
+            .collection("all")
+            .doc("${widget.techname} $daydoc")
+            .set(dayrpdata.toMap());
+
+        // Daily counter update
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection(day)
+            .doc("Counter")
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .collection(day)
+                  .doc("Counter")
+                  .set({'pending': 1}, SetOptions(merge: true));
+            } else {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .collection(day)
+                  .doc("Counter")
+                  .update({'pending': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("Processing Counter update Error: $e"),
+        );
+
+        // Update the Monthly report data
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .collection("summary")
+            .doc("${widget.techname} $pdocname")
+            .set(monthrpdata.toMap());
+
+        // Update the monthly counter Report
+        await fb
+            .collection("Reports")
+            .doc(year)
+            .collection("Month")
+            .doc(month)
+            .get()
+            .then(
+          (DocumentSnapshot doc) {
+            if (!doc.exists) {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .set({'pending': 1}, SetOptions(merge: true));
+            } else {
+              fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .update({'pending': FieldValue.increment(1)});
+            }
+          },
+          onError: (e) => print("pending Counter update Error: $e"),
+        );
+
+        // Report session end
+
+        // Updating the Customer program status
+        fb
+            .collection("Customer")
+            .doc(widget.custdocname)
+            .collection("Programs")
+            .doc(widget.docname)
+            .update({'status': 'pending'});
+
+        // history of the technician
+        fb.collection("Programs").doc(widget.docname).delete().catchError(
+            (error) =>
+                print("Failed to delete from office list program : $error"));
+
+        fb
+            .collection("Technician")
+            .doc(widget.username)
+            .collection("Assignedpgm")
+            .doc(widget.docname)
+            .delete()
+            .then((value) {
+          // customer program history updated
+          fb
+              .collection("Customer")
+              .doc(widget.custdocname)
+              .collection("Programs")
+              .doc(widget.docname)
+              .collection("History")
+              .doc(pdocname)
+              .set(custhistory.toMap());
+
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomeAlertbx("Pending Program Updation Completed!",
+                    Colors.greenAccent, "Sucessfull", widget.username);
+              });
+          setState(() {
+            _upload = false;
+          });
+        }).catchError((error) {
+          print("Failed to delete from technician list program : $error");
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomeAlertbx("Something went Wrong, Try again!",
+                    Colors.redAccent, "Error", widget.username);
+              });
+        });
+      } else {
+        setState(() {
+          _err = true;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -582,338 +907,16 @@ class _PendingsrcState extends State<Pendingsrc> {
       ),
     );
   }
-
-  void pendingupdate() async {
-    FirebaseFirestore fb = FirebaseFirestore.instance;
-    DateTime now = DateTime.now();
-    String pendingdate = DateFormat('d MMM y').format(now);
-    String pendingtime = DateFormat('h:mma').format(now);
-    String pcollname = DateFormat('MM d y').format(now);
-    String pdocname = DateFormat('MM d y kk:mm:ss').format(now);
-    String monthdoc = DateFormat('MM y').format(now);
-
-    // Daily report docname
-    String daydoc = DateFormat('kk:mm:ss').format(now);
-
-    // Report
-    String day = DateFormat('d').format(now);
-    String month = DateFormat('MM').format(now);
-    String year = DateFormat('y').format(now);
-
-    Pendingpgmdata ppgm = Pendingpgmdata(
-      uid: widget.uid,
-      name: widget.name,
-      address: widget.address,
-      loc: widget.loc,
-      phn: widget.phn,
-      pgm: widget.pgm,
-      chrg: widget.chrg,
-      type: widget.type,
-      upDate: widget.upDate,
-      upTime: widget.upTime,
-      docname: widget.docname,
-      status: "pending",
-      username: widget.username,
-      techname: widget.techname,
-      priority: widget.priority,
-      assigneddate: widget.assigneddate,
-      assignedtime: widget.assignedtime,
-      remarks: reason.text,
-      pdate: pendingdate,
-      ptime: pendingtime,
-      pcollname: pcollname,
-      pdocname: pdocname,
-      custdocname: widget.custdocname,
-      prospec: widget.prospec,
-      instadate: widget.instadate,
-    );
-
-    // report data
-    Reportdata rpdata = Reportdata(
-      name: widget.name,
-      address: widget.address,
-      loc: widget.loc,
-      phn: widget.phn,
-      pgm: widget.pgm,
-      chrg: widget.chrg,
-      type: widget.type,
-      upDate: widget.upDate,
-      upTime: widget.upTime,
-      docname: widget.docname,
-      status: "pending",
-      username: widget.username,
-      techname: widget.techname,
-      priority: widget.priority,
-      assigneddate: widget.assigneddate,
-      assignedtime: widget.assignedtime,
-      remarks: reason.text,
-      cdate: pendingdate,
-      ctime: pendingtime,
-      custdocname: widget.custdocname,
-      rpdocname: pdocname,
-    );
-
-    // Daily report status
-    Reportstatus dayrpdata = Reportstatus(
-      name: widget.name,
-      pgm: widget.pgm,
-      techname: widget.techname,
-      docname: "${widget.techname} $daydoc",
-      phn: widget.phn,
-      status: "pending",
-      upDate: pendingdate,
-      upTime: pendingtime,
-      day: day,
-      month: month,
-      username: widget.username,
-      more: pdocname,
-    );
-
-    // Montly reports status
-    Reportstatus monthrpdata = Reportstatus(
-      name: widget.name,
-      pgm: widget.pgm,
-      techname: widget.techname,
-      docname: "${widget.techname} $daydoc",
-      phn: widget.phn,
-      status: "pending",
-      upDate: pendingdate,
-      upTime: pendingtime,
-      day: day,
-      month: month,
-      username: widget.username,
-      more: pdocname,
-    );
-
-    //customer program history
-    CustomerPgmHistory custhistory = CustomerPgmHistory(
-        upDate: pendingdate,
-        upTime: pendingtime,
-        msg: "${widget.techname} Changed to the Pending list",
-        remarks: reason.text,
-        techname: widget.techname,
-        status: "pending",
-        docname: pdocname,
-        custdocname: widget.custdocname);
-
-    if (_formKey.currentState!.validate()) {
-      if (_value == true) {
-        setState(() {
-          _err = false;
-          _upload = true;
-        });
-
-        fb
-            .collection("Technician")
-            .doc(widget.username)
-            .collection("Pendingpgm")
-            .doc(pdocname)
-            .set(ppgm.toMap())
-            .then((value) {
-          print("Pending pgmlist Updated");
-        }).catchError(
-                (error) => print("Failed to update Pending pgm list : $error"));
-
-        // Tech perfromance Counter
-
-        fb
-            .collection("Technician")
-            .doc(widget.username)
-            .collection("Performance")
-            .doc("Pending")
-            .collection("Month")
-            .doc(monthdoc)
-            .get()
-            .then(
-          (DocumentSnapshot doc) {
-            if (!doc.exists) {
-              fb
-                  .collection("Technician")
-                  .doc(widget.username)
-                  .collection("Performance")
-                  .doc("Pending")
-                  .collection("Month")
-                  .doc(monthdoc)
-                  .set({'count': 1});
-            } else {
-              fb
-                  .collection("Technician")
-                  .doc(widget.username)
-                  .collection("Performance")
-                  .doc("Pending")
-                  .collection("Month")
-                  .doc(monthdoc)
-                  .update({'count': FieldValue.increment(1)});
-            }
-          },
-          onError: (e) => print("Error getting document: $e"),
-        );
-
-        // Report session
-
-        // Update the reportdata
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .collection(day)
-            .doc("Tech")
-            .collection("Reports")
-            .doc("${widget.username}")
-            .collection("Activity")
-            .doc(pdocname)
-            .set(rpdata.toMap());
-
-        // Update the dayily report data
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .collection(day)
-            .doc("summary")
-            .collection("all")
-            .doc("${widget.techname} $daydoc")
-            .set(dayrpdata.toMap());
-
-        // Daily counter update
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .collection(day)
-            .doc("Counter")
-            .get()
-            .then(
-          (DocumentSnapshot doc) {
-            if (!doc.exists) {
-              fb
-                  .collection("Reports")
-                  .doc(year)
-                  .collection("Month")
-                  .doc(month)
-                  .collection(day)
-                  .doc("Counter")
-                  .set({'pending': 1}, SetOptions(merge: true));
-            } else {
-              fb
-                  .collection("Reports")
-                  .doc(year)
-                  .collection("Month")
-                  .doc(month)
-                  .collection(day)
-                  .doc("Counter")
-                  .update({'pending': FieldValue.increment(1)});
-            }
-          },
-          onError: (e) => print("Processing Counter update Error: $e"),
-        );
-
-        // Update the montly report data
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .collection("summary")
-            .doc("${widget.techname} $pdocname")
-            .set(monthrpdata.toMap());
-
-        // Update the monthly counter Report
-        await fb
-            .collection("Reports")
-            .doc(year)
-            .collection("Month")
-            .doc(month)
-            .get()
-            .then(
-          (DocumentSnapshot doc) {
-            if (!doc.exists) {
-              fb
-                  .collection("Reports")
-                  .doc(year)
-                  .collection("Month")
-                  .doc(month)
-                  .set({'pending': 1}, SetOptions(merge: true));
-            } else {
-              fb
-                  .collection("Reports")
-                  .doc(year)
-                  .collection("Month")
-                  .doc(month)
-                  .update({'pending': FieldValue.increment(1)});
-            }
-          },
-          onError: (e) => print("pending Counter update Error: $e"),
-        );
-
-        // Report session end
-
-        // Updating the Customer program status
-        fb
-            .collection("Customer")
-            .doc(widget.custdocname)
-            .collection("Programs")
-            .doc(widget.docname)
-            .update({'status': 'pending'});
-
-        // history of the technician
-        fb.collection("Programs").doc(widget.docname).delete().catchError(
-            (error) =>
-                print("Failed to delete from office list program : $error"));
-
-        fb
-            .collection("Technician")
-            .doc(widget.username)
-            .collection("Assignedpgm")
-            .doc(widget.docname)
-            .delete()
-            .then((value) {
-          // customer program history updated
-          fb
-              .collection("Customer")
-              .doc(widget.custdocname)
-              .collection("Programs")
-              .doc(widget.docname)
-              .collection("History")
-              .doc(pdocname)
-              .set(custhistory.toMap());
-
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomeAlertbx("Pending Program Updation Completed!",
-                    Colors.greenAccent, "Sucessfull", widget.username);
-              });
-          setState(() {
-            _upload = false;
-          });
-        }).catchError((error) {
-          print("Failed to delete from technician list program : $error");
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomeAlertbx("Something went Wrong, Try again!",
-                    Colors.redAccent, "Error", widget.username);
-              });
-        });
-      } else {
-        setState(() {
-          _err = true;
-        });
-      }
-    }
-  }
 }
 
 class CustomeAlertbx extends StatelessWidget {
-  String? username;
-  final String? titles;
+  CustomeAlertbx(this.titles, this.colorr, this.done, this.username);
+
   final Color colorr;
   final String? done;
-  CustomeAlertbx(this.titles, this.colorr, this.done, this.username);
+  final String? titles;
+  String? username;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ideal_marketing/screens/Admin/monthlyreportsrc.dart';
 import 'package:ideal_marketing/screens/Admin/vechicleportal.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
@@ -181,7 +182,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                   Scaffold.of(context).closeDrawer();
                                 },
                                 child: InkWell(
-                                  // TODO: Create Monthly Report screen
+onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Monthlyrepotsrc())),
                                   // TODO: https://dribbble.com/shots/20780383-Fitness-App follow this link to design
                                   child: Container(
                                     padding: EdgeInsets.all(10),

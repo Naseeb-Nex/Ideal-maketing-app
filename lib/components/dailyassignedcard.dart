@@ -137,7 +137,7 @@ class _DailyassignedcardState extends State<Dailyassignedcard> {
                               Padding(
                                 padding: EdgeInsets.only(left: s.width * 0.03),
                                 child: Container(
-                                  width: s.width * 0.6,
+                                  width: s.width * 0.52,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

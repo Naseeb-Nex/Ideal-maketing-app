@@ -131,7 +131,7 @@ class _DailypendingcardState extends State<Dailypendingcard> {
                               Padding(
                                 padding: EdgeInsets.only(left: s.width * 0.03),
                                 child: Container(
-                                  width: s.width * 0.6,
+                                  width: s.width * 0.52,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -229,7 +229,7 @@ class _DailypendingcardState extends State<Dailypendingcard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: s.width * 0.2,
+                                  width: s.width * 0.18,
                                   child: Text(
                                     "Remarks :",
                                     style: const TextStyle(
@@ -241,7 +241,7 @@ class _DailypendingcardState extends State<Dailypendingcard> {
                                   ),
                                 ),
                                 Container(
-                                  width: s.width * 0.59,
+                                  width: s.width * 0.52,
                                   child: Text(
                                     "${widget.remarks}",
                                     style: const TextStyle(

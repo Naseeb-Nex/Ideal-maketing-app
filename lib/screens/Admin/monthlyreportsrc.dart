@@ -106,217 +106,543 @@ class _MonthlyrepotsrcState extends State<Monthlyrepotsrc> {
             SizedBox(
               height: s.height * 0.03,
             ),
-            Container(
-              width: double.infinity,
-              height: s.height * 0.4,
-              child: Column(
-                children: [
-                  Flexible(
-                    flex: 1,
-                    child: Row(
+            FutureBuilder<DocumentSnapshot>(
+              future: fb
+                  .collection("Reports")
+                  .doc(year)
+                  .collection("Month")
+                  .doc(month)
+                  .get(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Column(
+                    children: [
+                      Image.asset(
+                        "assets/icons/warning.png",
+                        height: s.height * 0.12,
+                      ),
+                      Text(
+                        "Something went wrong!",
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                if (snapshot.hasData && !snapshot.data!.exists) {
+                  return Container(
+                    width: double.infinity,
+                    height: s.height * 0.4,
+                    child: Column(
                       children: [
                         Flexible(
                           flex: 1,
-                          fit: FlexFit.tight,
-                          child: Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Color(0XFFFBF2D6)),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/icons/assigned.png",
-                                  width: 40,
-                                  height: 40,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Assigned",
-                                    style: TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0XFF181830),
-                                    )),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "67",
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0XFFAEA99C),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Color(0XFFFBF2D6)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/assigned.png",
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Assigned",
+                                          style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0XFF181830),
+                                          )),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "0",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0XFFAEA99C),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                width: s.width * 0.05,
+                              ),
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Color(0XFFE0F2E3)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/monthlycompleted.png",
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Completed",
+                                          style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0XFF181830),
+                                          )),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "0",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0XFFAEA99C),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(
-                          width: s.width * 0.05,
+                          height: s.width * 0.05,
                         ),
                         Flexible(
                           flex: 1,
-                          fit: FlexFit.tight,
-                          child: Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Color(0XFFE0F2E3)),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/icons/monthlycompleted.png",
-                                  width: 40,
-                                  height: 40,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Completed",
-                                    style: TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0XFF181830),
-                                    )),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "67",
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0XFFAEA99C),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Color(0XFFFAD6D6)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/monthlypending.png",
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Pending",
+                                          style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0XFF181830),
+                                          )),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "0",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0XFFAEA99C),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                width: s.width * 0.05,
+                              ),
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Color(0XFFD6E0FA)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/processing.png",
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Processing",
+                                          style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0XFF181830),
+                                          )),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "0",
+                                        style: TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0XFFAEA99C),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: s.width * 0.05,
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Row(
+                  );
+                }
+
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Map<String, dynamic> data =
+                      snapshot.data!.data() as Map<String, dynamic>;
+
+                  return Container(
+                    width: double.infinity,
+                    height: s.height * 0.4,
+                    child: Column(
                       children: [
                         Flexible(
                           flex: 1,
-                          fit: FlexFit.tight,
-                          child: Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Color(0XFFFAD6D6)),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/icons/monthlypending.png",
-                                  width: 40,
-                                  height: 40,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Pending",
-                                    style: TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0XFF181830),
-                                    )),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "67",
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0XFFAEA99C),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Color(0XFFFBF2D6)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/assigned.png",
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Assigned",
+                                          style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0XFF181830),
+                                          )),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        child: data['assigned'] == null
+                                            ? Text(
+                                                "0",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0XFFAEA99C),
+                                                ),
+                                              )
+                                            : Text(
+                                                "${data['assigned']}",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0XFFAEA99C),
+                                                ),
+                                              ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                width: s.width * 0.05,
+                              ),
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Color(0XFFE0F2E3)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/monthlycompleted.png",
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Completed",
+                                          style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0XFF181830),
+                                          )),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        child: data['completed'] == null
+                                            ? Text(
+                                                "0",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0XFFAEA99C),
+                                                ),
+                                              )
+                                            : Text(
+                                                "${data['completed']}",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0XFFAEA99C),
+                                                ),
+                                              ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(
-                          width: s.width * 0.05,
+                          height: s.width * 0.05,
                         ),
                         Flexible(
                           flex: 1,
-                          fit: FlexFit.tight,
-                          child: Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Color(0XFFD6E0FA)),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  "assets/icons/processing.png",
-                                  width: 40,
-                                  height: 40,
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Processing",
-                                    style: TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0XFF181830),
-                                    )),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "67",
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0XFFAEA99C),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Color(0XFFFAD6D6)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/monthlypending.png",
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Pending",
+                                          style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0XFF181830),
+                                          )),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        child: data['pending'] == null
+                                            ? Text(
+                                                "0",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0XFFAEA99C),
+                                                ),
+                                              )
+                                            : Text(
+                                                "${data['pending']}",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0XFFAEA99C),
+                                                ),
+                                              ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                width: s.width * 0.05,
+                              ),
+                              Flexible(
+                                flex: 1,
+                                fit: FlexFit.tight,
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      color: Color(0XFFD6E0FA)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        "assets/icons/processing.png",
+                                        width: 40,
+                                        height: 40,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text("Processing",
+                                          style: TextStyle(
+                                            fontFamily: "Montserrat",
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0XFF181830),
+                                          )),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        child: data['processing'] == null
+                                            ? Text(
+                                                "0",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0XFFAEA99C),
+                                                ),
+                                              )
+                                            : Text(
+                                                "${data['processing']}",
+                                                style: TextStyle(
+                                                  fontFamily: "Montserrat",
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0XFFAEA99C),
+                                                ),
+                                              ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                       ],
                     ),
+                  );
+                }
+
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: white,
+                    boxShadow: [
+                      BoxShadow(
+                        offset: const Offset(0, 10),
+                        blurRadius: 20,
+                        color: secondbg.withOpacity(0.23),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 10,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: s.height * 0.1),
+                    child: Center(
+                      child: SizedBox(
+                        width: s.width * 0.13,
+                        height: s.width * 0.13,
+                        child: const LoadingIndicator(
+                          indicatorType: Indicator.ballClipRotateMultiple,
+                          colors: [bluebg],
+                        ),
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
-            SizedBox(height: s.height * 0.03,),
+            SizedBox(
+              height: s.height * 0.03,
+            ),
             // Monthly report
             Column(
               children: [
@@ -804,7 +1130,9 @@ class _MonthlyrepotsrcState extends State<Monthlyrepotsrc> {
                 ),
               ],
             ),
-            SizedBox(height: s.height * 0.1,)
+            SizedBox(
+              height: s.height * 0.1,
+            )
           ]),
         ),
       )),

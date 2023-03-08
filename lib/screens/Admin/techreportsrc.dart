@@ -201,6 +201,7 @@ class _TechreportsrcState extends State<Techreportsrc> {
             gradient: LinearGradient(
               colors: [
                 // white,
+                bluebg,
                 Color.fromRGBO(38, 0, 91, 1),
                 Color.fromRGBO(55, 48, 255, 1),
               ],

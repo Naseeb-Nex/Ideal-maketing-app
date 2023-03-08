@@ -44,7 +44,6 @@ dependencies:
   fluttertoast: ^8.0.8
   cloud_firestore: ^4.3.1
   loading: ^1.0.2
-  image_picker: ^0.8.4+4
   url_launcher: ^6.0.18
   auto_size_text: ^3.0.0
   change_app_package_name: ^1.1.0

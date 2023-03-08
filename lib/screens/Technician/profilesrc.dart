@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ideal_marketing/constants/constants.dart';
 import 'package:ideal_marketing/constants/profile.dart';
+import 'package:ideal_marketing/screens/Technician/Completedpgmview.dart';
 import 'package:ideal_marketing/screens/Technician/Pendingpgmview.dart';
 import 'package:ideal_marketing/screens/Technician/Processingpgmview.dart';
 
@@ -179,13 +180,13 @@ class _ProfilesrcState extends State<Profilesrc> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               InkWell(
-                                // onTap: () => Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (BuildContext context) =>
-                                //             Compeltedpgmview(
-                                //               username: widget.username,
-                                //             ))),
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            Compeltedpgmview(
+                                              username: widget.username,
+                                            ))),
                                 child: Container(
                                   width: s.width * 0.4,
                                   height: s.height * 0.1,

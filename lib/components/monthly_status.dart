@@ -15,19 +15,19 @@ import '../screens/Admin/wrapper/activity_wrapper.dart';
 
 // ignore: must_be_immutable
 class Montlystatus extends StatefulWidget {
-  String? upDate;
-  String? upTime;
+  String? day;
   String? docname;
+  String? month;
+  String? more;
+  String? name;
+  String? pgm;
+  String? phn;
   String? status;
   String? techname;
-  String? name;
-  String? phn;
-  String? pgm;
-  String? month;
-  String? day;
-  String? more;
+  String? upDate;
+  String? upTime;
   String? username;
-
+  
   Montlystatus({
     Key? key,
     this.techname,
@@ -44,17 +44,12 @@ class Montlystatus extends StatefulWidget {
     this.username,
   }) : super(key: key);
 
+
   @override
   State<Montlystatus> createState() => _MontlystatusState();
 }
 
 class _MontlystatusState extends State<Montlystatus> {
-  FirebaseFirestore fb = FirebaseFirestore.instance;
-  bool _isviz = false;
-
-  //  Random data
-  var random = Random();
-
   // Cutomer Image array
   List<String> custimg = [
     "assets/icons/customer1.jpg",
@@ -62,11 +57,19 @@ class _MontlystatusState extends State<Montlystatus> {
     "assets/icons/customer4.jpg",
   ];
 
+  FirebaseFirestore fb = FirebaseFirestore.instance;
   // Image loc
   int loc = 0;
 
+  //  Random data
+  var random = Random();
+
   // Activity Report
   Reportdata rpdata = Reportdata();
+
+  String? year;
+
+  bool _isviz = false;
 
   @override
   void initState() {
@@ -74,23 +77,125 @@ class _MontlystatusState extends State<Montlystatus> {
     // Random Image loc
     int num = random.nextInt(100);
     loc = num % 3;
-  }
 
-  String? year;
-
-  @override
-  Widget build(BuildContext context) {
-    Size s = MediaQuery.of(context).size;
-
-    DateTime now = DateTime.now();
-    String day = DateFormat('d').format(now);
-
-    // year extraction
-    if (day.length == 1) {
+        // year extraction
+    if (widget.day?.length == 1) {
       year = widget.more!.substring(5, 9);
     } else {
       year = widget.more!.substring(6, 10);
     }
+  }
+
+  Widget statuswrapper(String status, Size s) {
+    if (status == "pending") {
+      return Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: s.width * 0.03, vertical: s.width * 0.03),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: redbg,
+              boxShadow: [
+                BoxShadow(
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    color: black.withOpacity(0.05),
+                    offset: const Offset(0, 5))
+              ]),
+          child: Text(
+            "${widget.status}",
+            style: const TextStyle(
+              fontFamily: "Montserrat",
+              fontSize: 15,
+              color: redfg,
+            ),
+          ),
+        ),
+      );
+    } else if (status == "completed") {
+      return Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: s.width * 0.03, vertical: s.width * 0.03),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: greenbg,
+              boxShadow: [
+                BoxShadow(
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    color: black.withOpacity(0.05),
+                    offset: const Offset(0, 5))
+              ]),
+          child: Text(
+            "${widget.status}",
+            style: const TextStyle(
+              fontFamily: "Montserrat",
+              fontSize: 15,
+              color: Colors.green,
+            ),
+          ),
+        ),
+      );
+    } else if (status == "processing") {
+      return Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: s.width * 0.03, vertical: s.width * 0.03),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: vybg,
+              boxShadow: [
+                BoxShadow(
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    color: black.withOpacity(0.05),
+                    offset: const Offset(0, 5))
+              ]),
+          child: Text(
+            "${widget.status}",
+            style: const TextStyle(
+              fontFamily: "Montserrat",
+              fontSize: 15,
+              color: Colors.blue,
+            ),
+          ),
+        ),
+      );
+    }
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: s.width * 0.03, vertical: s.width * 0.03),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: yellowbg,
+            boxShadow: [
+              BoxShadow(
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  color: black.withOpacity(0.05),
+                  offset: const Offset(0, 5))
+            ]),
+        child: Text(
+          "${widget.status}",
+          style: const TextStyle(
+            fontFamily: "Montserrat",
+            fontSize: 15,
+            color: yellowfg,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size s = MediaQuery.of(context).size;
 
     return Column(
       children: [
@@ -460,113 +565,6 @@ class _MontlystatusState extends State<Montlystatus> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget statuswrapper(String status, Size s) {
-    if (status == "pending") {
-      return Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: s.width * 0.03, vertical: s.width * 0.03),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: redbg,
-              boxShadow: [
-                BoxShadow(
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    color: black.withOpacity(0.05),
-                    offset: const Offset(0, 5))
-              ]),
-          child: Text(
-            "${widget.status}",
-            style: const TextStyle(
-              fontFamily: "Montserrat",
-              fontSize: 15,
-              color: redfg,
-            ),
-          ),
-        ),
-      );
-    } else if (status == "completed") {
-      return Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: s.width * 0.03, vertical: s.width * 0.03),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: greenbg,
-              boxShadow: [
-                BoxShadow(
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    color: black.withOpacity(0.05),
-                    offset: const Offset(0, 5))
-              ]),
-          child: Text(
-            "${widget.status}",
-            style: const TextStyle(
-              fontFamily: "Montserrat",
-              fontSize: 15,
-              color: Colors.green,
-            ),
-          ),
-        ),
-      );
-    } else if (status == "processing") {
-      return Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: s.width * 0.03, vertical: s.width * 0.03),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: vybg,
-              boxShadow: [
-                BoxShadow(
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    color: black.withOpacity(0.05),
-                    offset: const Offset(0, 5))
-              ]),
-          child: Text(
-            "${widget.status}",
-            style: const TextStyle(
-              fontFamily: "Montserrat",
-              fontSize: 15,
-              color: Colors.blue,
-            ),
-          ),
-        ),
-      );
-    }
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: s.width * 0.03, vertical: s.width * 0.03),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: yellowbg,
-            boxShadow: [
-              BoxShadow(
-                  spreadRadius: 1,
-                  blurRadius: 2,
-                  color: black.withOpacity(0.05),
-                  offset: const Offset(0, 5))
-            ]),
-        child: Text(
-          "${widget.status}",
-          style: const TextStyle(
-            fontFamily: "Montserrat",
-            fontSize: 15,
-            color: yellowfg,
-          ),
-        ),
-      ),
     );
   }
 }

@@ -379,12 +379,10 @@ class _PendingsrcState extends State<Pendingsrc> {
               .doc(pdocname)
               .set(custhistory.toMap());
 
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomeAlertbx("Pending Program Updation Completed!",
-                    Colors.greenAccent, "Sucessfull", widget.username);
-              });
+          // Push replace added
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomeTech()));
+
           setState(() {
             _upload = false;
           });

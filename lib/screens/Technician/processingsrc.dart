@@ -378,12 +378,10 @@ class _ProcessingsrcState extends State<Processingsrc> {
               .doc(pdocname)
               .set(custhistory.toMap());
 
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomeAlertbx("Processing Program Updated",
-                    Colors.greenAccent, "Sucessfull", widget.username);
-              });
+          // Push Replace added
+          Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => HomeTech()));
+
           setState(() {
             _upload = false;
           });

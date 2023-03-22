@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:ideal_marketing/constants/completepgmdata.dart';
 import 'package:ideal_marketing/screens/Technician/hometech.dart';
 import 'package:ideal_marketing/services/pgmhistory.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'hometech.dart';
 
 // ignore: must_be_immutable
@@ -410,7 +411,9 @@ class _CompletedsrcState extends State<Completedsrc> {
         }).catchError(
                 (error) => print("Failed to update Monthilylist : $error"));
 
-        fb
+        await fb.collection("Programs").doc(widget.docname).delete();
+
+        await fb
             .collection("Technician")
             .doc(widget.username)
             .collection("Assignedpgm")
@@ -420,20 +423,50 @@ class _CompletedsrcState extends State<Completedsrc> {
           setState(() {
             _upload = false;
           });
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomeAlertbx("Program Registration Completed!",
-                    Colors.greenAccent, "Sucessfull", widget.username);
-              });
+
+          MotionToast.success(
+            title: Text(
+              "Sucessfull",
+              style: TextStyle(
+                fontFamily: "Montserrat",
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            description: Text(
+              "Program Completed",
+              style: TextStyle(
+                fontFamily: "Montserrat",
+                fontSize: 12,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ).show(context);
+
+          Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => HomeTech()));
+
         }).catchError((error) {
           print("Failed to delete from technician list program : $error");
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomeAlertbx("Something went Wrong, Try again!",
-                    Colors.redAccent, "Error", widget.username);
-              });
+
+          MotionToast.error(
+                      title: Text(
+                        "Error",
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      description: Text(
+                        "Something went Wrong, Try again!",
+                        style: TextStyle(
+                          fontFamily: "Montserrat",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ).show(context);
         });
       } else {
         setState(() {
@@ -888,90 +921,6 @@ class _CompletedsrcState extends State<Completedsrc> {
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-// ignore: must_be_immutable
-class CustomeAlertbx extends StatelessWidget {
-  CustomeAlertbx(this.titles, this.colorr, this.done, this.username);
-
-  final Color colorr;
-  final String? done;
-  final String? titles;
-  String? username;
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      backgroundColor: colorr,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-      child: SizedBox(
-        height: 200,
-        width: 450,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.warning_amber_rounded,
-                    color: primarybg,
-                    size: 30,
-                  ),
-                  Text(
-                    done!,
-                    style: const TextStyle(
-                      fontFamily: "Nunito",
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              titles!,
-              style: const TextStyle(
-                fontFamily: "Nunito",
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(
-              height: 28,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeTech()),
-                );
-              },
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(white),
-              ),
-              child: Text(
-                "Okay",
-                style: TextStyle(
-                  fontFamily: "Nunito",
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: colorr,
-                ),
-              ),
-            )
-          ],
         ),
       ),
     );

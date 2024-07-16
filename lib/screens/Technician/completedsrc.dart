@@ -14,7 +14,6 @@ import 'package:ideal_marketing/constants/completepgmdata.dart';
 import 'package:ideal_marketing/screens/Technician/hometech.dart';
 import 'package:ideal_marketing/services/pgmhistory.dart';
 import 'package:motion_toast/motion_toast.dart';
-import 'hometech.dart';
 
 // ignore: must_be_immutable
 class Completedsrc extends StatefulWidget {

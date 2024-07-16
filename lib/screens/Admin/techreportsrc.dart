@@ -1340,14 +1340,9 @@ class _TechreportsrcState extends State<Techreportsrc> {
                                                   fontFamily: "Montserrat",
                                                   theme: ThemeData(
                                                       primaryColor: bluebg,
-                                                      accentColor: bluebg,
+                                                      hintColor: bluebg,
                                                       textTheme: TextTheme(
-                                                        caption: TextStyle(
-                                                            color: bluebg),
-                                                      ),
-                                                      accentTextTheme:
-                                                          TextTheme(
-                                                        bodyText2: TextStyle(
+                                                        bodySmall: TextStyle(
                                                             color: bluebg),
                                                       )),
                                                 );

@@ -2,24 +2,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ideal_marketing/constants/constants.dart';
-import 'package:ideal_marketing/screens/forget_password_src.dart';
 
 import 'homeWrapper.dart';
 
-class LoginSrc extends StatefulWidget {
-  const LoginSrc({Key? key}) : super(key: key);
+class ForgetPasswordSrc extends StatefulWidget {
+  const ForgetPasswordSrc({Key? key}) : super(key: key);
 
   @override
-  _LoginSrcState createState() => _LoginSrcState();
+  _ForgetPasswordSrcState createState() => _ForgetPasswordSrcState();
 }
 
-class _LoginSrcState extends State<LoginSrc> {
+class _ForgetPasswordSrcState extends State<ForgetPasswordSrc> {
   // form key
   final _formKey = GlobalKey<FormState>();
 
   // editing controller
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
   // firebase
   final _auth = FirebaseAuth.instance;
@@ -59,34 +57,7 @@ class _LoginSrcState extends State<LoginSrc> {
           ),
         ));
 
-    //password field
-    final passwordField = TextFormField(
-        autofocus: false,
-        controller: passwordController,
-        obscureText: true,
-        validator: (value) {
-          RegExp regex = RegExp(r'^.{6,}$');
-          if (value!.isEmpty) {
-            return ("Password is required for login");
-          }
-          if (!regex.hasMatch(value)) {
-            return ("Enter Valid Password(Min. 6 Character)");
-          }
-        },
-        onSaved: (value) {
-          passwordController.text = value!;
-        },
-        textInputAction: TextInputAction.done,
-        decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.vpn_key),
-          contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Password",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ));
-
-    final loginButton = Material(
+    final forgetPasswordButton = Material(
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
       color: Colors.redAccent,
@@ -94,10 +65,10 @@ class _LoginSrcState extends State<LoginSrc> {
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
-            signIn(emailController.text, passwordController.text);
+            forgetPassowrd(emailController.text);
           },
           child: const Text(
-            "Login",
+            "Forget Password",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
@@ -106,6 +77,17 @@ class _LoginSrcState extends State<LoginSrc> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, size: 35, color: redfg),
+          onPressed: () {
+            // passing this to our root
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: Center(
         child: Container(
           color: Colors.white,
@@ -138,29 +120,9 @@ class _LoginSrcState extends State<LoginSrc> {
                           )),
                       const SizedBox(height: 45),
                       emailField,
-                      const SizedBox(height: 25),
-                      passwordField,
                       const SizedBox(height: 35),
-                      loginButton,
-                      const SizedBox(height: 25),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForgetPasswordSrc()),
-                          );
-                        },
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "Montserrat",
-                            color: Color(0xFF4a4e69),
-                          ),
-                        ),
-                      ),
+                      forgetPasswordButton,
+                      const SizedBox(height: 15),
                     ],
                   ),
                 ],
@@ -172,53 +134,30 @@ class _LoginSrcState extends State<LoginSrc> {
     );
   }
 
-  // login function
-  void signIn(String email, String password) async {
+  // forget Password function
+  void forgetPassowrd(String email) async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         load = true;
       });
       try {
-        await _auth
-            .signInWithEmailAndPassword(email: email, password: password)
-            .then((uid) => {
-                  Fluttertoast.showToast(msg: "Login Successful"),
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => HomeWrapper())),
-                });
+        await _auth.sendPasswordResetEmail(email: email).then((uid) => {
+              Fluttertoast.showToast(msg: "Password reset email sent!"),
+            });
         setState(() {
           load = false;
         });
-      } on FirebaseAuthException catch (error) {
+      } on FirebaseAuthException catch (e) {
         setState(() {
           load = false;
         });
-        switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Your email address appears to be malformed.";
-
-            break;
-          case "wrong-password":
-            errorMessage = "Your password is wrong.";
-            break;
-          case "user-not-found":
-            errorMessage = "User with this email doesn't exist.";
-            break;
-          case "user-disabled":
-            errorMessage = "User with this email has been disabled.";
-            break;
-          case "too-many-requests":
-            errorMessage = "Something went wrong.. Try again!";
-            break;
-          case "operation-not-allowed":
-            errorMessage = "Signing in with Email and Password is not enabled.";
-            break;
-          default:
-            errorMessage =
-                "Something went wrong. Please check your internet connection?";
+        if (e.code == 'user-not-found') {
+          Fluttertoast.showToast(msg: "No user found for this email.");
+        } else if (e.code == 'invalid-email') {
+          Fluttertoast.showToast(msg: "Invalid email address.");
+        } else {
+          Fluttertoast.showToast(msg: e.message.toString());
         }
-        Fluttertoast.showToast(msg: errorMessage!);
-        print(error.code);
       }
     }
   }

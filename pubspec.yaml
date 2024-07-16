@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -15,10 +15,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.1.4+8
+version: 1.1.5+8
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 <3.4.4"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,26 +30,24 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   animated_splash_screen: ^1.0.0+1
-  google_fonts: ^4.0.3
+  google_fonts: ^6.2.1
   page_transition: ^2.0.4
-  firebase_core: ^2.4.1
-  firebase_auth: ^4.2.5
-  firebase_storage: ^11.0.10
+  firebase_core: ^3.1.1
+  firebase_auth: ^5.1.1
+  firebase_storage: ^12.1.0
   provider: ^6.0.1
   fluttertoast: ^8.0.8
-  cloud_firestore: ^4.3.1
-  loading: ^1.0.2
+  cloud_firestore: ^5.0.2
   url_launcher: ^6.0.18
   auto_size_text: ^3.0.0
   change_app_package_name: ^1.1.0
   panara_dialogs: ^0.1.2
   custom_sliding_segmented_control: ^1.7.2
-  fl_chart: ^0.60.0
+  fl_chart: ^0.68.0
   in_app_update: ^4.0.1
   motion_toast: ^2.5.3
   floating_action_bubble: ^1.1.4
@@ -59,16 +57,14 @@ dependencies:
   flutter_rounded_date_picker: ^3.0.2
   curved_navigation_bar: ^1.0.3
   material_dialogs: ^1.1.3
-  
+
   flutter_localizations:
     sdk: flutter
-  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.11.0
-  
+  flutter_launcher_icons: ^0.13.1
 
 flutter_icons:
   android: true
@@ -86,7 +82,6 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -95,10 +90,7 @@ flutter:
     - assets/icons/
     - assets/gif/
 
-
   # To add assets to your application, add an assets section, like this:
-
-
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
